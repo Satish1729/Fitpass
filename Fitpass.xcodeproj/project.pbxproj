@@ -1,0 +1,770 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3B58C0121EB07E19006086E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0111EB07E19006086E5 /* AppDelegate.swift */; };
+		3B58C0171EB07E19006086E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B58C0151EB07E19006086E5 /* Main.storyboard */; };
+		3B58C0191EB07E19006086E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B58C0181EB07E19006086E5 /* Assets.xcassets */; };
+		3B58C01C1EB07E19006086E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B58C01A1EB07E19006086E5 /* LaunchScreen.storyboard */; };
+		3B58C0271EB07E19006086E5 /* FitpassTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0261EB07E19006086E5 /* FitpassTests.swift */; };
+		3B58C0321EB07E1A006086E5 /* FitpassUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0311EB07E1A006086E5 /* FitpassUITests.swift */; };
+		3B58C0411EB08346006086E5 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0401EB08346006086E5 /* NetworkManager.swift */; };
+		3B58C0441EB084CE006086E5 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0431EB084CE006086E5 /* LoginViewController.swift */; };
+		3B58C04A1EB0870E006086E5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0491EB0870E006086E5 /* BaseViewController.swift */; };
+		3B58C04C1EB0872A006086E5 /* BaseTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C04B1EB0872A006086E5 /* BaseTableViewController.swift */; };
+		3B58C04E1EB08775006086E5 /* BaseNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C04D1EB08775006086E5 /* BaseNavigationViewController.swift */; };
+		3B58C0531EB0A190006086E5 /* AlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0521EB0A190006086E5 /* AlertController.swift */; };
+		3B58C0551EB0A265006086E5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0541EB0A265006086E5 /* Constants.swift */; };
+		3B58C0571EB0A2AE006086E5 /* ServerConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0561EB0A2AE006086E5 /* ServerConstants.swift */; };
+		3B58C0591EB0A309006086E5 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0581EB0A309006086E5 /* Utility.swift */; };
+		3B58C05B1EB0A330006086E5 /* ConnectionChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C05A1EB0A330006086E5 /* ConnectionChecker.swift */; };
+		3B58C05D1EB0A35D006086E5 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C05C1EB0A35D006086E5 /* Enums.swift */; };
+		3B58C05F1EB0B86D006086E5 /* UIRoundProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C05E1EB0B86D006086E5 /* UIRoundProgressView.swift */; };
+		3B58C0691EB0C1FD006086E5 /* UserBean.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0681EB0C1FD006086E5 /* UserBean.swift */; };
+		3B680F1C1EC55E5F00549969 /* LeadsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F1B1EC55E5F00549969 /* LeadsViewController.swift */; };
+		3B680F1E1EC56A3C00549969 /* CustomSideMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F1D1EC56A3C00549969 /* CustomSideMenuController.swift */; };
+		3B680F221EC6D2D000549969 /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F211EC6D2D000549969 /* MenuController.swift */; };
+		3B680F241EC6EA7300549969 /* MembersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F231EC6EA7300549969 /* MembersController.swift */; };
+		3B680F261EC6EAB400549969 /* PaymentsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F251EC6EAB400549969 /* PaymentsController.swift */; };
+		3B680F281EC6EC2900549969 /* AssetsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F271EC6EC2900549969 /* AssetsController.swift */; };
+		3B680F2A1EC6EC4500549969 /* StaffsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F291EC6EC4500549969 /* StaffsController.swift */; };
+		3B680F2C1EC6EC7000549969 /* SendSMAController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F2B1EC6EC7000549969 /* SendSMAController.swift */; };
+		3B680F2E1EC6ECC000549969 /* SupportsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F2D1EC6ECC000549969 /* SupportsController.swift */; };
+		3B680F301EC6ECE700549969 /* WorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F2F1EC6ECE700549969 /* WorkoutController.swift */; };
+		3B680F321EC6ED2A00549969 /* ReservedWorkoutsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F311EC6ED2A00549969 /* ReservedWorkoutsController.swift */; };
+		3B680F341EC6ED4500549969 /* WorkoutScheduleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B680F331EC6ED4500549969 /* WorkoutScheduleController.swift */; };
+		3BCDA07B1EBF378900E04767 /* DesignableUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA07A1EBF378900E04767 /* DesignableUITextField.swift */; };
+		3BCDA07D1EC01CBB00E04767 /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA07C1EC01CBB00E04767 /* DashboardViewController.swift */; };
+		A2B0AF4F212948B04704C9DA /* Pods_Fitpass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B62BA1DE0B08AEB2FE8165 /* Pods_Fitpass.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3B58C0231EB07E19006086E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B58C0061EB07E19006086E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3B58C00D1EB07E19006086E5;
+			remoteInfo = Fitpass;
+		};
+		3B58C02E1EB07E1A006086E5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B58C0061EB07E19006086E5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3B58C00D1EB07E19006086E5;
+			remoteInfo = Fitpass;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		05E06F2E0251707D8D602289 /* Pods-Fitpass.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitpass.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Fitpass/Pods-Fitpass.debug.xcconfig"; sourceTree = "<group>"; };
+		33B62BA1DE0B08AEB2FE8165 /* Pods_Fitpass.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Fitpass.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		397C162B5CDF5198B700420E /* Pods-Fitpass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitpass.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitpass/Pods-Fitpass.release.xcconfig"; sourceTree = "<group>"; };
+		3B58C00E1EB07E19006086E5 /* Fitpass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitpass.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B58C0111EB07E19006086E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3B58C0161EB07E19006086E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3B58C0181EB07E19006086E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3B58C01B1EB07E19006086E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3B58C01D1EB07E19006086E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B58C0221EB07E19006086E5 /* FitpassTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitpassTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B58C0261EB07E19006086E5 /* FitpassTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpassTests.swift; sourceTree = "<group>"; };
+		3B58C0281EB07E19006086E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B58C02D1EB07E1A006086E5 /* FitpassUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FitpassUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B58C0311EB07E1A006086E5 /* FitpassUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FitpassUITests.swift; sourceTree = "<group>"; };
+		3B58C0331EB07E1A006086E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3B58C0401EB08346006086E5 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = NETWORK/NetworkManager.swift; sourceTree = "<group>"; };
+		3B58C0431EB084CE006086E5 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = USER/LoginViewController.swift; sourceTree = "<group>"; };
+		3B58C0491EB0870E006086E5 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseViewController.swift; path = DASHBOARD/Controllers/BaseViewController.swift; sourceTree = "<group>"; };
+		3B58C04B1EB0872A006086E5 /* BaseTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseTableViewController.swift; path = DASHBOARD/Controllers/BaseTableViewController.swift; sourceTree = "<group>"; };
+		3B58C04D1EB08775006086E5 /* BaseNavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseNavigationViewController.swift; path = DASHBOARD/Controllers/BaseNavigationViewController.swift; sourceTree = "<group>"; };
+		3B58C0521EB0A190006086E5 /* AlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertController.swift; path = COMMON/AlertController.swift; sourceTree = "<group>"; };
+		3B58C0541EB0A265006086E5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = COMMON/Constants.swift; sourceTree = "<group>"; };
+		3B58C0561EB0A2AE006086E5 /* ServerConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServerConstants.swift; path = COMMON/ServerConstants.swift; sourceTree = "<group>"; };
+		3B58C0581EB0A309006086E5 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utility.swift; path = COMMON/Utility.swift; sourceTree = "<group>"; };
+		3B58C05A1EB0A330006086E5 /* ConnectionChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConnectionChecker.swift; path = COMMON/ConnectionChecker.swift; sourceTree = "<group>"; };
+		3B58C05C1EB0A35D006086E5 /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Enums.swift; path = COMMON/Enums.swift; sourceTree = "<group>"; };
+		3B58C05E1EB0B86D006086E5 /* UIRoundProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIRoundProgressView.swift; path = COMMON/UIRoundProgressView.swift; sourceTree = "<group>"; };
+		3B58C0681EB0C1FD006086E5 /* UserBean.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserBean.swift; path = USER/UserBean.swift; sourceTree = "<group>"; };
+		3B680F1B1EC55E5F00549969 /* LeadsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeadsViewController.swift; path = DASHBOARD/Controllers/LeadsViewController.swift; sourceTree = "<group>"; };
+		3B680F1D1EC56A3C00549969 /* CustomSideMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomSideMenuController.swift; path = DASHBOARD/Controllers/CustomSideMenuController.swift; sourceTree = "<group>"; };
+		3B680F211EC6D2D000549969 /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MenuController.swift; path = DASHBOARD/Controllers/MenuController.swift; sourceTree = "<group>"; };
+		3B680F231EC6EA7300549969 /* MembersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MembersController.swift; path = DASHBOARD/Controllers/MembersController.swift; sourceTree = "<group>"; };
+		3B680F251EC6EAB400549969 /* PaymentsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentsController.swift; path = DASHBOARD/Controllers/PaymentsController.swift; sourceTree = "<group>"; };
+		3B680F271EC6EC2900549969 /* AssetsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssetsController.swift; path = DASHBOARD/Controllers/AssetsController.swift; sourceTree = "<group>"; };
+		3B680F291EC6EC4500549969 /* StaffsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffsController.swift; path = DASHBOARD/Controllers/StaffsController.swift; sourceTree = "<group>"; };
+		3B680F2B1EC6EC7000549969 /* SendSMAController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SendSMAController.swift; path = DASHBOARD/Controllers/SendSMAController.swift; sourceTree = "<group>"; };
+		3B680F2D1EC6ECC000549969 /* SupportsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SupportsController.swift; path = DASHBOARD/Controllers/SupportsController.swift; sourceTree = "<group>"; };
+		3B680F2F1EC6ECE700549969 /* WorkoutController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutController.swift; path = DASHBOARD/Controllers/WorkoutController.swift; sourceTree = "<group>"; };
+		3B680F311EC6ED2A00549969 /* ReservedWorkoutsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReservedWorkoutsController.swift; path = DASHBOARD/Controllers/ReservedWorkoutsController.swift; sourceTree = "<group>"; };
+		3B680F331EC6ED4500549969 /* WorkoutScheduleController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutScheduleController.swift; path = DASHBOARD/Controllers/WorkoutScheduleController.swift; sourceTree = "<group>"; };
+		3BCDA07A1EBF378900E04767 /* DesignableUITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DesignableUITextField.swift; path = COMMON/DesignableUITextField.swift; sourceTree = "<group>"; };
+		3BCDA07C1EC01CBB00E04767 /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DashboardViewController.swift; path = DASHBOARD/Controllers/DashboardViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3B58C00B1EB07E19006086E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A2B0AF4F212948B04704C9DA /* Pods_Fitpass.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B58C01F1EB07E19006086E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B58C02A1EB07E1A006086E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3B58C0051EB07E18006086E5 = {
+			isa = PBXGroup;
+			children = (
+				3B58C0101EB07E19006086E5 /* Fitpass */,
+				3B58C0251EB07E19006086E5 /* FitpassTests */,
+				3B58C0301EB07E1A006086E5 /* FitpassUITests */,
+				3B58C00F1EB07E19006086E5 /* Products */,
+				EF54CBABB454E1E75878336A /* Pods */,
+				A43579C63DF6C00165C63531 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3B58C00F1EB07E19006086E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3B58C00E1EB07E19006086E5 /* Fitpass.app */,
+				3B58C0221EB07E19006086E5 /* FitpassTests.xctest */,
+				3B58C02D1EB07E1A006086E5 /* FitpassUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3B58C0101EB07E19006086E5 /* Fitpass */ = {
+			isa = PBXGroup;
+			children = (
+				3B58C0111EB07E19006086E5 /* AppDelegate.swift */,
+				3B58C03F1EB0821D006086E5 /* NETWORK */,
+				3B58C0421EB08449006086E5 /* USER */,
+				3B58C0471EB08533006086E5 /* DASHBOARD */,
+				3B58C0511EB08814006086E5 /* COMMON */,
+				3B58C0151EB07E19006086E5 /* Main.storyboard */,
+				3B58C0181EB07E19006086E5 /* Assets.xcassets */,
+				3B58C01A1EB07E19006086E5 /* LaunchScreen.storyboard */,
+				3B58C01D1EB07E19006086E5 /* Info.plist */,
+			);
+			path = Fitpass;
+			sourceTree = "<group>";
+		};
+		3B58C0251EB07E19006086E5 /* FitpassTests */ = {
+			isa = PBXGroup;
+			children = (
+				3B58C0261EB07E19006086E5 /* FitpassTests.swift */,
+				3B58C0281EB07E19006086E5 /* Info.plist */,
+			);
+			path = FitpassTests;
+			sourceTree = "<group>";
+		};
+		3B58C0301EB07E1A006086E5 /* FitpassUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3B58C0311EB07E1A006086E5 /* FitpassUITests.swift */,
+				3B58C0331EB07E1A006086E5 /* Info.plist */,
+			);
+			path = FitpassUITests;
+			sourceTree = "<group>";
+		};
+		3B58C03F1EB0821D006086E5 /* NETWORK */ = {
+			isa = PBXGroup;
+			children = (
+				3B58C0401EB08346006086E5 /* NetworkManager.swift */,
+			);
+			name = NETWORK;
+			sourceTree = "<group>";
+		};
+		3B58C0421EB08449006086E5 /* USER */ = {
+			isa = PBXGroup;
+			children = (
+				3B58C0431EB084CE006086E5 /* LoginViewController.swift */,
+				3B58C0681EB0C1FD006086E5 /* UserBean.swift */,
+			);
+			name = USER;
+			sourceTree = "<group>";
+		};
+		3B58C0471EB08533006086E5 /* DASHBOARD */ = {
+			isa = PBXGroup;
+			children = (
+				3B58C0501EB087A6006086E5 /* Models */,
+				3B58C04F1EB087A0006086E5 /* Views */,
+				3B58C0481EB085A3006086E5 /* Controllers */,
+			);
+			name = DASHBOARD;
+			sourceTree = "<group>";
+		};
+		3B58C0481EB085A3006086E5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3B58C0491EB0870E006086E5 /* BaseViewController.swift */,
+				3B58C04B1EB0872A006086E5 /* BaseTableViewController.swift */,
+				3B58C04D1EB08775006086E5 /* BaseNavigationViewController.swift */,
+				3B680F1D1EC56A3C00549969 /* CustomSideMenuController.swift */,
+				3B680F211EC6D2D000549969 /* MenuController.swift */,
+				3BCDA07C1EC01CBB00E04767 /* DashboardViewController.swift */,
+				3B680F1B1EC55E5F00549969 /* LeadsViewController.swift */,
+				3B680F231EC6EA7300549969 /* MembersController.swift */,
+				3B680F251EC6EAB400549969 /* PaymentsController.swift */,
+				3B680F271EC6EC2900549969 /* AssetsController.swift */,
+				3B680F291EC6EC4500549969 /* StaffsController.swift */,
+				3B680F2B1EC6EC7000549969 /* SendSMAController.swift */,
+				3B680F2D1EC6ECC000549969 /* SupportsController.swift */,
+				3B680F2F1EC6ECE700549969 /* WorkoutController.swift */,
+				3B680F311EC6ED2A00549969 /* ReservedWorkoutsController.swift */,
+				3B680F331EC6ED4500549969 /* WorkoutScheduleController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		3B58C04F1EB087A0006086E5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		3B58C0501EB087A6006086E5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		3B58C0511EB08814006086E5 /* COMMON */ = {
+			isa = PBXGroup;
+			children = (
+				3B58C0521EB0A190006086E5 /* AlertController.swift */,
+				3B58C05E1EB0B86D006086E5 /* UIRoundProgressView.swift */,
+				3B58C0541EB0A265006086E5 /* Constants.swift */,
+				3B58C0561EB0A2AE006086E5 /* ServerConstants.swift */,
+				3B58C0581EB0A309006086E5 /* Utility.swift */,
+				3B58C05A1EB0A330006086E5 /* ConnectionChecker.swift */,
+				3B58C05C1EB0A35D006086E5 /* Enums.swift */,
+				3BCDA07A1EBF378900E04767 /* DesignableUITextField.swift */,
+			);
+			name = COMMON;
+			sourceTree = "<group>";
+		};
+		A43579C63DF6C00165C63531 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				33B62BA1DE0B08AEB2FE8165 /* Pods_Fitpass.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EF54CBABB454E1E75878336A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				05E06F2E0251707D8D602289 /* Pods-Fitpass.debug.xcconfig */,
+				397C162B5CDF5198B700420E /* Pods-Fitpass.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3B58C00D1EB07E19006086E5 /* Fitpass */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B58C0361EB07E1A006086E5 /* Build configuration list for PBXNativeTarget "Fitpass" */;
+			buildPhases = (
+				C9B47856544785B9F0DBB186 /* [CP] Check Pods Manifest.lock */,
+				3B58C00A1EB07E19006086E5 /* Sources */,
+				3B58C00B1EB07E19006086E5 /* Frameworks */,
+				3B58C00C1EB07E19006086E5 /* Resources */,
+				D533A3B00A2307821E116E05 /* [CP] Embed Pods Frameworks */,
+				1324E0DE8114394C13DB8227 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fitpass;
+			productName = Fitpass;
+			productReference = 3B58C00E1EB07E19006086E5 /* Fitpass.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3B58C0211EB07E19006086E5 /* FitpassTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B58C0391EB07E1A006086E5 /* Build configuration list for PBXNativeTarget "FitpassTests" */;
+			buildPhases = (
+				3B58C01E1EB07E19006086E5 /* Sources */,
+				3B58C01F1EB07E19006086E5 /* Frameworks */,
+				3B58C0201EB07E19006086E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3B58C0241EB07E19006086E5 /* PBXTargetDependency */,
+			);
+			name = FitpassTests;
+			productName = FitpassTests;
+			productReference = 3B58C0221EB07E19006086E5 /* FitpassTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3B58C02C1EB07E1A006086E5 /* FitpassUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3B58C03C1EB07E1A006086E5 /* Build configuration list for PBXNativeTarget "FitpassUITests" */;
+			buildPhases = (
+				3B58C0291EB07E1A006086E5 /* Sources */,
+				3B58C02A1EB07E1A006086E5 /* Frameworks */,
+				3B58C02B1EB07E1A006086E5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3B58C02F1EB07E1A006086E5 /* PBXTargetDependency */,
+			);
+			name = FitpassUITests;
+			productName = FitpassUITests;
+			productReference = 3B58C02D1EB07E1A006086E5 /* FitpassUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3B58C0061EB07E19006086E5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = Satish;
+				TargetAttributes = {
+					3B58C00D1EB07E19006086E5 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+					};
+					3B58C0211EB07E19006086E5 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 3B58C00D1EB07E19006086E5;
+					};
+					3B58C02C1EB07E1A006086E5 = {
+						CreatedOnToolsVersion = 8.3.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 3B58C00D1EB07E19006086E5;
+					};
+				};
+			};
+			buildConfigurationList = 3B58C0091EB07E19006086E5 /* Build configuration list for PBXProject "Fitpass" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3B58C0051EB07E18006086E5;
+			productRefGroup = 3B58C00F1EB07E19006086E5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3B58C00D1EB07E19006086E5 /* Fitpass */,
+				3B58C0211EB07E19006086E5 /* FitpassTests */,
+				3B58C02C1EB07E1A006086E5 /* FitpassUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3B58C00C1EB07E19006086E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B58C01C1EB07E19006086E5 /* LaunchScreen.storyboard in Resources */,
+				3B58C0191EB07E19006086E5 /* Assets.xcassets in Resources */,
+				3B58C0171EB07E19006086E5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B58C0201EB07E19006086E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B58C02B1EB07E1A006086E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1324E0DE8114394C13DB8227 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Fitpass/Pods-Fitpass-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C9B47856544785B9F0DBB186 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D533A3B00A2307821E116E05 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Fitpass/Pods-Fitpass-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3B58C00A1EB07E19006086E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B680F281EC6EC2900549969 /* AssetsController.swift in Sources */,
+				3B680F221EC6D2D000549969 /* MenuController.swift in Sources */,
+				3B680F1C1EC55E5F00549969 /* LeadsViewController.swift in Sources */,
+				3BCDA07D1EC01CBB00E04767 /* DashboardViewController.swift in Sources */,
+				3B58C0441EB084CE006086E5 /* LoginViewController.swift in Sources */,
+				3B58C0531EB0A190006086E5 /* AlertController.swift in Sources */,
+				3B680F341EC6ED4500549969 /* WorkoutScheduleController.swift in Sources */,
+				3B680F241EC6EA7300549969 /* MembersController.swift in Sources */,
+				3B58C0571EB0A2AE006086E5 /* ServerConstants.swift in Sources */,
+				3B58C0411EB08346006086E5 /* NetworkManager.swift in Sources */,
+				3B58C05D1EB0A35D006086E5 /* Enums.swift in Sources */,
+				3B680F1E1EC56A3C00549969 /* CustomSideMenuController.swift in Sources */,
+				3B58C05B1EB0A330006086E5 /* ConnectionChecker.swift in Sources */,
+				3B58C0691EB0C1FD006086E5 /* UserBean.swift in Sources */,
+				3B680F301EC6ECE700549969 /* WorkoutController.swift in Sources */,
+				3B58C04E1EB08775006086E5 /* BaseNavigationViewController.swift in Sources */,
+				3BCDA07B1EBF378900E04767 /* DesignableUITextField.swift in Sources */,
+				3B58C0551EB0A265006086E5 /* Constants.swift in Sources */,
+				3B680F2C1EC6EC7000549969 /* SendSMAController.swift in Sources */,
+				3B58C04C1EB0872A006086E5 /* BaseTableViewController.swift in Sources */,
+				3B680F261EC6EAB400549969 /* PaymentsController.swift in Sources */,
+				3B680F2E1EC6ECC000549969 /* SupportsController.swift in Sources */,
+				3B680F321EC6ED2A00549969 /* ReservedWorkoutsController.swift in Sources */,
+				3B58C0591EB0A309006086E5 /* Utility.swift in Sources */,
+				3B58C0121EB07E19006086E5 /* AppDelegate.swift in Sources */,
+				3B58C04A1EB0870E006086E5 /* BaseViewController.swift in Sources */,
+				3B680F2A1EC6EC4500549969 /* StaffsController.swift in Sources */,
+				3B58C05F1EB0B86D006086E5 /* UIRoundProgressView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B58C01E1EB07E19006086E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B58C0271EB07E19006086E5 /* FitpassTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3B58C0291EB07E1A006086E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B58C0321EB07E1A006086E5 /* FitpassUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3B58C0241EB07E19006086E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3B58C00D1EB07E19006086E5 /* Fitpass */;
+			targetProxy = 3B58C0231EB07E19006086E5 /* PBXContainerItemProxy */;
+		};
+		3B58C02F1EB07E1A006086E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3B58C00D1EB07E19006086E5 /* Fitpass */;
+			targetProxy = 3B58C02E1EB07E1A006086E5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3B58C0151EB07E19006086E5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B58C0161EB07E19006086E5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		3B58C01A1EB07E19006086E5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B58C01B1EB07E19006086E5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3B58C0341EB07E1A006086E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3B58C0351EB07E1A006086E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3B58C0371EB07E1A006086E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 05E06F2E0251707D8D602289 /* Pods-Fitpass.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Fitpass/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Satish.Fitpass;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		3B58C0381EB07E1A006086E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 397C162B5CDF5198B700420E /* Pods-Fitpass.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Fitpass/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Satish.Fitpass;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		3B58C03A1EB07E1A006086E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = FitpassTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Satish.FitpassTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fitpass.app/Fitpass";
+			};
+			name = Debug;
+		};
+		3B58C03B1EB07E1A006086E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = FitpassTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Satish.FitpassTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Fitpass.app/Fitpass";
+			};
+			name = Release;
+		};
+		3B58C03D1EB07E1A006086E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = FitpassUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Satish.FitpassUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Fitpass;
+			};
+			name = Debug;
+		};
+		3B58C03E1EB07E1A006086E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				INFOPLIST_FILE = FitpassUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Satish.FitpassUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = Fitpass;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3B58C0091EB07E19006086E5 /* Build configuration list for PBXProject "Fitpass" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B58C0341EB07E1A006086E5 /* Debug */,
+				3B58C0351EB07E1A006086E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B58C0361EB07E1A006086E5 /* Build configuration list for PBXNativeTarget "Fitpass" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B58C0371EB07E1A006086E5 /* Debug */,
+				3B58C0381EB07E1A006086E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B58C0391EB07E1A006086E5 /* Build configuration list for PBXNativeTarget "FitpassTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B58C03A1EB07E1A006086E5 /* Debug */,
+				3B58C03B1EB07E1A006086E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3B58C03C1EB07E1A006086E5 /* Build configuration list for PBXNativeTarget "FitpassUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3B58C03D1EB07E1A006086E5 /* Debug */,
+				3B58C03E1EB07E1A006086E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3B58C0061EB07E19006086E5 /* Project object */;
+}
