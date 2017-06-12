@@ -9,5 +9,6 @@ pod 'SideMenuController'
 pod 'ReachabilitySwift', '~> 3'
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
+pod 'DropDown'
 
 end

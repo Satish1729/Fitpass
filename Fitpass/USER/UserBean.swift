@@ -23,7 +23,9 @@ class UserBean: NSObject, NSCoding {
     var profilePic : UIImage? = nil
     var remarks : String? = ""
     var authHeader : String? = ""
+    var studioName : String? = ""
     var studioArray : NSMutableArray = NSMutableArray()
+    
     override init() {
         
     }
@@ -40,6 +42,9 @@ class UserBean: NSObject, NSCoding {
         self.number = decoder.decodeObject(forKey : "number") as? String ?? ""
         self.password_plain = decoder.decodeObject(forKey : "password_plain") as? String ?? ""
         self.remarks = decoder.decodeObject(forKey : "remarks") as? String ?? ""
+        self.authHeader = decoder.decodeObject(forKey : "studio_token") as? String ?? ""
+        self.studioName = decoder.decodeObject(forKey: "studio_name") as? String ?? ""
+//        self.studioArray = (decoder.decodeObject(forKey: "studio_details") as! NSMutableArray).mutableCopy() as! NSMutableArray
     }
     
     func encode(with coder: NSCoder) {
@@ -54,6 +59,9 @@ class UserBean: NSObject, NSCoding {
         coder.encode(number, forKey : "number")
         coder.encode(password_plain, forKey : "password_plain")
         coder.encode(remarks, forKey : "remarks")
+        coder.encode(authHeader, forKey : "studio_token")
+        coder.encode(studioName, forKey : "studio_name")
+//        coder.encode(studioArray, forKey : "studio_details")
     }
     
     // update user bean
@@ -120,7 +128,9 @@ class UserBean: NSObject, NSCoding {
             self.remarks = ""
         }
         
-        let studioDetailsArray: NSMutableArray = responseDict!.object(forKey: "studio_details") as! NSMutableArray
+        let studioDetailsArray: NSMutableArray = (responseDict!.object(forKey: "studio_details") as! NSArray).mutableCopy() as! NSMutableArray
+        
+        let tempArray : NSMutableArray = NSMutableArray()
         
         for studioObj in (studioDetailsArray as? [[String:Any]])! {
             
@@ -136,12 +146,15 @@ class UserBean: NSObject, NSCoding {
             studioBean.studio_name = studioObj["studio_name"] as? String
             studioBean.studio_token = studioObj["studio_token"] as? String
             
-            studioArray.add(studioBean)
+            tempArray.add(studioBean)
         }
         
-        if(studioArray.count > 0){
+        self.studioArray = tempArray
+        
+        if(self.studioArray.count > 0){
             let studioBeanObj : StudioBean = studioArray.object(at: 0) as! StudioBean
             self.authHeader = studioBeanObj.studio_token
+            self.studioName = studioBeanObj.studio_name
         }
         appDelegate.userBean = self
     }
@@ -168,5 +181,4 @@ class StudioBean : NSObject{
     var studio_id : String?
     var studio_name : String?
     var studio_token : String?
-    
 }

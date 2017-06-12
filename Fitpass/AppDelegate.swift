@@ -9,6 +9,7 @@
 import UIKit
 import IQKeyboardManagerSwift
 import SideMenuController
+import DropDown
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,14 +20,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var isLocalNotification : Bool = false
 
      func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        
         // Override point for customization after application launch.
         SideMenuController.preferences.drawing.menuButtonImage = UIImage(named: "sidemenu")
         SideMenuController.preferences.drawing.sidePanelPosition = .overCenterPanelLeft
         SideMenuController.preferences.drawing.sidePanelWidth = 300
         SideMenuController.preferences.drawing.centerPanelShadow = true
         SideMenuController.preferences.animating.statusBarBehaviour = .showUnderlay
-
+        DropDown.startListeningToKeyboard()
         self.checkSingleSignIn()
+        
+        IQKeyboardManager.sharedManager().enable = true
         return true
     }
     
@@ -56,15 +61,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // retrieving a value for a key
         if let data = UserDefaults.standard.data(forKey: "userBean"),
-            let user = NSKeyedUnarchiver.unarchiveObject(with: data) as? [UserBean] {
-            user.forEach( {
+                let user = NSKeyedUnarchiver.unarchiveObject(with: data) as? [UserBean] {
+                    user.forEach( {
 //                print( $0.userName!, $0.authHeader!)
                 
                 self.userBean = $0
                 self.isSignIn = true
                 
     
-//        let viewController : BaseNavigationViewController = mainStoryboard.instantiateViewController(withIdentifier: "dashboard") as! BaseNavigationViewController
         let viewController : CustomSideMenuController = mainStoryboard.instantiateViewController(withIdentifier: "customsidemenucontroller") as! CustomSideMenuController
                     self.window?.rootViewController = viewController
             })

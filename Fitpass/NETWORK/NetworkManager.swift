@@ -36,7 +36,7 @@ class NetworkManager: NSObject {
     func getResponseForURLWithParameters(url:String, userInfo:NSDictionary?,type:String,completion:@escaping (Data?,HTTPURLResponse?,Error?)->()) {
         let urlRequest = createURLRequestForURLWithType(urlString: url as String,type: type as String)
         if appDelegate.userBean?.authHeader != nil {
-            urlRequest.addValue((appDelegate.userBean?.authHeader)!, forHTTPHeaderField: "Authorization")
+            urlRequest.addValue((appDelegate.userBean?.authHeader)!, forHTTPHeaderField: "x-auth-token")
         }
         if userInfo != nil {
             let parametersData:Data = try! JSONSerialization.data(withJSONObject: userInfo!, options: .prettyPrinted)
@@ -99,6 +99,7 @@ class NetworkManager: NSObject {
                          to:url,
                          method:HTTPMethod(rawValue: type)!,
                          headers:["authorization": (appDelegate.userBean?.authHeader)!],
+//                         headers:["x-auth-token": (appDelegate.userBean?.authHeader)!],
                          encodingCompletion: { encodingResult in
                             switch encodingResult {
                             case .success(let upload, _, _):

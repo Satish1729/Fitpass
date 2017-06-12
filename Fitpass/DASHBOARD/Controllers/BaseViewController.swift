@@ -15,9 +15,8 @@ class BaseViewController: UIViewController, SideMenuControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.navigationBar.barTintColor = randomColor
+        //self.navigationController?.navigationBar.barTintColor = UIColor.white
         sideMenuController?.delegate = self
-//        self.addSideMenuButton(completion: sideMenuBarButton)
     }
     var randomColor: UIColor {
         let colors = [UIColor(hue:0.65, saturation:0.33, brightness:0.82, alpha:1.00),
@@ -37,21 +36,22 @@ class BaseViewController: UIViewController, SideMenuControllerDelegate {
         print(#function)
     }
 
-    
+    func createURLFromParameters(parameters: [String:Any]) -> URL {
+        
+        var components = URLComponents()
+        if !parameters.isEmpty {
+            components.queryItems = [URLQueryItem]()
+            for (key, value) in parameters {
+                let queryItem = URLQueryItem(name: key, value: "\(value)")
+                components.queryItems!.append(queryItem)
+            }
+        }
+        
+        return components.url!
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

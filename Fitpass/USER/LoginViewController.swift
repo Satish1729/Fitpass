@@ -31,8 +31,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        self.emailIdTxt.text = ""
-        self.passwordTxt.text = ""
+        self.emailIdTxt.text = ""//"chiranjeevi@irinnovative.com"
+        self.passwordTxt.text = ""//"123456"
     }
     
     func updateCornorLayouts() {
@@ -65,9 +65,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
             
             ProgressHUD.showProgress(targetView: self.view)
             
-            let email = "chiranjeevi@irinnovative.com"//self.emailIdTxt.text
-            let password = "123456"//self.passwordTxt.text
-            let parameters : [String : Any] = ["email" : email, "password" : password]
+            let email = self.emailIdTxt.text
+            let password = self.passwordTxt.text
+            let parameters : [String : Any] = ["email" : email!, "password" : password!]
 
             print("URL : \(ServerConstants.URL_LOGIN)\n parameters :  \(parameters)" as Any)
             
@@ -89,23 +89,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let encodeUserBean = NSKeyedArchiver.archivedData(withRootObject: userDet)
                     UserDefaults.standard.set(encodeUserBean, forKey: "userBean")
                     
-//                    if appDelegate.userBean?.roles == "AGENCY" {
-////                        appDelegate.userBean?.user_Login_Type = .USER_AGENCY
-////                        let viewController : BaseTabbarController = agencyStoryboard.instantiateViewController(withIdentifier: "AgencyDashboard") as! BaseTabbarController
-////                        self.present(viewController, animated:false, completion: nil)
-//                        
-//                    } else {
-                        self.performSegue(withIdentifier: "showCustomVC", sender: self)
-//                    }
-                    
-                    //                    let statusDict: NSDictionary = jsonResponseDict.object(forKey: "status") as! NSDictionary
-                    //
-                    //                    let code = statusDict.object(forKey: ("code")) as! Int
-                    //                    if  code == 1 {
-                    //                        print("Device login success")
-                    //
-                    //                    }
-                    
+//                    UserDefaults.standard.set(userDet, forKey: "userBean")
+                    self.performSegue(withIdentifier: "showCustomVC", sender: self)
                     
                 }
                 else{

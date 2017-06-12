@@ -32,3 +32,27 @@ enum MENU_SECTIONS {
     case MENULIST
     case FITPASS_WORKOUTS
 }
+
+enum STAFF_NEW {
+    case NAME
+    case ROLE
+    case EMAIL
+    case CONTACTNUMBER
+    case DOB
+    case GENDER
+    case ADDRESS
+    case JOININGDATE
+    case SALARY
+    case SALARYDATE
+}
+
+
+
+
+
+
+
+
+
+
+
