@@ -14,13 +14,28 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
         var staffDetailArray : NSMutableArray = NSMutableArray()
     
     @IBOutlet weak var staffDetailTableView: UITableView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var contactNumberLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
+
     
-    
-        var keyLabelNameArray : NSArray = ["Phone Number", "Gender", "Email", "Date of Birth", "Address", "Remarks", "Role", "Salary", "Salary Date", "Joining Date", "Created Date", "Joining Documents"]
+        var keyLabelNameArray : NSArray = ["Gender", "Date of Birth", "Role",  "Salary", "Salary Date", "Joining Date", "Created Date", "Joining Documents", "Remarks"]
         
         override func viewDidLoad() {
             super.viewDidLoad()
             
+            self.nameLabel.text = staffObj?.name
+            self.contactNumberLabel.text=staffObj?.contact_number?.stringValue
+            self.emailLabel.text=staffObj?.email
+            self.addressLabel.text=staffObj?.address
+            if(staffObj?.gender == "Male"){
+                self.profileImageView.image = UIImage(named: "man")
+            }else{
+                self.profileImageView.image = UIImage(named: "woman")
+            }
+
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
             
@@ -48,7 +63,7 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            return 30
+            return 0
         }
         
         public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -75,29 +90,23 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
             var strValue : String? = ""
             switch indexPath.row {
             case 0:
-                strValue = (staffObj?.contact_number)?.stringValue
-            case 1:
                 strValue = staffObj?.gender
-            case 2:
-                strValue = staffObj?.email
-            case 3:
+            case 1:
                 strValue = staffObj?.dob
-            case 4:
-                strValue = staffObj?.address
-            case 5:
-                strValue = staffObj?.remarks
-            case 6:
+            case 2:
                 strValue = staffObj?.role
-            case 7:
+            case 3:
                 strValue = staffObj?.salary
-            case 8:
+            case 4:
                 strValue = staffObj?.salary_date?.stringValue
-            case 9:
+            case 5:
                 strValue = staffObj?.joining_date
-            case 10:
+            case 6:
                 strValue = staffObj?.created_at
-            case 11:
+            case 7:
                 strValue = staffObj?.joining_documents
+            case 8:
+                strValue = staffObj?.remarks
             default:
                 strValue = ""
             }
@@ -111,7 +120,8 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
-            
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+
             return cell
         }
         

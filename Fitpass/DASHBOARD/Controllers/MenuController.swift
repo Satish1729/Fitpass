@@ -20,11 +20,11 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var menuTableView: UITableView!
     
-    let segues = ["showDashBoardVC", "showLeadsVC" , "showMembersVC", "showPaymentsVC", "showAssetsVC", "showStaffsVC", "showSendSMAVC", "showSupportsVC", "showWorkoutVC", "showReservedWorkoutsVC", "showWorkoutScheduleVC",  "showLogoutVC"]
+    let segues = ["showDashBoardVC", "showLeadsVC" , "showMembersVC", "showPaymentsVC", "showAssetsVC", "showStaffsVC", "showWorkoutVC", "showReservedWorkoutsVC", "showWorkoutScheduleVC",  "showLogoutVC"]
     
-    let menuArray :Array =  ["Dashboard", "Leads", "Members", "Payments", "Assets", "Staffs", "Send SMS", "Supports", "Workout", "Reserved Workouts", "Workout Schedule", "Logout"]
+    let menuArray :Array =  ["Dashboard", "Leads", "Members", "Payments", "Assets", "Staffs", "Workout", "Reserved Workouts", "Workout Schedule", "Logout"]
 
-    let imagesArray : Array = ["home", "leads", "members", "payments", "assets", "staffs", "SMS", "supports", "workout", "workout", "workout", "logout"]
+    let imagesArray : Array = ["home", "leads", "members", "payments", "assets", "staffs", "workout", "workout", "workout", "logout"]
     
     private var previousIndex: NSIndexPath?
     let dropDown = DropDown()
@@ -34,7 +34,6 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
 
         self.loadProfileDetails()
         menuTableView.tableFooterView = UIView(frame: .zero)
-        self.profileView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         self.studioTypeBtn.setTitle(appDelegate.userBean?.studioName, for: UIControlState.normal)
         self.studioTypeBtn.addTarget(self, action: #selector(showStudioList(sender:)), for: UIControlEvents.touchUpInside)
     }
@@ -51,7 +50,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.profileImageView.image = UIImage(named : "profileEmpty")
         self.profileImageView.layer.borderColor = UIColor.black.cgColor
         self.profileImageView.layer.borderWidth = 1
-        
+//        self.profileView.backgroundColor = UIColor.init(patternImage: <#T##UIImage#>)
         self.userName.text = (appDelegate.userBean?.first_name)! + " " + (appDelegate.userBean?.last_name)!
         self.emailLabel.text = appDelegate.userBean?.email
         
@@ -61,8 +60,6 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
             let studioName : String = studioObj.studio_name!
             studioNamesArray.add(studioName)
         }
-
-        
         dropDown.anchorView = self.studioTypeBtn
         dropDown.dataSource = studioNamesArray as! [String]
         dropDown.direction = .any
@@ -74,6 +71,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func showStudioList(sender: Any) {
         dropDown.show()
+
     }
     
 
@@ -113,6 +111,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
 
         return cell
     }
@@ -120,6 +119,9 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
      func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath)  {
         
+        if(indexPath.row == 9){
+            return
+        }
         if let index = previousIndex {
             tableView.deselectRow(at: index as IndexPath, animated: true)
         }

@@ -19,9 +19,16 @@ class StaffUpdateController: BaseViewController, UITableViewDelegate, UITableVie
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
+//            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
+//            self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+            let backBtn = UIButton(type: .custom)
+            backBtn.setImage(UIImage(named: "img_back"), for: .normal)
+            backBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+            backBtn.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
+            let item1 = UIBarButtonItem(customView: backBtn)
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-            
+            self.navigationItem.leftBarButtonItem = item1
+
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(updateStaff))
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
             

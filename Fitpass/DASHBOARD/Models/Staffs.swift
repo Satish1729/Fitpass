@@ -13,6 +13,7 @@ class Staffs: NSObject {
     var address : String? = ""
     var contact_number : NSNumber?
     var created_at : String? = ""
+    var created_by : String? = ""
     var dob : String? = ""
     var email : String? = ""
     var gender : String?
@@ -42,6 +43,7 @@ class Staffs: NSObject {
             staffBean.address = staffObj[ "address"] as? String
             staffBean.contact_number = staffObj[ "contact_number"] as? NSNumber
             staffBean.created_at = staffObj[ "created_at"] as? String
+            staffBean.created_by = staffObj["created_by"] as? String
             staffBean.dob = staffObj[ "dob"] as? String
             staffBean.email = staffObj[ "email"] as? String
             staffBean.gender = staffObj[ "gender"] as? String

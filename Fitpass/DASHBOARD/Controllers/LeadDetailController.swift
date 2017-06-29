@@ -14,16 +14,39 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
     var leadDetailArray : NSMutableArray = NSMutableArray()
     
     @IBOutlet weak var leadDetailTableView: UITableView!
-    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var contactNumberLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
+
     var keyArray : NSArray = ["contact_number", "gender", "email", "lead_source", "address", "remarks", "next_follow_up", "lead_nature", "last_comment", "dob", "created_at", "updated_at"]
 
-    var keyLabelNameArray : NSArray = ["Phone Number", "Gender", "Email", "Lead Source", "Address", "Remarks", "Next Followup", "Lead Nature", "Last Comment", "Date of Birth", "Created Date", "Updated Date"]
+    var keyLabelNameArray : NSArray = ["Date of Birth", "Lead Source", "Lead Nature", "Next Followup", "Last Comment", "Created On", "Last Updated On", "Remarks"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
+        self.nameLabel.text = leadObj?.name
+        self.contactNumberLabel.text=leadObj?.contact_number?.stringValue
+        self.emailLabel.text=leadObj?.email
+        self.addressLabel.text=leadObj?.address
+        if(leadObj?.gender == "Male"){
+            self.profileImageView.image = UIImage(named: "man")
+        }else{
+            self.profileImageView.image = UIImage(named: "woman")
+        }
+        
+        let backBtn = UIButton(type: .custom)
+        backBtn.setImage(UIImage(named: "img_back"), for: .normal)
+        backBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+        backBtn.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
+        let item1 = UIBarButtonItem(customView: backBtn)
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+        self.navigationItem.leftBarButtonItem = item1
+        
+//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
+//        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
 
     }
     
@@ -49,7 +72,7 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return 0
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -64,8 +87,8 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         nameLabel.font = UIFont.boldSystemFont(ofSize: 17)
         nameLabel.textColor = UIColor.black
         view.addSubview(nameLabel)
-        
-        return view
+        return nil
+//        return view
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -76,29 +99,21 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         var strValue : String? = ""
         switch indexPath.row {
         case 0:
-            strValue = (leadObj?.contact_number)?.stringValue
-        case 1:
-            strValue = leadObj?.gender
-        case 2:
-            strValue = leadObj?.email
-        case 3:
-            strValue = leadObj?.lead_source
-        case 4:
-            strValue = leadObj?.address
-        case 5:
-            strValue = leadObj?.remarks
-        case 6:
-            strValue = leadObj?.next_follow_up
-        case 7:
-            strValue = leadObj?.lead_nature
-        case 8:
-            strValue = leadObj?.last_comment
-        case 9:
             strValue = leadObj?.dob
-        case 10:
+        case 1:
+            strValue = leadObj?.lead_source
+        case 2:
+            strValue = leadObj?.lead_nature
+        case 3:
+            strValue = leadObj?.next_follow_up
+        case 4:
+            strValue = leadObj?.last_comment
+        case 5:
             strValue = leadObj?.created_at
-        case 11:
+        case 6:
             strValue = leadObj?.updated_at
+        case 7:
+            strValue = leadObj?.remarks
         default:
             strValue = ""
         }
@@ -107,12 +122,13 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         if(indexPath.row%2 == 0){
             cell.contentView.backgroundColor = UIColor.white
         }else {
-            cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+            cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
         }
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero
-        
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+
         return cell
     }
 

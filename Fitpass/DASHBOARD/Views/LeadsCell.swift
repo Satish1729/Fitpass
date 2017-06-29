@@ -13,9 +13,10 @@ class LeadsCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var leadNatureLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var contactNumberLabel: UILabel!
     @IBOutlet weak var createdAtLabel: UILabel!
-    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var nextFollowUpLabel: UILabel!
     
     
     func updateLeadsDetails (leadBean : Leads) {
@@ -27,7 +28,11 @@ class LeadsCell: UITableViewCell {
         if let leadNature = leadBean.lead_nature {
             self.leadNatureLabel.text = leadNature
         }
-        
+
+        if let email = leadBean.email {
+            self.emailLabel.text = email
+        }
+
         if let contactNumber = leadBean.contact_number {
             self.contactNumberLabel.text = contactNumber.stringValue
         }
@@ -36,10 +41,14 @@ class LeadsCell: UITableViewCell {
             self.createdAtLabel.text = createdAt
         }
         
-        if let status = leadBean.status {
-            self.statusLabel.text = status
+        if let nextFollowUp = leadBean.next_follow_up {
+            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let valueString = NSMutableAttributedString(string: nextFollowUp, attributes: myAttribute )
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+            let myString = NSMutableAttributedString(string: "Next Follow Up - ", attributes: myAttribute1 )
+            myString.append(valueString)
+            self.nextFollowUpLabel.attributedText = myString
         }
-
     }
     
     

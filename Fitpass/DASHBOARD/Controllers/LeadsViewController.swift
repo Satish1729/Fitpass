@@ -34,9 +34,16 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         leadsSearchBar.showsCancelButton = true
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named : "filter"), style: .plain, target: self, action: #selector(navigateToLeadsFilter))
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        
+        let filterBtn = UIButton(type: .custom)
+        filterBtn.setImage(UIImage(named: "filter"), for: .normal)
+        filterBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+        filterBtn.addTarget(self, action: #selector(navigateToLeadsFilter), for: .touchUpInside)
+        let item1 = UIBarButtonItem(customView: filterBtn)
 
+//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named : "filter"), style: .plain, target: self, action: #selector(navigateToLeadsFilter))
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        self.navigationItem.rightBarButtonItem = item1
         self.getLeads()
     }
 
@@ -169,11 +176,11 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 150
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return 0
     }
     
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -204,7 +211,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
         statusLabel.textColor = UIColor.lightGray
         view.addSubview(statusLabel)
 
-        return view
+        return nil
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -224,7 +231,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero
-        
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         return cell
     }
     

@@ -13,11 +13,11 @@ class ServerConstants: NSObject {
     
     static let BASE_URL_CLIENT = "http://devapi.fitpass.co.in/studio/"
     
-    static let BASE_URL_LOGIN = "http://35.154.22.28/fitpassAdminDev/public/api/"
+    static let BASE_URL_LOGIN = "http://35.154.22.28/fitpassAdmin/public/api/"
     
     static let BASE_URL = "http://35.154.22.28/fitpassStudioDev/public/api/"
     
-    static let URL_LOGIN = BASE_URL_LOGIN+"studios/login/"
+    static let URL_LOGIN = BASE_URL_LOGIN+"studios/login"
 
     static let URL_GET_SUBSCRIPTION_PLANS_LIST = BASE_URL+"subscription_plans"
     static let URL_FORGOT_PASSWORD = BASE_URL+"reset_password"

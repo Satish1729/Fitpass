@@ -6,20 +6,23 @@
 //  Copyright © 2017 Satish. All rights reserved.
 //
 
+//
+//@GET("members")
+//Call<PojoMember> getAllMember(@Header("x-auth-token") String token,@Query("search_by") String search_by,@Query("search_text") String search_text);
+//@GET("members")
+//Call<PojoMember> getAllFilterMember(@Header("x-auth-token") String token,@Query("subscription_plan") int subscription_plan);
+
 import UIKit
 
-//protocol memberDelegate {
-//    func getFilterDictionary (searchDict: NSDictionary)
-//    func clearFilter ()
-//}
+protocol memberDelegate {
+    func getFilterDictionary (searchDict: NSDictionary)
+    func clearFilter ()
+}
 
-class MembersController: BaseViewController{
-/*, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, memberDelegate {
+class MembersController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, memberDelegate {
         
         
         var subscriptionPlan: String?
-        var endDate: String?
-        var startDate: String?
         
         @IBOutlet weak var membersSearchBar: UISearchBar!
         @IBOutlet weak var membersTableView: UITableView!
@@ -31,13 +34,19 @@ class MembersController: BaseViewController{
         var selectedMemberObj : Members?
         
         
-   */     override func viewDidLoad() {
+       override func viewDidLoad() {
             super.viewDidLoad()
-//            membersSearchBar.showsCancelButton = true
-//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named : "filter"), style: .plain, target: self, action: #selector(navigateToMembersFilter))
-//            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-//            
-//            self.getMembers()
+            membersSearchBar.showsCancelButton = true
+        
+        let filterBtn = UIButton(type: .custom)
+        filterBtn.setImage(UIImage(named: "filter"), for: .normal)
+        filterBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+        filterBtn.addTarget(self, action: #selector(navigateToMembersFilter), for: .touchUpInside)
+        let item1 = UIBarButtonItem(customView: filterBtn)
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        self.navigationItem.rightBarButtonItem = item1
+
+            self.getMembers()
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +54,7 @@ class MembersController: BaseViewController{
             self.navigationItem.title = "Members"
         }
         
-      /*  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if(segue.identifier == "member_filter") {
                 let filterVC : MembersFilterController = segue.destination as! MembersFilterController
                 filterVC.delegate = self
@@ -134,7 +143,7 @@ class MembersController: BaseViewController{
             
             ProgressHUD.showProgress(targetView: self.view)
             
-            let parameters : [String : Any] = ["subscription_plan" : self.subscriptionPlan! , "date_range_to" : self.endDate!, "date_range_from" : self.startDate!]
+            let parameters : [String : Any] = ["subscription_plan" : self.subscriptionPlan!]
             let urlString  = self.createURLFromParameters(parameters: parameters)
             let str : String = ServerConstants.URL_GET_ALL_MEMBERS+urlString.absoluteString
             NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in
@@ -172,11 +181,11 @@ class MembersController: BaseViewController{
         }
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 100
+            return 150
         }
         
         func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            return 30
+            return 0
         }
         
         public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -219,7 +228,8 @@ class MembersController: BaseViewController{
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
-            
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+
             return cell
         }
         
@@ -275,13 +285,10 @@ class MembersController: BaseViewController{
         
         func getFilterDictionary(searchDict: NSDictionary) {
             self.subscriptionPlan = searchDict.object(forKey: "plan") as? String
-            self.startDate = searchDict.object(forKey: "startdate") as? String
-            self.endDate = searchDict.object(forKey: "enddate") as? String
             searchActive = true
             self.getSearchFilterMembers()
         }
-        
-    */
+    
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.

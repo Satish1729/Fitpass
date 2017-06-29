@@ -11,57 +11,61 @@ import UIKit
 class Members: NSObject {
 
     var address : String? = ""
+    var agreed_amount : NSNumber?
     var contact_number : NSNumber?
     var created_at : String? = ""
+    var created_by : String? = ""
     var dob : String? = ""
     var email : String? = ""
     var gender : String?
     var id : NSNumber?
-    var is_deleted : String?
-    var last_comment : String?
-    var lead_nature : String?
-    var lead_source : String?
+    var is_active : NSNumber?
+    var is_deleted : NSNumber?
+    var joining_date : String?
     var name : String? = ""
-    var next_follow_up : String? = ""
+    var payment_date : NSNumber?
+    var preferred_time_slot_from : String?
+    var preferred_time_slot_to : String?
     var remarks : String? = ""
     var status : String?
+    var subscription_plan : String? = ""
     var updated_at : String?
+    var updated_by : String?
     
     func updateMembers(responseDict : NSDictionary?) -> NSMutableArray {
         
         let resultDict: NSDictionary = responseDict!.object(forKey: "result") as! NSDictionary
         let dataArray : NSArray = resultDict.object(forKey: "data") as! NSArray
         
-        //        if let addressTemp =  userDet["address"], !(addressTemp is NSNull){
-        //            self.address = addressTemp as? String
-        //        }else{
-        //            self.address = ""
-        //        }
-        
         let tempArray : NSMutableArray = NSMutableArray()
         
-        for leadObj in (dataArray as? [[String:Any]])! {
+        for memberObj in (dataArray as? [[String:Any]])! {
             
-            let leadBean : Leads = Leads()
+            let memberBean : Members = Members()
             
-            leadBean.address = leadObj[ "address"] as? String
-            leadBean.contact_number = leadObj[ "contact_number"] as? NSNumber
-            leadBean.created_at = leadObj[ "created_at"] as? String
-            leadBean.dob = leadObj[ "dob"] as? String
-            leadBean.email = leadObj[ "email"] as? String
-            leadBean.gender = leadObj[ "gender"] as? String
-            leadBean.id = leadObj[ "id"] as? NSNumber
-            leadBean.is_deleted = leadObj[ "is_deleted"] as? String
-            leadBean.last_comment = leadObj[ "last_comment"] as? String
-            leadBean.lead_nature = leadObj[ "lead_nature"] as? String
-            leadBean.lead_source = leadObj[ "lead_source"] as? String
-            leadBean.name = leadObj[ "name"] as? String
-            leadBean.next_follow_up = leadObj[ "next_follow_up"] as? String
-            leadBean.remarks = leadObj[ "remarks"] as? String
-            leadBean.status = leadObj["status"] as? String
-            leadBean.updated_at = leadObj["updated_at"] as? String
+            memberBean.address = memberObj[ "address"] as? String
+            memberBean.agreed_amount = memberObj["agreed_amount"] as? NSNumber
+            memberBean.contact_number = memberObj[ "contact_number"] as? NSNumber
+            memberBean.created_at = memberObj[ "created_at"] as? String
+            memberBean.created_by = memberObj[ "created_by"] as? String
+            memberBean.dob = memberObj[ "dob"] as? String
+            memberBean.email = memberObj[ "email"] as? String
+            memberBean.gender = memberObj[ "gender"] as? String
+            memberBean.id = memberObj[ "id"] as? NSNumber
+            memberBean.is_active = memberObj["is_active"] as? NSNumber
+            memberBean.is_deleted = memberObj[ "is_deleted"] as? NSNumber
+            memberBean.joining_date = memberObj["joining_date"] as? String
+            memberBean.name = memberObj[ "name"] as? String
+            memberBean.payment_date = memberObj[ "payment_date"] as? NSNumber
+            memberBean.preferred_time_slot_from = memberObj[ "preferred_time_slot_from"] as? String
+            memberBean.preferred_time_slot_to = memberObj[ "preferred_time_slot_to"] as? String
+            memberBean.remarks = memberObj[ "remarks"] as? String
+            memberBean.status = memberObj["status"] as? String
+            memberBean.subscription_plan = memberObj[ "subscription_plan"] as? String
+            memberBean.updated_at = memberObj["updated_at"] as? String
+            memberBean.updated_by = memberObj["updated_by"] as? String
             
-            tempArray.add(leadBean)
+            tempArray.add(memberBean)
         }
         return tempArray
     }

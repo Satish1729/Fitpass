@@ -31,8 +31,17 @@ protocol staffDelegate {
     super.viewDidLoad()
     staffSearchBar.showsCancelButton = true
 
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named : "add"), style: .plain, target: self, action: #selector(navigateToAddController))
+//    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named : "add"), style: .plain, target: self, action: #selector(navigateToAddController))
+//    self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        
+    let addBtn = UIButton(type: .custom)
+    addBtn.setImage(UIImage(named: "add"), for: .normal)
+    addBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+    addBtn.addTarget(self, action: #selector(navigateToAddController), for: .touchUpInside)
+    let item1 = UIBarButtonItem(customView: addBtn)
     self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+    self.navigationItem.rightBarButtonItem = item1
+        
     self.getStaffList()
     }
 
@@ -135,11 +144,11 @@ protocol staffDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        return 150
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return 0
     }
 
     public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -199,7 +208,8 @@ protocol staffDelegate {
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero
-        
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
+
         return cell
     }
 
