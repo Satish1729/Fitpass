@@ -67,7 +67,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
                 // No errors found.
                 // It would be weird if we didn't have a response, so check for that too.
                 if let res = response as? HTTPURLResponse {
-                    print("Downloaded cat picture with response code \(res.statusCode)")
+                    print("Downloaded logo picture with response code \(res.statusCode)")
                     if let imageData = data {
                         // Finally convert that Data into an image and do what you wish with it.
                         let image = UIImage(data: imageData)
@@ -85,7 +85,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         downloadPicTask.resume()
         
-        let bannerURL = URL(string: (appDelegate.userBean?.bannerurl)!)
+        /*let bannerURL = URL(string: (appDelegate.userBean?.bannerurl)!)
         
         let session1 = URLSession(configuration: .default)
         
@@ -108,7 +108,10 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
         
-        downloadPicTask1.resume()
+        downloadPicTask1.resume()*/
+        
+        self.profileView.image = UIImage(named: "banner")
+
         
         self.userName.text = (appDelegate.userBean?.first_name)! + " " + (appDelegate.userBean?.last_name)!
         self.emailLabel.text = appDelegate.userBean?.email

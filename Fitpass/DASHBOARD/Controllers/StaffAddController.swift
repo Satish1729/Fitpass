@@ -109,19 +109,51 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
     
     func datePickerDOBChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        let cell7  = staffAddTableview.cellForRow(at: IndexPath(row:7,  section:0)) as! StaffAddCell
-        cell7.valueTxtField.text = formatter.string(from: sender.date)
-    }
+//        formatter.dateStyle = .medium
+        formatter.dateFormat = "yyyy-MM-dd"
 
-    func datePickerJoiningDateChanged(sender: UIDatePicker) {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
         let cell4  = staffAddTableview.cellForRow(at: IndexPath(row:4,  section:0)) as! StaffAddCell
         cell4.valueTxtField.text = formatter.string(from: sender.date)
     }
 
+    func datePickerJoiningDateChanged(sender: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+//        formatter.dateStyle = .medium
+        let cell7  = staffAddTableview.cellForRow(at: IndexPath(row:7,  section:0)) as! StaffAddCell
+        cell7.valueTxtField.text = formatter.string(from: sender.date)
+    }
+
+    //MARK: Validations
+    func isValidStaff() -> Bool {
+        
+        var isValidUser = false
+        
+        if !isInternetAvailable() {
+            
+            AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+            
+        } else if (emailIdTxt.text?.characters.count == 0 && passwordTxt.text?.characters.count == 0) {
+            
+            AlertView.showCustomAlertWithMessage(message: StringFiles().EMPTYLOGINCREDENTIALS, yPos: 20, duration: NSInteger(2.0))
+            
+        } else if (!Utility().isValidEmail(testStr: emailIdTxt.text! as String)) {
+            
+            AlertView.showCustomAlertWithMessage(message: StringFiles().INVALIDEMAILID, yPos: 20, duration: NSInteger(2.0))
+            
+        } else {
+            isValidUser = true
+        }
+        
+        return isValidUser
+    }
+
+    
     func addNewStaff() {
+        
+        if !isValidStaff() {
+            return
+        }
         self.dismissViewController()
         let staffBean : Staffs = Staffs()
         

@@ -130,16 +130,18 @@ class StaffUpdateController: BaseViewController, UITableViewDelegate, UITableVie
         }
     func datePickerDOBChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        let cell7  = staffUpdateTableview.cellForRow(at: IndexPath(row:7,  section:0)) as! StaffAddCell
-        cell7.valueTxtField.text = formatter.string(from: sender.date)
+//        formatter.dateStyle = .medium
+        formatter.dateFormat = "yyyy-MM-dd"
+        let cell4  = staffUpdateTableview.cellForRow(at: IndexPath(row:4,  section:0)) as! StaffAddCell
+        cell4.valueTxtField.text = formatter.string(from: sender.date)
     }
     
     func datePickerJoiningDateChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        let cell4  = staffUpdateTableview.cellForRow(at: IndexPath(row:4,  section:0)) as! StaffAddCell
-        cell4.valueTxtField.text = formatter.string(from: sender.date)
+//        formatter.dateStyle = .medium
+        formatter.dateFormat = "yyyy-MM-dd"
+        let cell7  = staffUpdateTableview.cellForRow(at: IndexPath(row:7,  section:0)) as! StaffAddCell
+        cell7.valueTxtField.text = formatter.string(from: sender.date)
     }
     
         func updateStaff() {
