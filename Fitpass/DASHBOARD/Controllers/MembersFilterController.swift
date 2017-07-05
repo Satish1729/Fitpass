@@ -42,9 +42,10 @@ class MembersFilterController: BaseViewController {
             
             
             dropDown.anchorView = self.subscriptionPlanButton
+            dropDown.bottomOffset = CGPoint(x: 0, y: self.subscriptionPlanButton.frame.size.height)
+            dropDown.width = self.subscriptionPlanButton.frame.size.width
             dropDown.dataSource = ["Pearl Hart", "Gold Plan", "Silver Plan"]
             dropDown.direction = .any
-            dropDown.width = 280
             dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
                 self.subscriptionPlanButton.setTitle(item, for: UIControlState.normal)
             }

@@ -24,6 +24,8 @@ class UserBean: NSObject, NSCoding {
     var remarks : String? = ""
     var authHeader : String? = ""
     var studioName : String? = ""
+    var bannerurl : String? = ""
+    var logourl : String? = ""
     var studioArray : NSMutableArray = NSMutableArray()
     
     override init() {
@@ -44,7 +46,9 @@ class UserBean: NSObject, NSCoding {
         self.remarks = decoder.decodeObject(forKey : "remarks") as? String ?? ""
         self.authHeader = decoder.decodeObject(forKey : "studio_token") as? String ?? ""
         self.studioName = decoder.decodeObject(forKey: "studio_name") as? String ?? ""
-//        self.studioArray = (decoder.decodeObject(forKey: "studio_details") as! NSMutableArray).mutableCopy() as! NSMutableArray
+        self.bannerurl = decoder.decodeObject(forKey: "banner_url") as? String ?? ""
+        self.logourl = decoder.decodeObject(forKey: "logo_url") as? String ?? ""
+       // self.studioArray = (decoder.decodeObject(forKey: "studio_details") as! NSMutableArray).mutableCopy() as! NSMutableArray
     }
     
     func encode(with coder: NSCoder) {
@@ -61,7 +65,9 @@ class UserBean: NSObject, NSCoding {
         coder.encode(remarks, forKey : "remarks")
         coder.encode(authHeader, forKey : "studio_token")
         coder.encode(studioName, forKey : "studio_name")
-//        coder.encode(studioArray, forKey : "studio_details")
+       // coder.encode(studioArray, forKey : "studio_details")
+        coder.encode(bannerurl, forKey : "banner_url")
+        coder.encode(logourl, forKey : "logo_url")
     }
     
     // update user bean
@@ -149,12 +155,14 @@ class UserBean: NSObject, NSCoding {
             tempArray.add(studioBean)
         }
         
-        self.studioArray = tempArray
+        self.studioArray =  tempArray
         
         if(self.studioArray.count > 0){
             let studioBeanObj : StudioBean = studioArray.object(at: 0) as! StudioBean
             self.authHeader = studioBeanObj.studio_token
             self.studioName = studioBeanObj.studio_name
+            self.bannerurl = studioBeanObj.banner_url
+            self.logourl = studioBeanObj.logo_url
         }
         appDelegate.userBean = self
     }
@@ -181,4 +189,32 @@ class StudioBean : NSObject{
     var studio_id : String?
     var studio_name : String?
     var studio_token : String?
+    
+    override init() {
+        
+    }
+
+    required init(coder decoder: NSCoder) {
+        self.auth_key = decoder.decodeObject(forKey: "auth_key") as? String ?? ""
+        self.banner_url = decoder.decodeObject(forKey: "banner_url") as? String ?? ""
+        self.city = decoder.decodeObject(forKey: "city") as? String ?? ""
+        self.logo_url = decoder.decodeObject(forKey: "logo_url") as? String ?? ""
+        self.nick_name = decoder.decodeObject(forKey: "nick_name") as? String ?? ""
+        self.partner_id = decoder.decodeObject(forKey: "partner_id") as? String ?? ""
+        self.studio_id = decoder.decodeObject(forKey: "studio_id") as? String ?? ""
+        self.studio_name = decoder.decodeObject(forKey : "studio_name") as? String ?? ""
+        self.studio_token = decoder.decodeObject(forKey : "studio_token") as? String ?? ""
+    }
+
+    func encode(with coder: NSCoder) {
+        coder.encode(auth_key, forKey: "auth_key")
+        coder.encode(banner_url, forKey: "banner_url")
+        coder.encode(city, forKey : "city")
+        coder.encode(logo_url, forKey : "logo_url")
+        coder.encode(nick_name, forKey: "nick_name")
+        coder.encode(partner_id, forKey : "partner_id")
+        coder.encode(studio_id, forKey : "studio_id")
+        coder.encode(studio_name, forKey : "studio_name")
+        coder.encode(studio_token, forKey : "studio_token")
+    }
 }

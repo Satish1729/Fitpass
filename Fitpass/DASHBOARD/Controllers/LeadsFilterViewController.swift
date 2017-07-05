@@ -45,9 +45,10 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate {
 
         
         dropDown.anchorView = self.statusButton
+        dropDown.bottomOffset = CGPoint(x: 0, y: self.statusButton.frame.size.height)
+        dropDown.width = self.statusButton.frame.size.width
         dropDown.dataSource = ["HOT", "DEAD", "COLD"]
         dropDown.direction = .any
-        dropDown.width = 280
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.statusButton.setTitle(item, for: UIControlState.normal)
         }

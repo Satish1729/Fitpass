@@ -80,13 +80,19 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
             case 3:
                 cell.valueTxtField.keyboardType = .numberPad
             case 4:
-                cell.valueTxtField.keyboardType = .numbersAndPunctuation
+                let datePicker = UIDatePicker()
+                datePicker.datePickerMode = .date
+                cell.valueTxtField.inputView = datePicker
+                datePicker.addTarget(self, action: #selector(datePickerDOBChanged(sender:)), for: .valueChanged)
             case 5:
                 cell.valueTxtField.keyboardType = .namePhonePad
             case 6:
                 cell.valueTxtField.keyboardType = .namePhonePad
             case 7:
-                cell.valueTxtField.keyboardType = .namePhonePad
+                let datePicker1 = UIDatePicker()
+                datePicker1.datePickerMode = .date
+                cell.valueTxtField.inputView = datePicker1
+                datePicker1.addTarget(self, action: #selector(datePickerJoiningDateChanged(sender:)), for: .valueChanged)
             case 8:
                 cell.valueTxtField.keyboardType = .numberPad
             case 9:
@@ -101,6 +107,20 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
             return cell
         }
     
+    func datePickerDOBChanged(sender: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        let cell7  = staffAddTableview.cellForRow(at: IndexPath(row:7,  section:0)) as! StaffAddCell
+        cell7.valueTxtField.text = formatter.string(from: sender.date)
+    }
+
+    func datePickerJoiningDateChanged(sender: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        let cell4  = staffAddTableview.cellForRow(at: IndexPath(row:4,  section:0)) as! StaffAddCell
+        cell4.valueTxtField.text = formatter.string(from: sender.date)
+    }
+
     func addNewStaff() {
         self.dismissViewController()
         let staffBean : Staffs = Staffs()
@@ -116,8 +136,9 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
         
         let cell3  = staffAddTableview.cellForRow(at: IndexPath(row:3,  section:0)) as! StaffAddCell
         let myInteger = cell3.valueTxtField.text!
-        staffBean.contact_number = NSNumber(value : Int(myInteger)!)
-        
+        if(myInteger != ""){
+            staffBean.contact_number = NSNumber(value : Int(myInteger)!)
+        }
         let cell4  = staffAddTableview.cellForRow(at: IndexPath(row:4,  section:0)) as! StaffAddCell
         staffBean.dob = cell4.valueTxtField.text ?? ""
         
@@ -133,12 +154,14 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
         let cell8  = staffAddTableview.cellForRow(at: IndexPath(row:8,  section:0)) as! StaffAddCell
         staffBean.salary = cell8.valueTxtField.text ?? ""
         
-        let cell9  = staffAddTableview.cellForRow(at: IndexPath(row:9,  section:0)) as! StaffAddCell
-        staffBean.salary_date = NSNumber(value: Int(cell9.valueTxtField.text!)!)
-        
+        if let cell9  = staffAddTableview.cellForRow(at: IndexPath(row:9,  section:0)){
+            if((cell9 as! StaffAddCell).valueTxtField.text != ""){
+                staffBean.salary_date = NSNumber(value: Int((cell9 as! StaffAddCell).valueTxtField.text!)!)
+            }
+        }
         self.delegate?.addNewStaffToList(staffBean: staffBean)
     }
-    
+
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.

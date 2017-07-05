@@ -67,38 +67,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fitpass/DASHBOARD/Controllers/StaffUpdateController.swift"
-            timestampString = "520364199.670205"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "updateStaff()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fitpass/USER/LoginViewController.swift"
-            timestampString = "519884060.502896"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "signInBtnAction(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Fitpass/DASHBOARD/Controllers/LeadsViewController.swift"
             timestampString = "520339574.710407"
             startingColumnNumber = "9223372036854775807"
@@ -106,22 +74,6 @@
             startingLineNumber = "84"
             endingLineNumber = "84"
             landmarkName = "getLeads()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fitpass/USER/UserBean.swift"
-            timestampString = "520341171.161503"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "updateUserBean(responseDict:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -138,22 +90,6 @@
             startingLineNumber = "892"
             endingLineNumber = "892"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fitpass/DASHBOARD/Controllers/MembersController.swift"
-            timestampString = "520361136.148096"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "getMembers()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -196,12 +132,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fitpass/DASHBOARD/Controllers/MenuController.swift"
-            timestampString = "520407661.303839"
+            timestampString = "520932123.486273"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "122"
-            endingLineNumber = "122"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "showStudioList(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

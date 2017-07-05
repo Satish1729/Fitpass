@@ -87,7 +87,11 @@ class StaffUpdateController: BaseViewController, UITableViewDelegate, UITableVie
 
             case 4:
                 cell.valueTxtField.text = staffObj?.dob ?? ""
-                cell.valueTxtField.keyboardType = .numbersAndPunctuation
+//                cell.valueTxtField.keyboardType = .numbersAndPunctuation
+                let datePicker = UIDatePicker()
+                datePicker.datePickerMode = .date
+                cell.valueTxtField.inputView = datePicker
+                datePicker.addTarget(self, action: #selector(datePickerDOBChanged(sender:)), for: .valueChanged)
 
             case 5:
                 cell.valueTxtField.text = staffObj?.gender ?? ""
@@ -99,7 +103,11 @@ class StaffUpdateController: BaseViewController, UITableViewDelegate, UITableVie
 
             case 7:
                 cell.valueTxtField.text = staffObj?.joining_date ?? ""
-                cell.valueTxtField.keyboardType = .namePhonePad
+//                cell.valueTxtField.keyboardType = .namePhonePad
+                let datePicker1 = UIDatePicker()
+                datePicker1.datePickerMode = .date
+                cell.valueTxtField.inputView = datePicker1
+                datePicker1.addTarget(self, action: #selector(datePickerJoiningDateChanged(sender:)), for: .valueChanged)
 
             case 8:
                 cell.valueTxtField.text = staffObj?.salary ?? ""
@@ -120,7 +128,20 @@ class StaffUpdateController: BaseViewController, UITableViewDelegate, UITableVie
             
             return cell
         }
-        
+    func datePickerDOBChanged(sender: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        let cell7  = staffUpdateTableview.cellForRow(at: IndexPath(row:7,  section:0)) as! StaffAddCell
+        cell7.valueTxtField.text = formatter.string(from: sender.date)
+    }
+    
+    func datePickerJoiningDateChanged(sender: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        let cell4  = staffUpdateTableview.cellForRow(at: IndexPath(row:4,  section:0)) as! StaffAddCell
+        cell4.valueTxtField.text = formatter.string(from: sender.date)
+    }
+    
         func updateStaff() {
             self.dismissViewController()
             let staffBean : Staffs = Staffs()

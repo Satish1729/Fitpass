@@ -12,7 +12,7 @@ import DropDown
 class MenuController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     
-    @IBOutlet weak var profileView: UIView!
+    @IBOutlet weak var profileView: UIImageView!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -32,12 +32,14 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.loadProfileDetails()
         menuTableView.tableFooterView = UIView(frame: .zero)
         self.studioTypeBtn.setTitle(appDelegate.userBean?.studioName, for: UIControlState.normal)
         self.studioTypeBtn.addTarget(self, action: #selector(showStudioList(sender:)), for: UIControlEvents.touchUpInside)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        self.loadProfileDetails()
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -47,10 +49,67 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     func loadProfileDetails() {
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
         self.profileImageView.clipsToBounds = true
-        self.profileImageView.image = UIImage(named : "profileEmpty")
         self.profileImageView.layer.borderColor = UIColor.black.cgColor
         self.profileImageView.layer.borderWidth = 1
-//        self.profileView.backgroundColor = UIColor.init(patternImage: <#T##UIImage#>)
+        
+        let logoURL = URL(string: (appDelegate.userBean?.logourl)!)
+        
+        // Creating a session object with the default configuration.
+        // You can read more about it here https://developer.apple.com/reference/foundation/urlsessionconfiguration
+        let session = URLSession(configuration: .default)
+        
+        // Define a download task. The download task will download the contents of the URL as a Data object and then you can do what you wish with that data.
+        let downloadPicTask = session.dataTask(with: logoURL!) { (data, response, error) in
+            // The download has finished.
+            if let e = error {
+                print("Error downloading logo picture: \(e)")
+            } else {
+                // No errors found.
+                // It would be weird if we didn't have a response, so check for that too.
+                if let res = response as? HTTPURLResponse {
+                    print("Downloaded cat picture with response code \(res.statusCode)")
+                    if let imageData = data {
+                        // Finally convert that Data into an image and do what you wish with it.
+                        let image = UIImage(data: imageData)
+                        // Do something with your image.
+                        self.profileImageView.image = image //UIImage(named : "profileEmpty")
+                        
+                    } else {
+                        print("Couldn't get image: Image is nil")
+                    }
+                } else {
+                    print("Couldn't get response code for some reason")
+                }
+            }
+        }
+        
+        downloadPicTask.resume()
+        
+        let bannerURL = URL(string: (appDelegate.userBean?.bannerurl)!)
+        
+        let session1 = URLSession(configuration: .default)
+        
+        let downloadPicTask1 = session1.dataTask(with: bannerURL!) { (data, response, error) in
+            if let e = error {
+                print("Error downloading banner picture: \(e)")
+            } else {
+                if let res = response as? HTTPURLResponse {
+                    print("Downloaded banner picture with response code \(res.statusCode)")
+                    if let imageData1 = data {
+                        let image1 = UIImage(data: imageData1)
+                        self.profileView.image = image1
+                        
+                    } else {
+                        print("Couldn't get banner image: Image is nil")
+                    }
+                } else {
+                    print("Couldn't get banner response code for some reason")
+                }
+            }
+        }
+        
+        downloadPicTask1.resume()
+        
         self.userName.text = (appDelegate.userBean?.first_name)! + " " + (appDelegate.userBean?.last_name)!
         self.emailLabel.text = appDelegate.userBean?.email
         
@@ -71,7 +130,6 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func showStudioList(sender: Any) {
         dropDown.show()
-
     }
     
 
@@ -86,12 +144,25 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         return menuArray.count-4
     }
     
-     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if(section == 1) {
-            tableView.headerView(forSection: 1)?.tintColor = UIColor.red
-            return "Fitpass Workouts"
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat{
+        if(section == 1){
+            return 50
+        }else{
+            return 0
         }
-        return ""
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let hView : UILabel = UILabel()
+        hView.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: tableView.sectionHeaderHeight)
+        hView.text = "    Fitpass Workouts"
+        hView.backgroundColor = UIColor(red: 35/255, green: 52/255, blue: 71/255, alpha: 0.85)
+        hView.textColor = UIColor.white
+        return hView
     }
 
      func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
