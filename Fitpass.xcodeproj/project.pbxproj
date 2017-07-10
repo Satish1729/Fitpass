@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		3B0464F91ED8523400A33F41 /* LeadsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0464F81ED8523400A33F41 /* LeadsCell.swift */; };
 		3B0464FD1ED852EB00A33F41 /* Leads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0464FC1ED852EB00A33F41 /* Leads.swift */; };
+		3B0C8B6F1F10E6BE001DB937 /* PaymentDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C8B6E1F10E6BE001DB937 /* PaymentDetailController.swift */; };
+		3B0C8B711F10E6E3001DB937 /* PaymentsFilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C8B701F10E6E3001DB937 /* PaymentsFilterController.swift */; };
+		3B0C8B731F10EFE1001DB937 /* Payments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C8B721F10EFE1001DB937 /* Payments.swift */; };
+		3B0C8B751F10F541001DB937 /* PaymentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C8B741F10F541001DB937 /* PaymentsCell.swift */; };
+		3B0C8B771F10F57B001DB937 /* PaymentDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C8B761F10F57B001DB937 /* PaymentDetailCell.swift */; };
 		3B2160011EDD4C25004A55F4 /* StaffDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2160001EDD4C25004A55F4 /* StaffDetailController.swift */; };
 		3B2160031EDD4CF5004A55F4 /* StaffAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2160021EDD4CF5004A55F4 /* StaffAddController.swift */; };
 		3B2160051EDD4D0D004A55F4 /* StaffUpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2160041EDD4D0D004A55F4 /* StaffUpdateController.swift */; };
@@ -88,6 +93,11 @@
 		397C162B5CDF5198B700420E /* Pods-Fitpass.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Fitpass.release.xcconfig"; path = "Pods/Target Support Files/Pods-Fitpass/Pods-Fitpass.release.xcconfig"; sourceTree = "<group>"; };
 		3B0464F81ED8523400A33F41 /* LeadsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeadsCell.swift; path = DASHBOARD/Views/LeadsCell.swift; sourceTree = "<group>"; };
 		3B0464FC1ED852EB00A33F41 /* Leads.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Leads.swift; path = DASHBOARD/Models/Leads.swift; sourceTree = "<group>"; };
+		3B0C8B6E1F10E6BE001DB937 /* PaymentDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentDetailController.swift; path = DASHBOARD/Controllers/PaymentDetailController.swift; sourceTree = "<group>"; };
+		3B0C8B701F10E6E3001DB937 /* PaymentsFilterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentsFilterController.swift; path = DASHBOARD/Controllers/PaymentsFilterController.swift; sourceTree = "<group>"; };
+		3B0C8B721F10EFE1001DB937 /* Payments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Payments.swift; path = DASHBOARD/Models/Payments.swift; sourceTree = "<group>"; };
+		3B0C8B741F10F541001DB937 /* PaymentsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentsCell.swift; path = DASHBOARD/Views/PaymentsCell.swift; sourceTree = "<group>"; };
+		3B0C8B761F10F57B001DB937 /* PaymentDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentDetailCell.swift; path = DASHBOARD/Views/PaymentDetailCell.swift; sourceTree = "<group>"; };
 		3B2160001EDD4C25004A55F4 /* StaffDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffDetailController.swift; path = DASHBOARD/Controllers/StaffDetailController.swift; sourceTree = "<group>"; };
 		3B2160021EDD4CF5004A55F4 /* StaffAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffAddController.swift; path = DASHBOARD/Controllers/StaffAddController.swift; sourceTree = "<group>"; };
 		3B2160041EDD4D0D004A55F4 /* StaffUpdateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffUpdateController.swift; path = DASHBOARD/Controllers/StaffUpdateController.swift; sourceTree = "<group>"; };
@@ -274,6 +284,8 @@
 				3BC959391EDC91EE00A94CCE /* MemberDetailController.swift */,
 				3BC9593B1EDC920E00A94CCE /* MembersFilterController.swift */,
 				3B680F251EC6EAB400549969 /* PaymentsController.swift */,
+				3B0C8B6E1F10E6BE001DB937 /* PaymentDetailController.swift */,
+				3B0C8B701F10E6E3001DB937 /* PaymentsFilterController.swift */,
 				3B680F271EC6EC2900549969 /* AssetsController.swift */,
 				3B4DAF321F04AA1C00BDB69B /* AssetDetailController.swift */,
 				3B4DAF341F04B1A700BDB69B /* AssetsFilterController.swift */,
@@ -302,6 +314,8 @@
 				3BC959351EDC8F8C00A94CCE /* MembersDetailCell.swift */,
 				3B4DAF2E1F04A47100BDB69B /* AssetsCell.swift */,
 				3B4DAF301F04A4AE00BDB69B /* AssetDetailCell.swift */,
+				3B0C8B741F10F541001DB937 /* PaymentsCell.swift */,
+				3B0C8B761F10F57B001DB937 /* PaymentDetailCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -313,6 +327,7 @@
 				3BC9592B1EDC571B00A94CCE /* Staffs.swift */,
 				3BC959371EDC8FEB00A94CCE /* Members.swift */,
 				3B3D5D3C1F04271B0036425F /* Assets.swift */,
+				3B0C8B721F10EFE1001DB937 /* Payments.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -553,12 +568,15 @@
 				3B2160051EDD4D0D004A55F4 /* StaffUpdateController.swift in Sources */,
 				3B2160031EDD4CF5004A55F4 /* StaffAddController.swift in Sources */,
 				3B2160011EDD4C25004A55F4 /* StaffDetailController.swift in Sources */,
+				3B0C8B711F10E6E3001DB937 /* PaymentsFilterController.swift in Sources */,
 				3BEAAFB61EDAB9080083AA51 /* LeadsFilterViewController.swift in Sources */,
 				3BC9593C1EDC920E00A94CCE /* MembersFilterController.swift in Sources */,
 				3B4DAF331F04AA1C00BDB69B /* AssetDetailController.swift in Sources */,
 				3B58C0571EB0A2AE006086E5 /* ServerConstants.swift in Sources */,
+				3B0C8B731F10EFE1001DB937 /* Payments.swift in Sources */,
 				3BEAAFB81EDAC84D0083AA51 /* LeadDetailCell.swift in Sources */,
 				3B58C0411EB08346006086E5 /* NetworkManager.swift in Sources */,
+				3B0C8B751F10F541001DB937 /* PaymentsCell.swift in Sources */,
 				3B58C05D1EB0A35D006086E5 /* Enums.swift in Sources */,
 				3BC959301EDC57EA00A94CCE /* StaffDetailCell.swift in Sources */,
 				3B680F1E1EC56A3C00549969 /* CustomSideMenuController.swift in Sources */,
@@ -579,7 +597,9 @@
 				3B680F261EC6EAB400549969 /* PaymentsController.swift in Sources */,
 				3B680F2E1EC6ECC000549969 /* SupportsController.swift in Sources */,
 				3B680F321EC6ED2A00549969 /* ReservedWorkoutsController.swift in Sources */,
+				3B0C8B6F1F10E6BE001DB937 /* PaymentDetailController.swift in Sources */,
 				3B58C0591EB0A309006086E5 /* Utility.swift in Sources */,
+				3B0C8B771F10F57B001DB937 /* PaymentDetailCell.swift in Sources */,
 				3B58C0121EB07E19006086E5 /* AppDelegate.swift in Sources */,
 				3B4DAF351F04B1A700BDB69B /* AssetsFilterController.swift in Sources */,
 				3B58C04A1EB0870E006086E5 /* BaseViewController.swift in Sources */,

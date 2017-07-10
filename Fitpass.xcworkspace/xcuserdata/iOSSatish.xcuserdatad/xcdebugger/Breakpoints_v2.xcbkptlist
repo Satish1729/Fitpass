@@ -128,17 +128,161 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fitpass/DASHBOARD/Controllers/MenuController.swift"
-            timestampString = "520932123.486273"
+            timestampString = "521201805.246378"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
-            landmarkName = "showStudioList(sender:)"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "loadProfileDetails()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fitpass.MenuController.loadProfileDetails () -&gt; ()"
+                  moduleName = "Fitpass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/iOSSatish/Desktop/Satish/Fitpass/Fitpass/Fitpass/DASHBOARD/Controllers/MenuController.swift"
+                  timestampString = "521205426.331265"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "1237">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fitpass.MenuController.loadProfileDetails () -&gt; ()"
+                  moduleName = "Fitpass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/iOSSatish/Desktop/Satish/Fitpass/Fitpass/Fitpass/DASHBOARD/Controllers/MenuController.swift"
+                  timestampString = "521205426.334406"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "9338">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fitpass/USER/LoginViewController.swift"
+            timestampString = "521206910.117613"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "signInBtnAction(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fitpass/NETWORK/NetworkManager.swift"
+            timestampString = "521209414.790249"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "getResponseForURLWithParameters(url:userInfo:type:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fitpass.NetworkManager.getResponseForURLWithParameters (url : Swift.String, userInfo : Swift.Optional&lt;__ObjC.NSDictionary&gt;, type : Swift.String, completion : (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__ObjC.HTTPURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Fitpass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/iOSSatish/Desktop/Satish/Fitpass/Fitpass/Fitpass/NETWORK/NetworkManager.swift"
+                  timestampString = "521209468.92117"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "1870">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fitpass.NetworkManager.getResponseForURLWithParameters (url : Swift.String, userInfo : Swift.Optional&lt;__ObjC.NSDictionary&gt;, type : Swift.String, completion : (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__ObjC.HTTPURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Fitpass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/iOSSatish/Desktop/Satish/Fitpass/Fitpass/Fitpass/NETWORK/NetworkManager.swift"
+                  timestampString = "521209468.92417"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "6523">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Fitpass/NETWORK/NetworkManager.swift"
+            timestampString = "521209416.461141"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "getResponseForURLWithParameters(url:userInfo:type:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fitpass.NetworkManager.getResponseForURLWithParameters (url : Swift.String, userInfo : Swift.Optional&lt;__ObjC.NSDictionary&gt;, type : Swift.String, completion : (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__ObjC.HTTPURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Fitpass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/iOSSatish/Desktop/Satish/Fitpass/Fitpass/Fitpass/NETWORK/NetworkManager.swift"
+                  timestampString = "521209468.931034"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "2978">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Fitpass.NetworkManager.getResponseForURLWithParameters (url : Swift.String, userInfo : Swift.Optional&lt;__ObjC.NSDictionary&gt;, type : Swift.String, completion : (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__ObjC.HTTPURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "Fitpass"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/iOSSatish/Desktop/Satish/Fitpass/Fitpass/Fitpass/NETWORK/NetworkManager.swift"
+                  timestampString = "521209468.934066"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45"
+                  offsetFromSymbolStart = "6538">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

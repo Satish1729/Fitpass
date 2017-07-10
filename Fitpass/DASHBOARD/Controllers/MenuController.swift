@@ -35,10 +35,10 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         menuTableView.tableFooterView = UIView(frame: .zero)
         self.studioTypeBtn.setTitle(appDelegate.userBean?.studioName, for: UIControlState.normal)
         self.studioTypeBtn.addTarget(self, action: #selector(showStudioList(sender:)), for: UIControlEvents.touchUpInside)
+        self.loadProfileDetails()
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        self.loadProfileDetails()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -72,7 +72,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
                         // Finally convert that Data into an image and do what you wish with it.
                         let image = UIImage(data: imageData)
                         // Do something with your image.
-                        self.profileImageView.image = image //UIImage(named : "profileEmpty")
+                      //  self.profileImageView.image = image //UIImage(named : "profileEmpty")
                         
                     } else {
                         print("Couldn't get image: Image is nil")
@@ -97,7 +97,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
                     print("Downloaded banner picture with response code \(res.statusCode)")
                     if let imageData1 = data {
                         let image1 = UIImage(data: imageData1)
-                        self.profileView.image = image1
+                       // self.profileView.image = image1
                         
                     } else {
                         print("Couldn't get banner image: Image is nil")

@@ -26,6 +26,8 @@ class UserBean: NSObject, NSCoding {
     var studioName : String? = ""
     var bannerurl : String? = ""
     var logourl : String? = ""
+    var auth_key : String? = ""
+    var partner_id : String? = ""
     var studioArray : NSMutableArray = NSMutableArray()
     
     override init() {
@@ -48,6 +50,8 @@ class UserBean: NSObject, NSCoding {
         self.studioName = decoder.decodeObject(forKey: "studio_name") as? String ?? ""
         self.bannerurl = decoder.decodeObject(forKey: "banner_url") as? String ?? ""
         self.logourl = decoder.decodeObject(forKey: "logo_url") as? String ?? ""
+        self.auth_key = decoder.decodeObject(forKey: "auth_key") as? String ?? ""
+        self.partner_id = decoder.decodeObject(forKey: "partner_id") as? String ?? ""
        // self.studioArray = (decoder.decodeObject(forKey: "studio_details") as! NSMutableArray).mutableCopy() as! NSMutableArray
     }
     
@@ -68,6 +72,8 @@ class UserBean: NSObject, NSCoding {
        // coder.encode(studioArray, forKey : "studio_details")
         coder.encode(bannerurl, forKey : "banner_url")
         coder.encode(logourl, forKey : "logo_url")
+        coder.encode(auth_key, forKey : "auth_key")
+        coder.encode(partner_id, forKey : "partner_id")
     }
     
     // update user bean
@@ -163,6 +169,8 @@ class UserBean: NSObject, NSCoding {
             self.studioName = studioBeanObj.studio_name
             self.bannerurl = studioBeanObj.banner_url
             self.logourl = studioBeanObj.logo_url
+            self.auth_key = studioBeanObj.auth_key
+            self.partner_id = studioBeanObj.partner_id
         }
         appDelegate.userBean = self
     }
