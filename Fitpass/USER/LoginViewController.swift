@@ -54,12 +54,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: SignIn
     @IBAction func signInBtnAction(_ sender: Any) {
-        
-        
-        //           self.performSegue(withIdentifier: "BASESEGUE", sender: self)
-        //        return;
-        
-        
         self.hideTextFields()
         if isValidEmailAndPassword() {
             
@@ -98,41 +92,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     AlertView.showCustomAlertWithMessage(message: StringFiles().LOGIN_FAILED, yPos: 20, duration: NSInteger(2.0))
                 }
             })
-            
-            
-            /* Alamofire.request(ServiceConstents.URL_USER_LOGIN, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { (response) in
-             
-             ProgressHUD.hideProgress()
-             
-             switch response.result {
-             case .success(let value as [String : AnyObject]):
-             print("Login successfully : \(value)")
-             if let code = response.response?.statusCode {
-             print("Status code : \(code)")
-             switch code {
-             case 200:
-             print("Login success")
-             case 400:
-             print("Login Failed: \(value["message"]!)")
-             //                                AlertView.showCustomAlertWithMessage(message: value["message"]! as! String
-             //                                    , yPos: 20, duration: NSInteger(2.0))
-             AlertView.showCustomAlertWithMessage(message: StringFiles().LOGIN_FAILED, yPos: 20, duration: NSInteger(2.0))
-             
-             
-             default:
-             print("Login Failed")
-             }
-             }
-             
-             case .failure(let error):
-             print("Login Failed  : \(error)")
-             AlertView.showCustomAlertWithMessage(message: StringFiles().LOGIN_FAILED, yPos: 20, duration: NSInteger(2.0))
-             default :
-             print("Default")
-             }
-             
-             })*/
-            
         }
     }
     
