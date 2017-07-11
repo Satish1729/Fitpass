@@ -19,7 +19,7 @@ class AssetsFilterController: BaseViewController, UITextFieldDelegate {
         @IBAction func searchButtonClicked(_ sender: Any) {
             self.dismissViewController()
             
-            let tempDict : NSDictionary = ["purchased_on" : purchasedOnTxtField.text!, "expire_date" : expiryDateTxtField.text!]
+            let tempDict : NSDictionary = ["purchase_date_from" : purchasedOnTxtField.text!, "purchase_date_to" : expiryDateTxtField.text!]
             delegate?.getDictionary(searchDict: tempDict)
         }
         

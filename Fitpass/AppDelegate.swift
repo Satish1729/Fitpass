@@ -68,7 +68,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.userBean = $0
                 self.isSignIn = true
                 
-    
+                        if let studioData = UserDefaults.standard.data(forKey: "studioarray") {
+                            self.userBean?.studioArray = NSKeyedUnarchiver.unarchiveObject(with: studioData) as! [StudioBean]
+                        }
         let viewController : CustomSideMenuController = mainStoryboard.instantiateViewController(withIdentifier: "customsidemenucontroller") as! CustomSideMenuController
                     self.window?.rootViewController = viewController
             })

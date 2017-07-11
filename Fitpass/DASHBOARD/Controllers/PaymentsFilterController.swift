@@ -40,16 +40,16 @@ class PaymentsFilterController: BaseViewController, UITextFieldDelegate {
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
         
-        dropDown.anchorView = self.statusButton
-        dropDown.bottomOffset = CGPoint(x: 0, y: self.statusButton.frame.size.height)
-        dropDown.width = self.statusButton.frame.size.width
-        dropDown.dataSource = ["HOT", "DEAD", "COLD"]
-        dropDown.direction = .any
-        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.statusButton.setTitle(item, for: UIControlState.normal)
-        }
-        
-        self.statusButton.addTarget(self, action: #selector(changeStatus), for: .touchUpInside)
+//        dropDown.anchorView = self.statusButton
+//        dropDown.bottomOffset = CGPoint(x: 0, y: self.statusButton.frame.size.height)
+//        dropDown.width = self.statusButton.frame.size.width
+//        dropDown.dataSource = ["HOT", "DEAD", "COLD"]
+//        dropDown.direction = .any
+//        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+//            self.statusButton.setTitle(item, for: UIControlState.normal)
+//        }
+//        
+//        self.statusButton.addTarget(self, action: #selector(changeStatus), for: .touchUpInside)
     }
     
     func changeStatus() {
@@ -63,7 +63,7 @@ class PaymentsFilterController: BaseViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = "Lead Filter"
+        self.navigationItem.title = "Payments Filter"
     }
     
     func dismissViewController() {
@@ -73,30 +73,30 @@ class PaymentsFilterController: BaseViewController, UITextFieldDelegate {
     
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         
-        if textField == startDateTxtField {
+        if textField == paymentDateTxtField {
             let datePicker = UIDatePicker()
             textField.inputView = datePicker
             datePicker.datePickerMode = .date
-            datePicker.addTarget(self, action: #selector(datePickerStartDateChanged(sender:)), for: .valueChanged)
+            datePicker.addTarget(self, action: #selector(datePickerPaymentDateChanged(sender:)), for: .valueChanged)
         }
-        else if textField == endDateTxtField {
+        else if textField == paymentMonthTxtField {
             let datePicker = UIDatePicker()
             datePicker.datePickerMode = .date
             textField.inputView = datePicker
-            datePicker.addTarget(self, action: #selector(datePickerEndDateChanged(sender:)), for: .valueChanged)
+            datePicker.addTarget(self, action: #selector(datePickerPaymentMonthChanged(sender:)), for: .valueChanged)
         }
     }
     
-    func datePickerStartDateChanged(sender: UIDatePicker) {
+    func datePickerPaymentDateChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        self.startDateTxtField.text = formatter.string(from: sender.date)
+        self.paymentDateTxtField.text = formatter.string(from: sender.date)
     }
     
-    func datePickerEndDateChanged(sender: UIDatePicker) {
+    func datePickerPaymentMonthChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
-        self.endDateTxtField.text = formatter.string(from: sender.date)
+        self.paymentMonthTxtField.text = formatter.string(from: sender.date)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

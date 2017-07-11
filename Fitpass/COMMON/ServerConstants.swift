@@ -37,6 +37,7 @@ class ServerConstants: NSObject {
     
     static let URL_GET_ALL_PAYMENTS = BASE_URL_CLIENT+"salesreport"
 
+    static let URL_GET_WORKOUTS = BASE_URL_CLIENT+"workoutlist"
 }
 /*
  @GET("users")

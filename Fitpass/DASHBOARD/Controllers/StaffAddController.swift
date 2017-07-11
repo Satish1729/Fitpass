@@ -130,21 +130,70 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
         var isValidUser = false
         
         if !isInternetAvailable() {
-            
             AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
-            
-        } else if (emailIdTxt.text?.characters.count == 0 && passwordTxt.text?.characters.count == 0) {
-            
-            AlertView.showCustomAlertWithMessage(message: StringFiles().EMPTYLOGINCREDENTIALS, yPos: 20, duration: NSInteger(2.0))
-            
-        } else if (!Utility().isValidEmail(testStr: emailIdTxt.text! as String)) {
-            
-            AlertView.showCustomAlertWithMessage(message: StringFiles().INVALIDEMAILID, yPos: 20, duration: NSInteger(2.0))
-            
-        } else {
-            isValidUser = true
+        }
+        let cell  = staffAddTableview.cellForRow(at: IndexPath(row:0,  section:0)) as! StaffAddCell
+        if(cell.valueTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+            AlertView.showCustomAlertWithMessage(message: "Please enter name", yPos: 20, duration: NSInteger(2.0))
+            return isValidUser
         }
         
+        let cell1  = staffAddTableview.cellForRow(at: IndexPath(row:1,  section:0)) as! StaffAddCell
+        if(cell1.valueTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+            AlertView.showCustomAlertWithMessage(message: "Please enter role", yPos: 20, duration: NSInteger(2.0))
+            return isValidUser
+        }
+        
+        let cell2  = staffAddTableview.cellForRow(at: IndexPath(row:2,  section:0)) as! StaffAddCell
+        if(cell2.valueTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+            AlertView.showCustomAlertWithMessage(message: "Please enter email", yPos: 20, duration: NSInteger(2.0))
+            return isValidUser
+        }
+        
+        let cell3  = staffAddTableview.cellForRow(at: IndexPath(row:3,  section:0)) as! StaffAddCell
+        if(cell3.valueTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+            AlertView.showCustomAlertWithMessage(message: "Please enter Contact No.", yPos: 20, duration: NSInteger(2.0))
+            return isValidUser
+        }
+        
+        let cell4  = staffAddTableview.cellForRow(at: IndexPath(row:4,  section:0)) as! StaffAddCell
+        if(cell4.valueTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+            AlertView.showCustomAlertWithMessage(message: "Please enter date of birth", yPos: 20, duration: NSInteger(2.0))
+            return isValidUser
+        }
+
+        let cell5  = staffAddTableview.cellForRow(at: IndexPath(row:5,  section:0)) as! StaffAddCell
+        if(cell5.valueTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+            AlertView.showCustomAlertWithMessage(message: "Please enter gender", yPos: 20, duration: NSInteger(2.0))
+            return isValidUser
+        }
+        
+        let cell6  = staffAddTableview.cellForRow(at: IndexPath(row:6,  section:0)) as! StaffAddCell
+        if(cell6.valueTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+            AlertView.showCustomAlertWithMessage(message: "Please enter address", yPos: 20, duration: NSInteger(2.0))
+            return isValidUser
+        }
+        
+        let cell7  = staffAddTableview.cellForRow(at: IndexPath(row:7,  section:0)) as! StaffAddCell
+        if(cell7.valueTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+            AlertView.showCustomAlertWithMessage(message: "Please enter joining date", yPos: 20, duration: NSInteger(2.0))
+            return isValidUser
+        }
+        
+        let cell8  = staffAddTableview.cellForRow(at: IndexPath(row:8,  section:0)) as! StaffAddCell
+        if(cell8.valueTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+            AlertView.showCustomAlertWithMessage(message: "Please enter salary", yPos: 20, duration: NSInteger(2.0))
+            return isValidUser
+        }
+        
+        if let cell9  = staffAddTableview.cellForRow(at: IndexPath(row:9,  section:0)){
+            if((cell9 as! StaffAddCell).valueTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+                AlertView.showCustomAlertWithMessage(message: "Please enter salary date", yPos: 20, duration: NSInteger(2.0))
+                return isValidUser
+            }
+        }
+        
+        isValidUser = true
         return isValidUser
     }
 
@@ -152,6 +201,7 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
     func addNewStaff() {
         
         if !isValidStaff() {
+            AlertView.showCustomAlertWithMessage(message: "Please enter valid details", yPos: 20, duration: NSInteger(2.0))
             return
         }
         self.dismissViewController()

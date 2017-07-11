@@ -81,11 +81,13 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     var userDet = [UserBean]()
                     userDet.append(appDelegate.userBean!)
                     let encodeUserBean = NSKeyedArchiver.archivedData(withRootObject: userDet)
+                    let studioObj = appDelegate.userBean!.studioArray
+                    let studioarray = NSKeyedArchiver.archivedData(withRootObject: studioObj)
+                    
                     UserDefaults.standard.set(encodeUserBean, forKey: "userBean")
+                    UserDefaults.standard.set(studioarray,forKey:"studioarray")
                     
-//                    UserDefaults.standard.set(userDet, forKey: "userBean")
                     self.performSegue(withIdentifier: "showCustomVC", sender: self)
-                    
                 }
                 else{
                     print("Device registration failed : \(String(describing: error?.localizedDescription))")
