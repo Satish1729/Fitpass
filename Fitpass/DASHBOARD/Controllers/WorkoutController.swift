@@ -9,27 +9,27 @@
 import UIKit
 
 protocol workoutDelegate {
-    func addNewStaffToList (staffBean: Staffs)
-    func updateStaffToList (staffBean : Staffs)
+    func addNewWorkoutToList (workoutBean: Workouts)
+    func updateWorkoutToList (workoutBean : Workouts)
 }
 
 class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, workoutDelegate {
     
     
-    @IBOutlet weak var staffSearchBar: UISearchBar!
-    @IBOutlet weak var staffTableView: UITableView!
+    @IBOutlet weak var workoutSearchBar: UISearchBar!
+    @IBOutlet weak var workoutTableView: UITableView!
     
-    var staffsArray : NSMutableArray = NSMutableArray()
+    var workoutsArray : NSMutableArray = NSMutableArray()
     var searchActive : Bool = false
     var filteredArray: NSMutableArray = NSMutableArray()
     var searchString : String? = ""
-    var selectedStaffObj = Staffs()
-    var editedStaffCellNumber : Int = 0
+    var selectedWorkoutObj = Workouts()
+    var editedWorkoutCellNumber : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        /*staffSearchBar.showsCancelButton = true
+        workoutSearchBar.showsCancelButton = true
         
         let addBtn = UIButton(type: .custom)
         addBtn.setImage(UIImage(named: "add"), for: .normal)
@@ -37,29 +37,29 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         addBtn.addTarget(self, action: #selector(navigateToAddController), for: .touchUpInside)
         let item1 = UIBarButtonItem(customView: addBtn)
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = item1*/
+        self.navigationItem.rightBarButtonItem = item1
         
         self.getWorkoutsList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = "Staffs"
+        self.navigationItem.title = "Workouts"
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "staff_add") {
-            let addStaffVC : StaffAddController = segue.destination as! StaffAddController
-           // addStaffVC.delegate = self
+        if(segue.identifier == "workout_add") {
+            let addWorkoutVC : WorkoutAddController = segue.destination as! WorkoutAddController
+            addWorkoutVC.delegate = self
         }
-        else if(segue.identifier == "staff_update") {
-            let updateStaffVC : StaffUpdateController = segue.destination as! StaffUpdateController
-           // updateStaffVC.delegate = self
-            updateStaffVC.staffObj = selectedStaffObj
+        else if(segue.identifier == "workout_update") {
+            let updateWorkoutVC : WorkoutUpdateController = segue.destination as! WorkoutUpdateController
+            updateWorkoutVC.delegate = self
+            updateWorkoutVC.workoutObj = selectedWorkoutObj
         }
-        else if(segue.identifier == "staff_detail") {
-            let staffDetailVC : StaffDetailController = segue.destination as! StaffDetailController
-            staffDetailVC.staffObj = selectedStaffObj
+        else if(segue.identifier == "workout_detail") {
+            let workoutDetailVC : WorkoutDetailController = segue.destination as! WorkoutDetailController
+            workoutDetailVC.workoutObj = selectedWorkoutObj
         }
     }
     
@@ -85,18 +85,18 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 if (responseDic != nil) {
                     print(responseDic!)
                     
-//                    self.staffsArray.addObjects(from:  Staffs().updateStaffs(responseDict : responseDic!) as [AnyObject])
-//                    self.staffTableView.reloadData()
+                    self.workoutsArray.addObjects(from:  workouts().updateworkouts(responseDict : responseDic!) as [AnyObject])
+                    self.workoutTableView.reloadData()
                 }
             }
             else{
                 AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                print("Get STAFFS failed : \(String(describing: error?.localizedDescription))")
+                print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
             }
         }
     }
     
-    func getSearchStaffs() {
+    func getSearchworkouts() {
         
         if (appDelegate.userBean == nil) {
             return
@@ -108,9 +108,9 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let parameters : [String : Any] = ["search_text" : self.staffSearchBar.text!, "search_by" : "Name"]
+        let parameters : [String : Any] = ["search_text" : self.workoutSearchBar.text!, "search_by" : "Name"]
         let urlString  = self.createURLFromParameters(parameters: parameters)
-        let str : String = ServerConstants.URL_STAFF+urlString.absoluteString
+        let str : String = ServerConstants.URL_workout+urlString.absoluteString
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -119,8 +119,8 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.filteredArray.addObjects(from:  Staffs().updateStaffs(responseDict : responseDic!) as [AnyObject])
-                    self.staffTableView.reloadData()
+                    self.filteredArray.addObjects(from:  workouts().updateworkouts(responseDict : responseDic!) as [AnyObject])
+                    self.workoutTableView.reloadData()
                 }
             }
             else{
@@ -138,7 +138,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         if(searchActive) {
             return filteredArray.count
         }
-        return staffsArray.count
+        return workoutsArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -182,24 +182,24 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "StaffCell") as! StaffCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "workoutCell") as! workoutCell
         cell.tag = indexPath.row
         if(searchActive){
             if filteredArray.count > 0 {
-                let staffObj = filteredArray.object(at: indexPath.row) as! Staffs
-                cell.updateStaffDetails(staffBean: staffObj)
+                let workoutObj = filteredArray.object(at: indexPath.row) as! workouts
+                cell.updateworkoutDetails(workoutBean: workoutObj)
             }
         } else {
-            if staffsArray.count > 0 {
-                let staffObj = staffsArray.object(at: indexPath.row) as! Staffs
-                cell.updateStaffDetails(staffBean: staffObj)
+            if workoutsArray.count > 0 {
+                let workoutObj = workoutsArray.object(at: indexPath.row) as! workouts
+                cell.updateworkoutDetails(workoutBean: workoutObj)
             }
         }
         cell.editButton.tag = indexPath.row
         cell.editButton.addTarget(self, action: #selector(navigateToUpdateController (sender: )), for: UIControlEvents.touchUpInside)
         
         cell.deleteButton.tag = indexPath.row
-        cell.deleteButton.addTarget(self, action: #selector(deleteStaffFromList (sender: )), for: UIControlEvents.touchUpInside)
+        cell.deleteButton.addTarget(self, action: #selector(deleteworkoutFromList (sender: )), for: UIControlEvents.touchUpInside)
         
         
         
@@ -213,11 +213,11 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)  {
         if(searchActive){
-            selectedStaffObj = (filteredArray.object(at: indexPath.row) as? Staffs)!
+            selectedworkoutObj = (filteredArray.object(at: indexPath.row) as? workouts)!
         }else {
-            selectedStaffObj = (staffsArray.object(at: indexPath.row) as? Staffs)!
+            selectedworkoutObj = (workoutsArray.object(at: indexPath.row) as? workouts)!
         }
-        self.performSegue(withIdentifier: "staff_detail", sender: self)
+        self.performSegue(withIdentifier: "workout_detail", sender: self)
     }
     
     /////// Search Methods
@@ -237,14 +237,14 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         searchBar.showsCancelButton = false
         searchBar.resignFirstResponder()
         self.filteredArray.removeAllObjects()
-        self.staffTableView.reloadData()
+        self.workoutTableView.reloadData()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchActive = true;
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = true
-        self.getSearchStaffs()
+        self.getSearchworkouts()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -252,28 +252,28 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     }
     
     func navigateToAddController() {
-        self.performSegue(withIdentifier: "staff_add", sender: self)
+        self.performSegue(withIdentifier: "workout_add", sender: self)
     }
     
     func navigateToUpdateController(sender : Any) {
         let btn : UIButton = sender as! UIButton
-        editedStaffCellNumber = btn.tag
+        editedworkoutCellNumber = btn.tag
         if(searchActive){
-            selectedStaffObj = (filteredArray.object(at: btn.tag) as? Staffs)!
+            selectedworkoutObj = (filteredArray.object(at: btn.tag) as? workouts)!
         }else {
-            selectedStaffObj = (staffsArray.object(at: btn.tag) as? Staffs)!
+            selectedworkoutObj = (workoutsArray.object(at: btn.tag) as? workouts)!
         }
-        self.performSegue(withIdentifier: "staff_update", sender: self)
+        self.performSegue(withIdentifier: "workout_update", sender: self)
     }
     
-    func deleteStaffFromList(sender : Any) {
+    func deleteworkoutFromList(sender : Any) {
         let btn : UIButton = sender as! UIButton
-        editedStaffCellNumber = btn.tag
+        editedworkoutCellNumber = btn.tag
         
         if(searchActive){
-            selectedStaffObj = (filteredArray.object(at: btn.tag) as? Staffs)!
+            selectedworkoutObj = (filteredArray.object(at: btn.tag) as? workouts)!
         }else {
-            selectedStaffObj = (staffsArray.object(at: btn.tag) as? Staffs)!
+            selectedworkoutObj = (workoutsArray.object(at: btn.tag) as? workouts)!
         }
         
         
@@ -287,10 +287,10 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let staffBean = selectedStaffObj
-        let paramDict : [String : Any] = ["name" : staffBean.name, "role" : staffBean.role, "email": staffBean.email, "contact_number": staffBean.contact_number?.stringValue ?? "", "dob" : staffBean.dob, "gender" : staffBean.gender, "address" : staffBean.address, "joining_date": staffBean.joining_date, "salary": staffBean.salary, "salary_date": staffBean.salary_date?.stringValue , "remarks" : staffBean.remarks]
+        let workoutBean = selectedworkoutObj
+        let paramDict : [String : Any] = ["name" : workoutBean.name, "role" : workoutBean.role, "email": workoutBean.email, "contact_number": workoutBean.contact_number?.stringValue ?? "", "dob" : workoutBean.dob, "gender" : workoutBean.gender, "address" : workoutBean.address, "joining_date": workoutBean.joining_date, "salary": workoutBean.salary, "salary_date": workoutBean.salary_date?.stringValue , "remarks" : workoutBean.remarks]
         
-        let urlString : String = ServerConstants.URL_STAFF + "/" + (staffBean.id?.stringValue)!
+        let urlString : String = ServerConstants.URL_workout + "/" + (workoutBean.id?.stringValue)!
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "DELETE") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -301,18 +301,18 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 if (responseDic != nil) {
                     print(responseDic!)
                     
-                    self.staffsArray.removeObject(at: self.editedStaffCellNumber)
-                    self.staffTableView.reloadData()
+                    self.workoutsArray.removeObject(at: self.editedworkoutCellNumber)
+                    self.workoutTableView.reloadData()
                 }
             }
             else{
                 AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                print("Get STAFFS failed : \(String(describing: error?.localizedDescription))")
+                print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
             }
         }
     }
     
-    func addNewStaffToList (staffBean: Staffs) {
+    func addNewworkoutToList (workoutBean: workouts) {
         
         if (appDelegate.userBean == nil) {
             return
@@ -328,9 +328,9 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         //         address  contact_number   created_at   dob   email  gender   id   is_active  is_deleted joining_date :   joining_documents  name   remarks    role   salary   salary_date   updated_at :
         
-        let paramDict : [String : Any] = ["name" : staffBean.name!, "role" : staffBean.role!, "email": staffBean.email!, "contact_number": staffBean.contact_number?.stringValue ?? "", "dob" : staffBean.dob!, "gender" : staffBean.gender!, "address" : staffBean.address!, "joining_date": staffBean.joining_date!, "salary": staffBean.salary!, "salary_date": staffBean.salary_date?.stringValue ?? ""]
+        let paramDict : [String : Any] = ["name" : workoutBean.name!, "role" : workoutBean.role!, "email": workoutBean.email!, "contact_number": workoutBean.contact_number?.stringValue ?? "", "dob" : workoutBean.dob!, "gender" : workoutBean.gender!, "address" : workoutBean.address!, "joining_date": workoutBean.joining_date!, "salary": workoutBean.salary!, "salary_date": workoutBean.salary_date?.stringValue ?? ""]
         
-        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_STAFF , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_workout , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
             ProgressHUD.hideProgress()
             
@@ -340,18 +340,18 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 if (responseDic != nil) {
                     print(responseDic!)
                     
-                    self.staffsArray.add(staffBean)
-                    self.staffTableView.reloadData()
+                    self.workoutsArray.add(workoutBean)
+                    self.workoutTableView.reloadData()
                 }
             }
             else{
                 AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                print("Get STAFFS failed : \(String(describing: error?.localizedDescription))")
+                print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
             }
         }
     }
     
-    func updateStaffToList (staffBean: Staffs) {
+    func updateworkoutToList (workoutBean: workouts) {
         
         if (appDelegate.userBean == nil) {
             return
@@ -367,9 +367,9 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         //         address  contact_number   created_at   dob   email  gender   id   is_active  is_deleted joining_date :   joining_documents  name   remarks    role   salary   salary_date   updated_at :
         
-        let paramDict : [String : Any] = ["name" : staffBean.name!, "role" : staffBean.role!, "email": staffBean.email!, "contact_number": staffBean.contact_number?.stringValue ?? "", "dob" : staffBean.dob!, "gender" : staffBean.gender!, "address" : staffBean.address!, "joining_date": staffBean.joining_date!, "salary": staffBean.salary!, "salary_date": staffBean.salary_date?.stringValue ?? "", "remarks" : staffBean.remarks ?? ""]
+        let paramDict : [String : Any] = ["name" : workoutBean.name!, "role" : workoutBean.role!, "email": workoutBean.email!, "contact_number": workoutBean.contact_number?.stringValue ?? "", "dob" : workoutBean.dob!, "gender" : workoutBean.gender!, "address" : workoutBean.address!, "joining_date": workoutBean.joining_date!, "salary": workoutBean.salary!, "salary_date": workoutBean.salary_date?.stringValue ?? "", "remarks" : workoutBean.remarks ?? ""]
         
-        let urlString : String = ServerConstants.URL_STAFF + "/" + (staffBean.id?.stringValue)!
+        let urlString : String = ServerConstants.URL_workout + "/" + (workoutBean.id?.stringValue)!
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "PUT") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -380,14 +380,14 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 if (responseDic != nil) {
                     print(responseDic!)
                     
-                    self.staffsArray.removeObject(at: self.editedStaffCellNumber)
-                    self.staffsArray.insert(staffBean, at: self.editedStaffCellNumber)
-                    self.staffTableView.reloadData()
+                    self.workoutsArray.removeObject(at: self.editedworkoutCellNumber)
+                    self.workoutsArray.insert(workoutBean, at: self.editedworkoutCellNumber)
+                    self.workoutTableView.reloadData()
                 }
             }
             else{
                 AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                print("Get STAFFS failed : \(String(describing: error?.localizedDescription))")
+                print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
             }
         }
     }

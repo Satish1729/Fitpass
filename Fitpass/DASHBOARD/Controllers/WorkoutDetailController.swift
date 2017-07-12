@@ -10,31 +10,22 @@ import UIKit
 
 class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         
-        var staffObj : Staffs?
-        var staffDetailArray : NSMutableArray = NSMutableArray()
+        var workoutObj : Workouts?
+        var workoutDetailArray : NSMutableArray = NSMutableArray()
         
-        @IBOutlet weak var staffDetailTableView: UITableView!
+        @IBOutlet weak var workoutDetailTableView: UITableView!
         @IBOutlet weak var nameLabel: UILabel!
-        @IBOutlet weak var contactNumberLabel: UILabel!
-        @IBOutlet weak var emailLabel: UILabel!
-        @IBOutlet weak var addressLabel: UILabel!
         @IBOutlet weak var profileImageView: UIImageView!
         
         
-        var keyLabelNameArray : NSArray = ["Gender", "Date of Birth", "Role",  "Salary", "Salary Date", "Joining Date", "Created Date", "Joining Documents", "Remarks"]
+        var keyLabelNameArray : NSArray = ["Created By", "Workout Status", "Description"]
         
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            self.nameLabel.text = staffObj?.name
-            self.contactNumberLabel.text=staffObj?.contact_number?.stringValue
-            self.emailLabel.text=staffObj?.email
-            self.addressLabel.text=staffObj?.address
-            if(staffObj?.gender == "Male"){
-                self.profileImageView.image = UIImage(named: "man")
-            }else{
-                self.profileImageView.image = UIImage(named: "woman")
-            }
+            self.nameLabel.text = workoutObj?.workout_name
+            
+            self.profileImageView.image = UIImage(named: "man")
             
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
@@ -43,7 +34,7 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            self.navigationItem.title = "Staff Detail"
+            self.navigationItem.title = "Workout Detail"
         }
         
         func dismissViewController() {
@@ -74,7 +65,7 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
             
             let nameLabel : UILabel = UILabel(frame: CGRect(x: 5, y: 0, width: view.frame.size.width, height: view.frame.size.height))
             nameLabel.textAlignment = .left
-            nameLabel.text = staffObj?.name!
+            nameLabel.text = workoutObj?.workout_name!
             nameLabel.font = UIFont.boldSystemFont(ofSize: 17)
             nameLabel.textColor = UIColor.black
             view.addSubview(nameLabel)
@@ -84,31 +75,19 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
-            let cell : StaffDetailCell = tableView.dequeueReusableCell(withIdentifier: "StaffDetailCell") as! StaffDetailCell
+            let cell : WorkoutDetailCell = tableView.dequeueReusableCell(withIdentifier: "WorkoutDetailCell") as! WorkoutDetailCell
             
             cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
             var strValue : String? = ""
             switch indexPath.row {
             case 0:
-                strValue = staffObj?.gender
+                strValue = workoutObj?.created_by
             case 1:
-                strValue = staffObj?.dob
+                strValue = workoutObj?.is_active?.stringValue
             case 2:
-                strValue = staffObj?.role
-            case 3:
-                strValue = staffObj?.salary
-            case 4:
-                strValue = staffObj?.salary_date?.stringValue
-            case 5:
-                strValue = staffObj?.joining_date
-            case 6:
-                strValue = staffObj?.created_at
-            case 7:
-                strValue = staffObj?.joining_documents
-            case 8:
-                strValue = staffObj?.remarks
+                strValue = workoutObj?.workout_description
             default:
-                strValue = ""
+                strValue = "NA"
             }
             
             cell.valueLabel.text = strValue
