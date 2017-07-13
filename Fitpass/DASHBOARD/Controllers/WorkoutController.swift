@@ -9,13 +9,12 @@
 import UIKit
 
 protocol workoutDelegate {
-    func addNewWorkoutToList (workoutBean: Workouts)
-    func updateWorkoutToList (workoutBean : Workouts)
+    func addNewWorkoutToList(workoutBean: Workouts)
+    func updateWorkoutToList(workoutBean: Workouts)
 }
 
 class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, workoutDelegate {
-    
-    
+
     @IBOutlet weak var workoutSearchBar: UISearchBar!
     @IBOutlet weak var workoutTableView: UITableView!
     
@@ -85,7 +84,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 if (responseDic != nil) {
                     print(responseDic!)
                     
-                    self.workoutsArray.addObjects(from:  workouts().updateworkouts(responseDict : responseDic!) as [AnyObject])
+                    self.workoutsArray.addObjects(from:  Workouts().updateWorkouts(responseDict : responseDic!) as [AnyObject])
                     self.workoutTableView.reloadData()
                 }
             }
@@ -110,7 +109,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         let parameters : [String : Any] = ["search_text" : self.workoutSearchBar.text!, "search_by" : "Name"]
         let urlString  = self.createURLFromParameters(parameters: parameters)
-        let str : String = ServerConstants.URL_workout+urlString.absoluteString
+        let str : String = ServerConstants.URL_GET_WORKOUTS+urlString.absoluteString
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -119,7 +118,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.filteredArray.addObjects(from:  workouts().updateworkouts(responseDict : responseDic!) as [AnyObject])
+                    self.filteredArray.addObjects(from:  Workouts().updateWorkouts(responseDict : responseDic!) as [AnyObject])
                     self.workoutTableView.reloadData()
                 }
             }
@@ -142,7 +141,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 120
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -182,24 +181,24 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "workoutCell") as! workoutCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "WorkoutCell") as! WorkoutCell
         cell.tag = indexPath.row
         if(searchActive){
             if filteredArray.count > 0 {
-                let workoutObj = filteredArray.object(at: indexPath.row) as! workouts
-                cell.updateworkoutDetails(workoutBean: workoutObj)
+                let workoutObj = filteredArray.object(at: indexPath.row) as! Workouts
+                cell.updateWorkoutDetails(workoutBean: workoutObj)
             }
         } else {
             if workoutsArray.count > 0 {
-                let workoutObj = workoutsArray.object(at: indexPath.row) as! workouts
-                cell.updateworkoutDetails(workoutBean: workoutObj)
+                let workoutObj = workoutsArray.object(at: indexPath.row) as! Workouts
+                cell.updateWorkoutDetails(workoutBean: workoutObj)
             }
         }
         cell.editButton.tag = indexPath.row
         cell.editButton.addTarget(self, action: #selector(navigateToUpdateController (sender: )), for: UIControlEvents.touchUpInside)
         
         cell.deleteButton.tag = indexPath.row
-        cell.deleteButton.addTarget(self, action: #selector(deleteworkoutFromList (sender: )), for: UIControlEvents.touchUpInside)
+        cell.deleteButton.addTarget(self, action: #selector(deleteWorkoutFromList (sender: )), for: UIControlEvents.touchUpInside)
         
         
         
@@ -213,9 +212,9 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)  {
         if(searchActive){
-            selectedworkoutObj = (filteredArray.object(at: indexPath.row) as? workouts)!
+            selectedWorkoutObj = (filteredArray.object(at: indexPath.row) as? Workouts)!
         }else {
-            selectedworkoutObj = (workoutsArray.object(at: indexPath.row) as? workouts)!
+            selectedWorkoutObj = (workoutsArray.object(at: indexPath.row) as? Workouts)!
         }
         self.performSegue(withIdentifier: "workout_detail", sender: self)
     }
@@ -257,23 +256,23 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     
     func navigateToUpdateController(sender : Any) {
         let btn : UIButton = sender as! UIButton
-        editedworkoutCellNumber = btn.tag
+        editedWorkoutCellNumber = btn.tag
         if(searchActive){
-            selectedworkoutObj = (filteredArray.object(at: btn.tag) as? workouts)!
+            selectedWorkoutObj = (filteredArray.object(at: btn.tag) as? Workouts)!
         }else {
-            selectedworkoutObj = (workoutsArray.object(at: btn.tag) as? workouts)!
+            selectedWorkoutObj = (workoutsArray.object(at: btn.tag) as? Workouts)!
         }
         self.performSegue(withIdentifier: "workout_update", sender: self)
     }
     
-    func deleteworkoutFromList(sender : Any) {
+    func deleteWorkoutFromList(sender : Any) {
         let btn : UIButton = sender as! UIButton
-        editedworkoutCellNumber = btn.tag
+        editedWorkoutCellNumber = btn.tag
         
         if(searchActive){
-            selectedworkoutObj = (filteredArray.object(at: btn.tag) as? workouts)!
+            selectedWorkoutObj = (filteredArray.object(at: btn.tag) as? Workouts)!
         }else {
-            selectedworkoutObj = (workoutsArray.object(at: btn.tag) as? workouts)!
+            selectedWorkoutObj = (workoutsArray.object(at: btn.tag) as? Workouts)!
         }
         
         
@@ -287,10 +286,10 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let workoutBean = selectedworkoutObj
-        let paramDict : [String : Any] = ["name" : workoutBean.name, "role" : workoutBean.role, "email": workoutBean.email, "contact_number": workoutBean.contact_number?.stringValue ?? "", "dob" : workoutBean.dob, "gender" : workoutBean.gender, "address" : workoutBean.address, "joining_date": workoutBean.joining_date, "salary": workoutBean.salary, "salary_date": workoutBean.salary_date?.stringValue , "remarks" : workoutBean.remarks]
+        let workoutBean = selectedWorkoutObj
+        let paramDict : [String : Any] = ["delete_status" : "Yes", "workout_id" : workoutBean.workout_id!.stringValue]//, "partner_id": workoutBean.]
         
-        let urlString : String = ServerConstants.URL_workout + "/" + (workoutBean.id?.stringValue)!
+        let urlString : String = ServerConstants.URL_DELETE_WORKOUT
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "DELETE") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -301,7 +300,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 if (responseDic != nil) {
                     print(responseDic!)
                     
-                    self.workoutsArray.removeObject(at: self.editedworkoutCellNumber)
+                    self.workoutsArray.removeObject(at: self.editedWorkoutCellNumber)
                     self.workoutTableView.reloadData()
                 }
             }
@@ -312,7 +311,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    func addNewworkoutToList (workoutBean: workouts) {
+    func addNewWorkoutToList(workoutBean: Workouts) {
         
         if (appDelegate.userBean == nil) {
             return
@@ -324,13 +323,9 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        //        ["Name", "Role", "Email", "Contact No.", "Date of Birth", "Gender", "Address", "Joining Date", "Salary", "Salary Date
+        let paramDict : [String : Any] = ["workout_category_id" : workoutBean.workout_category_id!, "workout_name" : workoutBean.workout_name!, "workout_description": workoutBean.workout_description!, "workout_status": workoutBean.is_active!.stringValue]
         
-        //         address  contact_number   created_at   dob   email  gender   id   is_active  is_deleted joining_date :   joining_documents  name   remarks    role   salary   salary_date   updated_at :
-        
-        let paramDict : [String : Any] = ["name" : workoutBean.name!, "role" : workoutBean.role!, "email": workoutBean.email!, "contact_number": workoutBean.contact_number?.stringValue ?? "", "dob" : workoutBean.dob!, "gender" : workoutBean.gender!, "address" : workoutBean.address!, "joining_date": workoutBean.joining_date!, "salary": workoutBean.salary!, "salary_date": workoutBean.salary_date?.stringValue ?? ""]
-        
-        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_workout , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_ADD_WORKOUT , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
             ProgressHUD.hideProgress()
             
@@ -351,7 +346,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         }
     }
     
-    func updateworkoutToList (workoutBean: workouts) {
+    func updateWorkoutToList(workoutBean: Workouts) {
         
         if (appDelegate.userBean == nil) {
             return
@@ -363,14 +358,10 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        //        ["Name", "Role", "Email", "Contact No.", "Date of Birth", "Gender", "Address", "Joining Date", "Salary", "Salary Date
+        let paramDict : [String : Any] = ["workout_id" : workoutBean.workout_id!, "workout_category_id" : workoutBean.workout_category_id!, "workout_name": workoutBean.workout_name!, "workout_description": workoutBean.workout_description!, "workout_status" : workoutBean.is_active!.stringValue]
         
-        //         address  contact_number   created_at   dob   email  gender   id   is_active  is_deleted joining_date :   joining_documents  name   remarks    role   salary   salary_date   updated_at :
-        
-        let paramDict : [String : Any] = ["name" : workoutBean.name!, "role" : workoutBean.role!, "email": workoutBean.email!, "contact_number": workoutBean.contact_number?.stringValue ?? "", "dob" : workoutBean.dob!, "gender" : workoutBean.gender!, "address" : workoutBean.address!, "joining_date": workoutBean.joining_date!, "salary": workoutBean.salary!, "salary_date": workoutBean.salary_date?.stringValue ?? "", "remarks" : workoutBean.remarks ?? ""]
-        
-        let urlString : String = ServerConstants.URL_workout + "/" + (workoutBean.id?.stringValue)!
-        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "PUT") { (data, response, error) in
+        let urlString : String = ServerConstants.URL_UPDATE_WORKOUT
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
             ProgressHUD.hideProgress()
             
@@ -379,9 +370,8 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    
-                    self.workoutsArray.removeObject(at: self.editedworkoutCellNumber)
-                    self.workoutsArray.insert(workoutBean, at: self.editedworkoutCellNumber)
+                    self.workoutsArray.removeObject(at: self.editedWorkoutCellNumber)
+                    self.workoutsArray.insert(workoutBean, at: self.editedWorkoutCellNumber)
                     self.workoutTableView.reloadData()
                 }
             }

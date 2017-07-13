@@ -15,7 +15,7 @@ class Workouts: NSObject {
     var is_active : NSNumber?
     var update_time : String? = ""
     var updated_by : String? = ""
-    var workout_category_id : NSNumber?
+    var workout_category_id : String?
     var workout_category_name : String?
     var workout_description : String? = ""
     var workout_id : NSNumber?
@@ -39,14 +39,14 @@ class Workouts: NSObject {
             workoutBean.is_active = workoutObj["is_active"] as? NSNumber
             workoutBean.update_time = workoutObj["update_time"] as? String
             workoutBean.updated_by = workoutObj["updated_by"] as? String
-            workoutBean.workout_category_id = workoutObj["workout_category_id"] as? NSNumber
+            workoutBean.workout_category_id = workoutObj["workout_category_id"] as? String
             workoutBean.workout_category_name = workoutObj["workout_category_name"] as? String
             workoutBean.workout_description = workoutObj["workout_description"] as? String
             workoutBean.workout_id = workoutObj["workout_id"] as? NSNumber
             workoutBean.workout_image = workoutObj["workout_image"] as? String
             workoutBean.workout_name = workoutObj["workout_name"] as? String
             
-            let workoutSchedulesArray: NSMutableArray = workoutObj["workout_schedules"] as! NSMutableArray
+            let workoutSchedulesArray = workoutObj["workout_schedules"] as! NSArray
             
             
             for studioObj in (workoutSchedulesArray as? [[String:Any]])! {

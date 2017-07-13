@@ -10,12 +10,19 @@ import UIKit
 
 class WorkoutAddController: BaseViewController {
         
-    @IBOutlet weak var workoutAddTableview: UITableView!
     @IBOutlet weak var workoutNameTxtField: UITextField!
     @IBOutlet weak var workoutCategoryButton: UIButton!
     @IBOutlet weak var workoutStatusButton: UIButton!
     @IBOutlet weak var workoutDescriptionButton: UITextField!
 
+    @IBAction func categoryButtonSelected(_ sender: Any) {
+        
+    }
+    
+    @IBAction func statusButtonSelected(_ sender: Any) {
+        
+    }
+    
     var delegate : workoutDelegate?
         
         var keyLabelNameArray : NSArray = ["Workout Name*", "Workout Category*", "Workout Status*", "Workout Description*"]
@@ -39,6 +46,10 @@ class WorkoutAddController: BaseViewController {
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             self.navigationItem.title = "Add Workout"
+            self.workoutNameTxtField.text = ""
+            self.workoutCategoryButton.setTitle("", for: UIControlState.normal)
+            self.workoutStatusButton.setTitle("", for: UIControlState.normal)
+            self.workoutDescriptionButton.text = ""
         }
         
         func dismissViewController() {
@@ -55,6 +66,27 @@ class WorkoutAddController: BaseViewController {
                 AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
             }
             
+            if(self.workoutNameTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+                AlertView.showCustomAlertWithMessage(message: "Please enter workout name", yPos: 20, duration: NSInteger(2.0))
+                return isValidUser
+            }
+            
+            
+            if(self.workoutCategoryButton.titleLabel?.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+                AlertView.showCustomAlertWithMessage(message: "Please enter workout category", yPos: 20, duration: NSInteger(2.0))
+                return isValidUser
+            }
+            
+            if(self.workoutStatusButton.titleLabel?.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+                AlertView.showCustomAlertWithMessage(message: "Please enter Contact No.", yPos: 20, duration: NSInteger(2.0))
+                return isValidUser
+            }
+            
+            if(self.workoutDescriptionButton.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+                AlertView.showCustomAlertWithMessage(message: "Please enter workout description", yPos: 20, duration: NSInteger(2.0))
+                return isValidUser
+            }
+            
             isValidUser = true
             return isValidUser
         }
@@ -63,7 +95,7 @@ class WorkoutAddController: BaseViewController {
         func addNewWorkout() {
             
             if !isValidworkout() {
-                AlertView.showCustomAlertWithMessage(message: "Please enter valid details", yPos: 20, duration: NSInteger(2.0))
+                AlertView.showCustomAlertWithMessage(message: "Please enter required details", yPos: 20, duration: NSInteger(2.0))
                 return
             }
             self.dismissViewController()

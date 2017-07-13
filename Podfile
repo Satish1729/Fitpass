@@ -7,8 +7,6 @@ pod 'Alamofire', '~> 4.0'
 pod 'IQKeyboardManagerSwift'
 pod 'SideMenuController'
 pod 'ReachabilitySwift', '~> 3'
-pod 'Firebase/Core'
-pod 'Firebase/Messaging'
 pod 'DropDown'
 
 end

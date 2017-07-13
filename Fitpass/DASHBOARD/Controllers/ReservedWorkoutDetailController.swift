@@ -1,34 +1,38 @@
 //
-//  WorkoutDetailController.swift
+//  ReservedWorkoutDetailController.swift
 //  Fitpass
 //
-//  Created by Satish Regeti on 11/07/17.
+//  Created by Satish Regeti on 13/07/17.
 //  Copyright © 2017 Satish. All rights reserved.
 //
 
 import UIKit
 
-class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class ReservedWorkoutDetailController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         
-        var workoutObj : Workouts?
-        var workoutDetailArray : NSMutableArray = NSMutableArray()
+        var reservedWorkoutObj : ReservedWorkouts?
+        var reservedWorkoutDetailArray : NSMutableArray = NSMutableArray()
         
-        @IBOutlet weak var workoutDetailTableView: UITableView!
-        @IBOutlet weak var nameLabel: UILabel!
+        @IBOutlet weak var reservedWorkoutDetailTableView: UITableView!
+        @IBOutlet weak var workoutNameLabel: UILabel!
         @IBOutlet weak var profileImageView: UIImageView!
         
-        
-        var keyLabelNameArray : NSArray = ["Created By", "Workout Status", "Description"]
+        var keyLabelNameArray : NSArray = ["User Name", "Phone Number", "Membership Id", "Workout Status", "Workout Date", "Schedule Id"]
         
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            self.nameLabel.text = workoutObj?.workout_name
-            
+            self.workoutNameLabel.text = reservedWorkoutObj?.workout_name
             self.profileImageView.image = UIImage(named: "workout_detail")
             
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
+            let backBtn = UIButton(type: .custom)
+            backBtn.setImage(UIImage(named: "img_back"), for: .normal)
+            backBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+            backBtn.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
+            let item1 = UIBarButtonItem(customView: backBtn)
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+            self.navigationItem.leftBarButtonItem = item1
+            
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -59,41 +63,39 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
         public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
             
             let view : UIView = UIView()
-            view.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 30)
-            view.backgroundColor = UIColor.white
-            
-            let nameLabel : UILabel = UILabel(frame: CGRect(x: 5, y: 0, width: view.frame.size.width, height: view.frame.size.height))
-            nameLabel.textAlignment = .left
-            nameLabel.text = workoutObj?.workout_name!
-            nameLabel.font = UIFont.boldSystemFont(ofSize: 17)
-            nameLabel.textColor = UIColor.black
-            view.addSubview(nameLabel)
+            view.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 0)
             
             return view
         }
         
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
-            let cell : WorkoutDetailCell = tableView.dequeueReusableCell(withIdentifier: "WorkoutDetailCell") as! WorkoutDetailCell
+            let cell : ReservedWorkoutDetailCell = tableView.dequeueReusableCell(withIdentifier: "ReservedWorkoutDetailCell") as! ReservedWorkoutDetailCell
             
             cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
             var strValue : String? = ""
             switch indexPath.row {
             case 0:
-                strValue = workoutObj?.created_by
+                strValue = reservedWorkoutObj?.user_name
             case 1:
-                strValue = workoutObj?.is_active?.stringValue
+                strValue = reservedWorkoutObj?.user_mobile
             case 2:
-                strValue = workoutObj?.workout_description
+                strValue = reservedWorkoutObj?.user_membership_id
+            case 3:
+                strValue = reservedWorkoutObj?.status
+            case 4:
+                strValue = reservedWorkoutObj?.workout_date
+            case 5:
+                strValue = reservedWorkoutObj?.user_schedule_id
             default:
-                strValue = "NA"
+                strValue = ""
             }
             
             cell.valueLabel.text = strValue
             if(indexPath.row%2 == 0){
                 cell.contentView.backgroundColor = UIColor.white
             }else {
-                cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.3)
+                cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
             }
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero

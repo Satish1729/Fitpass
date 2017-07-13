@@ -25,7 +25,7 @@ class PaymentDetailController: BaseViewController, UITableViewDelegate, UITableV
         
         self.bankUtrNumberLabel.text = paymentObj?.bank_utr_number?.stringValue
         self.paymentStatusLabel.text=paymentObj?.payment_status
-        self.profileImageView.image = UIImage(named: "man")
+        self.profileImageView.image = UIImage(named: "percentage")
         
         let backBtn = UIButton(type: .custom)
         backBtn.setImage(UIImage(named: "img_back"), for: .normal)

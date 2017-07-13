@@ -10,7 +10,7 @@ import UIKit
 
 class WorkoutUpdateController: BaseViewController{
         
-        @IBOutlet weak var workoutUpdateTableview: UITableView!
+    @IBOutlet weak var workoutUpdateTableview: UITableView!
     @IBOutlet weak var workoutNameTxtField: UITextField!
     @IBOutlet weak var workoutCategoryButton: UIButton!
     @IBOutlet weak var workoutStatusButton: UIButton!
@@ -39,8 +39,12 @@ class WorkoutUpdateController: BaseViewController{
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             self.navigationItem.title = "Update Workout"
+            self.workoutNameTxtField.text = workoutObj?.workout_name ?? ""
+            self.workoutCategoryButton.setTitle(workoutObj?.workout_category_name ?? "", for: UIControlState.normal)
+            self.workoutStatusButton.setTitle(workoutObj?.is_active?.stringValue ?? "", for: UIControlState.normal)
+            self.workoutDescriptionButton.text = workoutObj?.workout_description ?? ""
         }
-        
+    
         func dismissViewController() {
             _ = self.navigationController?.popViewController(animated: true)
         }
@@ -50,14 +54,10 @@ class WorkoutUpdateController: BaseViewController{
             self.dismissViewController()
             let workoutBean : Workouts = Workouts()
             
-            
-//            workoutBean.id = workoutObj?.id
-//            workoutBean.is_active = workoutObj?.is_active
-//            workoutBean.is_deleted = workoutObj?.is_deleted
-//            workoutBean.created_at = workoutObj?.created_at
-//            workoutBean.updated_at = workoutObj?.updated_at
-//            workoutBean.joining_documents = workoutObj?.joining_documents
-//            workoutBean.remarks = workoutObj?.remarks
+            workoutBean.is_active = NSNumber.init(value: Int((workoutStatusButton.titleLabel?.text)!)!)
+            workoutBean.workout_category_name = workoutCategoryButton.titleLabel?.text!
+            workoutBean.workout_name = workoutNameTxtField.text
+            workoutBean.workout_description = workoutDescriptionButton.text
             
             self.delegate?.updateWorkoutToList(workoutBean: workoutBean)
         }

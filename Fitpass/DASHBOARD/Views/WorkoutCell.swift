@@ -25,7 +25,7 @@ class WorkoutCell: UITableViewCell {
         }
 
         if let categoryId = workoutBean.workout_category_id {
-            self.workoutCategoryIdLabel.text = categoryId.stringValue
+            self.workoutCategoryIdLabel.text = categoryId
         }
         
         if let createdBy = workoutBean.created_by {

@@ -67,6 +67,10 @@
 		3BCE56C21ED9C21D0036C79E /* LeadDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE56C11ED9C21D0036C79E /* LeadDetailController.swift */; };
 		3BEAAFB61EDAB9080083AA51 /* LeadsFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEAAFB51EDAB9080083AA51 /* LeadsFilterViewController.swift */; };
 		3BEAAFB81EDAC84D0083AA51 /* LeadDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEAAFB71EDAC84D0083AA51 /* LeadDetailCell.swift */; };
+		753DB4051F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DB4041F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift */; };
+		753DB4071F174EFE00A6C1A1 /* ReservedWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DB4061F174EFE00A6C1A1 /* ReservedWorkouts.swift */; };
+		753DB4091F175E9E00A6C1A1 /* ReservedWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DB4081F175E9E00A6C1A1 /* ReservedWorkoutCell.swift */; };
+		753DB40B1F175EB600A6C1A1 /* ReservedWorkoutDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DB40A1F175EB600A6C1A1 /* ReservedWorkoutDetailCell.swift */; };
 		7553819C1F14E73C008F6794 /* WorkoutDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553819B1F14E73C008F6794 /* WorkoutDetailController.swift */; };
 		7553819E1F14E763008F6794 /* WorkoutAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553819D1F14E763008F6794 /* WorkoutAddController.swift */; };
 		755381A01F14E782008F6794 /* WorkoutUpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7553819F1F14E782008F6794 /* WorkoutUpdateController.swift */; };
@@ -164,6 +168,10 @@
 		3BCE56C11ED9C21D0036C79E /* LeadDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeadDetailController.swift; path = DASHBOARD/Controllers/LeadDetailController.swift; sourceTree = "<group>"; };
 		3BEAAFB51EDAB9080083AA51 /* LeadsFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeadsFilterViewController.swift; path = DASHBOARD/Controllers/LeadsFilterViewController.swift; sourceTree = "<group>"; };
 		3BEAAFB71EDAC84D0083AA51 /* LeadDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeadDetailCell.swift; path = DASHBOARD/Views/LeadDetailCell.swift; sourceTree = "<group>"; };
+		753DB4041F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReservedWorkoutDetailController.swift; path = DASHBOARD/Controllers/ReservedWorkoutDetailController.swift; sourceTree = "<group>"; };
+		753DB4061F174EFE00A6C1A1 /* ReservedWorkouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReservedWorkouts.swift; path = DASHBOARD/Models/ReservedWorkouts.swift; sourceTree = "<group>"; };
+		753DB4081F175E9E00A6C1A1 /* ReservedWorkoutCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReservedWorkoutCell.swift; path = DASHBOARD/Views/ReservedWorkoutCell.swift; sourceTree = "<group>"; };
+		753DB40A1F175EB600A6C1A1 /* ReservedWorkoutDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReservedWorkoutDetailCell.swift; path = DASHBOARD/Views/ReservedWorkoutDetailCell.swift; sourceTree = "<group>"; };
 		7553819B1F14E73C008F6794 /* WorkoutDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutDetailController.swift; path = DASHBOARD/Controllers/WorkoutDetailController.swift; sourceTree = "<group>"; };
 		7553819D1F14E763008F6794 /* WorkoutAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutAddController.swift; path = DASHBOARD/Controllers/WorkoutAddController.swift; sourceTree = "<group>"; };
 		7553819F1F14E782008F6794 /* WorkoutUpdateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutUpdateController.swift; path = DASHBOARD/Controllers/WorkoutUpdateController.swift; sourceTree = "<group>"; };
@@ -314,6 +322,7 @@
 				7553819D1F14E763008F6794 /* WorkoutAddController.swift */,
 				7553819F1F14E782008F6794 /* WorkoutUpdateController.swift */,
 				3B680F311EC6ED2A00549969 /* ReservedWorkoutsController.swift */,
+				753DB4041F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift */,
 				3B680F331EC6ED4500549969 /* WorkoutScheduleController.swift */,
 			);
 			name = Controllers;
@@ -336,6 +345,8 @@
 				755381A31F14E8B6008F6794 /* WorkoutCell.swift */,
 				755381A51F14E8D3008F6794 /* WorkoutDetailCell.swift */,
 				755381A71F14E8EA008F6794 /* WorkoutAddCell.swift */,
+				753DB4081F175E9E00A6C1A1 /* ReservedWorkoutCell.swift */,
+				753DB40A1F175EB600A6C1A1 /* ReservedWorkoutDetailCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -349,6 +360,7 @@
 				3B3D5D3C1F04271B0036425F /* Assets.swift */,
 				3B0C8B721F10EFE1001DB937 /* Payments.swift */,
 				755381A11F14E86F008F6794 /* Workouts.swift */,
+				753DB4061F174EFE00A6C1A1 /* ReservedWorkouts.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -589,6 +601,7 @@
 				3BC9592E1EDC57D000A94CCE /* StaffCell.swift in Sources */,
 				3B4DAF2F1F04A47100BDB69B /* AssetsCell.swift in Sources */,
 				3BC959381EDC8FEB00A94CCE /* Members.swift in Sources */,
+				753DB40B1F175EB600A6C1A1 /* ReservedWorkoutDetailCell.swift in Sources */,
 				3B2160051EDD4D0D004A55F4 /* StaffUpdateController.swift in Sources */,
 				3B2160031EDD4CF5004A55F4 /* StaffAddController.swift in Sources */,
 				3B2160011EDD4C25004A55F4 /* StaffDetailController.swift in Sources */,
@@ -604,6 +617,7 @@
 				3B0C8B751F10F541001DB937 /* PaymentsCell.swift in Sources */,
 				3B58C05D1EB0A35D006086E5 /* Enums.swift in Sources */,
 				755381A01F14E782008F6794 /* WorkoutUpdateController.swift in Sources */,
+				753DB4071F174EFE00A6C1A1 /* ReservedWorkouts.swift in Sources */,
 				3BC959301EDC57EA00A94CCE /* StaffDetailCell.swift in Sources */,
 				3B680F1E1EC56A3C00549969 /* CustomSideMenuController.swift in Sources */,
 				3B58C05B1EB0A330006086E5 /* ConnectionChecker.swift in Sources */,
@@ -634,7 +648,9 @@
 				3B0464FD1ED852EB00A33F41 /* Leads.swift in Sources */,
 				3B680F2A1EC6EC4500549969 /* StaffsController.swift in Sources */,
 				3BC9593A1EDC91EE00A94CCE /* MemberDetailController.swift in Sources */,
+				753DB4051F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift in Sources */,
 				3B58C05F1EB0B86D006086E5 /* UIRoundProgressView.swift in Sources */,
+				753DB4091F175E9E00A6C1A1 /* ReservedWorkoutCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
