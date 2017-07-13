@@ -22,8 +22,7 @@ class ReservedWorkouts: NSObject {
     
     func updateReservedWorkouts(responseDict : NSDictionary?) -> NSMutableArray {
         
-        let resultDict: NSDictionary = responseDict!.object(forKey: "result") as! NSDictionary
-        let dataArray : NSArray = resultDict.object(forKey: "data") as! NSArray
+        let dataArray : NSArray = responseDict!.object(forKey: "data") as! NSArray
         
         let tempArray : NSMutableArray = NSMutableArray()
         

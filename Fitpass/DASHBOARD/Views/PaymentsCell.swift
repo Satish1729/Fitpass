@@ -20,7 +20,7 @@ class PaymentsCell: UITableViewCell {
     func updatePaymentsDetails (paymentBean : Payments) {
         
         if let bankutr = paymentBean.bank_utr_number {
-            self.bankUtrNumberLabel.text = bankutr.stringValue
+            self.bankUtrNumberLabel.text = bankutr
         }
         
         if let paymentdate = paymentBean.payment_date {

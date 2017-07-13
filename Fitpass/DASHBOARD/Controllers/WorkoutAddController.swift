@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DropDown
 
 class WorkoutAddController: BaseViewController {
         
@@ -16,7 +17,15 @@ class WorkoutAddController: BaseViewController {
     @IBOutlet weak var workoutDescriptionButton: UITextField!
 
     @IBAction func categoryButtonSelected(_ sender: Any) {
-        
+        let dropDown = DropDown()
+        dropDown.anchorView = self.workoutCategoryButton
+        dropDown.backgroundColor = UIColor.darkGray
+        dropDown.dataSource = ["Satish", "yoga", "swimming"]
+        dropDown.direction = .any
+        dropDown.width = self.workoutCategoryButton.frame.size.width
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.workoutCategoryButton.setTitle(item, for: UIControlState.normal)
+        }
     }
     
     @IBAction func statusButtonSelected(_ sender: Any) {

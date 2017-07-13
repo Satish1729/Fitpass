@@ -22,6 +22,7 @@
 		3B4DAF311F04A4AE00BDB69B /* AssetDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4DAF301F04A4AE00BDB69B /* AssetDetailCell.swift */; };
 		3B4DAF331F04AA1C00BDB69B /* AssetDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4DAF321F04AA1C00BDB69B /* AssetDetailController.swift */; };
 		3B4DAF351F04B1A700BDB69B /* AssetsFilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4DAF341F04B1A700BDB69B /* AssetsFilterController.swift */; };
+		3B51FF871F17E4B00004D4D0 /* WorkoutSchedules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B51FF861F17E4B00004D4D0 /* WorkoutSchedules.swift */; };
 		3B58C0121EB07E19006086E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B58C0111EB07E19006086E5 /* AppDelegate.swift */; };
 		3B58C0171EB07E19006086E5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B58C0151EB07E19006086E5 /* Main.storyboard */; };
 		3B58C0191EB07E19006086E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3B58C0181EB07E19006086E5 /* Assets.xcassets */; };
@@ -117,6 +118,7 @@
 		3B4DAF301F04A4AE00BDB69B /* AssetDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssetDetailCell.swift; path = DASHBOARD/Views/AssetDetailCell.swift; sourceTree = "<group>"; };
 		3B4DAF321F04AA1C00BDB69B /* AssetDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssetDetailController.swift; path = DASHBOARD/Controllers/AssetDetailController.swift; sourceTree = "<group>"; };
 		3B4DAF341F04B1A700BDB69B /* AssetsFilterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssetsFilterController.swift; path = DASHBOARD/Controllers/AssetsFilterController.swift; sourceTree = "<group>"; };
+		3B51FF861F17E4B00004D4D0 /* WorkoutSchedules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutSchedules.swift; path = DASHBOARD/Models/WorkoutSchedules.swift; sourceTree = "<group>"; };
 		3B58C00E1EB07E19006086E5 /* Fitpass.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fitpass.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B58C0111EB07E19006086E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3B58C0161EB07E19006086E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				3B0C8B721F10EFE1001DB937 /* Payments.swift */,
 				755381A11F14E86F008F6794 /* Workouts.swift */,
 				753DB4061F174EFE00A6C1A1 /* ReservedWorkouts.swift */,
+				3B51FF861F17E4B00004D4D0 /* WorkoutSchedules.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 				755381A61F14E8D3008F6794 /* WorkoutDetailCell.swift in Sources */,
 				3B680F281EC6EC2900549969 /* AssetsController.swift in Sources */,
 				3BC959341EDC8F7300A94CCE /* MembersCell.swift in Sources */,
+				3B51FF871F17E4B00004D4D0 /* WorkoutSchedules.swift in Sources */,
 				3B680F221EC6D2D000549969 /* MenuController.swift in Sources */,
 				3B680F1C1EC55E5F00549969 /* LeadsViewController.swift in Sources */,
 				3BCDA07D1EC01CBB00E04767 /* DashboardViewController.swift in Sources */,

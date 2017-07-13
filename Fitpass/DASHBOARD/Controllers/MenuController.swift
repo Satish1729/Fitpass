@@ -118,16 +118,21 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let studioNamesArray : NSMutableArray = NSMutableArray()
 
-        for studioObj in (appDelegate.userBean?.studioArray as? [StudioBean])! {
+        for studioObj in (appDelegate.userBean?.studioArray)! {
             let studioName : String = studioObj.studio_name!
             studioNamesArray.add(studioName)
         }
         dropDown.anchorView = self.studioTypeBtn
+        dropDown.backgroundColor = UIColor.darkGray
+        dropDown.textColor = UIColor.white
         dropDown.dataSource = studioNamesArray as! [String]
         dropDown.direction = .any
         dropDown.width = 280
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.studioTypeBtn.setTitle(item, for: UIControlState.normal)
+            let selectedStudioObjArray = appDelegate.userBean!.studioArray as NSArray
+            let selectedStudio = selectedStudioObjArray.object(at: index) as! StudioBean
+            appDelegate.userBean?.authHeader = selectedStudio.studio_token
         }
     }
     

@@ -23,7 +23,7 @@ class PaymentDetailController: BaseViewController, UITableViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.bankUtrNumberLabel.text = paymentObj?.bank_utr_number?.stringValue
+        self.bankUtrNumberLabel.text = paymentObj?.bank_utr_number
         self.paymentStatusLabel.text=paymentObj?.payment_status
         self.profileImageView.image = UIImage(named: "percentage")
         
@@ -85,7 +85,7 @@ class PaymentDetailController: BaseViewController, UITableViewDelegate, UITableV
         var strValue : String? = ""
         switch indexPath.row {
         case 0:
-            strValue = paymentObj?.bank_utr_number?.stringValue
+            strValue = paymentObj?.bank_utr_number
         case 1:
             strValue = paymentObj?.total_amount
         case 2:

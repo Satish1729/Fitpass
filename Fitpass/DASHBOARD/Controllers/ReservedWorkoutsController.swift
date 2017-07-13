@@ -119,7 +119,7 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
         }
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 150
+            return 120
         }
         
         func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

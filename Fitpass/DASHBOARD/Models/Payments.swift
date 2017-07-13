@@ -11,7 +11,7 @@ import UIKit
 class Payments: NSObject {
     
     var attended_workout : String? = ""
-    var bank_utr_number : NSNumber?
+    var bank_utr_number : String? = ""
     var comment : String? = ""
     var pay_amount : String? = ""
     var payment_date : String? = ""
@@ -26,7 +26,7 @@ class Payments: NSObject {
         for paymentObj in (dataArray as? [[String:Any]])! {
             let paymentBean : Payments = Payments()
             paymentBean.attended_workout = paymentObj[ "attended_workout"] as? String
-            paymentBean.bank_utr_number = paymentObj[ "bank_utr_number"] as? NSNumber
+            paymentBean.bank_utr_number = paymentObj[ "bank_utr_number"] as? String
             paymentBean.comment = paymentObj[ "comment"] as? String
             paymentBean.pay_amount = paymentObj[ "pay_amount"] as? String
             paymentBean.payment_date = paymentObj[ "payment_date"] as? String
