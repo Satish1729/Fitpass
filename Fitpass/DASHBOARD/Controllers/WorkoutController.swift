@@ -287,7 +287,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         ProgressHUD.showProgress(targetView: self.view)
         
         let workoutBean = selectedWorkoutObj
-        let paramDict : [String : Any] = ["delete_status" : "Yes", "workout_id" : workoutBean.workout_id!.stringValue]//, "partner_id": workoutBean.]
+        let paramDict : [String : Any] = ["delete_status" : "Yes", "workout_id" : workoutBean.workout_id!]//, "partner_id": workoutBean.]
         
         let urlString : String = ServerConstants.URL_DELETE_WORKOUT
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "DELETE") { (data, response, error) in
@@ -323,7 +323,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let paramDict : [String : Any] = ["workout_category_id" : workoutBean.workout_category_id!, "workout_name" : workoutBean.workout_name!, "workout_description": workoutBean.workout_description!, "workout_status": workoutBean.is_active!.stringValue]
+        let paramDict : [String : Any] = ["workout_category_id" : workoutBean.workout_category_id!, "workout_name" : workoutBean.workout_name!, "workout_description": workoutBean.workout_description!, "workout_status": workoutBean.is_active!]
         
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_ADD_WORKOUT , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
@@ -358,7 +358,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let paramDict : [String : Any] = ["workout_id" : workoutBean.workout_id!, "workout_category_id" : workoutBean.workout_category_id!, "workout_name": workoutBean.workout_name!, "workout_description": workoutBean.workout_description!, "workout_status" : workoutBean.is_active!.stringValue]
+        let paramDict : [String : Any] = ["workout_id" : workoutBean.workout_id!, "workout_category_id" : workoutBean.workout_category_id!, "workout_name": workoutBean.workout_name!, "workout_description": workoutBean.workout_description!, "workout_status" : workoutBean.is_active!]
         
         let urlString : String = ServerConstants.URL_UPDATE_WORKOUT
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in

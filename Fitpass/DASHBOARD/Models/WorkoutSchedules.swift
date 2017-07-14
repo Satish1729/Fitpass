@@ -28,7 +28,7 @@ class WorkoutSchedules: NSObject {
         
         for workoutScheduleObj in (dataArray as? [[String:Any]])! {
             
-            let workoutScheduleBean : WorkoutSchedules = WorkoutSchedules()
+            let workoutScheduleBean = WorkoutSchedules()
             
             workoutScheduleBean.workout_schedule_id = workoutScheduleObj["workout_schedule_id"] as? String
             workoutScheduleBean.number_of_seats = workoutScheduleObj["number_of_seats"] as? String

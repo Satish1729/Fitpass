@@ -1,62 +1,30 @@
 PODS:
-  - Alamofire (4.4.0)
+  - Alamofire (4.5.0)
   - DropDown (2)
-  - Firebase/Core (4.0.0):
-    - FirebaseAnalytics (= 4.0.0)
-    - FirebaseCore (= 4.0.0)
-  - Firebase/Messaging (4.0.0):
-    - Firebase/Core
-    - FirebaseMessaging (= 2.0.0)
-  - FirebaseAnalytics (4.0.0):
-    - FirebaseCore (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseCore (4.0.0):
-    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
-  - FirebaseInstanceID (2.0.0):
-    - FirebaseCore (~> 4.0)
-  - FirebaseMessaging (2.0.0):
-    - FirebaseAnalytics (~> 4.0)
-    - FirebaseCore (~> 4.0)
-    - FirebaseInstanceID (~> 2.0)
-    - GoogleToolboxForMac/Logger (~> 2.1)
-    - Protobuf (~> 3.1)
-  - GoogleToolboxForMac/Defines (2.1.1)
-  - GoogleToolboxForMac/Logger (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - GoogleToolboxForMac/NSData+zlib (2.1.1):
-    - GoogleToolboxForMac/Defines (= 2.1.1)
-  - IQKeyboardManagerSwift (4.0.9)
-  - PKHUD (4.2.2)
-  - Protobuf (3.3.0)
+  - IQKeyboardManagerSwift (4.0.10)
+  - PKHUD (4.2.3)
   - ReachabilitySwift (3)
   - SideMenuController (0.2.4)
+  - SwiftCharts (0.6)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
   - DropDown
-  - Firebase/Core
-  - Firebase/Messaging
   - IQKeyboardManagerSwift
   - PKHUD (~> 4.0)
   - ReachabilitySwift (~> 3)
   - SideMenuController
+  - SwiftCharts (~> 0.6)
 
 SPEC CHECKSUMS:
-  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
-  Firebase: 284eea779b73fdff309791817da7c68bff8dd572
-  FirebaseAnalytics: 6f08e746f7d66f5452931bc2e822b5df9c66b64a
-  FirebaseCore: 85ad466044c2f013cdb167f85d426d15b128114a
-  FirebaseInstanceID: 9fbf536668f4d3f0880e7438456dabd1376e294b
-  FirebaseMessaging: 227406c05b0dc9290702d2e9f18ab5528f0c2cf2
-  GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
-  IQKeyboardManagerSwift: 2eefe6c429b86aa08bfbc1b5c891164d754adf91
-  PKHUD: 9a3599e04d57676ec14746c40e423a52fb6588c0
-  Protobuf: d582fecf68201eac3d79ed61369ef45734394b9c
+  IQKeyboardManagerSwift: 75ba21a23794a1e6b6fe6d9a267ea17f80e06771
+  PKHUD: c7692163a09875cbf15827dc581df3c5cf7f1015
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
   SideMenuController: b463d2b3aa58e2afe57f57a07938fa9a647894ca
+  SwiftCharts: d8e6d60679bc982f48f8bea25cf5c1b94fcfec4f
 
-PODFILE CHECKSUM: '03738e13799dc8ba051fc3c5f8178b081ef146a4'
+PODFILE CHECKSUM: cbfe020e1e49cf81d49fb1d2ded3ad7a32ea02ef
 
 COCOAPODS: 1.2.1

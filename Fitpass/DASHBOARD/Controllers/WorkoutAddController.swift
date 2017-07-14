@@ -15,27 +15,34 @@ class WorkoutAddController: BaseViewController {
     @IBOutlet weak var workoutCategoryButton: UIButton!
     @IBOutlet weak var workoutStatusButton: UIButton!
     @IBOutlet weak var workoutDescriptionButton: UITextField!
+    let dropDown = DropDown()
 
     @IBAction func categoryButtonSelected(_ sender: Any) {
-        let dropDown = DropDown()
         dropDown.anchorView = self.workoutCategoryButton
-        dropDown.backgroundColor = UIColor.darkGray
-        dropDown.dataSource = ["Satish", "yoga", "swimming"]
-        dropDown.direction = .any
+        dropDown.bottomOffset = CGPoint(x:0, y:self.workoutCategoryButton.frame.size.height)
         dropDown.width = self.workoutCategoryButton.frame.size.width
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.workoutCategoryButton.setTitle(item, for: UIControlState.normal)
         }
+        dropDown.dataSource = ["Aerobics", "yoga", "swimming"]
+        dropDown.show()
     }
     
     @IBAction func statusButtonSelected(_ sender: Any) {
-        
+        dropDown.anchorView = self.workoutStatusButton
+        dropDown.bottomOffset = CGPoint(x:0, y:self.workoutStatusButton.frame.size.height)
+        dropDown.width = self.workoutStatusButton.frame.size.width
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            self.workoutStatusButton.setTitle(item, for: UIControlState.normal)
+        }
+        dropDown.dataSource = ["Aerobics", "yoga", "swimming"]
+        dropDown.show()
     }
     
     var delegate : workoutDelegate?
-        
-        var keyLabelNameArray : NSArray = ["Workout Name*", "Workout Category*", "Workout Status*", "Workout Description*"]
-        
+    
+//        var keyLabelNameArray : NSArray = ["Workout Name*", "Workout Category*", "Workout Status*", "Workout Description*"]
+    
         override func viewDidLoad() {
             super.viewDidLoad()
             
@@ -50,8 +57,18 @@ class WorkoutAddController: BaseViewController {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addNewWorkout))
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
             
+            self.workoutCategoryButton.layer.borderColor = UIColor.lightGray.cgColor
+            self.workoutCategoryButton.layer.borderWidth = 1
+            self.workoutCategoryButton.layer.cornerRadius = 5
+            
+            self.workoutStatusButton.layer.borderColor = UIColor.lightGray.cgColor
+            self.workoutStatusButton.layer.borderWidth = 1
+            self.workoutStatusButton.layer.cornerRadius = 5
+
+            dropDown.direction = .any
+
         }
-        
+    
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             self.navigationItem.title = "Add Workout"
@@ -73,6 +90,7 @@ class WorkoutAddController: BaseViewController {
             
             if !isInternetAvailable() {
                 AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+                return isValidUser
             }
             
             if(self.workoutNameTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){

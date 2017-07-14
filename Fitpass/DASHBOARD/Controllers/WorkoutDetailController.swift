@@ -28,7 +28,7 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
             
             self.nameLabel.text = workoutObj?.workout_name
             self.createdByLabel.text = workoutObj?.created_by
-            self.workStatusLabel.text = workoutObj?.is_active?.stringValue
+            self.workStatusLabel.text = workoutObj?.is_active
             self.descriptionLabel.text = workoutObj?.workout_description
             self.profileImageView.image = UIImage(named: "workout_detail")
             
@@ -88,8 +88,8 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
             
             let cell : WorkoutDetailCell = tableView.dequeueReusableCell(withIdentifier: "WorkoutDetailCell") as! WorkoutDetailCell
             
-            let schedulebean = schedulesArray.object(at:indexPath.row) as! WorkoutSchedules
-            cell.updateWorkoutDetails(scheduleBean: schedulebean)
+            let schedulebean = schedulesArray.object(at:indexPath.row) as? WorkoutSchedulesObject
+            cell.updateWorkoutDetails(scheduleBean: schedulebean!)
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero

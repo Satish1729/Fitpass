@@ -34,7 +34,8 @@ class ServerConstants: NSObject {
     static let URL_STAFF = BASE_URL+"staff"
     static let URL_GET_STAFF_CONFIG_FIELDS_LIST = BASE_URL+"staff/fields_list"
     static let URL_STAFF_STATUS = BASE_URL+"staffs"
-    
+    static let URL_GRAPH_DATA = BASE_URL+"graph_data"
+    static let URL_GAUGE_DATA = BASE_URL+"gauge_data?selected_month=6"
     
     // CLIENT APIs
     static let URL_GET_ALL_PAYMENTS = BASE_URL_CLIENT+"salesreport"
@@ -44,6 +45,7 @@ class ServerConstants: NSObject {
     static let URL_DELETE_WORKOUT = BASE_URL_CLIENT+"workouts/delete"
     static let URL_UPDATE_WORKOUT = BASE_URL_CLIENT+"workouts/update"
     static let URL_WORKOUTS_CATEGORY = BASE_URL_CLIENT+"workouts/category"
+    static let URL_ADD_SCHEDULE = BASE_URL_CLIENT+"workouts/addschedule"
 }
 /*
  @GET("users")

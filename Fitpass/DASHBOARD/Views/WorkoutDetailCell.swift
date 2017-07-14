@@ -16,7 +16,7 @@ class WorkoutDetailCell: UITableViewCell {
     @IBOutlet weak var workoutdaysLabel: UILabel!
     
     
-    func updateWorkoutDetails (scheduleBean: WorkoutSchedules) {
+    func updateWorkoutDetails (scheduleBean: WorkoutSchedulesObject) {
         
         if let name = scheduleBean.workout_schedule_id {
             self.idLabel.text = name
