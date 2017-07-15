@@ -1,30 +1,35 @@
 PODS:
   - Alamofire (4.5.0)
+  - Charts (3.0.2):
+    - Charts/Core (= 3.0.2)
+  - Charts/Core (3.0.2)
   - DropDown (2)
   - IQKeyboardManagerSwift (4.0.10)
   - PKHUD (4.2.3)
   - ReachabilitySwift (3)
   - SideMenuController (0.2.4)
-  - SwiftCharts (0.6)
+  - UICircularProgressRing (1.6.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
+  - Charts
   - DropDown
   - IQKeyboardManagerSwift
   - PKHUD (~> 4.0)
   - ReachabilitySwift (~> 3)
   - SideMenuController
-  - SwiftCharts (~> 0.6)
+  - UICircularProgressRing
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  Charts: 236d6ccdd0ce6feae151d89e829a7397381a21fd
   DropDown: 744784d9c9aa505100e942c16acd05430cbb2f0a
   IQKeyboardManagerSwift: 75ba21a23794a1e6b6fe6d9a267ea17f80e06771
   PKHUD: c7692163a09875cbf15827dc581df3c5cf7f1015
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
   SideMenuController: b463d2b3aa58e2afe57f57a07938fa9a647894ca
-  SwiftCharts: d8e6d60679bc982f48f8bea25cf5c1b94fcfec4f
+  UICircularProgressRing: f25e366e0624d87973192b67e572c0712acbae85
 
-PODFILE CHECKSUM: cbfe020e1e49cf81d49fb1d2ded3ad7a32ea02ef
+PODFILE CHECKSUM: d469d03ad5fa15ae8b68afa18e9a9a7da499561a
 
 COCOAPODS: 1.2.1

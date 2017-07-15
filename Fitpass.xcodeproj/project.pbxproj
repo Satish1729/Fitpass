@@ -14,6 +14,7 @@
 		3B0C8B731F10EFE1001DB937 /* Payments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C8B721F10EFE1001DB937 /* Payments.swift */; };
 		3B0C8B751F10F541001DB937 /* PaymentsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C8B741F10F541001DB937 /* PaymentsCell.swift */; };
 		3B0C8B771F10F57B001DB937 /* PaymentDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C8B761F10F57B001DB937 /* PaymentDetailCell.swift */; };
+		3B169DFA1F1A1EFD0024B3F0 /* BarChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B169DF91F1A1EFD0024B3F0 /* BarChartFormatter.swift */; };
 		3B2160011EDD4C25004A55F4 /* StaffDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2160001EDD4C25004A55F4 /* StaffDetailController.swift */; };
 		3B2160031EDD4CF5004A55F4 /* StaffAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2160021EDD4CF5004A55F4 /* StaffAddController.swift */; };
 		3B2160051EDD4D0D004A55F4 /* StaffUpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2160041EDD4D0D004A55F4 /* StaffUpdateController.swift */; };
@@ -110,6 +111,8 @@
 		3B0C8B721F10EFE1001DB937 /* Payments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Payments.swift; path = DASHBOARD/Models/Payments.swift; sourceTree = "<group>"; };
 		3B0C8B741F10F541001DB937 /* PaymentsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentsCell.swift; path = DASHBOARD/Views/PaymentsCell.swift; sourceTree = "<group>"; };
 		3B0C8B761F10F57B001DB937 /* PaymentDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaymentDetailCell.swift; path = DASHBOARD/Views/PaymentDetailCell.swift; sourceTree = "<group>"; };
+		3B169DF91F1A1EFD0024B3F0 /* BarChartFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarChartFormatter.swift; path = DASHBOARD/Controllers/BarChartFormatter.swift; sourceTree = "<group>"; };
+		3B169DFD1F1A4AB20024B3F0 /* Fitpass-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fitpass-Bridging-Header.h"; sourceTree = "<group>"; };
 		3B2160001EDD4C25004A55F4 /* StaffDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffDetailController.swift; path = DASHBOARD/Controllers/StaffDetailController.swift; sourceTree = "<group>"; };
 		3B2160021EDD4CF5004A55F4 /* StaffAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffAddController.swift; path = DASHBOARD/Controllers/StaffAddController.swift; sourceTree = "<group>"; };
 		3B2160041EDD4D0D004A55F4 /* StaffUpdateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffUpdateController.swift; path = DASHBOARD/Controllers/StaffUpdateController.swift; sourceTree = "<group>"; };
@@ -243,6 +246,7 @@
 				3B58C0181EB07E19006086E5 /* Assets.xcassets */,
 				3B58C01A1EB07E19006086E5 /* LaunchScreen.storyboard */,
 				3B58C01D1EB07E19006086E5 /* Info.plist */,
+				3B169DFD1F1A4AB20024B3F0 /* Fitpass-Bridging-Header.h */,
 			);
 			path = Fitpass;
 			sourceTree = "<group>";
@@ -296,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				3BCDA07C1EC01CBB00E04767 /* DashboardViewController.swift */,
+				3B169DF91F1A1EFD0024B3F0 /* BarChartFormatter.swift */,
 				3B58C0491EB0870E006086E5 /* BaseViewController.swift */,
 				3B58C04B1EB0872A006086E5 /* BaseTableViewController.swift */,
 				3B58C04D1EB08775006086E5 /* BaseNavigationViewController.swift */,
@@ -472,6 +477,7 @@
 					3B58C00D1EB07E19006086E5 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 8JQYJRZ67T;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Manual;
 					};
 					3B58C0211EB07E19006086E5 = {
@@ -649,6 +655,7 @@
 				755381A81F14E8EA008F6794 /* WorkoutAddCell.swift in Sources */,
 				3B4DAF351F04B1A700BDB69B /* AssetsFilterController.swift in Sources */,
 				3B58C04A1EB0870E006086E5 /* BaseViewController.swift in Sources */,
+				3B169DFA1F1A1EFD0024B3F0 /* BarChartFormatter.swift in Sources */,
 				3B0464FD1ED852EB00A33F41 /* Leads.swift in Sources */,
 				3B680F2A1EC6EC4500549969 /* StaffsController.swift in Sources */,
 				3BC9593A1EDC91EE00A94CCE /* MemberDetailController.swift in Sources */,
@@ -815,6 +822,7 @@
 			baseConfigurationReference = 05E06F2E0251707D8D602289 /* Pods-Fitpass.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Irfan Raza (8JQYJRZ67T)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Irfan Raza (8JQYJRZ67T)";
 				DEVELOPMENT_TEAM = 8JQYJRZ67T;
@@ -825,6 +833,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "906ea269-7e70-4d27-952d-366b5a8a4882";
 				PROVISIONING_PROFILE_SPECIFIER = Fitpass_distribution;
+				SWIFT_OBJC_BRIDGING_HEADER = "Fitpass/Fitpass-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -834,6 +844,7 @@
 			baseConfigurationReference = 397C162B5CDF5198B700420E /* Pods-Fitpass.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Irfan Raza (8JQYJRZ67T)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Irfan Raza (8JQYJRZ67T)";
 				DEVELOPMENT_TEAM = 8JQYJRZ67T;
@@ -844,6 +855,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "906ea269-7e70-4d27-952d-366b5a8a4882";
 				PROVISIONING_PROFILE_SPECIFIER = Fitpass_distribution;
+				SWIFT_OBJC_BRIDGING_HEADER = "Fitpass/Fitpass-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

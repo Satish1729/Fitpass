@@ -8,171 +8,56 @@
 
 import UIKit
 import SideMenuController
-import SwiftCharts
+import Charts
+import UICircularProgressRing
 
-class DashboardViewController: BaseViewController {
+class DashboardViewController: BaseViewController, ChartViewDelegate {
+    
+    @IBOutlet weak var homeScrollView: UIScrollView!
+    @IBOutlet weak var barChartView: BarChartView!
+    @IBOutlet weak var totalLeadsLabel: UILabel!
+    @IBOutlet weak var salesCircle: UICircularProgressRingView!
+    @IBOutlet weak var openCircle: UICircularProgressRingView!
+    @IBOutlet weak var memberCircle: UICircularProgressRingView!
+    @IBOutlet weak var deadCircle: UICircularProgressRingView!
 
-    fileprivate var chart: Chart?
-    
-    let sideSelectorHeight: CGFloat = 50
-    
-    fileprivate func barsChart(horizontal: Bool) -> Chart {
-        let tuplesXY = [(2, 8), (4, 9), (6, 10), (8, 12), (12, 17)]
-        
-        func reverseTuples(_ tuples: [(Int, Int)]) -> [(Int, Int)] {
-            return tuples.map{($0.1, $0.0)}
-        }
-        
-        let chartPoints = (horizontal ? reverseTuples(tuplesXY) : tuplesXY).map{ChartPoint(x: ChartAxisValueInt($0.0), y: ChartAxisValueInt($0.1))}
-        
-        let labelSettings = ChartLabelSettings(font: UIFont.systemFont(ofSize: 12))//ExamplesDefaults.labelFont)
-        
-        let generator = ChartAxisGeneratorMultiplier(2)
-        let labelsGenerator = ChartAxisLabelsGeneratorFunc {scalar in
-            return ChartAxisLabel(text: "\(scalar)", settings: labelSettings)
-        }
-        let xGenerator = ChartAxisGeneratorMultiplier(2)
-        
-        let xModel = ChartAxisModel(firstModelValue: 0, lastModelValue: 20, axisTitleLabels: [ChartAxisLabel(text: "Axis title", settings: labelSettings)], axisValuesGenerator: xGenerator, labelsGenerator: labelsGenerator)
-        let yModel = ChartAxisModel(firstModelValue: 0, lastModelValue: 20, axisTitleLabels: [ChartAxisLabel(text: "Axis title", settings: labelSettings.defaultVertical())], axisValuesGenerator: generator, labelsGenerator: labelsGenerator)
-        
-        let barViewGenerator = {(chartPointModel: ChartPointLayerModel, layer: ChartPointsViewsLayer, chart: Chart) -> UIView? in
-            let bottomLeft = layer.modelLocToScreenLoc(x: 0, y: 0)
-            
-            let barWidth: CGFloat = 30//Env.iPad ? 60 : 30
-            
-            let settings = ChartBarViewSettings(animDuration: 0.5)
-            
-            let (p1, p2): (CGPoint, CGPoint) = {
-                if horizontal {
-                    return (CGPoint(x: bottomLeft.x, y: chartPointModel.screenLoc.y), CGPoint(x: chartPointModel.screenLoc.x, y: chartPointModel.screenLoc.y))
-                } else {
-                    return (CGPoint(x: chartPointModel.screenLoc.x, y: bottomLeft.y), CGPoint(x: chartPointModel.screenLoc.x, y: chartPointModel.screenLoc.y))
-                }
-            }()
-            return ChartPointViewBar(p1: p1, p2: p2, width: barWidth, bgColor: UIColor.blue.withAlphaComponent(0.6), settings: settings)
-        }
-        
-        let frame = CGRect(x: 0, y: 70, width: containerBounds.size.width, height: containerBounds.size.height - 70)//ExamplesDefaults.chartFrame(view.bounds)
-        let chartFrame = chart?.frame ?? CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.size.width, height: frame.size.height - sideSelectorHeight)
-        
-        //let chartSettings = ExamplesDefaults.chartSettingsWithPanZoom
-        
-        let coordsSpace = ChartCoordsSpaceLeftBottomSingleAxis(chartSettings: chartSettings, chartFrame: chartFrame, xModel: xModel, yModel: yModel)
-        let (xAxisLayer, yAxisLayer, innerFrame) = (coordsSpace.xAxisLayer, coordsSpace.yAxisLayer, coordsSpace.chartInnerFrame)
-        
-        let chartPointsLayer = ChartPointsViewsLayer(xAxis: xAxisLayer.axis, yAxis: yAxisLayer.axis, chartPoints: chartPoints, viewGenerator: barViewGenerator)
-        
-        let settings = ChartGuideLinesDottedLayerSettings(linesColor: UIColor.black, linesWidth: 20)
-        let guidelinesLayer = ChartGuideLinesDottedLayer(xAxisLayer: xAxisLayer, yAxisLayer: yAxisLayer, settings: settings)
-        
-        return Chart(
-            frame: chartFrame,
-            innerFrame: innerFrame,
-            settings: chartSettings,
-            layers: [
-                xAxisLayer,
-                yAxisLayer,
-                guidelinesLayer,
-                chartPointsLayer
-            ]
-        )
-    }
-    
-    fileprivate func showChart(horizontal: Bool) {
-        self.chart?.clearView()
-        
-        let chart = barsChart(horizontal: horizontal)
-        view.addSubview(chart.view)
-        self.chart = chart
-    }
-    
+    var months: [String]!
     override func viewDidLoad() {
-        showChart(horizontal: false)
-        if let chart = chart {
-            let sideSelector = DirSelector(frame: CGRect(x: 0, y: chart.frame.origin.y + chart.frame.size.height, width: view.frame.size.width, height: sideSelectorHeight), controller: self)
-            view.addSubview(sideSelector)
-        }
-    }
-    
-    
-    class DirSelector: UIView {
+        super.viewDidLoad()
+        self.homeScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 800)
+         months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        barChartView.chartDescription?.text = ""
+        barChartView.tintColor = UIColor.green
+        barChartView.gridBackgroundColor  = UIColor.lightText
+        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
+        self.getLeadsCount()
+        self.getSalesData()
         
-        let horizontal: UIButton
-        let vertical: UIButton
-        
-        weak var controller: BarsExample?
-        
-        fileprivate let buttonDirs: [UIButton : Bool]
-        
-        init(frame: CGRect, controller: BarsExample) {
-            
-            self.controller = controller
-            
-            horizontal = UIButton()
-            horizontal.setTitle("Horizontal", for: UIControlState())
-            vertical = UIButton()
-            vertical.setTitle("Vertical", for: UIControlState())
-            
-            buttonDirs = [horizontal : true, vertical : false]
-            
-            super.init(frame: frame)
-            
-            addSubview(horizontal)
-            addSubview(vertical)
-            
-            for button in [horizontal, vertical] {
-                button.titleLabel?.font = ExamplesDefaults.fontWithSize(14)
-                button.setTitleColor(UIColor.blue, for: UIControlState())
-                button.addTarget(self, action: #selector(DirSelector.buttonTapped(_:)), for: .touchUpInside)
-            }
-        }
-        
-        func buttonTapped(_ sender: UIButton) {
-            let horizontal = sender == self.horizontal ? true : false
-            controller?.showChart(horizontal: horizontal)
-        }
-        
-        override func didMoveToSuperview() {
-            let views = [horizontal, vertical]
-            for v in views {
-                v.translatesAutoresizingMaskIntoConstraints = false
-            }
-            
-            let namedViews = views.enumerated().map{index, view in
-                ("v\(index)", view)
-            }
-            
-            var viewsDict = Dictionary<String, UIView>()
-            for namedView in namedViews {
-                viewsDict[namedView.0] = namedView.1
-            }
-            
-            let buttonsSpace: CGFloat = 10//Env.iPad ? 20 : 10
-            
-            let hConstraintStr = namedViews.reduce("H:|") {str, tuple in
-                "\(str)-(\(buttonsSpace))-[\(tuple.0)]"
-            }
-            
-            let vConstraits = namedViews.flatMap {NSLayoutConstraint.constraints(withVisualFormat: "V:|[\($0.0)]", options: NSLayoutFormatOptions(), metrics: nil, views: viewsDict)}
-            
-            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: hConstraintStr, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDict)
-                + vConstraits)
-        }
-        
-        required init(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
+//        salesCircle.setProgress(value: 56, animationDuration: 2) {
+//            self.salesCircle.ringStyle = .ontop
+//        }
+
     }
 
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        self.getLeadsCount()
-//        self.getSalesData()
-//    }
+    func setChart(dataPoints: [Int], values: [Double], labelname:String) {
+        var dataEntries: [BarChartDataEntry] = []
+        
+        for i in 0..<months.count {
+            let dataEntry = BarChartDataEntry(x: Double(i), y:values[i], data: months as AnyObject )
+            dataEntries.append(dataEntry)
+        }
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values:months)
+        barChartView.xAxis.granularity = 1
+        let chartDataSet = BarChartDataSet(values: dataEntries, label: labelname)
+        
+        let chartData = BarChartData()
+        chartData.addDataSet(chartDataSet)
+        barChartView.data = chartData
+        barChartView.data?.setDrawValues(false)
+        barChartView.backgroundColor = UIColor.white
 
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Home"
@@ -188,10 +73,6 @@ class DashboardViewController: BaseViewController {
         }
         
         ProgressHUD.showProgress(targetView: self.view)
-        
-//        let parameters : [String : Any] = ["selected_month" : 2]
-//        let urlString  = self.createURLFromParameters(parameters: parameters)
-//        let str : String = ServerConstants.URL_GET_LEADS_COUNT+urlString.absoluteString
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GRAPH_DATA , userInfo: nil , type: "GET") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -205,35 +86,27 @@ class DashboardViewController: BaseViewController {
                     let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
                     let dataArray : NSArray = tempDict.object(forKey: "data") as! NSArray
                     
-//                    let tempArray : NSMutableArray = NSMutableArray()
-//                    
-//                    for workoutObj in (dataArray as? [[String:Any]])! {
-//
-                    let chartConfig = BarsChartConfig(
-                        valsAxisConfig: ChartAxisConfig(from: 0, to: 8, by: 2)
-                    )
+                    let xTotalArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                    let xValuesArray = NSMutableArray()
+                    let yValuesArray = NSMutableArray()
+                    for valueDict in dataArray{
+                        xValuesArray.add((valueDict as! NSDictionary)[ "x"]!)
+                        yValuesArray.add((valueDict as! NSDictionary)[ "y"]!)
+                    }
                     
-                    let frame = CGRect(x: 0, y: 10, width: 300, height: 300)
+                    for i in 0..<xTotalArray.count{
+                        if(xValuesArray.contains(i)){
+                            
+                        }
+                        else{
+                            xValuesArray.insert(0, at: i)
+                            yValuesArray.insert(Double(0), at: i)
+                        }
+                    }
                     
-                    let chart = BarsChart(
-                        frame: frame,
-                        chartConfig: chartConfig,
-                        xTitle: "X axis",
-                        yTitle: "Y axis",
-                        bars: [
-                            ("A", 2),
-                            ("B", 4.5),
-                            ("C", 3),
-                            ("D", 5.4),
-                            ("E", 6.8),
-                            ("F", 0.5)
-                        ],
-                        color: UIColor.red,
-                        barWidth: 20
-                    )
-                    chart.view.backgroundColor = UIColor.green
-                    self.view.addSubview(chart.view)
-                    //self.chart = chart
+                    let tempName = tempDict.object(forKey: "displayName") as! String
+                    
+                    self.setChart(dataPoints: xValuesArray as! [Int], values: yValuesArray as! [Double], labelname: tempName)
                 }
             }
             else{
@@ -254,7 +127,7 @@ class DashboardViewController: BaseViewController {
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GET_SALES_DATA , userInfo: nil, type: "GET") { (data, response, error) in
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GAUGE_DATA , userInfo: nil, type: "GET") { (data, response, error) in
             
             ProgressHUD.hideProgress()
             
