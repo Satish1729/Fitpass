@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>KYCircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>PKHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -44,15 +49,10 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>UICircularProgressRing.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>35837DB30253AACFE0E3CE41D885EEE8</key>
+		<key>15FFC405366621424B0D6ED8DE436926</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -62,12 +62,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>5C1F0BC8AD9DB9D282F6612636923786</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>88E9EC28B8B46C3631E6B242B50F4442</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>988F3EA7FB08D3C4E4A808900C0F48F7</key>
+		<key>AED074219D42D714DD2CDEC0D817B7D5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,17 +82,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D6135A496717A38E80B328EAFCE2EBA5</key>
+		<key>C2FD1512323644B790ED8BE5D50D99FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>D7A75F149082140741FC1E0B5B2863C8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EB9ABC6CABB903AD41F7492C29B9315B</key>
 		<dict>
 			<key>primary</key>
 			<true/>

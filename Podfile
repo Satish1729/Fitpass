@@ -9,6 +9,5 @@ pod 'SideMenuController'
 pod 'ReachabilitySwift', '~> 3'
 pod 'DropDown'
 pod 'Charts'
-pod 'UICircularProgressRing'
-
+pod 'KYCircularProgress'
 end

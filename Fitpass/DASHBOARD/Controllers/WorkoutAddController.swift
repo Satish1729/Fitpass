@@ -35,7 +35,7 @@ class WorkoutAddController: BaseViewController {
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.workoutStatusButton.setTitle(item, for: UIControlState.normal)
         }
-        dropDown.dataSource = ["Aerobics", "yoga", "swimming"]
+        dropDown.dataSource = ["Yes", "No"]
         dropDown.show()
     }
     

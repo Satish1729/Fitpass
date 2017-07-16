@@ -9,17 +9,23 @@
 import UIKit
 import SideMenuController
 import Charts
-import UICircularProgressRing
+import KYCircularProgress
 
 class DashboardViewController: BaseViewController, ChartViewDelegate {
     
     @IBOutlet weak var homeScrollView: UIScrollView!
     @IBOutlet weak var barChartView: BarChartView!
     @IBOutlet weak var totalLeadsLabel: UILabel!
-    @IBOutlet weak var salesCircle: UICircularProgressRingView!
-    @IBOutlet weak var openCircle: UICircularProgressRingView!
-    @IBOutlet weak var memberCircle: UICircularProgressRingView!
-    @IBOutlet weak var deadCircle: UICircularProgressRingView!
+    @IBOutlet weak var salesCircle: KYCircularProgress!
+    @IBOutlet weak var openCircle: KYCircularProgress!
+    @IBOutlet weak var memberCircle: KYCircularProgress!
+    @IBOutlet weak var deadCircle: KYCircularProgress!
+    @IBOutlet private weak var salesPercentLabel: UILabel!
+    @IBOutlet private weak var openPercentLabel: UILabel!
+    @IBOutlet private weak var memberPercentLabel: UILabel!
+    @IBOutlet private weak var deadPercentLabel: UILabel!
+
+    private var progress: UInt8 = 0
 
     var months: [String]!
     override func viewDidLoad() {
@@ -32,11 +38,6 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
         barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         self.getLeadsCount()
         self.getSalesData()
-        
-//        salesCircle.setProgress(value: 56, animationDuration: 2) {
-//            self.salesCircle.ringStyle = .ontop
-//        }
-
     }
 
     func setChart(dataPoints: [Int], values: [Double], labelname:String) {
@@ -136,6 +137,60 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                 let responseDict:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDict != nil) {
                     print(responseDict!)
+                    if(responseDict?.object(forKey: "status") as! String  == "200"){
+                        let leadsCount = responseDict?.object(forKey: "message") as! NSNumber
+                        self.totalLeadsLabel.text = "Total Leads ("+leadsCount.stringValue+")"
+                        let resultArray: NSArray = responseDict!.object(forKey: "result") as! NSArray
+    //                    let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
+                        let tempDict  = NSMutableDictionary()
+                        for tempObj in resultArray{
+                            let localDict = tempObj as! [String:Any]
+                            tempDict.setObject(localDict["key2"]!, forKey: localDict["displayName"] as! NSCopying)
+                        }
+                        self.salesCircle.progressChanged {
+                            (progress: Double, circularProgress: KYCircularProgress) in
+                            self.salesPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
+                        }
+                        var progress1: UInt8 = 0
+                        progress1 = tempDict.object(forKey: "Sales") as! UInt8
+                        let normalizedProgress = Double(progress1)/Double(100)
+                        self.salesCircle.colors = [UIColor(red: 4/255, green: 30/255, blue: 52/255, alpha: 1.0)]
+                        self.salesCircle.progress = normalizedProgress
+
+                        /////////
+                        self.openCircle.progressChanged {
+                            (progress: Double, circularProgress: KYCircularProgress) in
+                            self.openPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
+                        }
+                        var progress2: UInt8 = 35
+                        progress2 = tempDict.object(forKey: "Open") as! UInt8
+                        let normalizedProgress2 = Double(progress2)/Double(100)
+                        self.openCircle.colors = [UIColor(red: 6/255, green: 22/255, blue: 39/255, alpha: 1.0)]
+                        self.openCircle.progress = normalizedProgress2
+                        
+                        //////////
+                        self.memberCircle.progressChanged {
+                            (progress: Double, circularProgress: KYCircularProgress) in
+                            self.memberPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
+                        }
+                        var progress3: UInt8 = 75
+                        progress3 = tempDict.object(forKey: "Member") as! UInt8
+                        let normalizedProgress3 = Double(progress3)/Double(100)
+                        self.memberCircle.colors = [UIColor(red: 4/255, green: 30/255, blue: 52/255, alpha: 1.0)]
+                        self.memberCircle.progress = normalizedProgress3
+
+                        ///////////
+                        self.deadCircle.progressChanged {
+                            (progress: Double, circularProgress: KYCircularProgress) in
+                            self.deadPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
+                        }
+                        var progress4: UInt8 = 0
+                        progress4 = tempDict.object(forKey: "Dead") as! UInt8
+                        let normalizedProgress4 = Double(progress4)/Double(100)
+                        self.deadCircle.colors = [UIColor(red: 4/255, green: 30/255, blue: 52/255, alpha: 1.0)]
+                        self.deadCircle.progress = normalizedProgress4
+
+                    }
                 }
             }
             else{

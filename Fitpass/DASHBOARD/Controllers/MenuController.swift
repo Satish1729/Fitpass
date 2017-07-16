@@ -70,7 +70,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
                     print("Downloaded logo picture with response code \(res.statusCode)")
                     if let imageData = data {
                         // Finally convert that Data into an image and do what you wish with it.
-                        let image = UIImage(data: imageData)
+                        let image = UIImage(data:imageData)
                         // Do something with your image.
                       //  self.profileImageView.image = image //UIImage(named : "profileEmpty")
                         
@@ -110,8 +110,13 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         downloadPicTask1.resume()*/
         
-        self.profileView.image = UIImage(named: "banner")
-
+        self.profileView.image = UIImage(named: "banner_new")
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = view.bounds
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        self.profileView.addSubview(blurEffectView)
+        self.profileImageView.image = UIImage(named: "dumble")
         
         self.userName.text = (appDelegate.userBean?.first_name)! + " " + (appDelegate.userBean?.last_name)!
         self.emailLabel.text = appDelegate.userBean?.email
@@ -198,7 +203,9 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
      func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath)  {
         
-        if(indexPath.row == 9){
+        if(indexPath.section==1 && indexPath.row == 3){
+            UserDefaults.standard.removeObject(forKey: "userBean")
+            appDelegate.checkSingleSignIn()
             return
         }
         if let index = previousIndex {
