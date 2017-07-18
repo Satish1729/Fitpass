@@ -30,7 +30,7 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
     var months: [String]!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.homeScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 800)
+//        self.homeScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 900)
          months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         barChartView.chartDescription?.text = ""
         barChartView.tintColor = UIColor.green
@@ -58,7 +58,10 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
         barChartView.backgroundColor = UIColor.white
 
     }
-    
+    override func viewDidLayoutSubviews()
+    {
+    self.homeScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 750)
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Home"

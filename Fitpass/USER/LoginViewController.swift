@@ -74,20 +74,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let responseDict:NSDictionary? = jsonObject as? NSDictionary
                     print(responseDict!)
                     
-                    let jsonResponseDict: NSDictionary = responseDict!.object(forKey: "data") as! NSDictionary
-                    
-                    UserBean().updateUserBean(responseDict: jsonResponseDict)
-                    
-                    var userDet = [UserBean]()
-                    userDet.append(appDelegate.userBean!)
-                    let encodeUserBean = NSKeyedArchiver.archivedData(withRootObject: userDet)
-                    let studioObj = appDelegate.userBean!.studioArray
-                    let studioarray = NSKeyedArchiver.archivedData(withRootObject: studioObj)
-                    
-                    UserDefaults.standard.set(encodeUserBean, forKey: "userBean")
-                    UserDefaults.standard.set(studioarray,forKey:"studioarray")
-                    
-                    self.performSegue(withIdentifier: "showCustomVC", sender: self)
+                    let statusCode = responseDict!.object(forKey: "status") as! String
+                    if(statusCode == "200"){
+                        let jsonResponseDict: NSDictionary = responseDict!.object(forKey: "data") as! NSDictionary
+                        
+                        UserBean().updateUserBean(responseDict: jsonResponseDict)
+                        
+                        var userDet = [UserBean]()
+                        userDet.append(appDelegate.userBean!)
+                        let encodeUserBean = NSKeyedArchiver.archivedData(withRootObject: userDet)
+                        let studioObj = appDelegate.userBean!.studioArray
+                        let studioarray = NSKeyedArchiver.archivedData(withRootObject: studioObj)
+                        
+                        UserDefaults.standard.set(encodeUserBean, forKey: "userBean")
+                        UserDefaults.standard.set(studioarray,forKey:"studioarray")
+                        
+                        self.performSegue(withIdentifier: "showCustomVC", sender: self)
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
                 }
                 else{
                     print("Device registration failed : \(String(describing: error?.localizedDescription))")

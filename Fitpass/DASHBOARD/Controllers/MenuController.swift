@@ -33,6 +33,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
 
         menuTableView.tableFooterView = UIView(frame: .zero)
+        
         self.studioTypeBtn.setTitle(appDelegate.userBean?.studioName, for: UIControlState.normal)
         self.studioTypeBtn.addTarget(self, action: #selector(showStudioList(sender:)), for: UIControlEvents.touchUpInside)
         self.loadProfileDetails()
@@ -132,7 +133,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         dropDown.textColor = UIColor.white
         dropDown.dataSource = studioNamesArray as! [String]
         dropDown.direction = .any
-        dropDown.width = 280
+        dropDown.width = self.view.frame.size.width*2/3
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.studioTypeBtn.setTitle(item, for: UIControlState.normal)
             let selectedStudioObjArray = appDelegate.userBean!.studioArray as NSArray
