@@ -24,7 +24,7 @@ class ReservedWorkoutCell: UITableViewCell {
         }
         
         if let workoutdate = reservedBean.workout_date {
-            self.workoutDateLabel.text = workoutdate
+            self.workoutDateLabel.text = Utility().getDateStringSimple(dateStr: workoutdate)
         }
         
         if let username = reservedBean.user_name {

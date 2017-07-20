@@ -19,6 +19,8 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var callButton: UIButton!
+    @IBOutlet weak var mailButton: UIButton!
 
     var keyLabelNameArray : NSArray = ["Gender", "Date of Birth", "Preferred time slot", "Subscription Plan", "Joining Date", "Agreed Amount", "Created Date", "Remarks"]
         
@@ -100,22 +102,37 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
                 strValue = memberObj?.gender
             case 1:
                 strValue = memberObj?.dob
+                if(strValue != nil){
+                    strValue = Utility().getDateStringSimple(dateStr: strValue!)
+                }
+
             case 2:
                 strValue = (memberObj?.preferred_time_slot_from)!+" to "+(memberObj?.preferred_time_slot_to)!
             case 3:
                 strValue = memberObj?.subscription_plan
             case 4:
                 strValue = memberObj?.joining_date
+                if(strValue != nil){
+                    strValue = Utility().getDateStringSimple(dateStr: strValue!)
+                }
+
             case 5:
                 strValue = memberObj?.agreed_amount?.stringValue
             case 6:
                 strValue = memberObj?.created_at
+                if(strValue != nil){
+                    strValue = Utility().getDateString(dateStr: strValue!)
+                }
+
             case 7:
                 strValue = memberObj?.remarks
             default:
                 strValue = ""
             }
-            
+            if(strValue == "" || strValue == nil){
+                strValue = "NA"
+            }
+
             cell.valueLabel.text = strValue
             if(indexPath.row%2 == 0){
                 cell.contentView.backgroundColor = UIColor.white

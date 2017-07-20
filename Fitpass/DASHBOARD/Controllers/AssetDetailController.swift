@@ -73,12 +73,20 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
                 strValue = assetObj?.vendor_name
             case 1:
                 strValue = assetObj?.purchased_on
+                if(strValue != nil){
+                    strValue = Utility().getDateStringSimple(dateStr: strValue!)
+                }
+
             case 2:
                 strValue = assetObj?.asset_status
             case 3:
                 strValue = assetObj?.created_by
             case 4:
                 strValue = assetObj?.created_at
+                if(strValue != nil){
+                    strValue = Utility().getDateString(dateStr: strValue!)
+                }
+
             case 5:
                 strValue = assetObj?.bill
             case 6:
@@ -86,7 +94,10 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
             default:
                 strValue = ""
             }
-            
+            if(strValue == "" || strValue == nil){
+                strValue = "NA"
+            }
+
             cell.valueLabel.text = strValue
             if(indexPath.row%2 == 0){
                 cell.contentView.backgroundColor = UIColor.white

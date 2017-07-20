@@ -24,11 +24,11 @@ class PaymentsCell: UITableViewCell {
         }
         
         if let paymentdate = paymentBean.payment_date {
-            self.paymentDateLabel.text = paymentdate
+            self.paymentDateLabel.text = Utility().getDateStringSimple(dateStr: paymentdate)
         }
         
         if let paymentmonth = paymentBean.payment_of_month {
-            self.paymentMonthLabel.text = paymentmonth
+            self.paymentMonthLabel.text = Utility().getMonthString(dateStr: paymentmonth)
         }
         
         if let totalamount = paymentBean.total_amount {

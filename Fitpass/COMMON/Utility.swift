@@ -222,7 +222,7 @@ class Utility: NSObject {
     
     func getDateStringFromDateWithFullFormate(dateStr : String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSSZ"
         let date = dateFormatter.date(from: dateStr)
         
         dateFormatter.dateFormat = "dd MMM yyyy hh:mm a"
@@ -230,6 +230,34 @@ class Utility: NSObject {
         return newDate
     }
     
+    func getDateString(dateStr : String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = dateFormatter.date(from: dateStr)
+        
+        dateFormatter.dateFormat = "dd-MMM-yyyy"
+        let newDate = dateFormatter.string(from: date! as Date)
+        return newDate
+    }
+    func getDateStringSimple(dateStr : String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.date(from: dateStr)
+        
+        dateFormatter.dateFormat = "dd-MMM-yyyy"
+        let newDate = dateFormatter.string(from: date! as Date)
+        return newDate
+    }
+    func getMonthString(dateStr : String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM"
+        let date = dateFormatter.date(from: dateStr)
+        
+        dateFormatter.dateFormat = "MMM-yyyy"
+        let newDate = dateFormatter.string(from: date! as Date)
+        return newDate
+    }
+
     func getDateFromTimeInterval(interval : NSNumber) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(interval)) as NSDate
         let dateFormatter = DateFormatter()

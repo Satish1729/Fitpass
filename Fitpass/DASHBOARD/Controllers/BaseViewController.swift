@@ -49,6 +49,24 @@ class BaseViewController: UIViewController, SideMenuControllerDelegate {
         
         return components.url!
     }
+    func callTheNumber(numberString : String){
+        if let url = URL(string: "tel://\(numberString)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    func sendMailTo(mailString : String){
+        if let url = URL(string: "mailto:\(mailString)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

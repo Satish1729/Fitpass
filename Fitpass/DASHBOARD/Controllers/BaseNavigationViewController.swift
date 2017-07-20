@@ -18,7 +18,9 @@ class BaseNavigationViewController: UINavigationController {
         self.navigationBar.isTranslucent = false
         self.addSideMenuButton()
     }
-
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

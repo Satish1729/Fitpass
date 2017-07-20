@@ -129,10 +129,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
                     let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
                     let responseDict:NSDictionary? = jsonObject as? NSDictionary
                     print(responseDict!)
-                    AlertView.showCustomAlertWithMessage(message: StringFiles().FORGOTPASSWORDMESSAGE, yPos: 20, duration: NSInteger(2.0))
+                    AlertView.showCustomAlertWithMessage(message: responseDict!.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
                 }
                 else{
-                    print("Device registration failed : \(String(describing: error?.localizedDescription))")
+                    let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+                    let responseDict:NSDictionary? = jsonObject as? NSDictionary
+                    print(responseDict!)
                     AlertView.showCustomAlertWithMessage(message: StringFiles().FORGOTPASSWORDFAILMESSAGE, yPos: 20, duration: NSInteger(2.0))
                 }
             })

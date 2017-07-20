@@ -20,7 +20,7 @@ class ServerConstants: NSObject {
     static let URL_LOGIN = BASE_URL_LOGIN+"studios/login"
 
     static let URL_GET_SUBSCRIPTION_PLANS_LIST = BASE_URL+"subscription_plans"
-    static let URL_FORGOT_PASSWORD = BASE_URL+"reset_password"
+    static let URL_FORGOT_PASSWORD = BASE_URL_LOGIN+"postForgotPassword"//BASE_URL+"postForgotPassword"
     static let URL_ASSETS = BASE_URL+"assets"
     static let URL_GET_STAFF_ATTENDANCE = BASE_URL+"staff_attendance"
     static let URL_UPDATE_ATTENDANCE = BASE_URL+"attendance"

@@ -33,7 +33,7 @@ class WorkoutCell: UITableViewCell {
         }
         
         if let createdTime = workoutBean.create_time {
-            self.ccreateTimeLabel.text = createdTime
+            self.ccreateTimeLabel.text = Utility().getDateString(dateStr: createdTime)
         }
     }
     

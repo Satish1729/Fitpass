@@ -19,6 +19,8 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var callButton: UIButton!
+    @IBOutlet weak var mailButton: UIButton!
 
     
         var keyLabelNameArray : NSArray = ["Gender", "Date of Birth", "Role",  "Salary", "Salary Date", "Joining Date", "Created Date", "Joining Documents", "Remarks"]
@@ -93,6 +95,10 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
                 strValue = staffObj?.gender
             case 1:
                 strValue = staffObj?.dob
+                if(strValue != nil){
+                    strValue = Utility().getDateStringSimple(dateStr: strValue!)
+                }
+
             case 2:
                 strValue = staffObj?.role
             case 3:
@@ -101,8 +107,16 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
                 strValue = staffObj?.salary_date?.stringValue
             case 5:
                 strValue = staffObj?.joining_date
+                if(strValue != nil){
+                    strValue = Utility().getDateStringSimple(dateStr: strValue!)
+                }
+
             case 6:
                 strValue = staffObj?.created_at
+                if(strValue != nil){
+                    strValue = Utility().getDateString(dateStr: strValue!)
+                }
+
             case 7:
                 strValue = staffObj?.joining_documents
             case 8:
@@ -110,7 +124,10 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
             default:
                 strValue = ""
             }
-            
+            if(strValue == "" || strValue == nil){
+                strValue = "NA"
+            }
+
             cell.valueLabel.text = strValue
             if(indexPath.row%2 == 0){
                 cell.contentView.backgroundColor = UIColor.white

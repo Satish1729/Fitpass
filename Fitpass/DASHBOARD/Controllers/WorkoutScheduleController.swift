@@ -77,13 +77,13 @@ class WorkoutScheduleController: BaseViewController {
         self.workoutScheduleStatusButton.layer.borderWidth = 1
         self.workoutScheduleStatusButton.layer.cornerRadius = 5
         
-        let backBtn = UIButton(type: .custom)
-        backBtn.setImage(UIImage(named: "img_back"), for: .normal)
-        backBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
-        backBtn.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
-        let item1 = UIBarButtonItem(customView: backBtn)
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        self.navigationItem.leftBarButtonItem = item1
+//        let backBtn = UIButton(type: .custom)
+//        backBtn.setImage(UIImage(named: "img_back"), for: .normal)
+//        backBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+//        backBtn.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
+//        let item1 = UIBarButtonItem(customView: backBtn)
+//        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+//        self.navigationItem.leftBarButtonItem = item1
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addNewWorkoutSchedule))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white

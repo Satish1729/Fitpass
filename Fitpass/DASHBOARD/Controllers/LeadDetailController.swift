@@ -19,6 +19,8 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var callButton: UIButton!
+    @IBOutlet weak var mailButton: UIButton!
 
     var keyArray : NSArray = ["contact_number", "gender", "email", "lead_source", "address", "remarks", "next_follow_up", "lead_nature", "last_comment", "dob", "created_at", "updated_at"]
 
@@ -100,24 +102,41 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         switch indexPath.row {
         case 0:
             strValue = leadObj?.dob
+            if(strValue != nil){
+                strValue = Utility().getDateStringSimple(dateStr: strValue!)
+            }
         case 1:
             strValue = leadObj?.lead_source
         case 2:
             strValue = leadObj?.lead_nature
         case 3:
             strValue = leadObj?.next_follow_up
+            if(strValue != nil){
+                strValue = Utility().getDateStringSimple(dateStr: strValue!)
+            }
         case 4:
             strValue = leadObj?.last_comment
         case 5:
             strValue = leadObj?.created_at
+            if(strValue != nil){
+                strValue = Utility().getDateString(dateStr: strValue!)
+            }
+
         case 6:
             strValue = leadObj?.updated_at
+            if(strValue != nil){
+                strValue = Utility().getDateString(dateStr: strValue!)
+            }
+
         case 7:
             strValue = leadObj?.remarks
         default:
             strValue = ""
         }
         
+        if(strValue == "" || strValue == nil){
+            strValue = "NA"
+        }
         cell.valueLabel.text = strValue
         if(indexPath.row%2 == 0){
             cell.contentView.backgroundColor = UIColor.white

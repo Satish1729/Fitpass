@@ -16,7 +16,9 @@ class MembersCell: UITableViewCell {
     @IBOutlet weak var contactNumberLabel: UILabel!
     @IBOutlet weak var createdAtLabel: UILabel!
     @IBOutlet weak var preferredTimeSlotLabel: UILabel!
-    
+    @IBOutlet weak var callButton: UIButton!
+    @IBOutlet weak var mailButton: UIButton!
+
     
     func updateMembersDetails (memberBean : Members) {
         
@@ -41,7 +43,7 @@ class MembersCell: UITableViewCell {
         }
         
         if let createdAt = memberBean.created_at {
-            self.createdAtLabel.text = createdAt
+            self.createdAtLabel.text = Utility().getDateString(dateStr: createdAt)
         }
         
         if let timeFrom = memberBean.preferred_time_slot_from {

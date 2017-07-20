@@ -98,14 +98,25 @@ class PaymentDetailController: BaseViewController, UITableViewDelegate, UITableV
             strValue = paymentObj?.payment_status
         case 6:
             strValue = paymentObj?.payment_date
+            if(strValue != nil){
+                strValue = Utility().getDateStringSimple(dateStr: strValue!)
+            }
+
         case 7:
             strValue = paymentObj?.payment_of_month
+            if(strValue != nil){
+                strValue = Utility().getMonthString(dateStr: strValue!)
+            }
+
         case 8:
             strValue = paymentObj?.comment
         default:
             strValue = "NA"
         }
-        
+        if(strValue == "" || strValue == nil){
+            strValue = "NA"
+        }
+
         cell.valueLabel.text = strValue
         if(indexPath.row%2 == 0){
             cell.contentView.backgroundColor = UIColor.white

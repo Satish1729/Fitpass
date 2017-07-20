@@ -85,12 +85,18 @@ class ReservedWorkoutDetailController: BaseViewController, UITableViewDelegate, 
                 strValue = reservedWorkoutObj?.status
             case 4:
                 strValue = reservedWorkoutObj?.workout_date
+                if(strValue != nil){
+                    strValue = Utility().getDateStringSimple(dateStr: strValue!)
+                }
             case 5:
                 strValue = reservedWorkoutObj?.user_schedule_id
             default:
                 strValue = ""
             }
-            
+            if(strValue == "" || strValue == nil){
+                strValue = "NA"
+            }
+
             cell.valueLabel.text = strValue
             if(indexPath.row%2 == 0){
                 cell.contentView.backgroundColor = UIColor.white

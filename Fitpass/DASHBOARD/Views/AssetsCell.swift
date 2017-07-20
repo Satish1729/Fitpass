@@ -32,7 +32,7 @@ class AssetsCell: UITableViewCell {
         }
         
         if let purchasedOn = assetBean.purchased_on {
-            self.purchasedOnLabel.text = purchasedOn
+            self.purchasedOnLabel.text = Utility().getDateStringSimple(dateStr: purchasedOn)
         }
         
         if let amount = assetBean.amount {

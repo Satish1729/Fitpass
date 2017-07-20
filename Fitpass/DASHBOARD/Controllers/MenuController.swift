@@ -45,7 +45,9 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    override func viewDidLayoutSubviews(){
     
+    }
     
     func loadProfileDetails() {
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2

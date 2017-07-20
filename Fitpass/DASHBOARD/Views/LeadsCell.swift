@@ -17,6 +17,8 @@ class LeadsCell: UITableViewCell {
     @IBOutlet weak var contactNumberLabel: UILabel!
     @IBOutlet weak var createdAtLabel: UILabel!
     @IBOutlet weak var nextFollowUpLabel: UILabel!
+    @IBOutlet weak var callButton: UIButton!
+    @IBOutlet weak var mailButton: UIButton!
     
     
     func updateLeadsDetails (leadBean : Leads) {
@@ -38,12 +40,13 @@ class LeadsCell: UITableViewCell {
         }
 
         if let createdAt = leadBean.created_at {
-            self.createdAtLabel.text = createdAt
+            self.createdAtLabel.text = Utility().getDateString(dateStr: createdAt)
         }
         
         if let nextFollowUp = leadBean.next_follow_up {
             let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
-            let valueString = NSMutableAttributedString(string: nextFollowUp, attributes: myAttribute )
+            let valueString = NSMutableAttributedString(string: Utility().getDateStringSimple(dateStr: nextFollowUp), attributes: myAttribute )
+//            let valueString = NSMutableAttributedString(string: nextFollowUp, attributes: myAttribute )
             let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
             let myString = NSMutableAttributedString(string: "Next Follow Up - ", attributes: myAttribute1 )
             myString.append(valueString)

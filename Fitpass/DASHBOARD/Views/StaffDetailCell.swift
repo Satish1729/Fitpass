@@ -12,7 +12,7 @@ class StaffDetailCell: UITableViewCell {
 
     @IBOutlet weak var keyLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

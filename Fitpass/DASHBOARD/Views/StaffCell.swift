@@ -18,7 +18,9 @@ class StaffCell: UITableViewCell {
     @IBOutlet weak var createdAtLabel: UILabel!
     @IBOutlet weak var roleLabel: UILabel!
     @IBOutlet weak var joiningDateLabel: UILabel!
-    
+    @IBOutlet weak var callButton: UIButton!
+    @IBOutlet weak var mailButton: UIButton!
+
     func updateStaffDetails (staffBean : Staffs) {
         
         if let name = staffBean.name {
@@ -34,7 +36,7 @@ class StaffCell: UITableViewCell {
         }
         
         if let createdAt = staffBean.created_at {
-            self.createdAtLabel.text = createdAt
+            self.createdAtLabel.text = Utility().getDateString(dateStr: createdAt)
         }
         
         if let role = staffBean.role {
@@ -43,7 +45,7 @@ class StaffCell: UITableViewCell {
         
         if let joiningDate = staffBean.joining_date {
             let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
-            let valueString = NSMutableAttributedString(string: joiningDate, attributes: myAttribute )
+            let valueString = NSMutableAttributedString(string: Utility().getDateStringSimple(dateStr: joiningDate), attributes: myAttribute )
             let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
             let myString = NSMutableAttributedString(string: "Joining Date - ", attributes: myAttribute1 )
             myString.append(valueString)
