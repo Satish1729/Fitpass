@@ -51,9 +51,40 @@ class LeadsCell: UITableViewCell {
             let myString = NSMutableAttributedString(string: "Next Follow Up - ", attributes: myAttribute1 )
             myString.append(valueString)
             self.nextFollowUpLabel.attributedText = myString
+            
+            self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
+            self.mailButton.addTarget(self, action: #selector(email), for: UIControlEvents.touchUpInside)
+
         }
     }
     
+    func call(){
+        callTheNumber(numberString: self.contactNumberLabel.text!)
+    }
+    
+    func email(){
+        sendMailTo(mailString: self.emailLabel.text!)
+    }
+    
+    func callTheNumber(numberString : String){
+        if let url = URL(string: "tel://\(numberString)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+    func sendMailTo(mailString : String){
+        if let url = URL(string: "mailto:\(mailString)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
+
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -33,6 +33,10 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         self.contactNumberLabel.text=leadObj?.contact_number?.stringValue
         self.emailLabel.text=leadObj?.email
         self.addressLabel.text=leadObj?.address
+        
+        self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
+        self.mailButton.addTarget(self, action: #selector(email), for: UIControlEvents.touchUpInside)
+        
         if(leadObj?.gender == "Male"){
             self.profileImageView.image = UIImage(named: "man")
         }else{
@@ -47,11 +51,17 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = item1
         
-//        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
-//        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-
     }
     
+    
+    func call(){
+        callTheNumber(numberString: self.contactNumberLabel.text!)
+    }
+
+    func email(){
+        sendMailTo(mailString: self.emailLabel.text!)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Lead Detail"

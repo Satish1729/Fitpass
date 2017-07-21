@@ -31,6 +31,10 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
             self.contactNumberLabel.text=memberObj?.contact_number?.stringValue
             self.emailLabel.text=memberObj?.email
             self.addressLabel.text=memberObj?.address
+            
+            self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
+            self.mailButton.addTarget(self, action: #selector(email), for: UIControlEvents.touchUpInside)
+
             if(memberObj?.gender == "Male"){
                 self.profileImageView.image = UIImage(named: "man")
             }else{
@@ -49,7 +53,16 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
 //            self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
             
         }
-        
+    
+    func call(){
+        callTheNumber(numberString: self.contactNumberLabel.text!)
+    }
+    
+    func email(){
+        sendMailTo(mailString: self.emailLabel.text!)
+    }
+    
+
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             self.navigationItem.title = "Member Detail"

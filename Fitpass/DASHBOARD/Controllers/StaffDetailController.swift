@@ -32,6 +32,10 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
             self.contactNumberLabel.text=staffObj?.contact_number?.stringValue
             self.emailLabel.text=staffObj?.email
             self.addressLabel.text=staffObj?.address
+            
+            self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
+            self.mailButton.addTarget(self, action: #selector(email), for: UIControlEvents.touchUpInside)
+
             if(staffObj?.gender == "Male"){
                 self.profileImageView.image = UIImage(named: "man")
             }else{
@@ -42,7 +46,16 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
             
         }
-        
+    
+    func call(){
+        callTheNumber(numberString: self.contactNumberLabel.text!)
+    }
+    
+    func email(){
+        sendMailTo(mailString: self.emailLabel.text!)
+    }
+    
+
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             self.navigationItem.title = "Staff Detail"
