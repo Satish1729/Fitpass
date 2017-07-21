@@ -141,6 +141,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
             let selectedStudioObjArray = appDelegate.userBean!.studioArray as NSArray
             let selectedStudio = selectedStudioObjArray.object(at: index) as! StudioBean
             appDelegate.userBean?.authHeader = selectedStudio.studio_token
+            appDelegate.userBean?.partner_id = selectedStudio.partner_id
         }
     }
     

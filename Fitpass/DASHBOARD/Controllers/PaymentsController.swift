@@ -82,8 +82,14 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.paymentsArray.addObjects(from:  Payments().updatePayments(responseDict : responseDic!) as [AnyObject])
-                    self.paymentsTableView.reloadData()
+                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        self.paymentsArray.addObjects(from:  Payments().updatePayments(responseDict : responseDic!) as [AnyObject])
+                        self.paymentsTableView.reloadData()
+                    }else{
+                        self.paymentsArray.removeAllObjects()
+                        self.paymentsTableView.reloadData()
+                        AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
                 }
             }
             else{
@@ -104,7 +110,7 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let parameters : [String : Any] = ["search_text" : self.paymentsSearchBar.text!, "search_by" : "Name"]
+        let parameters : [String : Any] = ["bank_utr_number" : self.paymentsSearchBar.text!]
         let urlString  = self.createURLFromParameters(parameters: parameters)
         let str : String = ServerConstants.URL_GET_ALL_PAYMENTS+urlString.absoluteString
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in
@@ -115,8 +121,15 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.filtered.addObjects(from:  Payments().updatePayments(responseDict : responseDic!) as [AnyObject])
-                    self.paymentsTableView.reloadData()
+                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        self.filtered.addObjects(from:  Payments().updatePayments(responseDict : responseDic!) as [AnyObject])
+                        self.paymentsTableView.reloadData()
+                    }else{
+                        self.filtered.removeAllObjects()
+                        self.paymentsTableView.reloadData()
+                        AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
+
                 }
             }
             else{
@@ -151,8 +164,14 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.filtered.addObjects(from:  Payments().updatePayments(responseDict : responseDic!) as [AnyObject])
-                    self.paymentsTableView.reloadData()
+                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        self.filtered.addObjects(from:  Payments().updatePayments(responseDict : responseDic!) as [AnyObject])
+                        self.paymentsTableView.reloadData()
+                    }else{
+                        self.filtered.removeAllObjects()
+                        self.paymentsTableView.reloadData()
+                        AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
                 }
             }
             else{

@@ -17,6 +17,21 @@ class AssetsFilterController: BaseViewController, UITextFieldDelegate {
         @IBOutlet weak var expiryDateTxtField: UITextField!
     
         @IBAction func searchButtonClicked(_ sender: Any) {
+            
+            if purchasedOnTxtField.text == "" {
+                AlertView.showCustomAlertWithMessage(message: "Select purchased date" , yPos: 20, duration: NSInteger(2.0))
+                return
+            }else if(expiryDateTxtField.text == "") {
+                AlertView.showCustomAlertWithMessage(message: "Select expiry date", yPos: 20, duration: NSInteger(2.0))
+                return
+            }else if((Utility().getTimeFromString(dateStr: purchasedOnTxtField.text! as NSString)) > (Utility().getTimeFromString(dateStr: expiryDateTxtField.text! as NSString))){
+                AlertView.showCustomAlertWithMessage(message: "Expiry date has to be after purchased date", yPos: 20, duration: NSInteger(2.0))
+                return
+            }else if !isInternetAvailable() {
+                AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+                return
+            }
+
             self.dismissViewController()
             
             let tempDict : NSDictionary = ["purchase_date_from" : purchasedOnTxtField.text!, "purchase_date_to" : expiryDateTxtField.text!]

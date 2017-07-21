@@ -103,17 +103,19 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
             
             ProgressHUD.showProgress(targetView: self.view)
             
-            let parameters : [String : Any] = ["search_text" : self.assetsSearchBar.text!, "search_by" : "Name"]
+            let parameters : [String : Any] = ["search_text" : self.assetsSearchBar.text!, "search_by" : "Asset Name"]
             let urlString  = self.createURLFromParameters(parameters: parameters)
             let str : String = ServerConstants.URL_ASSETS+urlString.absoluteString
             NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in
-                
                 ProgressHUD.hideProgress()
                 if error == nil {
                     let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
+                        if(self.filtered.count>0){
+                            self.filtered.removeAllObjects()
+                        }
                         self.filtered.addObjects(from:  Assets().updateAssets(responseDict : responseDic!) as [AnyObject])
                         self.assetsTableView.reloadData()
                     }
@@ -151,6 +153,9 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
+                        if(self.filtered.count>0){
+                            self.filtered.removeAllObjects()
+                        }
                         self.filtered.addObjects(from:  Assets().updateAssets(responseDict : responseDic!) as [AnyObject])
                         self.assetsTableView.reloadData()
                     }

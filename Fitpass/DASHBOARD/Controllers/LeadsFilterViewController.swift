@@ -18,9 +18,27 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate {
    @IBOutlet weak var statusButton: UIButton!
     
     @IBAction func searchButtonClicked(_ sender: Any) {
+
+        if startDateTxtField.text == "" {
+            AlertView.showCustomAlertWithMessage(message: "Select start date" , yPos: 20, duration: NSInteger(2.0))
+            return
+            
+        }else if(endDateTxtField.text == "") {
+            AlertView.showCustomAlertWithMessage(message: "Select end date", yPos: 20, duration: NSInteger(2.0))
+            return
+            
+        }else if((Utility().getTimeFromString(dateStr: startDateTxtField.text! as NSString)) > (Utility().getTimeFromString(dateStr: endDateTxtField.text! as NSString))){
+            AlertView.showCustomAlertWithMessage(message: "End date has to be after start date", yPos: 20, duration: NSInteger(2.0))
+            return
+            
+        }else if !isInternetAvailable() {
+            AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+            return
+        }
+
         self.dismissViewController()
         
-        let tempDict : NSDictionary = ["startdate" : startDateTxtField.text!, "enddate" : endDateTxtField.text!, "status" : statusButton.titleLabel?.text! ?? "HOT"]
+        let tempDict : NSDictionary = ["startdate" : startDateTxtField.text!, "enddate" : endDateTxtField.text!, "status" : statusButton.titleLabel?.text! ?? "Hot"]
         delegate?.getDictionary(searchDict: tempDict)
     }
     
@@ -43,11 +61,11 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(clearFilterValues))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
 
-        
+
         dropDown.anchorView = self.statusButton
         dropDown.bottomOffset = CGPoint(x: 0, y: self.statusButton.frame.size.height)
         dropDown.width = self.statusButton.frame.size.width
-        dropDown.dataSource = ["HOT", "WARM", "COLD"]
+        dropDown.dataSource = ["Hot", "Warm", "Cold"]
         dropDown.direction = .any
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.statusButton.setTitle(item, for: UIControlState.normal)
@@ -75,18 +93,21 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate {
     }
     
     
+    
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         
         if textField == startDateTxtField {
             let datePicker = UIDatePicker()
             textField.inputView = datePicker
             datePicker.datePickerMode = .date
+            datePicker.maximumDate = Date()
             datePicker.addTarget(self, action: #selector(datePickerStartDateChanged(sender:)), for: .valueChanged)
         }
         else if textField == endDateTxtField {
             let datePicker = UIDatePicker()
             datePicker.datePickerMode = .date
             textField.inputView = datePicker
+            datePicker.maximumDate = Date()
             datePicker.addTarget(self, action: #selector(datePickerEndDateChanged(sender:)), for: .valueChanged)
         }
     }

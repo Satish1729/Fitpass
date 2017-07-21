@@ -80,6 +80,7 @@
 		755381A41F14E8B6008F6794 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755381A31F14E8B6008F6794 /* WorkoutCell.swift */; };
 		755381A61F14E8D3008F6794 /* WorkoutDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755381A51F14E8D3008F6794 /* WorkoutDetailCell.swift */; };
 		755381A81F14E8EA008F6794 /* WorkoutAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755381A71F14E8EA008F6794 /* WorkoutAddCell.swift */; };
+		75FEABD51F221DCD00D9D125 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FEABD41F221DCD00D9D125 /* Subscriptions.swift */; };
 		A2B0AF4F212948B04704C9DA /* Pods_Fitpass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B62BA1DE0B08AEB2FE8165 /* Pods_Fitpass.framework */; };
 /* End PBXBuildFile section */
 
@@ -184,6 +185,7 @@
 		755381A31F14E8B6008F6794 /* WorkoutCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutCell.swift; path = DASHBOARD/Views/WorkoutCell.swift; sourceTree = "<group>"; };
 		755381A51F14E8D3008F6794 /* WorkoutDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutDetailCell.swift; path = DASHBOARD/Views/WorkoutDetailCell.swift; sourceTree = "<group>"; };
 		755381A71F14E8EA008F6794 /* WorkoutAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutAddCell.swift; path = DASHBOARD/Views/WorkoutAddCell.swift; sourceTree = "<group>"; };
+		75FEABD41F221DCD00D9D125 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subscriptions.swift; path = DASHBOARD/Models/Subscriptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -369,6 +371,7 @@
 				755381A11F14E86F008F6794 /* Workouts.swift */,
 				753DB4061F174EFE00A6C1A1 /* ReservedWorkouts.swift */,
 				3B51FF861F17E4B00004D4D0 /* WorkoutSchedules.swift */,
+				75FEABD41F221DCD00D9D125 /* Subscriptions.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -651,6 +654,7 @@
 				3B58C0591EB0A309006086E5 /* Utility.swift in Sources */,
 				755381A41F14E8B6008F6794 /* WorkoutCell.swift in Sources */,
 				3B0C8B771F10F57B001DB937 /* PaymentDetailCell.swift in Sources */,
+				75FEABD51F221DCD00D9D125 /* Subscriptions.swift in Sources */,
 				3B58C0121EB07E19006086E5 /* AppDelegate.swift in Sources */,
 				755381A81F14E8EA008F6794 /* WorkoutAddCell.swift in Sources */,
 				3B4DAF351F04B1A700BDB69B /* AssetsFilterController.swift in Sources */,

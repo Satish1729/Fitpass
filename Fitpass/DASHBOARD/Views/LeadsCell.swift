@@ -19,7 +19,8 @@ class LeadsCell: UITableViewCell {
     @IBOutlet weak var nextFollowUpLabel: UILabel!
     @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var mailButton: UIButton!
-    
+    @IBOutlet weak var statusImageView: UIImageView!
+
     
     func updateLeadsDetails (leadBean : Leads) {
         
@@ -29,6 +30,18 @@ class LeadsCell: UITableViewCell {
         
         if let leadNature = leadBean.lead_nature {
             self.leadNatureLabel.text = leadNature
+            self.statusImageView.layer.cornerRadius = self.statusImageView.frame.size.width / 2
+            self.statusImageView.clipsToBounds = true
+            switch leadNature {
+            case "Warm":
+                self.statusImageView.backgroundColor = UIColor(red: 105/255, green: 194/255, blue: 255/255, alpha: 1.0)
+            case "Hot":
+                self.statusImageView.backgroundColor = UIColor.red
+            case "Cold":
+                self.statusImageView.backgroundColor = UIColor.yellow
+            default:
+                self.statusImageView.backgroundColor = UIColor.white
+            }
         }
 
         if let email = leadBean.email {
@@ -56,6 +69,7 @@ class LeadsCell: UITableViewCell {
             self.mailButton.addTarget(self, action: #selector(email), for: UIControlEvents.touchUpInside)
 
         }
+
     }
     
     func call(){

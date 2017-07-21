@@ -290,6 +290,13 @@ class Utility: NSObject {
         return Utility().getIntervalTimeFromDate(date: s)
     }
     
+    func getTimeFromString(dateStr : NSString) -> NSInteger {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyy"
+        let s = dateFormatter.date(from: dateStr as String)! as NSDate
+        return Utility().getIntervalTimeFromDate(date: s)
+    }
+
     func getDateFromTimeIntervalAsNormalFormate(interval : NSNumber) -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(interval)) as NSDate
         let dateFormatter = DateFormatter()

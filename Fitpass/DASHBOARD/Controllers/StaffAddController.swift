@@ -15,7 +15,7 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
 
     var delegate : staffDelegate?
     
-        var keyLabelNameArray : NSArray = ["Name", "Role", "Email", "Contact No.", "Date of Birth", "Gender", "Address", "Joining Date", "Salary", "Salary Date"]
+        var keyLabelNameArray : NSArray = ["Name*", "Role*", "Email*", "Contact No.*", "Date of Birth*", "Gender*", "Address*", "Joining Date*", "Salary*", "Salary Date*"]
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -64,7 +64,7 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
             let cell : StaffAddCell = tableView.dequeueReusableCell(withIdentifier: "StaffAddCell") as! StaffAddCell
-            
+            tableView.separatorStyle = UITableViewCellSeparatorStyle.none
             cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
             cell.valueTxtField.placeholder = keyLabelNameArray.object(at: indexPath.row) as? String
 //            cell.valueTxtField.delegate = self as! UITextFieldDelegate
@@ -82,7 +82,9 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
             case 4:
                 let datePicker = UIDatePicker()
                 datePicker.datePickerMode = .date
+                datePicker.maximumDate = Date()
                 cell.valueTxtField.inputView = datePicker
+                
                 datePicker.addTarget(self, action: #selector(datePickerDOBChanged(sender:)), for: .valueChanged)
             case 5:
                 cell.valueTxtField.keyboardType = .namePhonePad
@@ -91,6 +93,7 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
             case 7:
                 let datePicker1 = UIDatePicker()
                 datePicker1.datePickerMode = .date
+                datePicker1.maximumDate = Date()
                 cell.valueTxtField.inputView = datePicker1
                 datePicker1.addTarget(self, action: #selector(datePickerJoiningDateChanged(sender:)), for: .valueChanged)
             case 8:
@@ -103,7 +106,8 @@ class StaffAddController: BaseViewController, UITableViewDelegate, UITableViewDa
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
-            
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+
             return cell
         }
     

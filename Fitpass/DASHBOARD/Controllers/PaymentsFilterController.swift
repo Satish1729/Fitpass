@@ -18,8 +18,24 @@ class PaymentsFilterController: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var bankUtrNumberTextField: UITextField!
     
     @IBAction func searchButtonClicked(_ sender: Any) {
-        self.dismissViewController()
         
+        if bankUtrNumberTextField.text == "" {
+            AlertView.showCustomAlertWithMessage(message: "Please enter bank UTR number" , yPos: 20, duration: NSInteger(2.0))
+            return
+        }
+        else if paymentDateTxtField.text == "" {
+            AlertView.showCustomAlertWithMessage(message: "Select payment date" , yPos: 20, duration: NSInteger(2.0))
+            return
+            
+        }else if(paymentMonthTxtField.text == "") {
+            AlertView.showCustomAlertWithMessage(message: "Select payment month", yPos: 20, duration: NSInteger(2.0))
+            return
+            
+        }else if !isInternetAvailable() {
+            AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+            return
+        }
+        self.dismissViewController()
         let tempDict : NSDictionary = ["paymentDate" : paymentDateTxtField.text!, "paymentMonth" : paymentMonthTxtField.text!, "bankUtrNumber" : bankUtrNumberTextField.text!]
         delegate?.getDictionary(searchDict: tempDict)
     }
@@ -77,12 +93,14 @@ class PaymentsFilterController: BaseViewController, UITextFieldDelegate {
             let datePicker = UIDatePicker()
             textField.inputView = datePicker
             datePicker.datePickerMode = .date
+            datePicker.maximumDate = Date()
             datePicker.addTarget(self, action: #selector(datePickerPaymentDateChanged(sender:)), for: .valueChanged)
         }
         else if textField == paymentMonthTxtField {
             let datePicker = UIDatePicker()
             datePicker.datePickerMode = .date
             textField.inputView = datePicker
+            datePicker.maximumDate = Date()
             datePicker.addTarget(self, action: #selector(datePickerPaymentMonthChanged(sender:)), for: .valueChanged)
         }
     }

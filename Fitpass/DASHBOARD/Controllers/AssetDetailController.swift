@@ -17,16 +17,29 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
         @IBOutlet weak var assetNameLabel: UILabel!
         @IBOutlet weak var statusLabel: UILabel!
         @IBOutlet weak var amountLabel: UILabel!
+        @IBOutlet weak var statusImageView: UIImageView!
     
+
         var keyLabelNameArray : NSArray = ["Vendor Name", "Purchased On", "Asset Status", "Created By", "Created Date", "Bill", "Remarks"]
         
         override func viewDidLoad() {
             super.viewDidLoad()
             
             self.assetNameLabel.text = assetObj?.asset_name
-            self.statusLabel.text=assetObj?.asset_status
+            self.statusLabel.text=assetObj?.asset_status ?? ""
             self.amountLabel.text=(assetObj?.amount?.stringValue)!+"rs"
             
+            self.statusImageView.layer.cornerRadius = self.statusImageView.frame.size.width / 2
+            self.statusImageView.clipsToBounds = true
+            switch self.statusLabel.text! {
+                case "Expired":
+                self.statusImageView.backgroundColor = UIColor.red
+                case "Available":
+                    self.statusImageView.backgroundColor = UIColor.green
+                default:
+                    self.statusImageView.backgroundColor = UIColor.red
+            }
+
             let backBtn = UIButton(type: .custom)
             backBtn.setImage(UIImage(named: "img_back"), for: .normal)
             backBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)

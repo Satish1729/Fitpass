@@ -306,7 +306,8 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
         }
         
         func getFilterDictionary(searchDict: NSDictionary) {
-            self.subscriptionPlan = searchDict.object(forKey: "plan") as? String
+            let tempVar = searchDict.object(forKey: "plan") as? NSNumber
+            self.subscriptionPlan = tempVar?.stringValue
             searchActive = true
             self.getSearchFilterMembers()
         }

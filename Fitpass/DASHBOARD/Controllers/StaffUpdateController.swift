@@ -14,7 +14,7 @@ class StaffUpdateController: BaseViewController, UITableViewDelegate, UITableVie
 
         var delegate : staffDelegate?
         var staffObj : Staffs?
-        var keyLabelNameArray : NSArray = ["Name", "Role", "Email", "Contact No.", "Date of Birth", "Gender", "Address", "Joining Date", "Salary", "Salary Date"]
+        var keyLabelNameArray : NSArray = ["Name*", "Role*", "Email*", "Contact No.*", "Date of Birth*", "Gender*", "Address*", "Joining Date*", "Salary*", "Salary Date*"]
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -62,7 +62,8 @@ class StaffUpdateController: BaseViewController, UITableViewDelegate, UITableVie
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
             let cell : StaffAddCell = tableView.dequeueReusableCell(withIdentifier: "StaffUpdateCell") as! StaffAddCell
-            
+            tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+
             cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
 //            cell.valueTxtField.placeholder = keyLabelNameArray.object(at: indexPath.row) as? String
             
@@ -125,7 +126,8 @@ class StaffUpdateController: BaseViewController, UITableViewDelegate, UITableVie
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
-            
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+
             return cell
         }
     func datePickerDOBChanged(sender: UIDatePicker) {
@@ -148,34 +150,62 @@ class StaffUpdateController: BaseViewController, UITableViewDelegate, UITableVie
             self.dismissViewController()
             let staffBean : Staffs = Staffs()
             
-            let cell  = staffUpdateTableview.cellForRow(at: IndexPath(row:0,  section:0)) as! StaffAddCell
-            staffBean.name = cell.valueTxtField.text ?? ""
+            if let cell  = staffUpdateTableview.cellForRow(at: IndexPath(row:0,  section:0)) {
+                staffBean.name = (cell as! StaffAddCell).valueTxtField.text!
+            }else{
+                staffBean.name = staffObj?.name
+            }
             
-            let cell1  = staffUpdateTableview.cellForRow(at: IndexPath(row:1,  section:0)) as! StaffAddCell
-            staffBean.role = cell1.valueTxtField.text ?? ""
+            if let cell1  = staffUpdateTableview.cellForRow(at: IndexPath(row:1,  section:0)){
+                staffBean.role = (cell1 as! StaffAddCell).valueTxtField.text!
+            }else{
+                staffBean.role = staffObj?.role
+            }
             
-            let cell2  = staffUpdateTableview.cellForRow(at: IndexPath(row:2,  section:0)) as! StaffAddCell
-            staffBean.email = cell2.valueTxtField.text ?? ""
+            if let cell2  = staffUpdateTableview.cellForRow(at: IndexPath(row:2,  section:0)) {
+                staffBean.email = (cell2 as! StaffAddCell).valueTxtField.text!
+            }else{
+                staffBean.email = staffObj?.email
+            }
             
-            let cell3  = staffUpdateTableview.cellForRow(at: IndexPath(row:3,  section:0)) as! StaffAddCell
-            let myInteger = cell3.valueTxtField.text!
-            staffBean.contact_number = NSNumber(value : Int(myInteger)!)
+            if let cell3  = staffUpdateTableview.cellForRow(at: IndexPath(row:3,  section:0)) {
+                let myInteger1 = (cell3 as! StaffAddCell).valueTxtField.text!
+                staffBean.contact_number = NSNumber(value : Int(myInteger1)!)
+            }else{
+                let myInteger2 = staffObj?.contact_number?.stringValue ?? ""
+                staffBean.contact_number = NSNumber(value : Int(myInteger2)!)
+            }
+
+            if let cell4  = staffUpdateTableview.cellForRow(at: IndexPath(row:4,  section:0)) {
+                staffBean.dob = (cell4 as! StaffAddCell).valueTxtField.text!
+            }else{
+                staffBean.dob = staffObj?.dob
+            }
+          
+            if let cell5  = staffUpdateTableview.cellForRow(at: IndexPath(row:5,  section:0)) {
+                staffBean.gender = (cell5 as! StaffAddCell).valueTxtField.text!
+            }else{
+                staffBean.gender = staffObj?.gender
+            }
+
+            if let cell6  = staffUpdateTableview.cellForRow(at: IndexPath(row:6,  section:0)) {
+                staffBean.address = (cell6 as! StaffAddCell).valueTxtField.text!
+            }else{
+                staffBean.address = staffObj?.address
+            }
             
-            let cell4  = staffUpdateTableview.cellForRow(at: IndexPath(row:4,  section:0)) as! StaffAddCell
-            staffBean.dob = cell4.valueTxtField.text ?? ""
+            if let cell7  = staffUpdateTableview.cellForRow(at: IndexPath(row:7,  section:0)) {
+                staffBean.joining_date = (cell7 as! StaffAddCell).valueTxtField.text!
+            }else{
+                staffBean.joining_date = staffObj?.joining_date
+            }
             
-            let cell5  = staffUpdateTableview.cellForRow(at: IndexPath(row:5,  section:0)) as! StaffAddCell
-            staffBean.gender = cell5.valueTxtField.text ?? ""
-            
-            let cell6  = staffUpdateTableview.cellForRow(at: IndexPath(row:6,  section:0)) as! StaffAddCell
-            staffBean.address = cell6.valueTxtField.text ?? ""
-            
-            let cell7  = staffUpdateTableview.cellForRow(at: IndexPath(row:7,  section:0)) as! StaffAddCell
-            staffBean.joining_date = cell7.valueTxtField.text ?? ""
-            
-            let cell8  = staffUpdateTableview.cellForRow(at: IndexPath(row:8,  section:0)) as! StaffAddCell
-            staffBean.salary = cell8.valueTxtField.text ?? ""
-            
+            if let cell8  = staffUpdateTableview.cellForRow(at: IndexPath(row:8,  section:0)) {
+                staffBean.salary = (cell8 as! StaffAddCell).valueTxtField.text!
+            }else{
+                staffBean.salary = staffObj?.salary
+            }
+
             if let cell9  = staffUpdateTableview.cellForRow(at: IndexPath(row:9,  section:0)) {
                 let myInteger1 = (cell9 as! StaffAddCell).valueTxtField.text!
                 staffBean.salary_date = NSNumber(value : Int(myInteger1)!)
