@@ -119,6 +119,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 //        self.profileView.addSubview(blurEffectView)
+        self.profileView.alpha = 0.2
         self.profileImageView.image = UIImage(named: "dumble")
         
         self.userName.text = (appDelegate.userBean?.first_name)! + " " + (appDelegate.userBean?.last_name)!

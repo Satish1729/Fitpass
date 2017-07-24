@@ -83,9 +83,14 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    
-                    self.workoutsArray.addObjects(from:  Workouts().updateWorkouts(responseDict : responseDic!) as [AnyObject])
-                    self.workoutTableView.reloadData()
+                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        self.workoutsArray.addObjects(from:  Workouts().updateWorkouts(responseDict : responseDic!) as [AnyObject])
+                        self.workoutTableView.reloadData()
+                    }else{
+                        self.workoutsArray.removeAllObjects()
+                        self.workoutTableView.reloadData()
+                        AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
                 }
             }
             else{
@@ -118,8 +123,14 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.filteredArray.addObjects(from:  Workouts().updateWorkouts(responseDict : responseDic!) as [AnyObject])
-                    self.workoutTableView.reloadData()
+                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        self.filteredArray.addObjects(from:  Workouts().updateWorkouts(responseDict : responseDic!) as [AnyObject])
+                        self.workoutTableView.reloadData()
+                    }else{
+                        self.filteredArray.removeAllObjects()
+                        self.workoutTableView.reloadData()
+                        AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
                 }
             }
             else{
@@ -221,8 +232,6 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         cell.deleteButton.tag = indexPath.row
         cell.deleteButton.addTarget(self, action: #selector(deleteWorkoutFromList (sender: )), for: UIControlEvents.touchUpInside)
-        
-        
         
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero

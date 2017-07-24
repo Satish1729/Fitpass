@@ -60,8 +60,14 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
-                        self.reservedWorkoutsArray.addObjects(from:  ReservedWorkouts().updateReservedWorkouts(responseDict : responseDic!) as [AnyObject])
-                        self.reservedWorkoutsTableView.reloadData()
+                        if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                            self.reservedWorkoutsArray.addObjects(from:  ReservedWorkouts().updateReservedWorkouts(responseDict : responseDic!) as [AnyObject])
+                            self.reservedWorkoutsTableView.reloadData()
+                        }else{
+                            self.reservedWorkoutsArray.removeAllObjects()
+                            self.reservedWorkoutsTableView.reloadData()
+                            AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                        }
                     }
                 }
                 else{
@@ -94,8 +100,14 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
-                        self.filteredArray.addObjects(from:  ReservedWorkouts().updateReservedWorkouts(responseDict : responseDic!) as [AnyObject])
-                        self.reservedWorkoutsTableView.reloadData()
+                        if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                            self.filteredArray.addObjects(from:  ReservedWorkouts().updateReservedWorkouts(responseDict : responseDic!) as [AnyObject])
+                            self.reservedWorkoutsTableView.reloadData()
+                        }else{
+                            self.filteredArray.removeAllObjects()
+                            self.reservedWorkoutsTableView.reloadData()
+                            AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                        }
                     }
                 }
                 else{
