@@ -46,6 +46,7 @@ class ServerConstants: NSObject {
     static let URL_UPDATE_WORKOUT = BASE_URL_CLIENT+"workouts/update"
     static let URL_WORKOUTS_CATEGORY = BASE_URL_CLIENT+"workouts/category"
     static let URL_ADD_SCHEDULE = BASE_URL_CLIENT+"workouts/addschedule"
+    static let URL_GET_STAFF_ROLES = BASE_URL+"studioStaffRoles"
 }
 /*
  @GET("users")

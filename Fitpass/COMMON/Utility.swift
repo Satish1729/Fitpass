@@ -186,7 +186,14 @@ class Utility: NSObject {
         return false
     }
     
-    
+    func isValidPhone(value: String) -> Bool {
+        let PHONE_REGEX = "[235689][0-9]{6}([0-9]{3})?"//"^\\d{3}-\\d{3}-\\d{4}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        let result =  phoneTest.evaluate(with: value)
+        return result
+        
+    }
+
     func getDeviceID()-> String? {
         return UIDevice.current.identifierForVendor!.uuidString
         

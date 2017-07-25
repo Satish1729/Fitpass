@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fitpass/DASHBOARD/Controllers/StaffsController.swift"
-            timestampString = "521916899.720419"
+            timestampString = "522696280.062471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "404"
-            endingLineNumber = "404"
+            startingLineNumber = "406"
+            endingLineNumber = "406"
             landmarkName = "updateStaffToList(staffBean:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -36,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fitpass/DASHBOARD/Controllers/StaffsController.swift"
-            timestampString = "521916899.720419"
+            timestampString = "522696280.062471"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "updateStaffToList(staffBean:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Fitpass/DASHBOARD/Controllers/StaffsController.swift"
-            timestampString = "520364199.670205"
+            timestampString = "522687352.590581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,22 +90,6 @@
             startingLineNumber = "146"
             endingLineNumber = "146"
             landmarkName = "getSearchFilterMembers()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Fitpass/DASHBOARD/Controllers/StaffsController.swift"
-            timestampString = "520364199.670205"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "getStaffList()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -195,13 +179,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Fitpass/DASHBOARD/Controllers/MenuController.swift"
-            timestampString = "521918981.69494"
+            filePath = "Fitpass/DASHBOARD/Controllers/StaffsController.swift"
+            timestampString = "522692897.717445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
-            landmarkName = "tableView(_:didSelectRowAt:)"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
+            landmarkName = "addNewStaffToList(staffBean:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

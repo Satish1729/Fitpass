@@ -72,7 +72,8 @@ class StaffUpdateViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        dropDown.direction = .any
+
         let backBtn = UIButton(type: .custom)
         backBtn.setImage(UIImage(named: "img_back"), for: .normal)
         backBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
@@ -105,7 +106,23 @@ class StaffUpdateViewController: BaseViewController {
         datePicker1.addTarget(self, action: #selector(datePickerJoiningDateChanged(sender:)), for: .valueChanged)
         
         salaryTxtField.keyboardType = .numberPad
+        
+        loadStaffDetails()
     }
+    
+    func loadStaffDetails(){
+        nameTxtField.text = staffObj?.name
+        roleButton.setTitle(staffObj?.role, for:UIControlState.normal)
+        emailTxtField.text = staffObj?.email
+        contactNumberTxtField.text = staffObj?.contact_number?.stringValue
+        dobTxtField.text = staffObj?.dob
+        genderButton.setTitle(staffObj?.gender, for: UIControlState.normal)
+        addressTxtField.text = staffObj?.address
+        joiningDateTxtField.text = staffObj?.joining_date
+        salaryTxtField.text = staffObj?.salary
+        salaryDateButton.setTitle(staffObj?.salary_date?.stringValue, for: UIControlState.normal)
+    }
+    
     
     func setButtonsCornerRadius(){
         self.roleButton.layer.borderColor = UIColor.lightGray.cgColor
@@ -132,7 +149,7 @@ class StaffUpdateViewController: BaseViewController {
     
     override func viewDidLayoutSubviews()
     {
-        self.addScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 800)
+        self.addScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 900)
     }
     
 
@@ -202,11 +219,26 @@ class StaffUpdateViewController: BaseViewController {
         if(emailTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
             AlertView.showCustomAlertWithMessage(message: "Please enter email", yPos: 20, duration: NSInteger(2.0))
             return isValidUser
+        }else{
+            if(Utility().isValidEmail(testStr: emailTxtField.text!)){
+                
+            }else{
+                AlertView.showCustomAlertWithMessage(message: "Please enter valid email", yPos: 20, duration: NSInteger(2.0))
+                return isValidUser
+            }
         }
         
+        
         if(contactNumberTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
-            AlertView.showCustomAlertWithMessage(message: "Please enter Contact No.", yPos: 20, duration: NSInteger(2.0))
+            AlertView.showCustomAlertWithMessage(message: "Please enter contact number.", yPos: 20, duration: NSInteger(2.0))
             return isValidUser
+        }else{
+            if(Utility().isValidPhone(value: contactNumberTxtField.text!)){
+                
+            }else{
+                AlertView.showCustomAlertWithMessage(message: "Please enter valid contact number", yPos: 20, duration: NSInteger(2.0))
+                return isValidUser
+            }
         }
         
         if(dobTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
@@ -255,17 +287,18 @@ class StaffUpdateViewController: BaseViewController {
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GET_WORKOUTS , userInfo: nil, type: "GET") { (data, response, error) in
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GET_STAFF_ROLES , userInfo: nil, type: "GET") { (data, response, error) in
             ProgressHUD.hideProgress()
             if error == nil {
                 let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    let dataArray : NSArray = responseDic!.object(forKey: "data") as! NSArray
+                    let resultDict: NSDictionary = responseDic!.object(forKey: "result") as! NSDictionary
+                    let dataArray : NSArray = resultDict.object(forKey: "studioStaffRoles") as! NSArray
                     for roleObj in (dataArray as? [[String:Any]])! {
-                        self.rolesArray.add(roleObj["workout_name"] ?? "")
-                        self.roleIdsDict.setObject(roleObj["workout_id"]!, forKey: roleObj["workout_name"]! as! NSCopying)
+                        self.rolesArray.add(roleObj["name"] ?? "")
+                        self.roleIdsDict.setObject(roleObj["id"]!, forKey: roleObj["name"]! as! NSCopying)
                     }
                     self.dropDown.anchorView = self.roleButton
                     self.dropDown.bottomOffset = CGPoint(x:0, y:self.roleButton.frame.size.height)
@@ -278,13 +311,11 @@ class StaffUpdateViewController: BaseViewController {
                 }
                 else{
                     AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                    print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
+                    print("Get Roles failed : \(String(describing: error?.localizedDescription))")
                 }
             }
         }
     }
-    
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

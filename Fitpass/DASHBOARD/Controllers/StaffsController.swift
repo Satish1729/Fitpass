@@ -30,9 +30,6 @@ protocol staffDelegate {
     override func viewDidLoad() {
     super.viewDidLoad()
     staffSearchBar.showsCancelButton = true
-
-//    self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named : "add"), style: .plain, target: self, action: #selector(navigateToAddController))
-//    self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
     let addBtn = UIButton(type: .custom)
     addBtn.setImage(UIImage(named: "add"), for: .normal)
@@ -53,10 +50,10 @@ protocol staffDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "staff_add") {
             let addStaffVC : StaffAddViewController = segue.destination as! StaffAddViewController
-//            addStaffVC.delegate = self
+            addStaffVC.delegate = self
         }
         else if(segue.identifier == "staff_update") {
-                let updateStaffVC : StaffUpdateController = segue.destination as! StaffUpdateController
+                let updateStaffVC : StaffUpdateViewController = segue.destination as! StaffUpdateViewController
                 updateStaffVC.delegate = self
                 updateStaffVC.staffObj = selectedStaffObj
         }
@@ -364,6 +361,11 @@ protocol staffDelegate {
                 if (responseDic != nil) {
                     print(responseDic!)
                     
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    let newDate = dateFormatter.string(from: Date())
+                    
+                        staffBean.created_at = newDate
                     self.staffsArray.add(staffBean)
                     self.staffTableView.reloadData()
                 }

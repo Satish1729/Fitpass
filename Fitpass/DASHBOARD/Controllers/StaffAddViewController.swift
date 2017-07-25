@@ -73,7 +73,8 @@ class StaffAddViewController: BaseViewController {
 
         setNavigationUI()
         setButtonsCornerRadius()
-        
+        dropDown.direction = .any
+
         self.nameTxtField.keyboardType = .namePhonePad
         self.emailTxtField.keyboardType = .emailAddress
         self.contactNumberTxtField.keyboardType = .numberPad
@@ -129,7 +130,7 @@ class StaffAddViewController: BaseViewController {
 
     override func viewDidLayoutSubviews()
     {
-        self.addScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 800)
+        self.addScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 920)
     }
 
     func dismissViewController() {
@@ -175,11 +176,26 @@ class StaffAddViewController: BaseViewController {
         if(emailTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
             AlertView.showCustomAlertWithMessage(message: "Please enter email", yPos: 20, duration: NSInteger(2.0))
             return isValidUser
+        }else{
+            if(Utility().isValidEmail(testStr: emailTxtField.text!)){
+                
+            }else{
+                AlertView.showCustomAlertWithMessage(message: "Please enter valid email", yPos: 20, duration: NSInteger(2.0))
+                return isValidUser
+            }
         }
         
+
         if(contactNumberTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
-            AlertView.showCustomAlertWithMessage(message: "Please enter Contact No.", yPos: 20, duration: NSInteger(2.0))
+            AlertView.showCustomAlertWithMessage(message: "Please enter contact number.", yPos: 20, duration: NSInteger(2.0))
             return isValidUser
+        }else{
+            if(Utility().isValidPhone(value: contactNumberTxtField.text!)){
+                
+            }else{
+                AlertView.showCustomAlertWithMessage(message: "Please enter valid contact number", yPos: 20, duration: NSInteger(2.0))
+                return isValidUser
+            }
         }
         
         if(dobTxtField.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
@@ -251,17 +267,18 @@ class StaffAddViewController: BaseViewController {
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GET_WORKOUTS , userInfo: nil, type: "GET") { (data, response, error) in
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GET_STAFF_ROLES , userInfo: nil, type: "GET") { (data, response, error) in
             ProgressHUD.hideProgress()
             if error == nil {
                 let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    let dataArray : NSArray = responseDic!.object(forKey: "data") as! NSArray
+                    let resultDict: NSDictionary = responseDic!.object(forKey: "result") as! NSDictionary
+                    let dataArray : NSArray = resultDict.object(forKey: "studioStaffRoles") as! NSArray
                     for roleObj in (dataArray as? [[String:Any]])! {
-                        self.rolesArray.add(roleObj["workout_name"] ?? "")
-                        self.roleIdsDict.setObject(roleObj["workout_id"]!, forKey: roleObj["workout_name"]! as! NSCopying)
+                        self.rolesArray.add(roleObj["name"] ?? "")
+                        self.roleIdsDict.setObject(roleObj["id"]!, forKey: roleObj["name"]! as! NSCopying)
                     }
                     self.dropDown.anchorView = self.roleButton
                     self.dropDown.bottomOffset = CGPoint(x:0, y:self.roleButton.frame.size.height)
@@ -274,7 +291,7 @@ class StaffAddViewController: BaseViewController {
                 }
                 else{
                     AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                    print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
+                    print("Get Roles failed : \(String(describing: error?.localizedDescription))")
                 }
             }
         }
