@@ -52,8 +52,8 @@ protocol staffDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "staff_add") {
-            let addStaffVC : StaffAddController = segue.destination as! StaffAddController
-            addStaffVC.delegate = self
+            let addStaffVC : StaffAddViewController = segue.destination as! StaffAddViewController
+//            addStaffVC.delegate = self
         }
         else if(segue.identifier == "staff_update") {
                 let updateStaffVC : StaffUpdateController = segue.destination as! StaffUpdateController

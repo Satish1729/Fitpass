@@ -16,8 +16,6 @@
 		3B0C8B771F10F57B001DB937 /* PaymentDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B0C8B761F10F57B001DB937 /* PaymentDetailCell.swift */; };
 		3B169DFA1F1A1EFD0024B3F0 /* BarChartFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B169DF91F1A1EFD0024B3F0 /* BarChartFormatter.swift */; };
 		3B2160011EDD4C25004A55F4 /* StaffDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2160001EDD4C25004A55F4 /* StaffDetailController.swift */; };
-		3B2160031EDD4CF5004A55F4 /* StaffAddController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2160021EDD4CF5004A55F4 /* StaffAddController.swift */; };
-		3B2160051EDD4D0D004A55F4 /* StaffUpdateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2160041EDD4D0D004A55F4 /* StaffUpdateController.swift */; };
 		3B3D5D3D1F04271B0036425F /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3D5D3C1F04271B0036425F /* Assets.swift */; };
 		3B4DAF2F1F04A47100BDB69B /* AssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4DAF2E1F04A47100BDB69B /* AssetsCell.swift */; };
 		3B4DAF311F04A4AE00BDB69B /* AssetDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B4DAF301F04A4AE00BDB69B /* AssetDetailCell.swift */; };
@@ -80,6 +78,8 @@
 		755381A41F14E8B6008F6794 /* WorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755381A31F14E8B6008F6794 /* WorkoutCell.swift */; };
 		755381A61F14E8D3008F6794 /* WorkoutDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755381A51F14E8D3008F6794 /* WorkoutDetailCell.swift */; };
 		755381A81F14E8EA008F6794 /* WorkoutAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755381A71F14E8EA008F6794 /* WorkoutAddCell.swift */; };
+		75C70AD11F275C8300496AC2 /* StaffAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C70AD01F275C8300496AC2 /* StaffAddViewController.swift */; };
+		75C70AD31F275CAD00496AC2 /* StaffUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C70AD21F275CAD00496AC2 /* StaffUpdateViewController.swift */; };
 		75FEABD51F221DCD00D9D125 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FEABD41F221DCD00D9D125 /* Subscriptions.swift */; };
 		A2B0AF4F212948B04704C9DA /* Pods_Fitpass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B62BA1DE0B08AEB2FE8165 /* Pods_Fitpass.framework */; };
 /* End PBXBuildFile section */
@@ -115,8 +115,6 @@
 		3B169DF91F1A1EFD0024B3F0 /* BarChartFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BarChartFormatter.swift; path = DASHBOARD/Controllers/BarChartFormatter.swift; sourceTree = "<group>"; };
 		3B169DFD1F1A4AB20024B3F0 /* Fitpass-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Fitpass-Bridging-Header.h"; sourceTree = "<group>"; };
 		3B2160001EDD4C25004A55F4 /* StaffDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffDetailController.swift; path = DASHBOARD/Controllers/StaffDetailController.swift; sourceTree = "<group>"; };
-		3B2160021EDD4CF5004A55F4 /* StaffAddController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffAddController.swift; path = DASHBOARD/Controllers/StaffAddController.swift; sourceTree = "<group>"; };
-		3B2160041EDD4D0D004A55F4 /* StaffUpdateController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffUpdateController.swift; path = DASHBOARD/Controllers/StaffUpdateController.swift; sourceTree = "<group>"; };
 		3B3D5D3C1F04271B0036425F /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Assets.swift; path = DASHBOARD/Models/Assets.swift; sourceTree = "<group>"; };
 		3B4DAF2E1F04A47100BDB69B /* AssetsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssetsCell.swift; path = DASHBOARD/Views/AssetsCell.swift; sourceTree = "<group>"; };
 		3B4DAF301F04A4AE00BDB69B /* AssetDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AssetDetailCell.swift; path = DASHBOARD/Views/AssetDetailCell.swift; sourceTree = "<group>"; };
@@ -185,6 +183,8 @@
 		755381A31F14E8B6008F6794 /* WorkoutCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutCell.swift; path = DASHBOARD/Views/WorkoutCell.swift; sourceTree = "<group>"; };
 		755381A51F14E8D3008F6794 /* WorkoutDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutDetailCell.swift; path = DASHBOARD/Views/WorkoutDetailCell.swift; sourceTree = "<group>"; };
 		755381A71F14E8EA008F6794 /* WorkoutAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutAddCell.swift; path = DASHBOARD/Views/WorkoutAddCell.swift; sourceTree = "<group>"; };
+		75C70AD01F275C8300496AC2 /* StaffAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffAddViewController.swift; path = DASHBOARD/Controllers/StaffAddViewController.swift; sourceTree = "<group>"; };
+		75C70AD21F275CAD00496AC2 /* StaffUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffUpdateViewController.swift; path = DASHBOARD/Controllers/StaffUpdateViewController.swift; sourceTree = "<group>"; };
 		75FEABD41F221DCD00D9D125 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subscriptions.swift; path = DASHBOARD/Models/Subscriptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -322,8 +322,8 @@
 				3B4DAF341F04B1A700BDB69B /* AssetsFilterController.swift */,
 				3B680F291EC6EC4500549969 /* StaffsController.swift */,
 				3B2160001EDD4C25004A55F4 /* StaffDetailController.swift */,
-				3B2160021EDD4CF5004A55F4 /* StaffAddController.swift */,
-				3B2160041EDD4D0D004A55F4 /* StaffUpdateController.swift */,
+				75C70AD01F275C8300496AC2 /* StaffAddViewController.swift */,
+				75C70AD21F275CAD00496AC2 /* StaffUpdateViewController.swift */,
 				3B680F2B1EC6EC7000549969 /* SendSMAController.swift */,
 				3B680F2D1EC6ECC000549969 /* SupportsController.swift */,
 				3B680F2F1EC6ECE700549969 /* WorkoutController.swift */,
@@ -600,6 +600,7 @@
 				755381A61F14E8D3008F6794 /* WorkoutDetailCell.swift in Sources */,
 				3B680F281EC6EC2900549969 /* AssetsController.swift in Sources */,
 				3BC959341EDC8F7300A94CCE /* MembersCell.swift in Sources */,
+				75C70AD11F275C8300496AC2 /* StaffAddViewController.swift in Sources */,
 				3B51FF871F17E4B00004D4D0 /* WorkoutSchedules.swift in Sources */,
 				3B680F221EC6D2D000549969 /* MenuController.swift in Sources */,
 				3B680F1C1EC55E5F00549969 /* LeadsViewController.swift in Sources */,
@@ -615,8 +616,6 @@
 				3B4DAF2F1F04A47100BDB69B /* AssetsCell.swift in Sources */,
 				3BC959381EDC8FEB00A94CCE /* Members.swift in Sources */,
 				753DB40B1F175EB600A6C1A1 /* ReservedWorkoutDetailCell.swift in Sources */,
-				3B2160051EDD4D0D004A55F4 /* StaffUpdateController.swift in Sources */,
-				3B2160031EDD4CF5004A55F4 /* StaffAddController.swift in Sources */,
 				3B2160011EDD4C25004A55F4 /* StaffDetailController.swift in Sources */,
 				3B0C8B711F10E6E3001DB937 /* PaymentsFilterController.swift in Sources */,
 				3BEAAFB61EDAB9080083AA51 /* LeadsFilterViewController.swift in Sources */,
@@ -650,6 +649,7 @@
 				3B680F261EC6EAB400549969 /* PaymentsController.swift in Sources */,
 				3B680F2E1EC6ECC000549969 /* SupportsController.swift in Sources */,
 				3B680F321EC6ED2A00549969 /* ReservedWorkoutsController.swift in Sources */,
+				75C70AD31F275CAD00496AC2 /* StaffUpdateViewController.swift in Sources */,
 				3B0C8B6F1F10E6BE001DB937 /* PaymentDetailController.swift in Sources */,
 				3B58C0591EB0A309006086E5 /* Utility.swift in Sources */,
 				755381A41F14E8B6008F6794 /* WorkoutCell.swift in Sources */,
