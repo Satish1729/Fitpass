@@ -149,7 +149,7 @@ class StaffUpdateViewController: BaseViewController {
     
     override func viewDidLayoutSubviews()
     {
-        self.addScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 900)
+        self.addScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 1000)
     }
     
 

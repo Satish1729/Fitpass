@@ -80,6 +80,7 @@
 		755381A81F14E8EA008F6794 /* WorkoutAddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755381A71F14E8EA008F6794 /* WorkoutAddCell.swift */; };
 		75C70AD11F275C8300496AC2 /* StaffAddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C70AD01F275C8300496AC2 /* StaffAddViewController.swift */; };
 		75C70AD31F275CAD00496AC2 /* StaffUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C70AD21F275CAD00496AC2 /* StaffUpdateViewController.swift */; };
+		75D46CCB1F287416007ACF8F /* PartnerRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D46CCA1F287416007ACF8F /* PartnerRequestViewController.swift */; };
 		75FEABD51F221DCD00D9D125 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FEABD41F221DCD00D9D125 /* Subscriptions.swift */; };
 		A2B0AF4F212948B04704C9DA /* Pods_Fitpass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B62BA1DE0B08AEB2FE8165 /* Pods_Fitpass.framework */; };
 /* End PBXBuildFile section */
@@ -185,6 +186,7 @@
 		755381A71F14E8EA008F6794 /* WorkoutAddCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutAddCell.swift; path = DASHBOARD/Views/WorkoutAddCell.swift; sourceTree = "<group>"; };
 		75C70AD01F275C8300496AC2 /* StaffAddViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffAddViewController.swift; path = DASHBOARD/Controllers/StaffAddViewController.swift; sourceTree = "<group>"; };
 		75C70AD21F275CAD00496AC2 /* StaffUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffUpdateViewController.swift; path = DASHBOARD/Controllers/StaffUpdateViewController.swift; sourceTree = "<group>"; };
+		75D46CCA1F287416007ACF8F /* PartnerRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartnerRequestViewController.swift; path = DASHBOARD/Controllers/PartnerRequestViewController.swift; sourceTree = "<group>"; };
 		75FEABD41F221DCD00D9D125 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subscriptions.swift; path = DASHBOARD/Models/Subscriptions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -333,6 +335,7 @@
 				3B680F311EC6ED2A00549969 /* ReservedWorkoutsController.swift */,
 				753DB4041F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift */,
 				3B680F331EC6ED4500549969 /* WorkoutScheduleController.swift */,
+				75D46CCA1F287416007ACF8F /* PartnerRequestViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -654,6 +657,7 @@
 				3B58C0591EB0A309006086E5 /* Utility.swift in Sources */,
 				755381A41F14E8B6008F6794 /* WorkoutCell.swift in Sources */,
 				3B0C8B771F10F57B001DB937 /* PaymentDetailCell.swift in Sources */,
+				75D46CCB1F287416007ACF8F /* PartnerRequestViewController.swift in Sources */,
 				75FEABD51F221DCD00D9D125 /* Subscriptions.swift in Sources */,
 				3B58C0121EB07E19006086E5 /* AppDelegate.swift in Sources */,
 				755381A81F14E8EA008F6794 /* WorkoutAddCell.swift in Sources */,

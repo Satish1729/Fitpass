@@ -20,6 +20,7 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var workStatusLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    @IBOutlet weak var addWorkoutScheduleButton: UIButton!
     
         var keyLabelNameArray : NSArray = ["Created By", "Workout Status", "Description"]
         

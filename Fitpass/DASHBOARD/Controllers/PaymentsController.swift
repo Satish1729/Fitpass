@@ -32,17 +32,34 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        paymentsSearchBar.showsCancelButton = true
         
-        let filterBtn = UIButton(type: .custom)
-        filterBtn.setImage(UIImage(named: "filter"), for: .normal)
-        filterBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
-        filterBtn.addTarget(self, action: #selector(navigateToPaymentsFilter), for: .touchUpInside)
-        let item1 = UIBarButtonItem(customView: filterBtn)
         
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = item1
-        self.getPayments()
+        let partnerForm = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier:"PartnerRequestViewController") as! PartnerRequestViewController
+        partnerForm.view.frame = CGRect(x:0, y:0, width:self.view.bounds.width, height:self.view.bounds.height)
+        self.addChildViewController(partnerForm)
+        self.view.addSubview(partnerForm.view)
+        
+        if(appDelegate.userBean?.auth_key == "" && appDelegate.userBean?.partner_id == ""){
+            paymentsSearchBar.isHidden = true
+            paymentsTableView.isHidden = true
+            partnerForm.view.isHidden = false
+        }else{
+            paymentsSearchBar.isHidden = false
+            paymentsTableView.isHidden = false
+            partnerForm.view.isHidden = true
+            
+            let filterBtn = UIButton(type: .custom)
+            filterBtn.setImage(UIImage(named: "filter"), for: .normal)
+            filterBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+            filterBtn.addTarget(self, action: #selector(navigateToPaymentsFilter), for: .touchUpInside)
+            let item1 = UIBarButtonItem(customView: filterBtn)
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+            self.navigationItem.rightBarButtonItem = item1
+            paymentsSearchBar.showsCancelButton = true
+            self.getPayments()
+
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

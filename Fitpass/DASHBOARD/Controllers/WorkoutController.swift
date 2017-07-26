@@ -28,17 +28,31 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        workoutSearchBar.showsCancelButton = true
-        
-        let addBtn = UIButton(type: .custom)
-        addBtn.setImage(UIImage(named: "add"), for: .normal)
-        addBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
-        addBtn.addTarget(self, action: #selector(navigateToAddController), for: .touchUpInside)
-        let item1 = UIBarButtonItem(customView: addBtn)
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = item1
-        
-        self.getWorkoutsList()
+        let partnerForm = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier:"PartnerRequestViewController") as! PartnerRequestViewController
+        partnerForm.view.frame = CGRect(x:0, y:0, width:self.view.bounds.width, height:self.view.bounds.height)
+        self.addChildViewController(partnerForm)
+        self.view.addSubview(partnerForm.view)
+
+        if(appDelegate.userBean?.auth_key == "" && appDelegate.userBean?.partner_id == ""){
+            workoutSearchBar.isHidden = true
+            workoutTableView.isHidden = true
+            partnerForm.view.isHidden = false
+        }else{
+            workoutSearchBar.isHidden = false
+            workoutTableView.isHidden = false
+            partnerForm.view.isHidden = true
+            
+            let addBtn = UIButton(type: .custom)
+            addBtn.setImage(UIImage(named: "add"), for: .normal)
+            addBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+            addBtn.addTarget(self, action: #selector(navigateToAddController), for: .touchUpInside)
+            let item1 = UIBarButtonItem(customView: addBtn)
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+            self.navigationItem.rightBarButtonItem = item1
+
+            workoutSearchBar.showsCancelButton = true
+            self.getWorkoutsList()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

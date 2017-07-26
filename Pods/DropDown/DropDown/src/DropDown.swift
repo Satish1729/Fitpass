@@ -932,7 +932,13 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
             deselectRow(at: selectedRowIndex)
 		}
 
-		hide()
+        if dataSource == ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]{
+            
+        }
+        else{
+            hide()
+        }
+        
 	}
 
 }

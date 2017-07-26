@@ -119,7 +119,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         blurEffectView.frame = view.bounds
         blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 //        self.profileView.addSubview(blurEffectView)
-        self.profileView.alpha = 0.2
+        self.profileView.alpha = 0.6
         self.profileImageView.image = UIImage(named: "dumble")
         
         self.userName.text = (appDelegate.userBean?.first_name)! + " " + (appDelegate.userBean?.last_name)!
@@ -143,6 +143,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
             let selectedStudio = selectedStudioObjArray.object(at: index) as! StudioBean
             appDelegate.userBean?.authHeader = selectedStudio.studio_token
             appDelegate.userBean?.partner_id = selectedStudio.partner_id
+            appDelegate.userBean?.auth_key = selectedStudio.auth_key
         }
     }
     

@@ -21,7 +21,8 @@ class WorkoutScheduleController: BaseViewController {
     
     var workoutNamesArray : NSMutableArray = NSMutableArray()
     var workoutIdsDict : NSMutableDictionary = NSMutableDictionary()
-    
+    var selectedDay :String = ""
+
     let dropDown = DropDown()
     
     @IBAction func workoutNameButtonSelected(_ sender: Any) {
@@ -44,7 +45,19 @@ class WorkoutScheduleController: BaseViewController {
         dropDown.topOffset = CGPoint(x:0, y:-self.workoutDaysButton.frame.size.height)
         dropDown.width = self.workoutDaysButton.frame.size.width
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.workoutDaysButton.setTitle(item, for: UIControlState.normal)
+            if(self.selectedDay == ""){
+                self.selectedDay = item
+            }else{
+                if(self.selectedDay.contains(","+item)){
+                    self.selectedDay = self.selectedDay.replacingOccurrences(of: ","+item, with: "")
+                }else if(self.selectedDay.contains(item)){
+                    self.selectedDay = self.selectedDay.replacingOccurrences(of: item, with: "")
+                }
+                else{
+                    self.selectedDay = self.selectedDay+","+item
+                }
+            }
+            self.workoutDaysButton.setTitle(self.selectedDay, for: UIControlState.normal)
         }
         dropDown.dataSource = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
         dropDown.show()
@@ -76,6 +89,8 @@ class WorkoutScheduleController: BaseViewController {
         self.workoutScheduleStatusButton.layer.borderColor = UIColor.lightGray.cgColor
         self.workoutScheduleStatusButton.layer.borderWidth = 1
         self.workoutScheduleStatusButton.layer.cornerRadius = 5
+        
+        numberofSeatsTxtField.keyboardType = .numberPad
         
 //        let backBtn = UIButton(type: .custom)
 //        backBtn.setImage(UIImage(named: "img_back"), for: .normal)
@@ -113,19 +128,24 @@ class WorkoutScheduleController: BaseViewController {
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
-                        let dataArray : NSArray = responseDic!.object(forKey: "data") as! NSArray
-                        for workoutObj in (dataArray as? [[String:Any]])! {
-                            self.workoutNamesArray.add(workoutObj["workout_name"] ?? "")
-                            self.workoutIdsDict.setObject(workoutObj["workout_id"]!, forKey: workoutObj["workout_name"]! as! NSCopying)
+                        if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+
+                            let dataArray : NSArray = responseDic!.object(forKey: "data") as! NSArray
+                            for workoutObj in (dataArray as? [[String:Any]])! {
+                                self.workoutNamesArray.add(workoutObj["workout_name"] ?? "")
+                                self.workoutIdsDict.setObject(workoutObj["workout_id"]!, forKey: workoutObj["workout_name"]! as! NSCopying)
+                            }
+                            self.dropDown.anchorView = self.workoutNameButton
+                            self.dropDown.bottomOffset = CGPoint(x:0, y:self.workoutNameButton.frame.size.height)
+                            self.dropDown.width = self.workoutNameButton.frame.size.width
+                            self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+                                self.workoutNameButton.setTitle(item, for: UIControlState.normal)
+                            }
+                            self.dropDown.dataSource = self.workoutNamesArray as! [String]
+                            self.dropDown.show()
+                        }else{
+                            AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
                         }
-                        self.dropDown.anchorView = self.workoutNameButton
-                        self.dropDown.bottomOffset = CGPoint(x:0, y:self.workoutNameButton.frame.size.height)
-                        self.dropDown.width = self.workoutNameButton.frame.size.width
-                        self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-                            self.workoutNameButton.setTitle(item, for: UIControlState.normal)
-                        }
-                        self.dropDown.dataSource = self.workoutNamesArray as! [String]
-                        self.dropDown.show()
                 }
                 else{
                     AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
@@ -208,6 +228,7 @@ class WorkoutScheduleController: BaseViewController {
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
+                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
                 }
             }
             else{

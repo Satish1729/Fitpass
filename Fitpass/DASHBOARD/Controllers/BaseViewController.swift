@@ -67,6 +67,10 @@ class BaseViewController: UIViewController, SideMenuControllerDelegate {
             }
         }
     }
+    
+    func moveToDashBoard(){
+        sideMenuController?.performSegue(withIdentifier: "showDashBoardVC", sender: self)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

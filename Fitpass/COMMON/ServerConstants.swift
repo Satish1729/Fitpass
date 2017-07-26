@@ -13,7 +13,8 @@ class ServerConstants: NSObject {
     
     static let BASE_URL_CLIENT = "http://devapi.fitpass.co.in/studio/"
     
-    static let BASE_URL_LOGIN = "http://35.154.22.28/fitpassAdmin/public/api/"
+    static let BASE_URL_LOGIN = "http://35.154.22.28/fitpassAdminDev/public/api/"
+//    static let BASE_URL_LOGIN_ADMIN = "http://35.154.22.28/fitpassAdminDev/public/api/"
     
     static let BASE_URL = "http://35.154.22.28/fitpassStudioDev/public/api/"
     
@@ -47,6 +48,7 @@ class ServerConstants: NSObject {
     static let URL_WORKOUTS_CATEGORY = BASE_URL_CLIENT+"workouts/category"
     static let URL_ADD_SCHEDULE = BASE_URL_CLIENT+"workouts/addschedule"
     static let URL_GET_STAFF_ROLES = BASE_URL+"studioStaffRoles"
+    static let URL_LEAD_DATA = "http://devapi.fitpass.co.in/lead-data"
 }
 /*
  @GET("users")

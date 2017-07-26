@@ -22,9 +22,26 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            reservedWorkoutsSearchBar.showsCancelButton = true
             
-            self.getReservedWorkouts()
+            let partnerForm = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier:"PartnerRequestViewController") as! PartnerRequestViewController
+            partnerForm.view.frame = CGRect(x:0, y:0, width:self.view.bounds.width, height:self.view.bounds.height)
+            self.addChildViewController(partnerForm)
+            self.view.addSubview(partnerForm.view)
+            
+            if(appDelegate.userBean?.auth_key == "" && appDelegate.userBean?.partner_id == ""){
+                reservedWorkoutsSearchBar.isHidden = true
+                reservedWorkoutsTableView.isHidden = true
+                partnerForm.view.isHidden = false
+            }else{
+                reservedWorkoutsSearchBar.isHidden = false
+                reservedWorkoutsTableView.isHidden = false
+                partnerForm.view.isHidden = true
+                
+                reservedWorkoutsSearchBar.showsCancelButton = true
+                self.getReservedWorkouts()
+
+            }
+
         }
         
         override func viewWillAppear(_ animated: Bool) {
