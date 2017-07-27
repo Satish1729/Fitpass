@@ -22,7 +22,8 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var mailButton: UIButton!
 
-    
+    var smsString : String = ""
+
         var keyLabelNameArray : NSArray = ["Gender", "Date of Birth", "Role",  "Salary", "Salary Date", "Joining Date", "Created Date", "Joining Documents", "Remarks"]
         
         override func viewDidLoad() {
@@ -44,8 +45,56 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
 
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+            let filterBtn = UIButton(type: .custom)
+            filterBtn.setImage(UIImage(named: "sms"), for: .normal)
+            filterBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+            filterBtn.addTarget(self, action: #selector(showSendSMSView), for: .touchUpInside)
+            let item2 = UIBarButtonItem(customView: filterBtn)
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.red
+            self.navigationItem.rightBarButtonItem = item2
+            
+    }
+    
+    func showSendSMSView(){
+        showAlertWithTextFieldAndTitle(title: "Send sms to "+(staffObj?.name)!, message: "", forTarget: self, buttonOK: "Send SMS", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Message", alertOK: { (msgString) in
+            self.smsString = msgString
+            self.sendSMS()
+        }) { (Void) in
             
         }
+    }
+    
+    func sendSMS(){
+        if (appDelegate.userBean == nil) {
+            return
+        }
+        if !isInternetAvailable() {
+            AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+            return;
+        }
+        
+        ProgressHUD.showProgress(targetView: self.view)
+        
+        let paramDict : [String : Any] = ["mobile" : contactNumberLabel.text!, "text" : self.smsString]
+        
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_SEND_SMS , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
+            
+            ProgressHUD.hideProgress()
+            
+            if error == nil {
+                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+                let responseDic:NSDictionary? = jsonObject as? NSDictionary
+                if (responseDic != nil) {
+                    print(responseDic!)
+                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+                }
+            }
+            else{
+                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
+                print("sending message to lead failed : \(String(describing: error?.localizedDescription))")
+            }
+        }
+    }
     
     func call(){
         callTheNumber(numberString: self.contactNumberLabel.text!)

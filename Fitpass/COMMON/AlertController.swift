@@ -40,7 +40,7 @@ func showAlertWithTitle(title:String,message:String,forTarget:AnyObject,buttonOK
     
 }
 
-func showAlertWithTextFieldAndTitle(title:String, message: String, forTarget: AnyObject, buttonOK:String, buttonCancel:String, textPlaceholder:String, alertOK: @escaping (String)->(), alertCancel: @escaping (Void)->()) {
+func showAlertWithTextFieldAndTitle(title:String, message: String, forTarget: AnyObject, buttonOK:String, buttonCancel:String, isEmail:Bool, textPlaceholder:String, alertOK: @escaping (String)->(), alertCancel: @escaping (Void)->()) {
     
     let alertController:UIAlertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
     
@@ -64,14 +64,19 @@ func showAlertWithTextFieldAndTitle(title:String, message: String, forTarget: An
     
     alertController.addTextField(configurationHandler: {(textField : UITextField!) -> Void in
         textField.placeholder = textPlaceholder
-        textField.keyboardType = .emailAddress
-        
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) { (notification) in
-            OKButtonAction.isEnabled = Utility().isValidEmail(testStr: textField.text!) &&  ((textField.text?.characters.count)! > 0)
+        if(isEmail){
+            textField.keyboardType = .emailAddress
+            NotificationCenter.default.addObserver(forName: NSNotification.Name.UITextFieldTextDidChange, object: textField, queue: OperationQueue.main) { (notification) in
+                OKButtonAction.isEnabled = Utility().isValidEmail(testStr: textField.text!) &&  ((textField.text?.characters.count)! > 0)
+            }
+        }else{
+            textField.keyboardType = .default
+            OKButtonAction.isEnabled = true
         }
         
     })
     
     forTarget.present(alertController, animated: true, completion: nil)
 }
+
 

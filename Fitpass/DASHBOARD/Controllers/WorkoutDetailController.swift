@@ -39,21 +39,29 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
             
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
+            
+            addWorkoutScheduleButton.addTarget(self, action: #selector(moveToAddSchedule), for: UIControlEvents.touchUpInside)
         }
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             self.navigationItem.title = "Workout Detail"
         }
-        
+    
+        func moveToAddSchedule(){
+            self.performSegue(withIdentifier: "add_schedule", sender: self)
+        }
+    
         func dismissViewController() {
             _ = self.navigationController?.popViewController(animated: true)
         }
         
         func numberOfSections(in tableView: UITableView) -> Int {
             if(self.schedulesArray.count > 0){
+                addWorkoutScheduleButton.isHidden = true
                 return 1
             }
+            addWorkoutScheduleButton.isHidden = false
             return 0
         }
         

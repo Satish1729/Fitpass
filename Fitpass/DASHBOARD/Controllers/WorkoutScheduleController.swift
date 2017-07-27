@@ -9,7 +9,7 @@
 import UIKit
 import DropDown
 
-class WorkoutScheduleController: BaseViewController {
+class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
     
     @IBOutlet weak var scheduleScrollView: UIScrollView!
     @IBOutlet weak var workoutNameButton: UIButton!
@@ -75,6 +75,7 @@ class WorkoutScheduleController: BaseViewController {
 
     }
     override func viewDidLoad() {
+        
         super.viewDidLoad()
 
         let partnerForm = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier:"PartnerRequestViewController") as! PartnerRequestViewController
@@ -90,6 +91,7 @@ class WorkoutScheduleController: BaseViewController {
             partnerForm.view.isHidden = true
             
             dropDown.direction = .any
+            
             self.workoutNameButton.layer.borderColor = UIColor.lightGray.cgColor
             self.workoutNameButton.layer.borderWidth = 1
             self.workoutNameButton.layer.cornerRadius = 5
@@ -106,9 +108,45 @@ class WorkoutScheduleController: BaseViewController {
             
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addNewWorkoutSchedule))
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+            
+            self.startTimeTxtField.delegate = self
+            self.endTimeTxtField.delegate = self
         }
         
     }
+    
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        if textField == startTimeTxtField {
+            let datePicker = UIDatePicker()
+            textField.inputView = datePicker
+            datePicker.datePickerMode = UIDatePickerMode.time
+//            datePicker.maximumDate = Date()
+            datePicker.addTarget(self, action: #selector(datePickerStartDateChanged(sender:)), for: .valueChanged)
+        }
+        else if textField == endTimeTxtField {
+            let datePicker = UIDatePicker()
+            datePicker.datePickerMode = UIDatePickerMode.time
+            textField.inputView = datePicker
+//            datePicker.maximumDate = Date()
+            datePicker.addTarget(self, action: #selector(datePickerEndDateChanged(sender:)), for: .valueChanged)
+        }
+    }
+    
+    func datePickerStartDateChanged(sender: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateFormat = "h:m"
+        self.startTimeTxtField.text = formatter.string(from: sender.date)
+    }
+    
+    func datePickerEndDateChanged(sender: UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        formatter.dateFormat = "h:m"
+        self.endTimeTxtField.text = formatter.string(from: sender.date)
+    }
+
     func dismissViewController() {
         _ = self.navigationController?.popViewController(animated: true)
     }
@@ -187,6 +225,12 @@ class WorkoutScheduleController: BaseViewController {
             return isValidUser
         }
         
+        if((Utility().getTimeFromTimeInterval(interval: NSNumber(value : Int(startTimeTxtField.text!)!))) > (Utility().getTimeFromTimeInterval(interval: NSNumber(value : Int(endTimeTxtField.text!)!)))){
+            AlertView.showCustomAlertWithMessage(message: "Start time cannot be after the end time", yPos: 20, duration: NSInteger(2.0))
+            return isValidUser
+            
+        }
+
         if(self.workoutDaysButton.titleLabel?.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
             AlertView.showCustomAlertWithMessage(message: "Please select days", yPos: 20, duration: NSInteger(2.0))
             return isValidUser
@@ -233,6 +277,9 @@ class WorkoutScheduleController: BaseViewController {
                 if (responseDic != nil) {
                     print(responseDic!)
                     AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        self.performSegue(withIdentifier: "scheduletodashboard", sender: self)
+                    }
                 }
             }
             else{

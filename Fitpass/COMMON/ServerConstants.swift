@@ -25,7 +25,7 @@ class ServerConstants: NSObject {
     static let URL_ASSETS = BASE_URL+"assets"
     static let URL_GET_STAFF_ATTENDANCE = BASE_URL+"staff_attendance"
     static let URL_UPDATE_ATTENDANCE = BASE_URL+"attendance"
-    static let URL_SEND_SMS = BASE_URL+"communicate/sms"
+    static let URL_SEND_SMS = BASE_URL+"send_sms"
     static let URL_SEND_EMAIL = BASE_URL+"communicate/email"
     static let URL_GET_LEADS_COUNT = BASE_URL+"leadscount"
     static let URL_GET_SALES_DATA = BASE_URL+"dashboard/sales"

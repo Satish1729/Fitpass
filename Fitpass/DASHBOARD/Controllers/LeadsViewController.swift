@@ -41,7 +41,6 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
         filterBtn.addTarget(self, action: #selector(navigateToLeadsFilter), for: .touchUpInside)
         let item1 = UIBarButtonItem(customView: filterBtn)
 
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named : "filter"), style: .plain, target: self, action: #selector(navigateToLeadsFilter))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.rightBarButtonItem = item1
         self.getLeads()

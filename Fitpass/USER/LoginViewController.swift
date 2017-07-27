@@ -108,7 +108,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         self.hideTextFields()
         
-        showAlertWithTextFieldAndTitle(title: StringFiles().FORGOTPASSWORDTITLE, message: StringFiles().FORGOTPASSWORDMESSAGE, forTarget: self, buttonOK: StringFiles().SEND, buttonCancel: StringFiles().CANCEL, textPlaceholder: StringFiles().EMAIL_ID, alertOK: { (emailId:String) in
+        showAlertWithTextFieldAndTitle(title: StringFiles().FORGOTPASSWORDTITLE, message: StringFiles().FORGOTPASSWORDMESSAGE, forTarget: self, buttonOK: StringFiles().SEND, buttonCancel: StringFiles().CANCEL, isEmail:true, textPlaceholder: StringFiles().EMAIL_ID, alertOK: { (emailId:String) in
             print("email id : \(emailId)")
             
             if !isInternetAvailable() {
