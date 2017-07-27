@@ -10,8 +10,8 @@ import UIKit
 import DropDown
 
 class WorkoutScheduleController: BaseViewController {
-
     
+    @IBOutlet weak var scheduleScrollView: UIScrollView!
     @IBOutlet weak var workoutNameButton: UIButton!
     @IBOutlet weak var numberofSeatsTxtField: UITextField!
     @IBOutlet weak var startTimeTxtField: UITextField!
@@ -77,32 +77,36 @@ class WorkoutScheduleController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dropDown.direction = .any
-        self.workoutNameButton.layer.borderColor = UIColor.lightGray.cgColor
-        self.workoutNameButton.layer.borderWidth = 1
-        self.workoutNameButton.layer.cornerRadius = 5
+        let partnerForm = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier:"PartnerRequestViewController") as! PartnerRequestViewController
+        partnerForm.view.frame = CGRect(x:0, y:0, width:self.view.bounds.width, height:self.view.bounds.height)
+        self.addChildViewController(partnerForm)
+        self.view.addSubview(partnerForm.view)
         
-        self.workoutDaysButton.layer.borderColor = UIColor.lightGray.cgColor
-        self.workoutDaysButton.layer.borderWidth = 1
-        self.workoutDaysButton.layer.cornerRadius = 5
-        
-        self.workoutScheduleStatusButton.layer.borderColor = UIColor.lightGray.cgColor
-        self.workoutScheduleStatusButton.layer.borderWidth = 1
-        self.workoutScheduleStatusButton.layer.cornerRadius = 5
-        
-        numberofSeatsTxtField.keyboardType = .numberPad
-        
-//        let backBtn = UIButton(type: .custom)
-//        backBtn.setImage(UIImage(named: "img_back"), for: .normal)
-//        backBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
-//        backBtn.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
-//        let item1 = UIBarButtonItem(customView: backBtn)
-//        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-//        self.navigationItem.leftBarButtonItem = item1
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addNewWorkoutSchedule))
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-
+        if(appDelegate.userBean?.auth_key == "" && appDelegate.userBean?.partner_id == ""){
+            scheduleScrollView.isHidden = true
+            partnerForm.view.isHidden = false
+        }else{
+            scheduleScrollView.isHidden = false
+            partnerForm.view.isHidden = true
+            
+            dropDown.direction = .any
+            self.workoutNameButton.layer.borderColor = UIColor.lightGray.cgColor
+            self.workoutNameButton.layer.borderWidth = 1
+            self.workoutNameButton.layer.cornerRadius = 5
+            
+            self.workoutDaysButton.layer.borderColor = UIColor.lightGray.cgColor
+            self.workoutDaysButton.layer.borderWidth = 1
+            self.workoutDaysButton.layer.cornerRadius = 5
+            
+            self.workoutScheduleStatusButton.layer.borderColor = UIColor.lightGray.cgColor
+            self.workoutScheduleStatusButton.layer.borderWidth = 1
+            self.workoutScheduleStatusButton.layer.cornerRadius = 5
+            
+            numberofSeatsTxtField.keyboardType = .numberPad
+            
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addNewWorkoutSchedule))
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        }
         
     }
     func dismissViewController() {

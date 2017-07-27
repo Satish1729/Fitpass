@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oH8-QB-lOh">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="oH8-QB-lOh">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -749,6 +749,7 @@
                     <connections>
                         <outlet property="endTimeTxtField" destination="7UO-HO-4Q3" id="jkH-YQ-tkY"/>
                         <outlet property="numberofSeatsTxtField" destination="E6a-rl-CNZ" id="4WB-kc-KNK"/>
+                        <outlet property="scheduleScrollView" destination="5cO-0O-lJH" id="hJO-wr-ggF"/>
                         <outlet property="startTimeTxtField" destination="MbX-Wl-qER" id="UYn-69-r4q"/>
                         <outlet property="workoutDaysButton" destination="ohd-JH-WXg" id="Xvb-PQ-mU0"/>
                         <outlet property="workoutNameButton" destination="arL-Om-qrb" id="kza-pV-Mio"/>
@@ -4684,6 +4685,7 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="gAm-bK-6sn" kind="relationship" relationship="rootViewController" id="b7Y-4S-hmn"/>
+                        <segue destination="kDG-0s-Tpd" kind="show" identifier="scheduletodashboard" id="kew-Q3-kIM"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="btm-7D-Mi9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4966,7 +4968,8 @@
         <image name="workout_detail" width="100" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="5DL-8M-tFg"/>
+        <segue reference="b7Y-4S-hmn"/>
+        <segue reference="kew-Q3-kIM"/>
         <segue reference="scj-3o-gyn"/>
     </inferredMetricsTieBreakers>
 </document>
