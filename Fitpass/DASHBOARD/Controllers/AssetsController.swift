@@ -139,8 +139,9 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
             
             ProgressHUD.showProgress(targetView: self.view)
             
-//            let parameters : [String : Any] = ["purchased_on" : self.purchaseDate!, "expire_date" : self.expiryDate!]
-            let parameters : [String : Any] = ["purchase_date_from" : self.purchaseDateFrom!, "purchase_date_to" : self.purchaseDateTo!]
+//            let parameters : [String : Any] = ["purchased_on" : self.purchaseDateFrom!, "expire_date" : self.purchaseDateTo!]
+            let parameters : [String : Any] = ["purchase_date_from" : Utility().getFilterDateFromString(dateStr: self.purchaseDateFrom!), "purchase_date_to" : Utility().getFilterDateFromString(dateStr: self.purchaseDateTo!)]
+            
             let urlString  = self.createURLFromParameters(parameters: parameters)
             let str : String = ServerConstants.URL_ASSETS+urlString.absoluteString
             NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in

@@ -237,6 +237,16 @@ class Utility: NSObject {
         return newDate
     }
     
+    func getFilterDateFromString(dateStr : String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MMM-yyyy"
+        let date = dateFormatter.date(from: dateStr)
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let newDate = dateFormatter.string(from: date! as Date)
+        return newDate
+    }
+
     func getDateString(dateStr : String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -299,7 +309,7 @@ class Utility: NSObject {
     
     func getTimeFromString(dateStr : NSString) -> NSInteger {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd, yyy"
+        dateFormatter.dateFormat = "dd-MMM-yyyy"
         let s = dateFormatter.date(from: dateStr as String)! as NSDate
         return Utility().getIntervalTimeFromDate(date: s)
     }

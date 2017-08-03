@@ -144,6 +144,21 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
             appDelegate.userBean?.authHeader = selectedStudio.studio_token
             appDelegate.userBean?.partner_id = selectedStudio.partner_id
             appDelegate.userBean?.auth_key = selectedStudio.auth_key
+            self.refreshSelectedData()
+        }
+    }
+    
+    func refreshSelectedData(){
+        
+        if let index = previousIndex {
+            if(index.section == 1){
+                sideMenuController?.performSegue(withIdentifier: segues[index.row + menuArray.count - 4], sender: nil)
+            }
+            else {
+                if(index.row != 7){
+                    sideMenuController?.performSegue(withIdentifier: segues[index.row], sender: nil)
+                }
+            }
         }
     }
     

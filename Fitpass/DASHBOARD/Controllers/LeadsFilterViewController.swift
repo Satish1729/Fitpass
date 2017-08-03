@@ -57,7 +57,6 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate {
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.leftBarButtonItem = item1
 
-//        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named : "clear"), style: .plain, target: self, action: #selector(clearFilterValues))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(clearFilterValues))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
 

@@ -81,6 +81,8 @@ class MembersFilterController: BaseViewController {
                     self.dropDown.width = self.subscriptionPlanButton.frame.size.width
                     self.dropDown.dataSource = tempArr as! [String]//["Pearl Hart", "Gold Plan", "Silver Plan"]
                     self.dropDown.direction = .any
+                    self.subscriptionPlanButton.setTitle(tempArr.object(at: 0) as? String, for: UIControlState.normal)
+
                     self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
                         self.subscriptionPlanButton.setTitle(item, for: UIControlState.normal)
                         self.selectedPlanIndex = index

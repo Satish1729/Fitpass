@@ -1491,7 +1491,11 @@
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="grey_calendar" translatesAutoresizingMaskIntoConstraints="NO" id="JjF-3b-yte">
-                                                    <rect key="frame" x="19" y="88" width="15" height="22"/>
+                                                    <rect key="frame" x="19" y="88" width="15" height="15"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="15" id="CAL-Sv-fnc"/>
+                                                        <constraint firstAttribute="height" constant="15" id="eby-1Q-j8T"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-06-17 05:39:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymq-bX-hIi">
                                                     <rect key="frame" x="50" y="89" width="298" height="14.5"/>
@@ -1522,7 +1526,7 @@
                                                 <constraint firstItem="JjF-3b-yte" firstAttribute="top" secondItem="LdS-WD-JEP" secondAttribute="bottom" constant="13" id="Fhw-Vc-0Ab"/>
                                                 <constraint firstAttribute="topMargin" secondItem="Ljx-Dq-lWv" secondAttribute="top" id="Nkw-vF-LsP"/>
                                                 <constraint firstItem="JjF-3b-yte" firstAttribute="width" secondItem="LdS-WD-JEP" secondAttribute="width" id="ObF-lL-DJT"/>
-                                                <constraint firstItem="JjF-3b-yte" firstAttribute="height" secondItem="LdS-WD-JEP" secondAttribute="height" id="Oio-LA-nTh"/>
+                                                <constraint firstItem="JjF-3b-yte" firstAttribute="height" secondItem="LdS-WD-JEP" secondAttribute="height" constant="-7" id="Oio-LA-nTh"/>
                                                 <constraint firstItem="TqL-qx-qJy" firstAttribute="leading" secondItem="NLY-2Y-cW8" secondAttribute="trailing" constant="-8" id="PBE-sg-aUX"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="69w-zU-tDa" secondAttribute="trailing" constant="5" id="QHe-wU-uVx"/>
                                                 <constraint firstItem="Ymq-bX-hIi" firstAttribute="top" secondItem="NLY-2Y-cW8" secondAttribute="bottom" constant="15" id="RTm-Tm-EhQ"/>
@@ -3666,7 +3670,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="78s-nA-uKe">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_bg_img" translatesAutoresizingMaskIntoConstraints="NO" id="CDO-sE-HGu">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_bg_img" translatesAutoresizingMaskIntoConstraints="NO" id="CDO-sE-HGu">
                                         <rect key="frame" x="29" y="43" width="326" height="162.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="CDO-sE-HGu" secondAttribute="height" multiplier="311:155" id="zGM-Hb-ABo"/>
@@ -4898,7 +4902,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="a36-pX-hJS"/>
                                 </constraints>
-                                <state key="normal" title="Pearl Hart">
+                                <state key="normal">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                             </button>

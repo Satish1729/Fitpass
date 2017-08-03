@@ -140,7 +140,8 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let parameters : [String : Any] = ["lead_nature" : self.statusString! , "date_range_to" : self.endDate!, "date_range_from" : self.startDate!]
+        let parameters : [String : Any] = ["lead_nature" : self.statusString! , "date_range_to" : Utility().getFilterDateFromString(dateStr: self.endDate!), "date_range_from" : Utility().getFilterDateFromString(dateStr: self.startDate!)]
+        
         let urlString  = self.createURLFromParameters(parameters: parameters)
         let str : String = ServerConstants.URL_GET_ALL_LEADS+urlString.absoluteString
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in
