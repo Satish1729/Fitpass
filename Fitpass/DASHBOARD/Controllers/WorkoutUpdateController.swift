@@ -19,16 +19,24 @@ class WorkoutUpdateController: BaseViewController{
 
     let dropDown = DropDown()
     
+    var workoutCategoriesArray : NSMutableArray = NSMutableArray()
+    var workoutIdsDict : NSMutableDictionary = NSMutableDictionary()
+  
     @IBAction func categoryButtonSelected(_ sender: Any) {
         
-        dropDown.anchorView = self.workoutCategoryButton
-        dropDown.bottomOffset = CGPoint(x:0, y:self.workoutCategoryButton.frame.size.height)
-        dropDown.width = self.workoutCategoryButton.frame.size.width
-        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            self.workoutCategoryButton.setTitle(item, for: UIControlState.normal)
-        }
-        dropDown.dataSource = ["Aerobics", "yoga", "swimming"]
-        dropDown.show()
+        
+            if(workoutCategoriesArray.count>0){
+                dropDown.anchorView = self.workoutCategoryButton
+                dropDown.bottomOffset = CGPoint(x:0, y:self.workoutCategoryButton.frame.size.height)
+                dropDown.width = self.workoutCategoryButton.frame.size.width
+                dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+                    self.workoutCategoryButton.setTitle(item, for: UIControlState.normal)
+                }
+                dropDown.dataSource = self.workoutCategoriesArray as! [String]
+                dropDown.show()
+            }else{
+                getWorkoutCategoriesList()
+            }
         
     }
     
@@ -39,8 +47,9 @@ class WorkoutUpdateController: BaseViewController{
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             self.workoutStatusButton.setTitle(item, for: UIControlState.normal)
         }
-        dropDown.dataSource = ["Aerobics", "yoga", "swimming"]
+        dropDown.dataSource = ["Yes", "No"]
         dropDown.show()
+        
     }
 
         var delegate : workoutDelegate?
@@ -95,10 +104,60 @@ class WorkoutUpdateController: BaseViewController{
             workoutBean.workout_category_name = workoutCategoryButton.titleLabel?.text!
             workoutBean.workout_name = workoutNameTxtField.text
             workoutBean.workout_description = workoutDescriptionButton.text
+            workoutBean.workout_category_id = (self.workoutIdsDict.object(forKey: self.workoutCategoryButton.titleLabel!.text!) as! String)
+            workoutBean.workout_id = workoutObj?.workout_id
+
             
             self.delegate?.updateWorkoutToList(workoutBean: workoutBean)
         }
+    
+    
+    func getWorkoutCategoriesList() {
         
+        if (appDelegate.userBean == nil) {
+            return
+        }
+        if !isInternetAvailable() {
+            AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+            return;
+        }
+        
+        ProgressHUD.showProgress(targetView: self.view)
+        
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_WORKOUTS_CATEGORY , userInfo: nil, type: "GET") { (data, response, error) in
+            ProgressHUD.hideProgress()
+            if error == nil {
+                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+                let responseDic:NSDictionary? = jsonObject as? NSDictionary
+                if (responseDic != nil) {
+                    print(responseDic!)
+                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        
+                        let dataArray : NSArray = responseDic!.object(forKey: "data") as! NSArray
+                        for workoutObj in (dataArray as? [[String:Any]])! {
+                            self.workoutCategoriesArray.add(workoutObj["workout_category_name"] ?? "")
+                            self.workoutIdsDict.setObject(workoutObj["workout_category_id"]!, forKey: workoutObj["workout_category_name"]! as! NSCopying)
+                        }
+                        self.dropDown.anchorView = self.workoutCategoryButton
+                        self.dropDown.bottomOffset = CGPoint(x:0, y:self.workoutCategoryButton.frame.size.height)
+                        self.dropDown.width = self.workoutCategoryButton.frame.size.width
+                        self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+                            self.workoutCategoryButton.setTitle(item, for: UIControlState.normal)
+                        }
+                        self.dropDown.dataSource = self.workoutCategoriesArray as! [String]
+                        self.dropDown.show()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
+                }
+                else{
+                    AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
+                    print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
+                }
+            }
+        }
+    }
+
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.

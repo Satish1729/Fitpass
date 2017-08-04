@@ -126,7 +126,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let parameters : [String : Any] = ["search_text" : self.workoutSearchBar.text!, "search_by" : "Name"]
+        let parameters : [String : Any] = ["workout_name" : self.workoutSearchBar.text!]
         let urlString  = self.createURLFromParameters(parameters: parameters)
         let str : String = ServerConstants.URL_GET_WORKOUTS+urlString.absoluteString
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in
@@ -312,12 +312,22 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     
     func deleteWorkoutFromList(sender : Any) {
         let btn : UIButton = sender as! UIButton
-        editedWorkoutCellNumber = btn.tag
+
+        showAlertWithTitle(title: "Delete Workout", message: "Are you sure you want to delete this workout?", forTarget: self, buttonOK: "Yes", buttonCancel: "No", alertOK: { (OkString) in
+        self.deleteWorkout(tagValue: btn.tag)
+        },alertCancel: { (cancelString) in
+            
+        })
+    }
+    
+    func deleteWorkout(tagValue: Int){
+        
+        editedWorkoutCellNumber = tagValue
         
         if(searchActive){
-            selectedWorkoutObj = (filteredArray.object(at: btn.tag) as? Workouts)!
+            selectedWorkoutObj = (filteredArray.object(at: tagValue) as? Workouts)!
         }else {
-            selectedWorkoutObj = (workoutsArray.object(at: btn.tag) as? Workouts)!
+            selectedWorkoutObj = (workoutsArray.object(at: tagValue) as? Workouts)!
         }
         
         
@@ -355,7 +365,6 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
             }
         }
     }
-    
     func addNewWorkoutToList(workoutBean: Workouts) {
         
         if (appDelegate.userBean == nil) {

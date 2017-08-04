@@ -106,7 +106,7 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
             
             ProgressHUD.showProgress(targetView: self.view)
             
-            let parameters : [String : Any] = ["search_text" : self.reservedWorkoutsSearchBar.text!, "search_by" : "Name"]
+            let parameters : [String : Any] = ["workout_name" : self.reservedWorkoutsSearchBar.text!]
             let urlString  = self.createURLFromParameters(parameters: parameters)
             let str : String = ServerConstants.URL_GET_RESERVED_WORKOUTS+urlString.absoluteString
             NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in

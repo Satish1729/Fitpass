@@ -89,11 +89,12 @@ class NetworkManager: NSObject {
     }
     
     func getResponseForURLForm(url:String, userInfo:NSDictionary?,type:String,completion:@escaping (Data?,HTTPURLResponse?,Error?)->()) {
-        let url:NSURL! = NSURL.init(string: url as String)
-        let urlRequest: NSMutableURLRequest! = NSMutableURLRequest.init(url: url as URL, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 30)
-        urlRequest.addValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        let url1:NSURL! = NSURL.init(string: url as String)
+        let urlRequest: NSMutableURLRequest! = NSMutableURLRequest.init(url: url1 as URL, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 30)
+        urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = type as String
         urlRequest.addValue("jludmkiswzxmrdf3qewfuhasqrcmdjoqply", forHTTPHeaderField: "X-APPKEY")
+
         if userInfo != nil {
             let parametersData:Data = try! JSONSerialization.data(withJSONObject: userInfo!, options: .prettyPrinted)
             urlRequest.httpBody = parametersData as Data

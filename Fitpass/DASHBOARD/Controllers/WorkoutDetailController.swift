@@ -74,22 +74,36 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
         }
         
         func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-            return 0
+            return 30
         }
         
         public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
             
             let view : UIView = UIView()
             view.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 30)
-            view.backgroundColor = UIColor.white
+            view.backgroundColor = UIColor.lightGray
             
-            let nameLabel : UILabel = UILabel(frame: CGRect(x: 5, y: 0, width: view.frame.size.width, height: view.frame.size.height))
-            nameLabel.textAlignment = .left
-            nameLabel.text = workoutObj?.workout_name!
-            nameLabel.font = UIFont.boldSystemFont(ofSize: 17)
-            nameLabel.textColor = UIColor.black
-            view.addSubview(nameLabel)
-            
+            let idLabel : UILabel = UILabel(frame: CGRect(x: 5, y: 0, width: view.frame.size.width/3, height: view.frame.size.height))
+            idLabel.textAlignment = .left
+            idLabel.text = " Schedule Id"
+            idLabel.font = UIFont.boldSystemFont(ofSize: 14)
+            idLabel.textColor = UIColor.black
+            view.addSubview(idLabel)
+
+            let daysLabel : UILabel = UILabel(frame: CGRect(x: idLabel.frame.size.width+idLabel.frame.origin.x, y: 0, width: (view.frame.size.width/3)-10, height: view.frame.size.height))
+            daysLabel.textAlignment = .center
+            daysLabel.text = "Days"
+            daysLabel.font = UIFont.boldSystemFont(ofSize: 14)
+            daysLabel.textColor = UIColor.black
+            view.addSubview(daysLabel)
+
+            let timeLabel : UILabel = UILabel(frame: CGRect(x: daysLabel.frame.size.width+daysLabel.frame.origin.x, y: 0, width: view.frame.size.width/3, height: view.frame.size.height))
+            timeLabel.textAlignment = .right
+            timeLabel.text = "Time "
+            timeLabel.font = UIFont.boldSystemFont(ofSize: 14)
+            timeLabel.textColor = UIColor.black
+            view.addSubview(timeLabel)
+
             return view
         }
         

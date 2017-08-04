@@ -121,14 +121,12 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
             let datePicker = UIDatePicker()
             textField.inputView = datePicker
             datePicker.datePickerMode = UIDatePickerMode.time
-//            datePicker.maximumDate = Date()
             datePicker.addTarget(self, action: #selector(datePickerStartDateChanged(sender:)), for: .valueChanged)
         }
         else if textField == endTimeTxtField {
             let datePicker = UIDatePicker()
             datePicker.datePickerMode = UIDatePickerMode.time
             textField.inputView = datePicker
-//            datePicker.maximumDate = Date()
             datePicker.addTarget(self, action: #selector(datePickerEndDateChanged(sender:)), for: .valueChanged)
         }
     }
@@ -136,14 +134,14 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
     func datePickerStartDateChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        formatter.dateFormat = "h:m"
+        formatter.dateFormat = "h:m a"
         self.startTimeTxtField.text = formatter.string(from: sender.date)
     }
     
     func datePickerEndDateChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        formatter.dateFormat = "h:m"
+        formatter.dateFormat = "h:m a"
         self.endTimeTxtField.text = formatter.string(from: sender.date)
     }
 
@@ -225,7 +223,12 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
             return isValidUser
         }
         
-        if((Utility().getTimeFromTimeInterval(interval: NSNumber(value : Int(startTimeTxtField.text!)!))) > (Utility().getTimeFromTimeInterval(interval: NSNumber(value : Int(endTimeTxtField.text!)!)))){
+//        if((Utility().getTimeFromTimeInterval(interval: NSNumber(value : Int(startTimeTxtField.text!)!))) > (Utility().getTimeFromTimeInterval(interval: NSNumber(value : Int(endTimeTxtField.text!)!)))){
+//            AlertView.showCustomAlertWithMessage(message: "Start time cannot be after the end time", yPos: 20, duration: NSInteger(2.0))
+//            return isValidUser
+//            
+//        }
+        if(startTimeTxtField.text! > endTimeTxtField.text!){
             AlertView.showCustomAlertWithMessage(message: "Start time cannot be after the end time", yPos: 20, duration: NSInteger(2.0))
             return isValidUser
             
@@ -252,6 +255,7 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
             //AlertView.showCustomAlertWithMessage(message: "Please enter required details", yPos: 20, duration: NSInteger(2.0))
             return
         }
+        addSchedule()
     }
 
     func addSchedule() {
@@ -265,9 +269,12 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
         }
         
         ProgressHUD.showProgress(targetView: self.view)
-        let paramDict : [String : Any] = ["number_of_seats" : Int(self.numberofSeatsTxtField.text!)!, "start_time" : self.startTimeTxtField.text!, "end_time": self.endTimeTxtField.text!, "workout_days": self.workoutDaysButton.titleLabel!.text!, "workout_id":self.workoutIdsDict.object(forKey: self.workoutNameButton.titleLabel!.text!)!, "schedule_status":self.workoutScheduleStatusButton.titleLabel!.text!]
+        let paramDict : [String : Any] = ["number_of_seats" : self.numberofSeatsTxtField.text!, "start_time" : self.startTimeTxtField.text!, "end_time": self.endTimeTxtField.text!, "workout_days": self.workoutDaysButton.titleLabel!.text!, "workout_id":self.workoutIdsDict.object(forKey: self.workoutNameButton.titleLabel!.text!)!, "schedule_status":self.workoutScheduleStatusButton.titleLabel!.text!]
         
-        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_ADD_SCHEDULE , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
+//        let parameterString : String = NSString.init(format: "%@?number_of_seats=%@&start_time=%@&end_time=%@&workout_days=%@&workout_id=%@schedule_status=%@",ServerConstants.URL_ADD_SCHEDULE, self.numberofSeatsTxtField.text!, self.startTimeTxtField.text!,self.endTimeTxtField.text!,self.workoutDaysButton.titleLabel!.text!, self.workoutIdsDict.object(forKey: self.workoutNameButton.titleLabel!.text!)! as! CVarArg,self.workoutScheduleStatusButton.titleLabel!.text!) as String
+        
+//        let urlString : String = ServerConstants.URL_ADD_SCHEDULE+parameterString
+        NetworkManager.sharedInstance.getResponseForURLForm(url: ServerConstants.URL_ADD_SCHEDULE , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
             ProgressHUD.hideProgress()
             
