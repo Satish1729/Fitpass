@@ -90,12 +90,14 @@ class AssetsFilterController: BaseViewController, UITextFieldDelegate {
                 let datePicker = UIDatePicker()
                 textField.inputView = datePicker
                 datePicker.datePickerMode = .date
+                datePicker.maximumDate = Date()
                 datePicker.addTarget(self, action: #selector(datePickerPurchasedOnDateChanged(sender:)), for: .valueChanged)
             }
             else if textField == expiryDateTxtField {
                 let datePicker = UIDatePicker()
                 datePicker.datePickerMode = .date
                 textField.inputView = datePicker
+                datePicker.maximumDate = Date()
                 datePicker.addTarget(self, action: #selector(datePickerExpiryDateChanged(sender:)), for: .valueChanged)
             }
         }

@@ -106,7 +106,8 @@ class WorkoutUpdateController: BaseViewController{
             workoutBean.workout_description = workoutDescriptionButton.text
             workoutBean.workout_category_id = (self.workoutIdsDict.object(forKey: self.workoutCategoryButton.titleLabel!.text!) as! String)
             workoutBean.workout_id = workoutObj?.workout_id
-
+            workoutBean.created_by = workoutObj?.created_by
+            workoutBean.create_time = workoutObj?.create_time
             
             self.delegate?.updateWorkoutToList(workoutBean: workoutBean)
         }

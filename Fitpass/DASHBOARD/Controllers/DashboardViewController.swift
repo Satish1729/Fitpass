@@ -24,6 +24,13 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
     @IBOutlet private weak var openPercentLabel: UILabel!
     @IBOutlet private weak var memberPercentLabel: UILabel!
     @IBOutlet private weak var deadPercentLabel: UILabel!
+    
+    @IBOutlet weak var salesLabel: UILabel!
+    @IBOutlet weak var openLabel: UILabel!
+    @IBOutlet weak var memberLabel: UILabel!
+    @IBOutlet weak var deadLabel: UILabel!
+    
+    @IBOutlet weak var salesHeaderLabel: UILabel!
 
     private var progress: UInt8 = 0
 
@@ -86,36 +93,45 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                 let responseDict:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDict != nil) {
                     print(responseDict!)
-                    let resultArray: NSArray = responseDict!.object(forKey: "result") as! NSArray
-                    let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
-                    let dataArray : NSArray = tempDict.object(forKey: "data") as! NSArray
-                    
-                    let xTotalArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-                    let xValuesArray = NSMutableArray()
-                    let yValuesArray = NSMutableArray()
-                    for valueDict in dataArray{
-                        xValuesArray.add((valueDict as! NSDictionary)[ "x"]!)
-                        yValuesArray.add((valueDict as! NSDictionary)[ "y"]!)
-                    }
-                    
-                    for i in 0..<xTotalArray.count{
-                        if(xValuesArray.contains(i)){
-                            
+                    if(responseDict?.object(forKey: "status") as! String  == "200"){
+                        let resultArray: NSArray = responseDict!.object(forKey: "result") as! NSArray
+                        let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
+                        let dataArray : NSArray = tempDict.object(forKey: "data") as! NSArray
+                        
+                        let xTotalArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                        let xValuesArray = NSMutableArray()
+                        let yValuesArray = NSMutableArray()
+                        for valueDict in dataArray{
+                            xValuesArray.add((valueDict as! NSDictionary)[ "x"]!)
+                            yValuesArray.add((valueDict as! NSDictionary)[ "y"]!)
                         }
-                        else{
-                            xValuesArray.insert(0, at: i)
-                            yValuesArray.insert(Double(0), at: i)
+                        
+                        for i in 0..<xTotalArray.count{
+                            if(xValuesArray.contains(i)){
+                                
+                            }
+                            else{
+                                xValuesArray.insert(0, at: i)
+                                yValuesArray.insert(Double(0), at: i)
+                            }
                         }
+                        
+                        let tempName = tempDict.object(forKey: "displayName") as! String
+                        self.salesHeaderLabel.text = "Sales"
+                        self.barChartView.isHidden = false
+                        self.setChart(dataPoints: xValuesArray as! [Int], values: yValuesArray as! [Double], labelname: tempName)
+                    }else{
+                        self.barChartView.isHidden = true
+                        self.salesHeaderLabel.text = "No Sales data available"
+
                     }
-                    
-                    let tempName = tempDict.object(forKey: "displayName") as! String
-                    
-                    self.setChart(dataPoints: xValuesArray as! [Int], values: yValuesArray as! [Double], labelname: tempName)
                 }
             }
             else{
-                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                print("Get Leads count failed : \(String(describing: error?.localizedDescription))")
+//                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
+                self.barChartView.isHidden = true
+                self.salesHeaderLabel.text = "No Sales data available"
+                
             }
         }
     }
@@ -142,6 +158,7 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                     print(responseDict!)
                     if(responseDict?.object(forKey: "status") as! String  == "200"){
                         let leadsCount = responseDict?.object(forKey: "message") as! NSNumber
+                        self.isHideLeadsCircles(isAvail: false)
                         self.totalLeadsLabel.text = "Total Leads ("+leadsCount.stringValue+")"
                         let resultArray: NSArray = responseDict!.object(forKey: "result") as! NSArray
     //                    let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
@@ -192,18 +209,33 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                         let normalizedProgress4 = Double(progress4)/Double(100)
                         self.deadCircle.colors = [UIColor(red: 4/255, green: 30/255, blue: 52/255, alpha: 1.0)]
                         self.deadCircle.progress = normalizedProgress4
-
+                        
+                        
+                    }else{
+                        self.totalLeadsLabel.text = "No Leads data available"
+                        self.isHideLeadsCircles(isAvail: true)
                     }
                 }
             }
             else{
-                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                print("Get Leads count failed : \(String(describing: error?.localizedDescription))")
+//                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
+                self.totalLeadsLabel.text = "No Leads data available"
+                self.isHideLeadsCircles(isAvail: true)
             }
         }
     }
 
-
+    func isHideLeadsCircles(isAvail : Bool){
+        salesLabel.isHidden = isAvail
+        openLabel.isHidden = isAvail
+        memberLabel.isHidden = isAvail
+        deadLabel.isHidden = isAvail
+        salesCircle.isHidden = isAvail
+        openCircle.isHidden = isAvail
+        memberCircle.isHidden = isAvail
+        deadCircle.isHidden = isAvail
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

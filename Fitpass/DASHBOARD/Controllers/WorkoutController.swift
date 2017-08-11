@@ -355,8 +355,13 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 if (responseDic != nil) {
                     print(responseDic!)
                     
-                    self.workoutsArray.removeObject(at: self.editedWorkoutCellNumber)
-                    self.workoutTableView.reloadData()
+                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        self.workoutsArray.removeObject(at: self.editedWorkoutCellNumber)
+                        self.workoutTableView.reloadData()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
+
                 }
             }
             else{
@@ -388,9 +393,12 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    
-                    self.workoutsArray.add(workoutBean)
-                    self.workoutTableView.reloadData()
+                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        self.workoutsArray.add(workoutBean)
+                        self.workoutTableView.reloadData()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
                 }
             }
             else{
@@ -424,9 +432,13 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.workoutsArray.removeObject(at: self.editedWorkoutCellNumber)
-                    self.workoutsArray.insert(workoutBean, at: self.editedWorkoutCellNumber)
-                    self.workoutTableView.reloadData()
+                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        self.workoutsArray.removeObject(at: self.editedWorkoutCellNumber)
+                        self.workoutsArray.insert(workoutBean, at: self.editedWorkoutCellNumber)
+                        self.workoutTableView.reloadData()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
                 }
             }
             else{

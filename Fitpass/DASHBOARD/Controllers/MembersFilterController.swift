@@ -19,9 +19,11 @@ class MembersFilterController: BaseViewController {
         
         @IBAction func searchButtonClicked(_ sender: Any) {
             self.dismissViewController()
-            let selectedSubscription:  Subscriptions = self.subscriptionsArray.object(at: selectedPlanIndex) as! Subscriptions
-            let tempDict : NSDictionary = ["plan" : selectedSubscription.id!]
-            delegate?.getFilterDictionary(searchDict: tempDict)
+            if(self.subscriptionsArray.count > 0){
+                let selectedSubscription:  Subscriptions = self.subscriptionsArray.object(at: selectedPlanIndex) as! Subscriptions
+                let tempDict : NSDictionary = ["plan" : selectedSubscription.id!]
+                delegate?.getFilterDictionary(searchDict: tempDict)
+            }
         }
         
         let dropDown = DropDown()
@@ -71,25 +73,32 @@ class MembersFilterController: BaseViewController {
                 if (responseDic != nil) {
                     print(responseDic!)
                     self.subscriptionsArray.addObjects(from:  Subscriptions().updateSubscriptions(responseDict : responseDic!) as [AnyObject])
+                   
+                    print("idhi kaduy")
+                    
                     let tempArr = NSMutableArray()
                     
-                    for subscriptionObj in (self.subscriptionsArray as? [Subscriptions])!{
-                        tempArr.add(subscriptionObj.plan_name!)
-                    }
-                    self.dropDown.anchorView = self.subscriptionPlanButton
-                    self.dropDown.bottomOffset = CGPoint(x: 0, y: self.subscriptionPlanButton.frame.size.height)
-                    self.dropDown.width = self.subscriptionPlanButton.frame.size.width
-                    self.dropDown.dataSource = tempArr as! [String]//["Pearl Hart", "Gold Plan", "Silver Plan"]
-                    self.dropDown.direction = .any
-                    self.subscriptionPlanButton.setTitle(tempArr.object(at: 0) as? String, for: UIControlState.normal)
+                    if(self.subscriptionsArray.count > 0) {
+                        for subscriptionObj in (self.subscriptionsArray as? [Subscriptions])!{
+                            tempArr.add(subscriptionObj.plan_name!)
+                        }
+                        
+                        self.dropDown.anchorView = self.subscriptionPlanButton
+                        self.dropDown.bottomOffset = CGPoint(x: 0, y: self.subscriptionPlanButton.frame.size.height)
+                        self.dropDown.width = self.subscriptionPlanButton.frame.size.width
+                        self.dropDown.dataSource = tempArr as! [String]//["Pearl Hart", "Gold Plan", "Silver Plan"]
+                        self.dropDown.direction = .any
+                        self.subscriptionPlanButton.setTitle(tempArr.object(at: 0) as? String, for: UIControlState.normal)
 
-                    self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-                        self.subscriptionPlanButton.setTitle(item, for: UIControlState.normal)
-                        self.selectedPlanIndex = index
+                        self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+                            self.subscriptionPlanButton.setTitle(item, for: UIControlState.normal)
+                            self.selectedPlanIndex = index
+                        }
+                        
+                        self.subscriptionPlanButton.addTarget(self, action: #selector(self.changeStatus), for: .touchUpInside)
+                    }else{
+                        self.subscriptionPlanButton.setTitle("No Subscription Plans", for: UIControlState.normal)
                     }
-                    
-                    self.subscriptionPlanButton.addTarget(self, action: #selector(self.changeStatus), for: .touchUpInside)
-
                 }
             }
             else{

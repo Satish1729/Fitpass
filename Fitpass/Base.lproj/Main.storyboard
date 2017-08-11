@@ -283,13 +283,18 @@
                     <connections>
                         <outlet property="barChartView" destination="VrJ-y3-Jhr" id="xg2-eP-Xw1"/>
                         <outlet property="deadCircle" destination="MNB-U6-Khx" id="lZy-dH-loq"/>
+                        <outlet property="deadLabel" destination="qXi-fz-j5S" id="ioW-gk-wzf"/>
                         <outlet property="deadPercentLabel" destination="lUl-a5-Dng" id="fcb-l0-O1i"/>
                         <outlet property="homeScrollView" destination="tb2-AC-Y95" id="KRP-Qc-c6W"/>
                         <outlet property="memberCircle" destination="mqC-MU-ugA" id="lte-Dj-K4y"/>
+                        <outlet property="memberLabel" destination="UAL-AP-BeG" id="d2e-FY-Ja0"/>
                         <outlet property="memberPercentLabel" destination="r0e-kM-sEj" id="mzU-Te-lFp"/>
                         <outlet property="openCircle" destination="th3-80-sP1" id="qVq-kJ-Nd2"/>
+                        <outlet property="openLabel" destination="ak2-hW-ob9" id="xvt-TZ-5KD"/>
                         <outlet property="openPercentLabel" destination="Yge-Dm-BnP" id="M4c-St-fMm"/>
                         <outlet property="salesCircle" destination="nqo-5W-69X" id="PDq-oI-d3B"/>
+                        <outlet property="salesHeaderLabel" destination="3da-OU-QNM" id="UBJ-KY-uVL"/>
+                        <outlet property="salesLabel" destination="AKR-qt-era" id="chn-p8-RSy"/>
                         <outlet property="salesPercentLabel" destination="Les-qr-cIx" id="MDL-X0-Fri"/>
                         <outlet property="totalLeadsLabel" destination="nPE-Dx-33e" id="FP0-bn-sYI"/>
                     </connections>

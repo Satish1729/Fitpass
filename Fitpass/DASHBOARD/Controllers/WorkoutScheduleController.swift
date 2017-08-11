@@ -8,6 +8,7 @@
 
 import UIKit
 import DropDown
+import Alamofire
 
 class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
     
@@ -248,7 +249,33 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
         return isValidUser
     }
     
-    
+    func getWorkoutdaysNumbers(textString : String) -> String{
+        var numberString : String = textString
+        
+        if numberString.contains("Monday") {
+            numberString = numberString.replacingOccurrences(of: "Monday", with: "1")
+        }
+        if numberString.contains("Tuesday") {
+            numberString = numberString.replacingOccurrences(of: "Tuesday", with: "2")
+        }
+        if numberString.contains("Wednesday") {
+            numberString = numberString.replacingOccurrences(of: "Wednesday", with: "3")
+        }
+        if numberString.contains("Thursday") {
+            numberString = numberString.replacingOccurrences(of: "Thursday", with: "4")
+        }
+        if numberString.contains("Friday") {
+            numberString = numberString.replacingOccurrences(of: "Friday", with: "5")
+        }
+        if numberString.contains("Saturday") {
+            numberString = numberString.replacingOccurrences(of: "Saturday", with: "6")
+        }
+        if numberString.contains("Sunday") {
+            numberString = numberString.replacingOccurrences(of: "Sunday", with: "7")
+        }
+        
+        return numberString
+    }
     func addNewWorkoutSchedule() {
         
         if !isValidworkout() {
@@ -260,6 +287,10 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
 
     func addSchedule() {
         
+        numberofSeatsTxtField.resignFirstResponder()
+        startTimeTxtField.resignFirstResponder()
+        endTimeTxtField.resignFirstResponder()
+
         if (appDelegate.userBean == nil) {
             return
         }
@@ -269,11 +300,13 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
         }
         
         ProgressHUD.showProgress(targetView: self.view)
-        let paramDict : [String : Any] = ["number_of_seats" : self.numberofSeatsTxtField.text!, "start_time" : self.startTimeTxtField.text!, "end_time": self.endTimeTxtField.text!, "workout_days": self.workoutDaysButton.titleLabel!.text!, "workout_id":self.workoutIdsDict.object(forKey: self.workoutNameButton.titleLabel!.text!)!, "schedule_status":self.workoutScheduleStatusButton.titleLabel!.text!]
+        let paramDict : [String : Any] = ["number_of_seats":self.numberofSeatsTxtField.text!, "start_time" : self.startTimeTxtField.text!, "end_time": self.endTimeTxtField.text!, "workout_days": self.getWorkoutdaysNumbers(textString: self.workoutDaysButton.titleLabel!.text!), "workout_id":self.workoutIdsDict.object(forKey: self.workoutNameButton.titleLabel!.text!)!, "schedule_status":self.workoutScheduleStatusButton.titleLabel!.text!]
         
-//        let parameterString : String = NSString.init(format: "%@?number_of_seats=%@&start_time=%@&end_time=%@&workout_days=%@&workout_id=%@schedule_status=%@",ServerConstants.URL_ADD_SCHEDULE, self.numberofSeatsTxtField.text!, self.startTimeTxtField.text!,self.endTimeTxtField.text!,self.workoutDaysButton.titleLabel!.text!, self.workoutIdsDict.object(forKey: self.workoutNameButton.titleLabel!.text!)! as! CVarArg,self.workoutScheduleStatusButton.titleLabel!.text!) as String
+        let parameterString : String = NSString.init(format: "%@?number_of_seats=%@&start_time=%@&end_time=%@&workout_days=%@&workout_id=%@schedule_status=%@",ServerConstants.URL_ADD_SCHEDULE, self.numberofSeatsTxtField.text!, self.startTimeTxtField.text!,self.endTimeTxtField.text!,self.workoutDaysButton.titleLabel!.text!, self.workoutIdsDict.object(forKey: self.workoutNameButton.titleLabel!.text!)! as! CVarArg,self.workoutScheduleStatusButton.titleLabel!.text!) as String
         
 //        let urlString : String = ServerConstants.URL_ADD_SCHEDULE+parameterString
+        
+        
         NetworkManager.sharedInstance.getResponseForURLForm(url: ServerConstants.URL_ADD_SCHEDULE , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -286,6 +319,9 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
                     AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
                     if(responseDic!.object(forKey:"code") as! NSNumber == 200){
                         self.performSegue(withIdentifier: "scheduletodashboard", sender: self)
+                    }else{
+         
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
                     }
                 }
             }
@@ -298,6 +334,19 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
                 }
             }
         }
+
+        let headersDict: HTTPHeaders = [
+            "X-APPKEY":(appDelegate.userBean?.auth_key)!,
+            "X-partner-id":(appDelegate.userBean?.partner_id)!,
+            "Content-Type":"application/x-www-form-urlencoded"
+        ]
+        Alamofire.request(ServerConstants.URL_ADD_SCHEDULE, method: .post, parameters: paramDict, encoding: URLEncoding.default, headers: headersDict).responseJSON { (response) in
+            print(response.result)
+        }
+//        Alamofire.request(parameterString, method: .post, parameters: paramDict, encoding: JSONEncoding.default, headers: headersDict).responseJSON { (response) in
+//            debugPrint(response)
+//        }
+
     }
 
     

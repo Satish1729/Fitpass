@@ -55,7 +55,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.profileImageView.layer.borderColor = UIColor.black.cgColor
         self.profileImageView.layer.borderWidth = 1
         
-        let logoURL = URL(string: (appDelegate.userBean?.logourl)!)
+//        let logoURL = URL(string: (appDelegate.userBean?.logourl)!)
         
         // Creating a session object with the default configuration.
         // You can read more about it here https://developer.apple.com/reference/foundation/urlsessionconfiguration
@@ -72,7 +72,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
 //                if let res = response as? HTTPURLResponse {
 //                    print("Downloaded logo picture with response code \(res.statusCode)")
 //                    if let imageData = data {
-//                        // Finally convert that Data into an image and do what you wish with it.
+//                         // Finally convert that Data into an image and do what you wish with it.
 //                        let image = UIImage(data:imageData)
 //                        // Do something with your image.
 //                      //  self.profileImageView.image = image //UIImage(named : "profileEmpty")

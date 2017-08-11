@@ -831,16 +831,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Irfan Raza (H2Z6RCWNXW)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Irfan Raza (H2Z6RCWNXW)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Irfan Raza (8JQYJRZ67T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Irfan Raza (8JQYJRZ67T)";
 				DEVELOPMENT_TEAM = 8JQYJRZ67T;
 				INFOPLIST_FILE = Fitpass/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.irfan.fitpass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c615f36e-6528-4af5-af52-f2dc7e66bbbe";
-				PROVISIONING_PROFILE_SPECIFIER = Fitpass_development;
+				PROVISIONING_PROFILE = "b920cac4-7fb7-42a8-a193-6e51ce0e55b9";
+				PROVISIONING_PROFILE_SPECIFIER = Fitpass_distribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "Fitpass/Fitpass-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -853,16 +853,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Irfan Raza (H2Z6RCWNXW)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Irfan Raza (H2Z6RCWNXW)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Irfan Raza (8JQYJRZ67T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Irfan Raza (8JQYJRZ67T)";
 				DEVELOPMENT_TEAM = 8JQYJRZ67T;
 				INFOPLIST_FILE = Fitpass/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.irfan.fitpass;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c615f36e-6528-4af5-af52-f2dc7e66bbbe";
-				PROVISIONING_PROFILE_SPECIFIER = Fitpass_development;
+				PROVISIONING_PROFILE = "b920cac4-7fb7-42a8-a193-6e51ce0e55b9";
+				PROVISIONING_PROFILE_SPECIFIER = Fitpass_distribution;
 				SWIFT_OBJC_BRIDGING_HEADER = "Fitpass/Fitpass-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};

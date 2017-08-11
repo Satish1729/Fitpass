@@ -93,7 +93,12 @@ class NetworkManager: NSObject {
         let urlRequest: NSMutableURLRequest! = NSMutableURLRequest.init(url: url1 as URL, cachePolicy: NSURLRequest.CachePolicy.reloadIgnoringCacheData, timeoutInterval: 30)
         urlRequest.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = type as String
-        urlRequest.addValue("jludmkiswzxmrdf3qewfuhasqrcmdjoqply", forHTTPHeaderField: "X-APPKEY")
+        if appDelegate.userBean?.auth_key != nil {
+            urlRequest.addValue((appDelegate.userBean?.auth_key)!, forHTTPHeaderField: "X-APPKEY")
+        }
+        if appDelegate.userBean?.partner_id != nil {
+            urlRequest.addValue((appDelegate.userBean?.partner_id)!, forHTTPHeaderField: "X-partner-id")
+        }
 
         if userInfo != nil {
             let parametersData:Data = try! JSONSerialization.data(withJSONObject: userInfo!, options: .prettyPrinted)
