@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class PartnerRequestViewController: BaseViewController {
 
@@ -96,11 +97,11 @@ class PartnerRequestViewController: BaseViewController {
         }
         
         
-        ProgressHUD.showProgress(targetView: self.view)
+//        ProgressHUD.showProgress(targetView: self.view)
         let paramDict : [String : Any] = ["email_address" : emailTxtield.text!, "studio_name":studioNameTxtField.text!, "mobile_number":mobileNumberTxtField.text!, "location":locationTxtField.text!, "contact_person":contactPersonTxtField.text!, "query_message":messageTxtView.text!, "source":"CRM", "created_by":appDelegate.userBean?.first_name ?? ""]
             
         
-        NetworkManager.sharedInstance.getResponseForURLForm(url: ServerConstants.URL_LEAD_DATA , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
+       /* NetworkManager.sharedInstance.getResponseForLeadForm(url: ServerConstants.URL_LEAD_DATA , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
             ProgressHUD.hideProgress()
             
@@ -125,6 +126,30 @@ class PartnerRequestViewController: BaseViewController {
                     AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
                 }
             }
+        }*/
+        
+        let urlRequest = URLRequest(url: URL(string: ServerConstants.URL_LEAD_DATA)!)
+        let urlString = urlRequest.url?.absoluteString
+        
+        let headersDict: HTTPHeaders = [
+            "X-APPKEY":"jludmkiswzxmrdf3qewfuhasqrcmdjoqply",
+            "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
+        ]
+        
+        Alamofire.request(urlString!, method: .post, parameters: paramDict, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
+            print(response.result)
+            let responseDic =  response.result.value as! NSDictionary
+            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+                showAlertWithTitle(title: "", message: responseDic.object(forKey: "message") as! String, forTarget: self, buttonOK: "", buttonCancel:"OK", alertOK: { (String) in
+                }, alertCancel: { (Void) in
+                    self.performSegue(withIdentifier: "showHomePage", sender: nil)
+                    self.moveToDashBoard()
+                })
+            }
+            else{
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+            }
+
         }
     }
 

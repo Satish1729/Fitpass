@@ -144,5 +144,5 @@ class NetworkManager: NSObject {
         urlDataTask.resume()
     }
 
-    
+
 }

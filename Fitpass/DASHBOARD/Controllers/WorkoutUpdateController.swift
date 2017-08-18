@@ -104,7 +104,12 @@ class WorkoutUpdateController: BaseViewController{
             workoutBean.workout_category_name = workoutCategoryButton.titleLabel?.text!
             workoutBean.workout_name = workoutNameTxtField.text
             workoutBean.workout_description = workoutDescriptionButton.text
-            workoutBean.workout_category_id = (self.workoutIdsDict.object(forKey: self.workoutCategoryButton.titleLabel!.text!) as! String)
+            if(self.workoutIdsDict.count > 0){
+                workoutBean.workout_category_id = (self.workoutIdsDict.object(forKey: self.workoutCategoryButton.titleLabel!.text!) as! String)
+            }
+            else{
+                workoutBean.workout_category_id = workoutObj?.workout_category_id
+            }
             workoutBean.workout_id = workoutObj?.workout_id
             workoutBean.created_by = workoutObj?.created_by
             workoutBean.create_time = workoutObj?.create_time

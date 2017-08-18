@@ -8,7 +8,14 @@
 
 import UIKit
 
-class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+protocol workoutScheduleDelegate {
+    func addNewScheduleToList(scheduleBean: WorkoutSchedulesObject)
+}
+
+
+class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableViewDataSource, workoutScheduleDelegate {
+    
+
         
         var workoutObj : Workouts?
         var schedulesArray : NSMutableArray = NSMutableArray()
@@ -23,7 +30,8 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
     @IBOutlet weak var addWorkoutScheduleButton: UIButton!
     
         var keyLabelNameArray : NSArray = ["Created By", "Workout Status", "Description"]
-        
+    
+    var delegate : workoutDelegate?
         override func viewDidLoad() {
             super.viewDidLoad()
             
@@ -49,7 +57,18 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
         }
     
         func moveToAddSchedule(){
-            self.performSegue(withIdentifier: "add_schedule", sender: self)
+//            self.performSegue(withIdentifier: "add_schedule", sender: self)
+            let workoutScheduleController:WorkoutScheduleController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier:"workoutaddschedule") as! WorkoutScheduleController
+            workoutScheduleController.isFromWorkoutDetail = true
+            workoutScheduleController.delegate = self
+            workoutScheduleController.selectedWorkoutName = (workoutObj?.workout_name!)!
+            let tempDict:NSDictionary = [workoutObj!.workout_name!:workoutObj!.workout_id!]
+            workoutScheduleController.workoutIdsDict = NSMutableDictionary.init(dictionary: tempDict)
+            self.navigationController?.pushViewController(workoutScheduleController, animated: true)
+//            self.present(workoutScheduleController, animated: true) {
+//
+//            }
+            
         }
     
         func dismissViewController() {
@@ -120,7 +139,13 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
             
             return cell
         }
-        
+    
+    func addNewScheduleToList(scheduleBean: WorkoutSchedulesObject) {
+        self.schedulesArray = NSMutableArray.init(array: [scheduleBean])
+        workoutDetailTableView.reloadData()
+        self.delegate?.updateSchdeulesArray(scheduleObj: scheduleBean)
+    }
+
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.

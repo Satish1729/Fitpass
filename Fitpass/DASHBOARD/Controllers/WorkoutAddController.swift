@@ -19,6 +19,7 @@ class WorkoutAddController: BaseViewController {
     var workoutCategoriesArray : NSMutableArray = NSMutableArray()
     var workoutIdsDict : NSMutableDictionary = NSMutableDictionary()
 
+    var delegate : workoutDelegate?
     @IBAction func categoryButtonSelected(_ sender: Any) {
         
         if(workoutCategoriesArray.count>0){
@@ -46,7 +47,6 @@ class WorkoutAddController: BaseViewController {
         dropDown.show()
     }
     
-    var delegate : workoutDelegate?
     
 //        var keyLabelNameArray : NSArray = ["Workout Name*", "Workout Category*", "Workout Status*", "Workout Description*"]
     
@@ -139,6 +139,12 @@ class WorkoutAddController: BaseViewController {
             workoutBean.is_active = self.workoutStatusButton.titleLabel?.text!
             workoutBean.workout_name = self.workoutNameTxtField.text!
             workoutBean.workout_category_id = (self.workoutIdsDict.object(forKey: self.workoutCategoryButton.titleLabel!.text!) as! String)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let newDate = dateFormatter.string(from: Date())
+
+            workoutBean.create_time = newDate
             self.delegate?.addNewWorkoutToList(workoutBean: workoutBean)
 //            let paramDict : [String : Any] = ["workout_category_id" : workoutBean.workout_category_id!, "workout_category_name" : workoutBean.workout_name!, "workout_description": workoutBean.workout_description!, "workout_status": workoutBean.is_active!]
 

@@ -569,7 +569,7 @@
         <!--Workout Schedule-->
         <scene sceneID="5KE-bw-Axc">
             <objects>
-                <viewController id="gAm-bK-6sn" customClass="WorkoutScheduleController" customModule="Fitpass" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="workoutaddschedule" id="gAm-bK-6sn" customClass="WorkoutScheduleController" customModule="Fitpass" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8zF-Mj-3t9"/>
                         <viewControllerLayoutGuide type="bottom" id="Nh7-CM-MDN"/>

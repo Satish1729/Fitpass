@@ -7,13 +7,36 @@
 //
 
 import UIKit
+import Alamofire
 
 protocol workoutDelegate {
     func addNewWorkoutToList(workoutBean: Workouts)
     func updateWorkoutToList(workoutBean: Workouts)
+    func updateSchdeulesArray(scheduleObj:WorkoutSchedulesObject)
 }
 
 class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, workoutDelegate {
+   
+    func updateSchdeulesArray(scheduleObj: WorkoutSchedulesObject) {
+        
+        let workoutBean : Workouts = self.workoutsArray.object(at: selectedWorkoutCellNumber) as! Workouts
+        let workoutBeanObj : Workouts = Workouts()
+        workoutBeanObj.create_time = workoutBean.create_time
+        workoutBeanObj.created_by = workoutBean.created_by
+        workoutBeanObj.is_active = workoutBean.is_active
+        workoutBeanObj.update_time = workoutBean.update_time
+        workoutBeanObj.updated_by = workoutBean.updated_by
+        workoutBeanObj.workout_category_id = workoutBean.workout_category_id
+        workoutBeanObj.workout_category_name = workoutBean.workout_category_name
+        workoutBeanObj.workout_description = workoutBean.workout_description
+        workoutBeanObj.workout_id = workoutBean.workout_id
+        workoutBeanObj.workout_image = workoutBean.workout_image
+        workoutBeanObj.workout_name = workoutBean.workout_name
+        workoutBeanObj.workout_schedules = [scheduleObj]
+        
+        self.workoutsArray.replaceObject(at: selectedWorkoutCellNumber, with: workoutBeanObj)
+    }
+
 
     @IBOutlet weak var workoutSearchBar: UISearchBar!
     @IBOutlet weak var workoutTableView: UITableView!
@@ -24,6 +47,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     var searchString : String? = ""
     var selectedWorkoutObj = Workouts()
     var editedWorkoutCellNumber : Int = 0
+    var selectedWorkoutCellNumber : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +96,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         }
         else if(segue.identifier == "workout_detail") {
             let workoutDetailVC : WorkoutDetailController = segue.destination as! WorkoutDetailController
+            workoutDetailVC.delegate = self
             workoutDetailVC.workoutObj = selectedWorkoutObj
         }
     }
@@ -98,6 +123,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 if (responseDic != nil) {
                     print(responseDic!)
                     if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        self.workoutsArray.removeAllObjects()
                         self.workoutsArray.addObjects(from:  Workouts().updateWorkouts(responseDict : responseDic!) as [AnyObject])
                         self.workoutTableView.reloadData()
                     }else{
@@ -339,11 +365,35 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
             return;
         }
         
-        ProgressHUD.showProgress(targetView: self.view)
+//        ProgressHUD.showProgress(targetView: self.view)
         
         let workoutBean = selectedWorkoutObj
         let paramDict : [String : Any] = ["delete_status" : "Yes", "workout_id" : workoutBean.workout_id!]//, "partner_id": workoutBean.]
         
+        
+        let urlRequest = URLRequest(url: URL(string: ServerConstants.URL_DELETE_WORKOUT)!)
+        let urlString = urlRequest.url?.absoluteString
+        
+        let headersDict: HTTPHeaders = [
+            "X-APPKEY":(appDelegate.userBean?.auth_key)!,
+            "X-partner-id":(appDelegate.userBean?.partner_id)!,
+            "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
+        ]
+        
+        
+        Alamofire.request(urlString!, method: .delete, parameters: paramDict, encoding: URLEncoding.default, headers: headersDict).responseJSON { (response) in
+            print(response.result.value ?? "Nojsondata")
+            let responseDic =  response.result.value as! NSDictionary
+            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+                self.workoutsArray.removeObject(at: self.editedWorkoutCellNumber)
+                self.workoutTableView.reloadData()
+            }
+            else{
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+            }
+        }
+
+        /*
         let urlString : String = ServerConstants.URL_DELETE_WORKOUT
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "DELETE") { (data, response, error) in
             
@@ -368,7 +418,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
                 print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
             }
-        }
+        }*/
     }
     func addNewWorkoutToList(workoutBean: Workouts) {
         
@@ -380,30 +430,47 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
             return;
         }
         
-        ProgressHUD.showProgress(targetView: self.view)
         
         let paramDict : [String : Any] = ["workout_category_id" : workoutBean.workout_category_id!, "workout_name" : workoutBean.workout_name!, "workout_description": workoutBean.workout_description!, "workout_status": workoutBean.is_active!]
+
+        let urlRequest = URLRequest(url: URL(string: ServerConstants.URL_ADD_WORKOUT)!)
+        let urlString = urlRequest.url?.absoluteString
         
-        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_ADD_WORKOUT , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
-            
-            ProgressHUD.hideProgress()
-            
-            if error == nil {
-                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-                let responseDic:NSDictionary? = jsonObject as? NSDictionary
-                if (responseDic != nil) {
-                    print(responseDic!)
-                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
-                        self.workoutsArray.add(workoutBean)
-                        self.workoutTableView.reloadData()
-                    }else{
-                        AlertView.showCustomAlertWithMessage(message: responseDic!.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
-                    }
-                }
+        let headersDict: HTTPHeaders = [
+            "X-APPKEY":(appDelegate.userBean?.auth_key)!,
+            "X-partner-id":(appDelegate.userBean?.partner_id)!,
+            "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
+        ]
+
+        
+        Alamofire.request(urlString!, method: .post, parameters: paramDict, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
+            print(response.result)
+            let responseDic =  response.result.value as! NSDictionary
+            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+                let workoutBeanObj : Workouts = Workouts()
+                let tempDict = responseDic.object(forKey: "data") as! NSDictionary
+
+                workoutBeanObj.workout_description = tempDict.object(forKey: "workout_description") as? String
+                workoutBeanObj.is_active = tempDict.object(forKey: "workout_status") as? String
+                workoutBeanObj.workout_name = tempDict.object(forKey: "workout_name") as? String
+                workoutBeanObj.workout_category_id = tempDict.object(forKey: "workout_category_id") as? String
+                workoutBeanObj.workout_id = tempDict.object(forKey: "workout_id") as? String
+                workoutBeanObj.created_by = appDelegate.userBean?.first_name ?? ""
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                let newDate = dateFormatter.string(from: Date())
+                
+                workoutBeanObj.create_time = newDate
+
+                self.workoutsArray.add(workoutBeanObj)
+                self.workoutTableView.reloadData()
+//                workoutBean.workout_id = responseDic.object(forKey: "workout_id") as? String
+                
+//                self.workoutsArray.add(workoutBean)
+//                self.getWorkoutsList()
             }
             else{
-                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
             }
         }
     }
@@ -418,11 +485,33 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
             return;
         }
         
-        ProgressHUD.showProgress(targetView: self.view)
         
         let paramDict : [String : Any] = ["workout_id" : workoutBean.workout_id!, "workout_category_id" : workoutBean.workout_category_id!, "workout_name": workoutBean.workout_name!, "workout_description": workoutBean.workout_description!, "workout_status" : workoutBean.is_active!]
         
-        let urlString : String = ServerConstants.URL_UPDATE_WORKOUT
+        let urlRequest = URLRequest(url: URL(string: ServerConstants.URL_UPDATE_WORKOUT)!)
+        let urlString = urlRequest.url?.absoluteString
+        
+        let headersDict: HTTPHeaders = [
+            "X-APPKEY":(appDelegate.userBean?.auth_key)!,
+            "X-partner-id":(appDelegate.userBean?.partner_id)!,
+            "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
+        ]
+        
+        
+        Alamofire.request(urlString!, method: .post, parameters: paramDict, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
+            print(response.result)
+            let responseDic =  response.result.value as! NSDictionary
+            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+                self.workoutsArray.removeObject(at: self.editedWorkoutCellNumber)
+                self.workoutsArray.insert(workoutBean, at: self.editedWorkoutCellNumber)
+                self.workoutTableView.reloadData()
+            }
+            else{
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+            }
+        }
+
+       /* let urlString : String = ServerConstants.URL_UPDATE_WORKOUT
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -445,7 +534,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
                 print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
             }
-        }
+        }*/
     }
     
     

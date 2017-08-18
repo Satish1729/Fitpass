@@ -74,7 +74,7 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
         self.navigationItem.title = "Home"
     }
 
-    func getLeadsCount() {
+    func getSalesData() {
         if (appDelegate.userBean == nil) {
             return
         }
@@ -136,7 +136,7 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
         }
     }
     
-    func getSalesData() {
+    func getLeadsCount() {
         if (appDelegate.userBean == nil) {
             return
         }

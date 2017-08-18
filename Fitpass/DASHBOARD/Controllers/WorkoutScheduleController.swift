@@ -23,11 +23,19 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
     var workoutNamesArray : NSMutableArray = NSMutableArray()
     var workoutIdsDict : NSMutableDictionary = NSMutableDictionary()
     var selectedDay :String = ""
-
+    var isFromWorkoutDetail:Bool = false
+    var selectedWorkoutName:String = ""
     let dropDown = DropDown()
     
+    var delegate : workoutScheduleDelegate?
+    var scheduleDict : NSDictionary = NSDictionary()
+
     @IBAction func workoutNameButtonSelected(_ sender: Any) {
         
+        if(isFromWorkoutDetail)
+        {
+            return
+        }
         if(workoutNamesArray.count > 0) {
             dropDown.anchorView = self.workoutNameButton
             dropDown.bottomOffset = CGPoint(x:0, y:self.workoutNameButton.frame.size.height)
@@ -84,13 +92,18 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
         self.addChildViewController(partnerForm)
         self.view.addSubview(partnerForm.view)
         
-        if(appDelegate.userBean?.auth_key == "" && appDelegate.userBean?.partner_id == ""){
+        if((appDelegate.userBean?.auth_key == "" || appDelegate.userBean?.auth_key == nil) && (appDelegate.userBean?.partner_id == "" || appDelegate.userBean?.partner_id == nil)){
             scheduleScrollView.isHidden = true
             partnerForm.view.isHidden = false
         }else{
             scheduleScrollView.isHidden = false
             partnerForm.view.isHidden = true
             
+            if(isFromWorkoutDetail)
+            {
+                self.workoutNameButton.setTitle(self.selectedWorkoutName, for: UIControlState.normal)
+            }
+
             dropDown.direction = .any
             
             self.workoutNameButton.layer.borderColor = UIColor.lightGray.cgColor
@@ -135,14 +148,14 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
     func datePickerStartDateChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        formatter.dateFormat = "h:m a"
+        formatter.dateFormat = "H:M"
         self.startTimeTxtField.text = formatter.string(from: sender.date)
     }
     
     func datePickerEndDateChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        formatter.dateFormat = "h:m a"
+        formatter.dateFormat = "H:M"
         self.endTimeTxtField.text = formatter.string(from: sender.date)
     }
 
@@ -224,23 +237,17 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
             return isValidUser
         }
         
-//        if((Utility().getTimeFromTimeInterval(interval: NSNumber(value : Int(startTimeTxtField.text!)!))) > (Utility().getTimeFromTimeInterval(interval: NSNumber(value : Int(endTimeTxtField.text!)!)))){
-//            AlertView.showCustomAlertWithMessage(message: "Start time cannot be after the end time", yPos: 20, duration: NSInteger(2.0))
-//            return isValidUser
-//            
-//        }
-        if(startTimeTxtField.text! > endTimeTxtField.text!){
+        if((Utility().getstartendTime(dateStr: startTimeTxtField.text! as NSString)) > (Utility().getstartendTime(dateStr: endTimeTxtField.text! as NSString))){
             AlertView.showCustomAlertWithMessage(message: "Start time cannot be after the end time", yPos: 20, duration: NSInteger(2.0))
             return isValidUser
-            
         }
 
-        if(self.workoutDaysButton.titleLabel?.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+        if(self.workoutDaysButton.titleLabel?.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == "" || self.workoutDaysButton.titleLabel?.text == nil){
             AlertView.showCustomAlertWithMessage(message: "Please select days", yPos: 20, duration: NSInteger(2.0))
             return isValidUser
         }
         
-        if(self.workoutScheduleStatusButton.titleLabel?.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == ""){
+        if(self.workoutScheduleStatusButton.titleLabel?.text?.trimmingCharacters(in: NSCharacterSet.whitespaces) == "" || self.workoutScheduleStatusButton.titleLabel?.text == nil){
             AlertView.showCustomAlertWithMessage(message: "Please select status", yPos: 20, duration: NSInteger(2.0))
             return isValidUser
         }
@@ -279,7 +286,6 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
     func addNewWorkoutSchedule() {
         
         if !isValidworkout() {
-            //AlertView.showCustomAlertWithMessage(message: "Please enter required details", yPos: 20, duration: NSInteger(2.0))
             return
         }
         addSchedule()
@@ -299,57 +305,53 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
             return;
         }
         
-        ProgressHUD.showProgress(targetView: self.view)
-        let paramDict : [String : Any] = ["number_of_seats":self.numberofSeatsTxtField.text!, "start_time" : self.startTimeTxtField.text!, "end_time": self.endTimeTxtField.text!, "workout_days": self.getWorkoutdaysNumbers(textString: self.workoutDaysButton.titleLabel!.text!), "workout_id":self.workoutIdsDict.object(forKey: self.workoutNameButton.titleLabel!.text!)!, "schedule_status":self.workoutScheduleStatusButton.titleLabel!.text!]
+        let paramDict : Parameters = ["number_of_seats":self.numberofSeatsTxtField.text!, "start_time" : self.startTimeTxtField.text!, "end_time": self.endTimeTxtField.text!, "workout_days": self.getWorkoutdaysNumbers(textString: self.workoutDaysButton.titleLabel!.text!), "workout_id":self.workoutIdsDict.object(forKey: self.workoutNameButton.titleLabel!.text!)!, "schedule_status":self.workoutScheduleStatusButton.titleLabel!.text!]
         
-        let parameterString : String = NSString.init(format: "%@?number_of_seats=%@&start_time=%@&end_time=%@&workout_days=%@&workout_id=%@schedule_status=%@",ServerConstants.URL_ADD_SCHEDULE, self.numberofSeatsTxtField.text!, self.startTimeTxtField.text!,self.endTimeTxtField.text!,self.workoutDaysButton.titleLabel!.text!, self.workoutIdsDict.object(forKey: self.workoutNameButton.titleLabel!.text!)! as! CVarArg,self.workoutScheduleStatusButton.titleLabel!.text!) as String
-        
-//        let urlString : String = ServerConstants.URL_ADD_SCHEDULE+parameterString
-        
-        
-        NetworkManager.sharedInstance.getResponseForURLForm(url: ServerConstants.URL_ADD_SCHEDULE , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
-            
-            ProgressHUD.hideProgress()
-            
-            if error == nil {
-                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-                let responseDic:NSDictionary? = jsonObject as? NSDictionary
-                if (responseDic != nil) {
-                    print(responseDic!)
-                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
-                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
-                        self.performSegue(withIdentifier: "scheduletodashboard", sender: self)
-                    }else{
-         
-                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
-                    }
-                }
-            }
-            else{
-                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-                let responseDic:NSDictionary? = jsonObject as? NSDictionary
-                if (responseDic != nil) {
-                    print(responseDic!)
-                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
-                }
-            }
-        }
+
+        let urlRequest = URLRequest(url: URL(string: ServerConstants.URL_ADD_SCHEDULE)!)
+        let urlString = urlRequest.url?.absoluteString
 
         let headersDict: HTTPHeaders = [
             "X-APPKEY":(appDelegate.userBean?.auth_key)!,
             "X-partner-id":(appDelegate.userBean?.partner_id)!,
-            "Content-Type":"application/x-www-form-urlencoded"
+            "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
         ]
-        Alamofire.request(ServerConstants.URL_ADD_SCHEDULE, method: .post, parameters: paramDict, encoding: URLEncoding.default, headers: headersDict).responseJSON { (response) in
+            
+        Alamofire.request(urlString!, method: .post, parameters: paramDict, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
             print(response.result)
-        }
-//        Alamofire.request(parameterString, method: .post, parameters: paramDict, encoding: JSONEncoding.default, headers: headersDict).responseJSON { (response) in
-//            debugPrint(response)
-//        }
+            let responseDic =  response.result.value as! NSDictionary
+            self.scheduleDict = responseDic 
+            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+//                showAlertWithTitle(title: "", message: responseDic.object(forKey: "message") as! String, forTarget: self, buttonOK: "", buttonCancel:"OK", alertOK: { (String) in
+//                }, alertCancel: { (Void) in
+//                    //self.performSegue(withIdentifier: "scheduletodashboard", sender: self)
+                    if(self.isFromWorkoutDetail){
+                        self.dismissViewController()
+                        let tempDict = responseDic.object(forKey: "data") as! NSDictionary
+                        let workoutScheduleObj : WorkoutSchedulesObject = WorkoutSchedulesObject()
+                        workoutScheduleObj.workout_schedule_id = tempDict["workout_schedule_id"] as? String
+                        workoutScheduleObj.number_of_seats = tempDict["number_of_seats"] as? String
+                        workoutScheduleObj.start_time = tempDict["start_time"] as? String
+                        workoutScheduleObj.end_time = tempDict["end_time"] as? String
+                        workoutScheduleObj.workout_days = tempDict["workout_days"] as? String
+                        workoutScheduleObj.created_by = tempDict["created_by"] as? String
+                        workoutScheduleObj.workout_id = tempDict["workout_id"] as? String
+                        workoutScheduleObj.create_time = tempDict["create_time"] as? String
 
+                        self.delegate?.addNewScheduleToList(scheduleBean: workoutScheduleObj)
+                    }else{
+                        self.moveToDashBoard()
+                    }
+//                })
+            }
+            else{
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+            }
+
+        }
     }
 
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

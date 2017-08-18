@@ -35,6 +35,7 @@ class WorkoutCell: UITableViewCell {
         if let createdTime = workoutBean.create_time {
             self.ccreateTimeLabel.text = Utility().getDateString(dateStr: createdTime)
         }
+    
     }
     
     
