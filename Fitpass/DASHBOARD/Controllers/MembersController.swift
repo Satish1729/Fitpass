@@ -45,7 +45,7 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
         let item1 = UIBarButtonItem(customView: filterBtn)
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.rightBarButtonItem = item1
-
+        
             self.getMembers()
         }
         
@@ -180,7 +180,7 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
             
             var numOfSections: Int = 0
             if (arrayCount > 0){
-                tableView.separatorStyle = .singleLine
+//                tableView.separatorStyle = .singleLine
                 numOfSections            = 1
                 tableView.backgroundView = nil
             }
@@ -203,7 +203,7 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
         }
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 150
+            return 189
         }
         
         func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

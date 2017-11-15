@@ -13,10 +13,11 @@ class ServerConstants: NSObject {
     
     static let BASE_URL_CLIENT = "http://devapi.fitpass.co.in/studio/"
     
-    static let BASE_URL_LOGIN = "http://35.154.22.28/fitpassAdminDev/public/api/"
+    static let BASE_URL_LOGIN = "http://fitpasscrm.com/api/" //"http://35.154.22.28/fitpassAdminDev/public/api/"
+    
 //    static let BASE_URL_LOGIN_ADMIN = "http://35.154.22.28/fitpassAdminDev/public/api/"
     
-    static let BASE_URL = "http://35.154.22.28/fitpassStudioDev/public/api/"
+    static let BASE_URL = "http://partner_studio.fitpasscrm.com/api/" //"http://35.154.22.28/fitpassStudioDev/public/api/"
     
     static let URL_LOGIN = BASE_URL_LOGIN+"studios/login"
 
@@ -36,7 +37,9 @@ class ServerConstants: NSObject {
     static let URL_GET_STAFF_CONFIG_FIELDS_LIST = BASE_URL+"staff/fields_list"
     static let URL_STAFF_STATUS = BASE_URL+"staffs"
     static let URL_GRAPH_DATA = BASE_URL+"graph_data"
-    static let URL_GAUGE_DATA = BASE_URL+"gauge_data?selected_month=6"
+    static let URL_GAUGE_DATA = BASE_URL+"gauge_data"
+    static let URL_MEMBERS_DATA = BASE_URL+"gauge_data/members"
+    static let URL_GET_SALESREPORT = BASE_URL+"members/payments"
     
     // CLIENT APIs
     static let URL_GET_ALL_PAYMENTS = BASE_URL_CLIENT+"salesreport"

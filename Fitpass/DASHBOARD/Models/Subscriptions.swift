@@ -38,11 +38,11 @@ class Subscriptions: NSObject {
             subscriptionBean.created_at = subscriptionObj["created_at"] as? String
             subscriptionBean.created_by = subscriptionObj["created_by"] as? String
             subscriptionBean.descriptionString = subscriptionObj[ "description"] as? String
-            subscriptionBean.duration = subscriptionObj[ "duration"] as? NSNumber
+            subscriptionBean.duration = subscriptionObj[ "plan_duration"] as? NSNumber
             subscriptionBean.id = subscriptionObj[ "id"] as? NSNumber
             subscriptionBean.is_active = subscriptionObj[ "is_active"] as? NSNumber
             subscriptionBean.is_deleted = subscriptionObj[ "is_deleted"] as? NSNumber
-            subscriptionBean.mrp = subscriptionObj[ "mrp"] as? NSNumber
+            subscriptionBean.mrp = subscriptionObj[ "subscription_price"] as? NSNumber
             subscriptionBean.plan_name = subscriptionObj[ "plan_name"] as? String
             subscriptionBean.selling_price = subscriptionObj[ "selling_price"] as? NSNumber
             subscriptionBean.updated_at = subscriptionObj[ "updated_at"] as? String

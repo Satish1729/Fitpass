@@ -24,7 +24,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     let menuArray :Array =  ["Dashboard", "Leads", "Members", "Payments", "Assets", "Staffs", "Workout", "Reserved Workouts", "Workout Schedule", "Logout"]
 
-    let imagesArray : Array = ["home", "leads", "members", "payments", "assets", "staffs", "workout", "workout", "workout", "logout"]
+    let imagesArray : Array = ["home", "leads", "members", "payments", "assets", "staffs", "workout", "reservedworkouts", "workoutschedule", "logout"]
     
     private var previousIndex: NSIndexPath?
     let dropDown = DropDown()
@@ -113,13 +113,13 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         downloadPicTask1.resume()*/
         
-        self.profileView.image = UIImage(named: "banner_new")
-        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-        blurEffectView.frame = view.bounds
-        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        self.profileView.addSubview(blurEffectView)
-        self.profileView.alpha = 0.6
+//        self.profileView.image = UIImage(named: "banner_new")
+//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+//        blurEffectView.frame = view.bounds
+//        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+////        self.profileView.addSubview(blurEffectView)
+//        self.profileView.alpha = 0.6
         self.profileImageView.image = UIImage(named: "dumble")
         
         self.userName.text = (appDelegate.userBean?.first_name)! + " " + (appDelegate.userBean?.last_name)!
@@ -194,7 +194,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         let hView : UILabel = UILabel()
         hView.frame = CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: tableView.sectionHeaderHeight)
         hView.text = "    Fitpass Workouts"
-        hView.backgroundColor = UIColor(red: 35/255, green: 52/255, blue: 71/255, alpha: 0.85)
+        hView.backgroundColor = UIColor(red: 2/255, green: 29/255, blue: 53/255, alpha: 1.0)
         hView.textColor = UIColor.white
         return hView
     }
@@ -213,6 +213,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         cell.textLabel?.textColor = UIColor.white
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 15.0)
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero

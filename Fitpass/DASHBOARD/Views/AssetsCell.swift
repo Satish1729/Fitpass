@@ -10,21 +10,38 @@ import UIKit
 
 class AssetsCell: UITableViewCell {
     
+    @IBOutlet weak var createdAtLabel: UILabel!
     @IBOutlet weak var assetNameLabel: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var vendorNameLabel: UILabel!
     @IBOutlet weak var purchasedOnLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
-    
+    @IBOutlet weak var borderView: UIView!
+    @IBOutlet weak var statusColorView: UIView!
     
     func updateAssetsDetails (assetBean : Assets) {
-        
+        self.borderView.layer.borderWidth = 1.0
+        self.borderView.layer.borderColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1.0).cgColor
+        self.borderView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.borderView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        self.borderView.layer.shadowOpacity = 1.0
+        self.borderView.layer.shadowRadius = 0.0
+        self.borderView.layer.masksToBounds = false
+        self.borderView.layer.cornerRadius = 1.0
+
         if let assetName = assetBean.asset_name {
             self.assetNameLabel.text = assetName
         }
         
         if let status = assetBean.asset_status {
             self.statusLabel.text = status
+            if(status == "In-Use"){
+                self.statusColorView.backgroundColor = UIColor.yellow
+            }else if(status == "Available"){
+                self.statusColorView.backgroundColor = UIColor.green
+            }else{
+                self.statusColorView.backgroundColor = UIColor.red
+            }
         }
         
         if let vendorName = assetBean.vendor_name {
@@ -32,16 +49,16 @@ class AssetsCell: UITableViewCell {
         }
         
         if let purchasedOn = assetBean.purchased_on {
-            self.purchasedOnLabel.text = Utility().getDateStringSimple(dateStr: purchasedOn)
+            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let valueString = NSMutableAttributedString(string: Utility().getDateStringSimple(dateStr: purchasedOn), attributes: myAttribute )
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+            let myString = NSMutableAttributedString(string: "Purchase Date ", attributes: myAttribute1 )
+            myString.append(valueString)
+            self.purchasedOnLabel.attributedText = myString
         }
         
         if let amount = assetBean.amount {
-            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
-            let valueString = NSMutableAttributedString(string: amount.stringValue+"rs", attributes: myAttribute )
-            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
-            let myString = NSMutableAttributedString(string: "Amount - ", attributes: myAttribute1 )
-            myString.append(valueString)
-            self.amountLabel.attributedText = myString
+            self.amountLabel.text = "₹ "+amount.stringValue
         }
     }
     

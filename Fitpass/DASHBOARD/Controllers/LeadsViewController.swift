@@ -43,6 +43,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
 
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.rightBarButtonItem = item1
+        self.leadsTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         self.getLeads()
     }
 
@@ -175,7 +176,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
 
         var numOfSections: Int = 0
         if (arrayCount > 0){
-            tableView.separatorStyle = .singleLine
+//            tableView.separatorStyle = .singleLine
             numOfSections            = 1
             tableView.backgroundView = nil
         }
@@ -198,7 +199,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return 189
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

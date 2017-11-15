@@ -111,7 +111,36 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
             return;
         }
         
-        ProgressHUD.showProgress(targetView: self.view)
+       
+        let urlRequest = URLRequest(url: URL(string: ServerConstants.URL_GET_WORKOUTS)!)
+        let urlString = urlRequest.url?.absoluteString
+        
+        let headersDict: HTTPHeaders = [
+            "X-APPKEY":(appDelegate.userBean?.auth_key)!,
+            "X-partner-id":(appDelegate.userBean?.partner_id)!
+//            "Content-Type":"application/json",
+//            "x-auth-token":(appDelegate.userBean?.authHeader)!
+        ]
+        
+    Alamofire.request(urlString!, method: .get, parameters: nil, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
+        print(response.result)
+        let responseDic =  response.result.value as! NSDictionary
+        if(responseDic.object(forKey:"code") as! NSNumber == 200){
+            self.workoutsArray.removeAllObjects()
+            self.workoutsArray.addObjects(from:  Workouts().updateWorkouts(responseDict : responseDic) as [AnyObject])
+            self.workoutTableView.reloadData()
+        }
+        else{
+            self.workoutsArray.removeAllObjects()
+            self.workoutTableView.reloadData()
+            AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey:"message") as! String, yPos: 20, duration: NSInteger(2.0))
+        }
+    }
+        
+
+        
+        
+        /*ProgressHUD.showProgress(targetView: self.view)
         
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GET_WORKOUTS , userInfo: nil, type: "GET") { (data, response, error) in
             
@@ -138,6 +167,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 print("Get workoutS failed : \(String(describing: error?.localizedDescription))")
             }
         }
+        */
     }
     
     func getSearchworkouts() {

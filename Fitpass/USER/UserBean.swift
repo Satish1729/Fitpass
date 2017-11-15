@@ -151,7 +151,7 @@ class UserBean: NSObject, NSCoding {
             studioBean.banner_url = studioObj["banner_url"] as? String
             studioBean.city = studioObj["city"] as? String
             studioBean.logo_url = studioObj["logo_url"] as? String
-            studioBean.nick_name = studioObj["nick_name"] as? String
+            studioBean.nick_name = studioObj["studio_url"] as? String
             studioBean.partner_id = studioObj["partner_id"] as? String
             studioBean.studio_id = studioObj["studio_id"] as? String
             studioBean.studio_name = studioObj["studio_name"] as? String
@@ -204,7 +204,7 @@ class StudioBean : NSObject, NSCoding{
         self.banner_url = decoder.decodeObject(forKey: "banner_url") as? String ?? ""
         self.city = decoder.decodeObject(forKey: "city") as? String ?? ""
         self.logo_url = decoder.decodeObject(forKey: "logo_url") as? String ?? ""
-        self.nick_name = decoder.decodeObject(forKey: "nick_name") as? String ?? ""
+        self.nick_name = decoder.decodeObject(forKey: "studio_url") as? String ?? ""
         self.partner_id = decoder.decodeObject(forKey: "partner_id") as? String ?? ""
         self.studio_id = decoder.decodeObject(forKey: "studio_id") as? String ?? ""
         self.studio_name = decoder.decodeObject(forKey : "studio_name") as? String ?? ""
@@ -216,7 +216,7 @@ class StudioBean : NSObject, NSCoding{
         coder.encode(banner_url, forKey: "banner_url")
         coder.encode(city, forKey : "city")
         coder.encode(logo_url, forKey : "logo_url")
-        coder.encode(nick_name, forKey: "nick_name")
+        coder.encode(nick_name, forKey: "studio_url")
         coder.encode(partner_id, forKey : "partner_id")
         coder.encode(studio_id, forKey : "studio_id")
         coder.encode(studio_name, forKey : "studio_name")

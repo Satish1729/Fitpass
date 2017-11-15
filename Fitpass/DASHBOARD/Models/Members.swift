@@ -42,25 +42,25 @@ class Members: NSObject {
         for memberObj in (dataArray as? [[String:Any]])! {
             
             let memberBean : Members = Members()
-            
-            memberBean.address = memberObj[ "address"] as? String
+
+            memberBean.address = memberObj[ "member_address"] as? String
             memberBean.agreed_amount = memberObj["agreed_amount"] as? NSNumber
             memberBean.contact_number = memberObj[ "contact_number"] as? NSNumber
             memberBean.created_at = memberObj[ "created_at"] as? String
             memberBean.created_by = memberObj[ "created_by"] as? String
-            memberBean.dob = memberObj[ "dob"] as? String
-            memberBean.email = memberObj[ "email"] as? String
+            memberBean.dob = memberObj[ "date_of_birth"] as? String
+            memberBean.email = memberObj[ "email_address"] as? String
             memberBean.gender = memberObj[ "gender"] as? String
             memberBean.id = memberObj[ "id"] as? NSNumber
             memberBean.is_active = memberObj["is_active"] as? NSNumber
             memberBean.is_deleted = memberObj[ "is_deleted"] as? NSNumber
             memberBean.joining_date = memberObj["joining_date"] as? String
-            memberBean.name = memberObj[ "name"] as? String
+            memberBean.name = memberObj[ "member_name"] as? String
             memberBean.payment_date = memberObj[ "payment_date"] as? NSNumber
             memberBean.preferred_time_slot_from = memberObj[ "preferred_time_slot_from"] as? String
             memberBean.preferred_time_slot_to = memberObj[ "preferred_time_slot_to"] as? String
             memberBean.remarks = memberObj[ "remarks"] as? String
-            memberBean.status = memberObj["status"] as? String
+            memberBean.status = memberObj["member_status"] as? String
             memberBean.subscription_plan = memberObj[ "subscription_plan"] as? String
             memberBean.updated_at = memberObj["updated_at"] as? String
             memberBean.updated_by = memberObj["updated_by"] as? String

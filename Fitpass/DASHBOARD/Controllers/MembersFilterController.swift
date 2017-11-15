@@ -74,7 +74,6 @@ class MembersFilterController: BaseViewController {
                     print(responseDic!)
                     self.subscriptionsArray.addObjects(from:  Subscriptions().updateSubscriptions(responseDict : responseDic!) as [AnyObject])
                    
-                    print("idhi kaduy")
                     
                     let tempArr = NSMutableArray()
                     

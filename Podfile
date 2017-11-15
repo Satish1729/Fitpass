@@ -8,6 +8,7 @@ pod 'IQKeyboardManagerSwift'
 pod 'SideMenuController'
 pod 'ReachabilitySwift', '~> 3'
 pod 'DropDown'
-pod 'Charts'
+pod 'Charts', '3.0.3'
+pod 'MBCircularProgressBar'
 pod 'KYCircularProgress'
 end
