@@ -117,9 +117,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         let headersDict: HTTPHeaders = [
             "X-APPKEY":(appDelegate.userBean?.auth_key)!,
-            "X-partner-id":(appDelegate.userBean?.partner_id)!
-//            "Content-Type":"application/json",
-//            "x-auth-token":(appDelegate.userBean?.authHeader)!
+            "X-partner-id":"1588" //(appDelegate.userBean?.partner_id)!
         ]
         
     Alamofire.request(urlString!, method: .get, parameters: nil, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
@@ -221,7 +219,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         var numOfSections: Int = 0
         if (arrayCount > 0){
-            tableView.separatorStyle = .singleLine
+//            tableView.separatorStyle = .singleLine
             numOfSections            = 1
             tableView.backgroundView = nil
         }
@@ -244,7 +242,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
+        return 189
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

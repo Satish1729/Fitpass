@@ -17,25 +17,53 @@ class WorkoutCell: UITableViewCell {
     @IBOutlet weak var workoutCategoryIdLabel: UILabel!
     @IBOutlet weak var createdByLabel: UILabel!
     @IBOutlet weak var ccreateTimeLabel: UILabel!
+    @IBOutlet weak var borderView: UIView!
+    @IBOutlet weak var categoryName: UILabel!
+    @IBOutlet weak var remarksLabel: UILabel!
     
     func updateWorkoutDetails (workoutBean : Workouts) {
-        
+        self.borderView.layer.borderWidth = 1.0
+        self.borderView.layer.borderColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1.0).cgColor
+        self.borderView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.borderView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        self.borderView.layer.shadowOpacity = 1.0
+        self.borderView.layer.shadowRadius = 0.0
+        self.borderView.layer.masksToBounds = false
+        self.borderView.layer.cornerRadius = 1.0
+
         if let name = workoutBean.workout_name {
             self.workoutNameLabel.text = name
         }
-
-        if let categoryId = workoutBean.workout_category_id {
-            self.workoutCategoryIdLabel.text = categoryId
+        
+        if let categoryname = workoutBean.workout_category_name{
+            self.categoryName.text = categoryname
+        }
+        
+        if let categoryId = workoutBean.workout_id {
+            self.workoutCategoryIdLabel.text = "# "+categoryId
         }
         
         if let createdBy = workoutBean.created_by {
-            self.createdByLabel.text = createdBy
+            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let valueString = NSMutableAttributedString(string: createdBy, attributes: myAttribute )
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+            let myString = NSMutableAttributedString(string: "Created By ", attributes: myAttribute1 )
+            myString.append(valueString)
+            self.createdByLabel.attributedText = myString
         }
         
         if let createdTime = workoutBean.create_time {
             self.ccreateTimeLabel.text = Utility().getDateString(dateStr: createdTime)
         }
     
+        if let remarks = workoutBean.workout_description{
+            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+            let valueString = NSMutableAttributedString(string: remarks, attributes: myAttribute )
+            let myAttribute1 = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let myString = NSMutableAttributedString(string: "Remarks - ", attributes: myAttribute1 )
+            myString.append(valueString)
+            self.remarksLabel.attributedText = myString
+        }
     }
     
     

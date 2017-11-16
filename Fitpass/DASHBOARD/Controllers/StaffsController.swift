@@ -140,7 +140,7 @@
 
     var numOfSections: Int = 0
     if (arrayCount > 0){
-        tableView.separatorStyle = .singleLine
+//        tableView.separatorStyle = .singleLine
         numOfSections            = 1
         tableView.backgroundView = nil
     }
@@ -163,7 +163,7 @@
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 150
+    return 189
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -270,7 +270,7 @@ class Utility: NSObject {
         dateFormatter.dateFormat = "yyyy-MM"
         let date = dateFormatter.date(from: dateStr)
         
-        dateFormatter.dateFormat = "MMM-yyyy"
+        dateFormatter.dateFormat = "MMM yyyy"
         let newDate = dateFormatter.string(from: date! as Date)
         return newDate
     }

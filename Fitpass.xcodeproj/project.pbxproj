@@ -67,6 +67,7 @@
 		3BCE56C21ED9C21D0036C79E /* LeadDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BCE56C11ED9C21D0036C79E /* LeadDetailController.swift */; };
 		3BEAAFB61EDAB9080083AA51 /* LeadsFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEAAFB51EDAB9080083AA51 /* LeadsFilterViewController.swift */; };
 		3BEAAFB81EDAC84D0083AA51 /* LeadDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BEAAFB71EDAC84D0083AA51 /* LeadDetailCell.swift */; };
+		750F657C1FBDA65E00EFD461 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 750F657B1FBDA65E00EFD461 /* Podfile */; };
 		753DB4051F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DB4041F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift */; };
 		753DB4071F174EFE00A6C1A1 /* ReservedWorkouts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DB4061F174EFE00A6C1A1 /* ReservedWorkouts.swift */; };
 		753DB4091F175E9E00A6C1A1 /* ReservedWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753DB4081F175E9E00A6C1A1 /* ReservedWorkoutCell.swift */; };
@@ -173,6 +174,7 @@
 		3BCE56C11ED9C21D0036C79E /* LeadDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeadDetailController.swift; path = DASHBOARD/Controllers/LeadDetailController.swift; sourceTree = "<group>"; };
 		3BEAAFB51EDAB9080083AA51 /* LeadsFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeadsFilterViewController.swift; path = DASHBOARD/Controllers/LeadsFilterViewController.swift; sourceTree = "<group>"; };
 		3BEAAFB71EDAC84D0083AA51 /* LeadDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LeadDetailCell.swift; path = DASHBOARD/Views/LeadDetailCell.swift; sourceTree = "<group>"; };
+		750F657B1FBDA65E00EFD461 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; path = Podfile; sourceTree = "<group>"; };
 		753DB4041F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReservedWorkoutDetailController.swift; path = DASHBOARD/Controllers/ReservedWorkoutDetailController.swift; sourceTree = "<group>"; };
 		753DB4061F174EFE00A6C1A1 /* ReservedWorkouts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReservedWorkouts.swift; path = DASHBOARD/Models/ReservedWorkouts.swift; sourceTree = "<group>"; };
 		753DB4081F175E9E00A6C1A1 /* ReservedWorkoutCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReservedWorkoutCell.swift; path = DASHBOARD/Views/ReservedWorkoutCell.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				3B58C0511EB08814006086E5 /* COMMON */,
 				3B58C0151EB07E19006086E5 /* Main.storyboard */,
 				3B58C0181EB07E19006086E5 /* Assets.xcassets */,
+				750F657B1FBDA65E00EFD461 /* Podfile */,
 				3B58C01A1EB07E19006086E5 /* LaunchScreen.storyboard */,
 				3B58C01D1EB07E19006086E5 /* Info.plist */,
 				3B169DFD1F1A4AB20024B3F0 /* Fitpass-Bridging-Header.h */,
@@ -527,6 +530,7 @@
 			files = (
 				3B58C01C1EB07E19006086E5 /* LaunchScreen.storyboard in Resources */,
 				3B58C0191EB07E19006086E5 /* Assets.xcassets in Resources */,
+				750F657C1FBDA65E00EFD461 /* Podfile in Resources */,
 				3B58C0171EB07E19006086E5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

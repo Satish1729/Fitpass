@@ -208,7 +208,7 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
         
         var numOfSections: Int = 0
         if (arrayCount > 0){
-            tableView.separatorStyle = .singleLine
+//            tableView.separatorStyle = .singleLine
             numOfSections            = 1
             tableView.backgroundView = nil
         }
