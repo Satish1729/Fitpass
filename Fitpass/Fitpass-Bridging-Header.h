@@ -9,5 +9,7 @@
 #ifndef Fitpass_Bridging_Header_h
 #define Fitpass_Bridging_Header_h
 
+//#import "MBCircularProgressBarView.h"
+//#import "MBCircularProgressBarLayer.h"
 
 #endif /* Fitpass_Bridging_Header_h */

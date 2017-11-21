@@ -66,6 +66,7 @@ class LeadsCell: UITableViewCell {
             default:
                 self.leadTypeImageView.image = UIImage(named: "profile")
             }
+            self.leadTypeImageView.layer.cornerRadius = self.leadTypeImageView.frame.size.width / 2
         }
 
         if let email = leadBean.email {

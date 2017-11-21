@@ -132,8 +132,8 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
             studioNamesArray.add(studioName)
         }
         dropDown.anchorView = self.studioTypeBtn
-        dropDown.backgroundColor = UIColor.darkGray
-        dropDown.textColor = UIColor.white
+        dropDown.backgroundColor = UIColor.white
+        dropDown.textColor = UIColor.lightGray
         dropDown.dataSource = studioNamesArray as! [String]
         dropDown.direction = .any
         dropDown.width = self.view.frame.size.width*2/3

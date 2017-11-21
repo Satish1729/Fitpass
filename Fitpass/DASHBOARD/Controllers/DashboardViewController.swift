@@ -9,29 +9,35 @@
 import UIKit
 import SideMenuController
 import Charts
-import KYCircularProgress
+import MBCircularProgressBar
 
 class DashboardViewController: BaseViewController, ChartViewDelegate {
     
     @IBOutlet weak var homeScrollView: UIScrollView!
-    @IBOutlet weak var barChartView: BarChartView!
-    @IBOutlet weak var totalLeadsLabel: UILabel!
-    @IBOutlet weak var salesCircle: KYCircularProgress!
-    @IBOutlet weak var openCircle: KYCircularProgress!
-    @IBOutlet weak var memberCircle: KYCircularProgress!
-    @IBOutlet weak var deadCircle: KYCircularProgress!
-    @IBOutlet private weak var salesPercentLabel: UILabel!
-    @IBOutlet private weak var openPercentLabel: UILabel!
-    @IBOutlet private weak var memberPercentLabel: UILabel!
-    @IBOutlet private weak var deadPercentLabel: UILabel!
     
-    @IBOutlet weak var salesLabel: UILabel!
-    @IBOutlet weak var openLabel: UILabel!
-    @IBOutlet weak var memberLabel: UILabel!
-    @IBOutlet weak var deadLabel: UILabel!
-    
+    @IBOutlet weak var salesBorderView: UIView!
+    @IBOutlet weak var leadsBorderView: UIView!
+    @IBOutlet weak var membersBorderView: UIView!
     @IBOutlet weak var salesHeaderLabel: UILabel!
+    @IBOutlet weak var barChartView: BarChartView!
+    
+    @IBOutlet weak var openProgress: MBCircularProgressBarView!
+    @IBOutlet weak var totalLeadsLabel: UILabel!
+    @IBOutlet weak var deadProgress: MBCircularProgressBarView!
 
+    @IBOutlet weak var memberProgress: MBCircularProgressBarView!
+    @IBOutlet weak var openLabel: UILabel!
+    @IBOutlet weak var deadLabel: UILabel!
+    @IBOutlet weak var memberLabel: UILabel!
+    
+    @IBOutlet weak var membersHeaderLabel: UILabel!
+
+    @IBOutlet weak var activeProgress: MBCircularProgressBarView!
+    @IBOutlet weak var expiredProgress: MBCircularProgressBarView!
+    @IBOutlet weak var activeLabel: UILabel!
+    @IBOutlet weak var expiredLabel: UILabel!
+    @IBOutlet weak var upcomingdueLabel: UILabel!
+    
     private var progress: UInt8 = 0
 
     var months: [String]!
@@ -40,11 +46,11 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
 //        self.homeScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 900)
          months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
         barChartView.chartDescription?.text = ""
-        barChartView.tintColor = UIColor.green
-        barChartView.gridBackgroundColor  = UIColor.lightText
+        barChartView.tintColor = UIColor.red
+        barChartView.gridBackgroundColor  = UIColor.clear
         barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
-        self.getLeadsCount()
         self.getSalesData()
+        self.getLeadsCount()
         self.getMembersCount()
     }
 
@@ -68,7 +74,7 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
     }
     override func viewDidLayoutSubviews()
     {
-    self.homeScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 750)
+        self.homeScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 1320)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -83,7 +89,15 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
             AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
             return;
         }
-        
+        self.salesBorderView.layer.borderWidth = 1.0
+        self.salesBorderView.layer.borderColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1.0).cgColor
+        self.salesBorderView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.salesBorderView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        self.salesBorderView.layer.shadowOpacity = 1.0
+        self.salesBorderView.layer.shadowRadius = 0.0
+        self.salesBorderView.layer.masksToBounds = false
+        self.salesBorderView.layer.cornerRadius = 1.0
+
         ProgressHUD.showProgress(targetView: self.view)
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GRAPH_DATA , userInfo: nil , type: "GET") { (data, response, error) in
             
@@ -94,7 +108,8 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                 let responseDict:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDict != nil) {
                     print(responseDict!)
-                    /*if(responseDict?.object(forKey: "status") as! String  == "200"){
+                    if(responseDict?.object(forKey: "status") as! String  == "200"){
+                     
                         let resultArray: NSArray = responseDict!.object(forKey: "result") as! NSArray
                         let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
                         let dataArray : NSArray = tempDict.object(forKey: "data") as! NSArray
@@ -118,14 +133,15 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                         }
                         
                         let tempName = tempDict.object(forKey: "displayName") as! String
-                        self.salesHeaderLabel.text = "Sales"
+                        self.salesHeaderLabel.text = "SALES"
                         self.barChartView.isHidden = false
                         self.setChart(dataPoints: xValuesArray as! [Int], values: yValuesArray as! [Double], labelname: tempName)
                     }else{
                         self.barChartView.isHidden = true
                         self.salesHeaderLabel.text = "No Sales data available"
 
-                    }*/
+                    }
+                    
                 }
             }
             else{
@@ -145,7 +161,15 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
             AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
             return;
         }
-        
+        self.leadsBorderView.layer.borderWidth = 1.0
+        self.leadsBorderView.layer.borderColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1.0).cgColor
+        self.leadsBorderView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.leadsBorderView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        self.leadsBorderView.layer.shadowOpacity = 1.0
+        self.leadsBorderView.layer.shadowRadius = 0.0
+        self.leadsBorderView.layer.masksToBounds = false
+        self.leadsBorderView.layer.cornerRadius = 1.0
+
         ProgressHUD.showProgress(targetView: self.view)
         
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GAUGE_DATA , userInfo: nil, type: "GET") { (data, response, error) in
@@ -158,60 +182,26 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                 if (responseDict != nil) {
                     print(responseDict!)
                     if(responseDict?.object(forKey: "status") as! String  == "200"){
+                        
                         let leadsCount = responseDict?.object(forKey: "message") as! NSNumber
                         self.isHideLeadsCircles(isAvail: false)
-                        self.totalLeadsLabel.text = "Total Leads ("+leadsCount.stringValue+")"
+                        self.totalLeadsLabel.text = "TOTAL LEADS ("+leadsCount.stringValue+")"
                         let resultArray: NSArray = responseDict!.object(forKey: "result") as! NSArray
-    //                    let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
                         let tempDict  = NSMutableDictionary()
                         for tempObj in resultArray{
                             let localDict = tempObj as! [String:Any]
-                            tempDict.setObject(localDict["key2"]!, forKey: localDict["displayName"] as! NSCopying)
+                            tempDict.setObject(localDict["key1"]!, forKey: localDict["displayName"] as! NSCopying)
                         }
-                        self.salesCircle.progressChanged {
-                            (progress: Double, circularProgress: KYCircularProgress) in
-                            self.salesPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
-                        }
-                        var progress1: UInt8 = 0
-                        progress1 = 50 //tempDict.object(forKey: "Sales") as! UInt8
-                        let normalizedProgress = Double(progress1)/Double(100)
-                        self.salesCircle.colors = [UIColor(red: 4/255, green: 30/255, blue: 52/255, alpha: 1.0)]
-                        self.salesCircle.progress = normalizedProgress
-
-                        /////////
-                        self.openCircle.progressChanged {
-                            (progress: Double, circularProgress: KYCircularProgress) in
-                            self.openPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
-                        }
-                        var progress2: UInt8 = 35
-                        progress2 = tempDict.object(forKey: "Open") as! UInt8
-                        let normalizedProgress2 = Double(progress2)/Double(100)
-                        self.openCircle.colors = [UIColor(red: 6/255, green: 22/255, blue: 39/255, alpha: 1.0)]
-                        self.openCircle.progress = normalizedProgress2
                         
-                        //////////
-                        self.memberCircle.progressChanged {
-                            (progress: Double, circularProgress: KYCircularProgress) in
-                            self.memberPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
-                        }
-                        var progress3: UInt8 = 75
+                        var progress2: UInt8 = 0
+                        progress2 = tempDict.object(forKey: "Open") as! UInt8
+                        self.openProgress.value = CGFloat(progress2)
+                        var progress3: UInt8 = 0
                         progress3 = tempDict.object(forKey: "Member") as! UInt8
-                        let normalizedProgress3 = Double(progress3)/Double(100)
-                        self.memberCircle.colors = [UIColor(red: 4/255, green: 30/255, blue: 52/255, alpha: 1.0)]
-                        self.memberCircle.progress = normalizedProgress3
-
-                        ///////////
-                        self.deadCircle.progressChanged {
-                            (progress: Double, circularProgress: KYCircularProgress) in
-                            self.deadPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
-                        }
+                        self.memberProgress.value = CGFloat(progress3)
                         var progress4: UInt8 = 0
                         progress4 = tempDict.object(forKey: "Dead") as! UInt8
-                        let normalizedProgress4 = Double(progress4)/Double(100)
-                        self.deadCircle.colors = [UIColor(red: 4/255, green: 30/255, blue: 52/255, alpha: 1.0)]
-                        self.deadCircle.progress = normalizedProgress4
-                        
-                        
+                        self.deadProgress.value = CGFloat(progress4)
                     }else{
                         self.totalLeadsLabel.text = "No Leads data available"
                         self.isHideLeadsCircles(isAvail: true)
@@ -219,7 +209,6 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                 }
             }
             else{
-//                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
                 self.totalLeadsLabel.text = "No Leads data available"
                 self.isHideLeadsCircles(isAvail: true)
             }
@@ -234,7 +223,15 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
             AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
             return;
         }
-        
+        self.membersBorderView.layer.borderWidth = 1.0
+        self.membersBorderView.layer.borderColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1.0).cgColor
+        self.membersBorderView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.membersBorderView.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        self.membersBorderView.layer.shadowOpacity = 1.0
+        self.membersBorderView.layer.shadowRadius = 0.0
+        self.membersBorderView.layer.masksToBounds = false
+        self.membersBorderView.layer.cornerRadius = 1.0
+
         ProgressHUD.showProgress(targetView: self.view)
         
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_MEMBERS_DATA , userInfo: nil, type: "GET") { (data, response, error) in
@@ -246,86 +243,54 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                 let responseDict:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDict != nil) {
                     print(responseDict!)
-                    /*if(responseDict?.object(forKey: "status") as! String  == "200"){
+                    if(responseDict?.object(forKey: "status") as! String  == "200"){
+
                         let leadsCount = responseDict?.object(forKey: "message") as! NSNumber
                         self.isHideLeadsCircles(isAvail: false)
-                        self.totalLeadsLabel.text = "Total Leads ("+leadsCount.stringValue+")"
+                        self.membersHeaderLabel.text = "TOTAL MEMBERS ("+leadsCount.stringValue+")"
                         let resultArray: NSArray = responseDict!.object(forKey: "result") as! NSArray
-                        //                    let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
                         let tempDict  = NSMutableDictionary()
                         for tempObj in resultArray{
                             let localDict = tempObj as! [String:Any]
-                            tempDict.setObject(localDict["key2"]!, forKey: localDict["displayName"] as! NSCopying)
-                        }
-                        self.salesCircle.progressChanged {
-                            (progress: Double, circularProgress: KYCircularProgress) in
-                            self.salesPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
-                        }
-                        var progress1: UInt8 = 0
-                        progress1 = tempDict.object(forKey: "Sales") as! UInt8
-                        let normalizedProgress = Double(progress1)/Double(100)
-                        self.salesCircle.colors = [UIColor(red: 4/255, green: 30/255, blue: 52/255, alpha: 1.0)]
-                        self.salesCircle.progress = normalizedProgress
-                        
-                        /////////
-                        self.openCircle.progressChanged {
-                            (progress: Double, circularProgress: KYCircularProgress) in
-                            self.openPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
+                            tempDict.setObject(localDict["key1"]!, forKey: localDict["displayName"] as! NSCopying)
                         }
                         var progress2: UInt8 = 35
-                        progress2 = tempDict.object(forKey: "Open") as! UInt8
-                        let normalizedProgress2 = Double(progress2)/Double(100)
-                        self.openCircle.colors = [UIColor(red: 6/255, green: 22/255, blue: 39/255, alpha: 1.0)]
-                        self.openCircle.progress = normalizedProgress2
-                        
-                        //////////
-                        self.memberCircle.progressChanged {
-                            (progress: Double, circularProgress: KYCircularProgress) in
-                            self.memberPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
-                        }
+                        progress2 = tempDict.object(forKey: "Active") as! UInt8
+                        self.activeProgress.value = CGFloat(progress2)
                         var progress3: UInt8 = 75
-                        progress3 = tempDict.object(forKey: "Member") as! UInt8
-                        let normalizedProgress3 = Double(progress3)/Double(100)
-                        self.memberCircle.colors = [UIColor(red: 4/255, green: 30/255, blue: 52/255, alpha: 1.0)]
-                        self.memberCircle.progress = normalizedProgress3
-                        
-                        ///////////
-                        self.deadCircle.progressChanged {
-                            (progress: Double, circularProgress: KYCircularProgress) in
-                            self.deadPercentLabel.text = String.init(format: "%.0f", progress*100.0) + "%"
-                        }
-                        var progress4: UInt8 = 0
-                        progress4 = tempDict.object(forKey: "Dead") as! UInt8
-                        let normalizedProgress4 = Double(progress4)/Double(100)
-                        self.deadCircle.colors = [UIColor(red: 4/255, green: 30/255, blue: 52/255, alpha: 1.0)]
-                        self.deadCircle.progress = normalizedProgress4
-                        
-                        
+                        progress3 = tempDict.object(forKey: "Expired") as! UInt8
+                        self.expiredProgress.value = CGFloat(progress3)
+                        let str = responseDict!.object(forKey: "due_payment_count") as! UInt8;
+                        self.upcomingdueLabel.text = "  Upcoming dues this month \(str)"
                     }else{
-                        self.totalLeadsLabel.text = "No Leads data available"
-                        self.isHideLeadsCircles(isAvail: true)
-                    }*/
+                        self.totalLeadsLabel.text = "No Members data available"
+                        self.isHideMemberCircles(isAvail: true)
+                    }
                 }
             }
             else{
-                //                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
                 self.totalLeadsLabel.text = "No Members data available"
-                self.isHideLeadsCircles(isAvail: true)
+                self.isHideMemberCircles(isAvail: true)
             }
         }
     }
 
     func isHideLeadsCircles(isAvail : Bool){
-        salesLabel.isHidden = isAvail
         openLabel.isHidden = isAvail
         memberLabel.isHidden = isAvail
         deadLabel.isHidden = isAvail
-        salesCircle.isHidden = isAvail
-        openCircle.isHidden = isAvail
-        memberCircle.isHidden = isAvail
-        deadCircle.isHidden = isAvail
+        openProgress.isHidden = isAvail
+        memberProgress.isHidden = isAvail
+        deadProgress.isHidden = isAvail
     }
-    
+
+    func isHideMemberCircles(isAvail : Bool){
+        activeLabel.isHidden = isAvail
+        expiredLabel.isHidden = isAvail
+        activeProgress.isHidden = isAvail
+        expiredProgress.isHidden = isAvail
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

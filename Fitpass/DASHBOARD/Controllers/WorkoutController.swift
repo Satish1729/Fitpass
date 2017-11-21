@@ -117,7 +117,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         let headersDict: HTTPHeaders = [
             "X-APPKEY":(appDelegate.userBean?.auth_key)!,
-            "X-partner-id":"1588" //(appDelegate.userBean?.partner_id)!
+            "X-partner-id":(appDelegate.userBean?.partner_id)!
         ]
         
     Alamofire.request(urlString!, method: .get, parameters: nil, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in

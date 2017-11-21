@@ -44,9 +44,9 @@ class WorkoutCell: UITableViewCell {
         }
         
         if let createdBy = workoutBean.created_by {
-            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15.0)]
             let valueString = NSMutableAttributedString(string: createdBy, attributes: myAttribute )
-            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0)]
             let myString = NSMutableAttributedString(string: "Created By ", attributes: myAttribute1 )
             myString.append(valueString)
             self.createdByLabel.attributedText = myString
@@ -57,10 +57,10 @@ class WorkoutCell: UITableViewCell {
         }
     
         if let remarks = workoutBean.workout_description{
-            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 16.0)]
             let valueString = NSMutableAttributedString(string: remarks, attributes: myAttribute )
-            let myAttribute1 = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
-            let myString = NSMutableAttributedString(string: "Remarks - ", attributes: myAttribute1 )
+            let myAttribute1 = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16.0)]
+            let myString = NSMutableAttributedString(string: "Remarks : ", attributes: myAttribute1 )
             myString.append(valueString)
             self.remarksLabel.attributedText = myString
         }
