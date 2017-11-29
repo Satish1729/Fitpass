@@ -23,7 +23,7 @@ class PartnerRequestViewController: BaseViewController {
 
     override func viewDidLayoutSubviews()
     {
-        self.partnerScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 1000)
+        self.partnerScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 1100)
     }
 
     func isValidRequest() -> Bool {

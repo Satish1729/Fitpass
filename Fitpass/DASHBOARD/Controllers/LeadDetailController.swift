@@ -38,11 +38,11 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
         self.mailButton.addTarget(self, action: #selector(email), for: UIControlEvents.touchUpInside)
         
-        if(leadObj?.gender == "Male"){
-            self.profileImageView.image = UIImage(named: "man")
-        }else{
-            self.profileImageView.image = UIImage(named: "woman")
-        }
+//        if(leadObj?.gender == "Male"){
+//            self.profileImageView.image = UIImage(named: "man")
+//        }else{
+//            self.profileImageView.image = UIImage(named: "woman")
+//        }
         
         let backBtn = UIButton(type: .custom)
         backBtn.setImage(UIImage(named: "img_back"), for: .normal)

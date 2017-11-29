@@ -152,7 +152,11 @@ class UserBean: NSObject, NSCoding {
             studioBean.city = studioObj["city"] as? String
             studioBean.logo_url = studioObj["logo_url"] as? String
             studioBean.nick_name = studioObj["studio_url"] as? String
-            studioBean.partner_id = studioObj["partner_id"] as? String
+            if let pid = studioObj["partner_id"]{
+                studioBean.partner_id = String(describing: pid)
+            }else{
+                studioBean.partner_id = ""
+            }
             studioBean.studio_id = studioObj["studio_id"] as? String
             studioBean.studio_name = studioObj["studio_name"] as? String
             studioBean.studio_token = studioObj["studio_token"] as? String
