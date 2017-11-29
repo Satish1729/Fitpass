@@ -92,7 +92,7 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
         self.addChildViewController(partnerForm)
         self.view.addSubview(partnerForm.view)
         
-        if((appDelegate.userBean?.auth_key == "" || appDelegate.userBean?.auth_key == nil) && (appDelegate.userBean?.partner_id == "" || appDelegate.userBean?.partner_id == nil)){
+        if((appDelegate.userBean?.auth_key == "" || appDelegate.userBean?.auth_key == nil) || (appDelegate.userBean?.partner_id == "" || appDelegate.userBean?.partner_id == nil)){
             scheduleScrollView.isHidden = true
             partnerForm.view.isHidden = false
         }else{

@@ -6,12 +6,6 @@
 //  Copyright © 2017 Satish. All rights reserved.
 //
 
-//
-//@GET("members")
-//Call<PojoMember> getAllMember(@Header("x-auth-token") String token,@Query("search_by") String search_by,@Query("search_text") String search_text);
-//@GET("members")
-//Call<PojoMember> getAllFilterMember(@Header("x-auth-token") String token,@Query("subscription_plan") int subscription_plan);
-
 import UIKit
 
 protocol memberDelegate {

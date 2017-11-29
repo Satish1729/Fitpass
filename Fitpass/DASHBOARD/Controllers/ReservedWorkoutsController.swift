@@ -28,7 +28,7 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
             self.addChildViewController(partnerForm)
             self.view.addSubview(partnerForm.view)
             
-            if(appDelegate.userBean?.auth_key == "" && appDelegate.userBean?.partner_id == ""){
+            if((appDelegate.userBean?.auth_key == "" || appDelegate.userBean?.auth_key == nil) || (appDelegate.userBean?.partner_id == "" || appDelegate.userBean?.partner_id == nil)){
                 reservedWorkoutsSearchBar.isHidden = true
                 reservedWorkoutsTableView.isHidden = true
                 partnerForm.view.isHidden = false

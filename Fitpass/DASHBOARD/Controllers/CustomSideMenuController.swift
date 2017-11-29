@@ -14,7 +14,7 @@ class CustomSideMenuController: SideMenuController {
     required init?(coder aDecoder: NSCoder) {
         SideMenuController.preferences.drawing.menuButtonImage = UIImage(named: "sidemenu")
         SideMenuController.preferences.drawing.sidePanelPosition = .overCenterPanelLeft
-        SideMenuController.preferences.drawing.sidePanelWidth = UIScreen.main.bounds.size.width*2/3
+        SideMenuController.preferences.drawing.sidePanelWidth = UIScreen.main.bounds.size.width*2.4/3
         SideMenuController.preferences.drawing.centerPanelShadow = true
         SideMenuController.preferences.animating.statusBarBehaviour = .showUnderlay
         super.init(coder: aDecoder)

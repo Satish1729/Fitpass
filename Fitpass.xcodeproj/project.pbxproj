@@ -83,6 +83,12 @@
 		75D46CCB1F287416007ACF8F /* PartnerRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D46CCA1F287416007ACF8F /* PartnerRequestViewController.swift */; };
 		75FEABD51F221DCD00D9D125 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FEABD41F221DCD00D9D125 /* Subscriptions.swift */; };
 		A2B0AF4F212948B04704C9DA /* Pods_Fitpass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B62BA1DE0B08AEB2FE8165 /* Pods_Fitpass.framework */; };
+		EF82F1C31FCD054B008BBE08 /* SalesReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1C21FCD054B008BBE08 /* SalesReportCell.swift */; };
+		EF82F1C51FCD0579008BBE08 /* SalesReportDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1C41FCD0579008BBE08 /* SalesReportDetailCell.swift */; };
+		EF82F1C71FCD05D3008BBE08 /* SalesReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1C61FCD05D3008BBE08 /* SalesReportController.swift */; };
+		EF82F1C91FCD05F9008BBE08 /* SalesReportDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1C81FCD05F9008BBE08 /* SalesReportDetailController.swift */; };
+		EF82F1CB1FCD061B008BBE08 /* SalesReportFilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1CA1FCD061B008BBE08 /* SalesReportFilterController.swift */; };
+		EF82F1CD1FCD0C93008BBE08 /* SalesReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1CC1FCD0C93008BBE08 /* SalesReport.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,6 +194,12 @@
 		75C70AD21F275CAD00496AC2 /* StaffUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffUpdateViewController.swift; path = DASHBOARD/Controllers/StaffUpdateViewController.swift; sourceTree = "<group>"; };
 		75D46CCA1F287416007ACF8F /* PartnerRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartnerRequestViewController.swift; path = DASHBOARD/Controllers/PartnerRequestViewController.swift; sourceTree = "<group>"; };
 		75FEABD41F221DCD00D9D125 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subscriptions.swift; path = DASHBOARD/Models/Subscriptions.swift; sourceTree = "<group>"; };
+		EF82F1C21FCD054B008BBE08 /* SalesReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportCell.swift; path = DASHBOARD/Views/SalesReportCell.swift; sourceTree = "<group>"; };
+		EF82F1C41FCD0579008BBE08 /* SalesReportDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportDetailCell.swift; path = DASHBOARD/Views/SalesReportDetailCell.swift; sourceTree = "<group>"; };
+		EF82F1C61FCD05D3008BBE08 /* SalesReportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportController.swift; path = DASHBOARD/Controllers/SalesReportController.swift; sourceTree = "<group>"; };
+		EF82F1C81FCD05F9008BBE08 /* SalesReportDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportDetailController.swift; path = DASHBOARD/Controllers/SalesReportDetailController.swift; sourceTree = "<group>"; };
+		EF82F1CA1FCD061B008BBE08 /* SalesReportFilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportFilterController.swift; path = DASHBOARD/Controllers/SalesReportFilterController.swift; sourceTree = "<group>"; };
+		EF82F1CC1FCD0C93008BBE08 /* SalesReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReport.swift; path = DASHBOARD/Models/SalesReport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -316,6 +328,9 @@
 				3B680F231EC6EA7300549969 /* MembersController.swift */,
 				3BC959391EDC91EE00A94CCE /* MemberDetailController.swift */,
 				3BC9593B1EDC920E00A94CCE /* MembersFilterController.swift */,
+				EF82F1C61FCD05D3008BBE08 /* SalesReportController.swift */,
+				EF82F1C81FCD05F9008BBE08 /* SalesReportDetailController.swift */,
+				EF82F1CA1FCD061B008BBE08 /* SalesReportFilterController.swift */,
 				3B680F251EC6EAB400549969 /* PaymentsController.swift */,
 				3B0C8B6E1F10E6BE001DB937 /* PaymentDetailController.swift */,
 				3B0C8B701F10E6E3001DB937 /* PaymentsFilterController.swift */,
@@ -350,6 +365,8 @@
 				3BC959311EDC582600A94CCE /* StaffAddCell.swift */,
 				3BC959331EDC8F7300A94CCE /* MembersCell.swift */,
 				3BC959351EDC8F8C00A94CCE /* MembersDetailCell.swift */,
+				EF82F1C21FCD054B008BBE08 /* SalesReportCell.swift */,
+				EF82F1C41FCD0579008BBE08 /* SalesReportDetailCell.swift */,
 				3B4DAF2E1F04A47100BDB69B /* AssetsCell.swift */,
 				3B4DAF301F04A4AE00BDB69B /* AssetDetailCell.swift */,
 				3B0C8B741F10F541001DB937 /* PaymentsCell.swift */,
@@ -369,6 +386,7 @@
 				3B0464FC1ED852EB00A33F41 /* Leads.swift */,
 				3BC9592B1EDC571B00A94CCE /* Staffs.swift */,
 				3BC959371EDC8FEB00A94CCE /* Members.swift */,
+				EF82F1CC1FCD0C93008BBE08 /* SalesReport.swift */,
 				3B3D5D3C1F04271B0036425F /* Assets.swift */,
 				3B0C8B721F10EFE1001DB937 /* Payments.swift */,
 				755381A11F14E86F008F6794 /* Workouts.swift */,
@@ -622,17 +640,21 @@
 			files = (
 				755381A61F14E8D3008F6794 /* WorkoutDetailCell.swift in Sources */,
 				3B680F281EC6EC2900549969 /* AssetsController.swift in Sources */,
+				EF82F1C71FCD05D3008BBE08 /* SalesReportController.swift in Sources */,
 				3BC959341EDC8F7300A94CCE /* MembersCell.swift in Sources */,
 				75C70AD11F275C8300496AC2 /* StaffAddViewController.swift in Sources */,
 				3B51FF871F17E4B00004D4D0 /* WorkoutSchedules.swift in Sources */,
 				3B680F221EC6D2D000549969 /* MenuController.swift in Sources */,
 				3B680F1C1EC55E5F00549969 /* LeadsViewController.swift in Sources */,
+				EF82F1CD1FCD0C93008BBE08 /* SalesReport.swift in Sources */,
 				3BCDA07D1EC01CBB00E04767 /* DashboardViewController.swift in Sources */,
 				3BC9592C1EDC571C00A94CCE /* Staffs.swift in Sources */,
 				3B58C0441EB084CE006086E5 /* LoginViewController.swift in Sources */,
 				7553819E1F14E763008F6794 /* WorkoutAddController.swift in Sources */,
 				755381A21F14E86F008F6794 /* Workouts.swift in Sources */,
+				EF82F1C91FCD05F9008BBE08 /* SalesReportDetailController.swift in Sources */,
 				3B58C0531EB0A190006086E5 /* AlertController.swift in Sources */,
+				EF82F1C51FCD0579008BBE08 /* SalesReportDetailCell.swift in Sources */,
 				3B680F341EC6ED4500549969 /* WorkoutScheduleController.swift in Sources */,
 				3B680F241EC6EA7300549969 /* MembersController.swift in Sources */,
 				3BC9592E1EDC57D000A94CCE /* StaffCell.swift in Sources */,
@@ -673,6 +695,7 @@
 				3B680F2E1EC6ECC000549969 /* SupportsController.swift in Sources */,
 				3B680F321EC6ED2A00549969 /* ReservedWorkoutsController.swift in Sources */,
 				75C70AD31F275CAD00496AC2 /* StaffUpdateViewController.swift in Sources */,
+				EF82F1C31FCD054B008BBE08 /* SalesReportCell.swift in Sources */,
 				3B0C8B6F1F10E6BE001DB937 /* PaymentDetailController.swift in Sources */,
 				3B58C0591EB0A309006086E5 /* Utility.swift in Sources */,
 				755381A41F14E8B6008F6794 /* WorkoutCell.swift in Sources */,
@@ -681,6 +704,7 @@
 				75FEABD51F221DCD00D9D125 /* Subscriptions.swift in Sources */,
 				3B58C0121EB07E19006086E5 /* AppDelegate.swift in Sources */,
 				755381A81F14E8EA008F6794 /* WorkoutAddCell.swift in Sources */,
+				EF82F1CB1FCD061B008BBE08 /* SalesReportFilterController.swift in Sources */,
 				3B4DAF351F04B1A700BDB69B /* AssetsFilterController.swift in Sources */,
 				3B58C04A1EB0870E006086E5 /* BaseViewController.swift in Sources */,
 				3B169DFA1F1A1EFD0024B3F0 /* BarChartFormatter.swift in Sources */,

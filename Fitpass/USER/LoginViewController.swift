@@ -25,9 +25,25 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         self.emailIdTxt.borderStyle = .roundedRect
         self.passwordTxt.borderStyle = .roundedRect
+        self.passwordTxt.rightViewMode = .always
+        self.passwordTxt.isSecureTextEntry = true
+        // Create UIButton
+        let showTextBtn:UIButton = UIButton.init(type: .system)
+        showTextBtn.frame = CGRect(x:0, y:0, width:18, height:15)
+        showTextBtn.setImage(UIImage(named : "show_password"), for: .normal)
+//        showTextBtn.titleLabel!.textColor = UIColor.black
+        showTextBtn.backgroundColor = UIColor.clear
+        showTextBtn.tintColor = UIColor.white
+//        showTextBtn.layer.borderColor = UIColor.gray.cgColor;
+//        showTextBtn.layer.borderWidth = 1;
+        showTextBtn.addTarget(self, action: #selector(showHidePassword), for: UIControlEvents.touchUpInside)
+        self.passwordTxt.rightView = showTextBtn
         
     }
     
+    func showHidePassword(){
+        self.passwordTxt.isSecureTextEntry = !self.passwordTxt.isSecureTextEntry
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         

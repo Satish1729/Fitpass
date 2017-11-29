@@ -20,11 +20,11 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var menuTableView: UITableView!
     
-    let segues = ["showDashBoardVC", "showLeadsVC" , "showMembersVC", "showPaymentsVC", "showAssetsVC", "showStaffsVC", "showWorkoutVC", "showReservedWorkoutsVC", "showWorkoutScheduleVC",  "showLogoutVC"]
+    let segues = ["showDashBoardVC", "showLeadsVC" , "showMembersVC", "showSalesReportVC", "showAssetsVC", "showStaffsVC","showPaymentsVC", "showWorkoutVC", "showReservedWorkoutsVC", "showWorkoutScheduleVC",  "showLogoutVC"]
     
-    let menuArray :Array =  ["Dashboard", "Leads", "Members", "Payments", "Assets", "Staffs", "Workout", "Reserved Workouts", "Workout Schedule", "Logout"]
+    let menuArray :Array =  ["Dashboard", "Leads", "Members", "Sales Report", "Assets", "Staffs", "Payments", "Workout", "Reserved Workouts", "Workout Schedule", "Logout"]
 
-    let imagesArray : Array = ["home", "leads", "members", "payments", "assets", "staffs", "workout", "reservedworkouts", "workoutschedule", "logout"]
+    let imagesArray : Array = ["home", "leads", "members", "salereport", "assets", "staffs", "payments", "workout", "reservedworkouts", "workoutschedule", "logout"]
     
     private var previousIndex: NSIndexPath?
     let dropDown = DropDown()
@@ -120,7 +120,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
 //        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 ////        self.profileView.addSubview(blurEffectView)
 //        self.profileView.alpha = 0.6
-        self.profileImageView.image = UIImage(named: "dumble")
+        self.profileImageView.image = UIImage(named: "profile_empty")
         
         self.userName.text = (appDelegate.userBean?.first_name)! + " " + (appDelegate.userBean?.last_name)!
         self.emailLabel.text = appDelegate.userBean?.email
@@ -152,7 +152,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         if let index = previousIndex {
             if(index.section == 1){
-                sideMenuController?.performSegue(withIdentifier: segues[index.row + menuArray.count - 4], sender: nil)
+                sideMenuController?.performSegue(withIdentifier: segues[index.row + menuArray.count - 5], sender: nil)
             }
             else {
                 if(index.row != 7){
@@ -168,14 +168,15 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     
 
      func numberOfSections(in tableView: UITableView) -> Int {
+        self.menuTableView.separatorStyle = .none
         return 2
     }
     
      func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(section == 1){
-            return 4
+            return 5
         }
-        return menuArray.count-4
+        return menuArray.count-5
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -204,8 +205,8 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         let cell = tableView.dequeueReusableCell(withIdentifier: "menuCell")!
         //cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 15)
         if(indexPath.section == 1) {
-            cell.textLabel?.text = menuArray[indexPath.row + menuArray.count - 4]
-            cell.imageView?.image = UIImage(named : imagesArray[indexPath.row + menuArray.count - 4])
+            cell.textLabel?.text = menuArray[indexPath.row + menuArray.count - 5]
+            cell.imageView?.image = UIImage(named : imagesArray[indexPath.row + menuArray.count - 5])
         }
         else{
             cell.textLabel?.text = menuArray[indexPath.row]
@@ -218,14 +219,13 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.separatorInset = UIEdgeInsets.zero
         cell.layoutMargins = UIEdgeInsets.zero
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-
         return cell
     }
     
      func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath)  {
         
-        if(indexPath.section==1 && indexPath.row == 3){
+        if(indexPath.section==1 && indexPath.row == 4){
             UserDefaults.standard.removeObject(forKey: "userBean")
             appDelegate.checkSingleSignIn()
             return
@@ -234,7 +234,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
             tableView.deselectRow(at: index as IndexPath, animated: true)
         }
         if(indexPath.section == 1){
-            sideMenuController?.performSegue(withIdentifier: segues[indexPath.row + menuArray.count - 4], sender: nil)
+            sideMenuController?.performSegue(withIdentifier: segues[indexPath.row + menuArray.count - 5], sender: nil)
         }
         else {
             if(indexPath.row != 7){
