@@ -33,7 +33,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        leadsSearchBar.showsCancelButton = true
+//        leadsSearchBar.showsCancelButton = true
         self.navigationController?.navigationBar.isTranslucent = false;
         let filterBtn = UIButton(type: .custom)
         filterBtn.setImage(UIImage(named: "filter"), for: .normal)

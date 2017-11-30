@@ -260,7 +260,9 @@ class Utility: NSObject {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: dateStr)
-        
+        if(date == nil){
+            return "NA"
+        }
         dateFormatter.dateFormat = "dd-MMM-yyyy"
         let newDate = dateFormatter.string(from: date! as Date)
         return newDate

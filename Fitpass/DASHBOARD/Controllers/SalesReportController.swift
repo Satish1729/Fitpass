@@ -28,7 +28,7 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        salesReportSearchBar.showsCancelButton = true
+//        salesReportSearchBar.showsCancelButton = true
         
         let filterBtn = UIButton(type: .custom)
         filterBtn.setImage(UIImage(named: "filter"), for: .normal)
@@ -47,11 +47,11 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "sales_filter") {
+        if(segue.identifier == "sales_report_filter") {
             let filterVC : SalesReportFilterController = segue.destination as! SalesReportFilterController
             filterVC.delegate = self
         }
-        else if(segue.identifier == "sales_detail") {
+        else if(segue.identifier == "sales_report_detail") {
             let salesDetailVC : SalesReportDetailController = segue.destination as! SalesReportDetailController
             salesDetailVC.salesReportObj = selectedSalesObj
         }
@@ -101,7 +101,7 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let parameters : [String : Any] = ["search_text" : self.salesReportSearchBar.text!, "search_by" : "Name"]
+        let parameters : [String : Any] = ["search_text" : self.salesReportSearchBar.text!, "search_by" : "member_name"]
         let urlString  = self.createURLFromParameters(parameters: parameters)
         let str : String = ServerConstants.URL_GET_SALESREPORT+urlString.absoluteString
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in
@@ -227,16 +227,16 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "salesReportCell") as! SalesReportCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SalesReportCell") as! SalesReportCell
         if(searchActive){
             if filteredArray.count > 0 {
-                let memberObj = filteredArray.object(at: indexPath.row) as! SalesReport
-                cell.updateSalesReportDetails(memberBean: memberObj)
+                let salesReportObj = filteredArray.object(at: indexPath.row) as! SalesReport
+                cell.updateSalesReportDetails(salesReportBean: salesReportObj)
             }
         } else {
             if salesReportArray.count > 0 {
-                let memberObj = salesReportArray.object(at: indexPath.row) as! SalesReport
-                cell.updateSalesReportDetails(memberBean: memberObj)
+                let salesReportObj = salesReportArray.object(at: indexPath.row) as! SalesReport
+                cell.updateSalesReportDetails(salesReportBean: salesReportObj)
             }
         }
         cell.preservesSuperviewLayoutMargins = false
@@ -288,7 +288,7 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func navigateTosalesReportFilter() {
-        self.performSegue(withIdentifier: "member_filter", sender: self)
+        self.performSegue(withIdentifier: "salesreport_filter", sender: self)
     }
     
     func clearFilter() {

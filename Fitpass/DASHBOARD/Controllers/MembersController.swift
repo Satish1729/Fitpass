@@ -30,7 +30,7 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
         
        override func viewDidLoad() {
             super.viewDidLoad()
-            membersSearchBar.showsCancelButton = true
+//            membersSearchBar.showsCancelButton = true
         
         let filterBtn = UIButton(type: .custom)
         filterBtn.setImage(UIImage(named: "filter"), for: .normal)

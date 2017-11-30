@@ -31,7 +31,7 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            assetsSearchBar.showsCancelButton = true
+//            assetsSearchBar.showsCancelButton = true
             
             let filterBtn = UIButton(type: .custom)
             filterBtn.setImage(UIImage(named: "filter"), for: .normal)

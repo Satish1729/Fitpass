@@ -55,7 +55,7 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
             let item1 = UIBarButtonItem(customView: filterBtn)
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
             self.navigationItem.rightBarButtonItem = item1
-            paymentsSearchBar.showsCancelButton = true
+//            paymentsSearchBar.showsCancelButton = true
             self.getPayments()
 
         }

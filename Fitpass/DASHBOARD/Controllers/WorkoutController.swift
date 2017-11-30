@@ -74,7 +74,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
             self.navigationItem.rightBarButtonItem = item1
 
-            workoutSearchBar.showsCancelButton = true
+//            workoutSearchBar.showsCancelButton = true
             self.getWorkoutsList()
         }
     }

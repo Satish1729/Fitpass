@@ -14,35 +14,25 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
         var salesReportDetailArray : NSMutableArray = NSMutableArray()
         
         @IBOutlet weak var salesReportDetailTableView: UITableView!
-        @IBOutlet weak var nameLabel: UILabel!
-        @IBOutlet weak var contactNumberLabel: UILabel!
-        @IBOutlet weak var emailLabel: UILabel!
-        @IBOutlet weak var addressLabel: UILabel!
         @IBOutlet weak var profileImageView: UIImageView!
+        @IBOutlet weak var nameLabel: UILabel!
         @IBOutlet weak var callButton: UIButton!
-        @IBOutlet weak var mailButton: UIButton!
-        
+        @IBOutlet weak var contactNumberLabel: UILabel!
+            
         var smsString : String = ""
         
         
-        var keyLabelNameArray : NSArray = ["Gender", "Date of Birth", "Preferred time slot", "Subscription Plan", "Joining Date", "Agreed Amount", "Created Date", "Remarks"]
+        var keyLabelNameArray : NSArray = ["Order Id", "Order Amount", "Paid Amount", "Paid Date", "Due Date", "Payment Status"]
         
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            self.nameLabel.text = salesReportObj?.name
+            self.nameLabel.text = salesReportObj?.member_name
             self.contactNumberLabel.text=salesReportObj?.contact_number?.stringValue
-            self.emailLabel.text=salesReportObj?.email
-            self.addressLabel.text=salesReportObj?.address
             
             self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
-            self.mailButton.addTarget(self, action: #selector(email), for: UIControlEvents.touchUpInside)
             
-            if(salesReportObj?.gender == "Male"){
-                self.profileImageView.image = UIImage(named: "man")
-            }else{
-                self.profileImageView.image = UIImage(named: "woman")
-            }
+            self.profileImageView.image = UIImage(named: "profile_empty")
             
             let backBtn = UIButton(type: .custom)
             backBtn.setImage(UIImage(named: "img_back"), for: .normal)
@@ -64,7 +54,7 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
         }
         
         func showSendSMSView(){
-            showAlertWithTextFieldAndTitle(title: "Send sms to "+(salesReportObj?.name)!, message: "", forTarget: self, buttonOK: "Send SMS", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Message", alertOK: { (msgString) in
+            showAlertWithTextFieldAndTitle(title: "Send sms to "+(salesReportObj?.member_name)!, message: "", forTarget: self, buttonOK: "Send SMS", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Message", alertOK: { (msgString) in
                 self.smsString = msgString
                 self.sendSMS()
             }) { (Void) in
@@ -146,7 +136,7 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
             
             let nameLabel : UILabel = UILabel(frame: CGRect(x: 5, y: 0, width: view.frame.size.width, height: view.frame.size.height))
             nameLabel.textAlignment = .left
-            nameLabel.text = salesReportObj?.name!
+            nameLabel.text = salesReportObj?.member_name!
             nameLabel.font = UIFont.boldSystemFont(ofSize: 17)
             nameLabel.textColor = UIColor.black
             view.addSubview(nameLabel)
@@ -162,33 +152,23 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
             var strValue : String? = ""
             switch indexPath.row {
             case 0:
-                strValue = salesReportObj?.gender
+                strValue = salesReportObj?.order_id?.stringValue
             case 1:
-                strValue = salesReportObj?.dob
-                if(strValue != nil){
-                    strValue = Utility().getDateStringSimple(dateStr: strValue!)
-                }
-                
+                strValue = salesReportObj?.total_order_amount?.stringValue
             case 2:
-                strValue = (salesReportObj?.preferred_time_slot_from)!+" to "+(salesReportObj?.preferred_time_slot_to)!
+                strValue = salesReportObj?.total_paid_amount?.stringValue
             case 3:
-                strValue = salesReportObj?.subscription_plan
-            case 4:
-                strValue = salesReportObj?.joining_date
+                strValue = salesReportObj?.paid_date
                 if(strValue != nil){
                     strValue = Utility().getDateStringSimple(dateStr: strValue!)
                 }
-                
-            case 5:
-                strValue = salesReportObj?.agreed_amount?.stringValue
-            case 6:
-                strValue = salesReportObj?.created_at
+            case 4:
+                strValue = salesReportObj?.due_date
                 if(strValue != nil){
-                    strValue = Utility().getDateString(dateStr: strValue!)
+                    strValue = Utility().getDateStringSimple(dateStr: strValue!)
                 }
-                
-            case 7:
-                strValue = salesReportObj?.remarks
+            case 5:
+                strValue = salesReportObj?.status
             default:
                 strValue = ""
             }

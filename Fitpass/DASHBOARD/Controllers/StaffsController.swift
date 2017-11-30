@@ -29,7 +29,7 @@
 
     override func viewDidLoad() {
     super.viewDidLoad()
-    staffSearchBar.showsCancelButton = true
+//    staffSearchBar.showsCancelButton = true
 
     let addBtn = UIButton(type: .custom)
     addBtn.setImage(UIImage(named: "add"), for: .normal)

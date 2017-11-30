@@ -37,7 +37,7 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
                 reservedWorkoutsTableView.isHidden = false
                 partnerForm.view.isHidden = true
                 
-                reservedWorkoutsSearchBar.showsCancelButton = true
+//                reservedWorkoutsSearchBar.showsCancelButton = true
                 self.getReservedWorkouts()
 
             }

@@ -10,28 +10,22 @@ import UIKit
 
 class SalesReport: NSObject {
     
-    var address : String? = ""
-    var agreed_amount : NSNumber?
     var contact_number : NSNumber?
-    var created_at : String? = ""
-    var created_by : String? = ""
-    var dob : String? = ""
-    var email : String? = ""
-    var gender : String?
+    var due_date : String?
     var id : NSNumber?
-    var is_active : NSNumber?
-    var is_deleted : NSNumber?
-    var joining_date : String?
-    var name : String? = ""
-    var payment_date : NSNumber?
-    var preferred_time_slot_from : String?
-    var preferred_time_slot_to : String?
-    var remarks : String? = ""
-    var status : String?
-    var subscription_plan : String? = ""
-    var updated_at : String?
-    var updated_by : String?
     
+    var member_name : String?
+    var order_id : NSNumber?
+    var paid_date : String?
+    
+    var payment_source:String?
+    var status : String?
+    var subscription_plan:String?
+    
+    var total_order_amount : NSNumber?
+    var total_paid_amount : NSNumber?
+    var transaction_id : NSNumber?
+
     func updateSalesReport(responseDict : NSDictionary?) -> NSMutableArray {
         
         let resultDict: NSDictionary = responseDict!.object(forKey: "result") as! NSDictionary
@@ -39,33 +33,27 @@ class SalesReport: NSObject {
         
         let tempArray : NSMutableArray = NSMutableArray()
         
-        for memberObj in (dataArray as? [[String:Any]])! {
+        for salesReportObj in (dataArray as? [[String:Any]])! {
             
-            let memberBean : Members = Members()
+            let salesReportBean : SalesReport = SalesReport()
             
-            memberBean.address = memberObj[ "member_address"] as? String
-            memberBean.agreed_amount = memberObj["agreed_amount"] as? NSNumber
-            memberBean.contact_number = memberObj[ "contact_number"] as? NSNumber
-            memberBean.created_at = memberObj[ "created_at"] as? String
-            memberBean.created_by = memberObj[ "created_by"] as? String
-            memberBean.dob = memberObj[ "date_of_birth"] as? String
-            memberBean.email = memberObj[ "email_address"] as? String
-            memberBean.gender = memberObj[ "gender"] as? String
-            memberBean.id = memberObj[ "id"] as? NSNumber
-            memberBean.is_active = memberObj["is_active"] as? NSNumber
-            memberBean.is_deleted = memberObj[ "is_deleted"] as? NSNumber
-            memberBean.joining_date = memberObj["joining_date"] as? String
-            memberBean.name = memberObj[ "member_name"] as? String
-            memberBean.payment_date = memberObj[ "payment_date"] as? NSNumber
-            memberBean.preferred_time_slot_from = memberObj[ "preferred_time_slot_from"] as? String
-            memberBean.preferred_time_slot_to = memberObj[ "preferred_time_slot_to"] as? String
-            memberBean.remarks = memberObj[ "remarks"] as? String
-            memberBean.status = memberObj["member_status"] as? String
-            memberBean.subscription_plan = memberObj[ "subscription_plan"] as? String
-            memberBean.updated_at = memberObj["updated_at"] as? String
-            memberBean.updated_by = memberObj["updated_by"] as? String
+            salesReportBean.contact_number = salesReportObj[ "contact_number"] as? NSNumber
+            salesReportBean.due_date = salesReportObj[ "due_date"] as? String
+            salesReportBean.id = salesReportObj[ "id"] as? NSNumber
             
-            tempArray.add(memberBean)
+            salesReportBean.member_name = salesReportObj[ "member_name"] as? String
+            salesReportBean.order_id = salesReportObj[ "order_id"] as? NSNumber
+            salesReportBean.paid_date = salesReportObj[ "paid_date"] as? String
+            
+            salesReportBean.payment_source = salesReportObj[ "payment_source"] as? String
+            salesReportBean.status = salesReportObj["status"] as? String
+            salesReportBean.subscription_plan = salesReportObj[ "subscription_plan"] as? String
+            
+            salesReportBean.total_order_amount = salesReportObj["total_order_amount"] as? NSNumber
+            salesReportBean.total_paid_amount = salesReportObj[ "total_paid_amount"] as? NSNumber
+            salesReportBean.transaction_id = salesReportObj["transaction_id"] as? NSNumber
+            
+            tempArray.add(salesReportBean)
         }
         return tempArray
     }
