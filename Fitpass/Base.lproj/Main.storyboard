@@ -157,7 +157,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="th3-80-sP1" customClass="MBCircularProgressBarView">
-                                                <rect key="frame" x="220" y="70" width="132" height="200"/>
+                                                <rect key="frame" x="193" y="70" width="132" height="200"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="maxValue">
@@ -184,7 +184,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dead" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ak2-hW-ob9">
-                                                <rect key="frame" x="215" y="204" width="140" height="21"/>
+                                                <rect key="frame" x="188" y="204" width="140" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="21" id="VD4-UV-3dV"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="140" id="gWJ-0l-lKF"/>
@@ -240,7 +240,7 @@
                                             <constraint firstItem="UAL-AP-BeG" firstAttribute="top" secondItem="mqC-MU-ugA" secondAttribute="bottom" constant="-58" id="9nr-nh-WNg"/>
                                             <constraint firstItem="AKR-qt-era" firstAttribute="top" secondItem="nqo-5W-69X" secondAttribute="bottom" constant="-66" id="Eal-wB-MTO"/>
                                             <constraint firstItem="mqC-MU-ugA" firstAttribute="width" secondItem="nqo-5W-69X" secondAttribute="width" id="IaM-i1-M2W"/>
-                                            <constraint firstItem="th3-80-sP1" firstAttribute="leading" secondItem="nqo-5W-69X" secondAttribute="trailing" constant="68" id="NUo-g1-BYu"/>
+                                            <constraint firstItem="th3-80-sP1" firstAttribute="leading" secondItem="nqo-5W-69X" secondAttribute="trailing" constant="41" id="NUo-g1-BYu"/>
                                             <constraint firstItem="AKR-qt-era" firstAttribute="centerX" secondItem="nqo-5W-69X" secondAttribute="centerX" id="Nl9-c1-rv7"/>
                                             <constraint firstItem="th3-80-sP1" firstAttribute="width" secondItem="nqo-5W-69X" secondAttribute="width" id="ONM-PT-8IK"/>
                                             <constraint firstItem="nPE-Dx-33e" firstAttribute="top" secondItem="2xm-gn-x90" secondAttribute="top" id="TMQ-b7-HQ3"/>
@@ -308,7 +308,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cjF-6p-riU" customClass="MBCircularProgressBarView">
-                                                <rect key="frame" x="220" y="70" width="132" height="200"/>
+                                                <rect key="frame" x="193" y="70" width="132" height="200"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="emptyLineWidth">
@@ -335,7 +335,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Expired" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3lm-S7-8pn">
-                                                <rect key="frame" x="255" y="207" width="60" height="21"/>
+                                                <rect key="frame" x="228" y="207" width="60" height="21"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="D4T-nM-8a8"/>
                                                     <constraint firstAttribute="height" constant="21" id="cyM-qF-5hp"/>
@@ -344,7 +344,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming due this month" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xa-aO-Myo">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xa-aO-Myo">
                                                 <rect key="frame" x="0.0" y="300" width="343" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="mJP-nO-S3S"/>
@@ -372,7 +372,7 @@
                                             <constraint firstItem="9Z7-wh-T43" firstAttribute="top" secondItem="W7g-tr-2Kc" secondAttribute="top" id="poV-9b-c4N"/>
                                             <constraint firstAttribute="height" constant="340" id="vBe-nB-TwC"/>
                                             <constraint firstAttribute="trailing" secondItem="9Z7-wh-T43" secondAttribute="trailing" id="w1I-qp-aU9"/>
-                                            <constraint firstItem="cjF-6p-riU" firstAttribute="leading" secondItem="iXn-hc-nEq" secondAttribute="trailing" constant="68" id="xuA-Ra-W9e"/>
+                                            <constraint firstItem="cjF-6p-riU" firstAttribute="leading" secondItem="iXn-hc-nEq" secondAttribute="trailing" constant="41" id="xuA-Ra-W9e"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -918,7 +918,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Xc-Hc-a5T">
                                         <rect key="frame" x="0.0" y="141" width="375" height="21"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -2137,6 +2137,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="callButton" destination="Pp3-37-HbA" id="2CS-Ac-5yL"/>
                         <outlet property="contactNumberLabel" destination="X44-yn-73Y" id="G9b-oo-Dc3"/>
                         <outlet property="nameLabel" destination="jOH-5K-nFe" id="hoz-5s-LKN"/>
                         <outlet property="profileImageView" destination="fdp-WR-bUA" id="JGS-PB-ga5"/>
@@ -2145,7 +2146,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7WU-eF-HzZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3240.8000000000002" y="-830.73463268365822"/>
+            <point key="canvasLocation" x="3278" y="-851"/>
         </scene>
         <!--Sales Report Filter Controller-->
         <scene sceneID="Wa4-HK-h5R">
@@ -4344,7 +4345,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.94999999999999996" contentMode="scaleAspectFit" bounces="NO" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="78s-nA-uKe">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.90000000000000002" contentMode="scaleAspectFit" bounces="NO" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="78s-nA-uKe">
                                 <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_bg_img" translatesAutoresizingMaskIntoConstraints="NO" id="CDO-sE-HGu">

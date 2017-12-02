@@ -89,7 +89,7 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
                 }
                 else{
                     AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                    print("sending message to lead failed : \(String(describing: error?.localizedDescription))")
+                    print("sending message to sales failed : \(String(describing: error?.localizedDescription))")
                 }
             }
         }
@@ -98,11 +98,10 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
             callTheNumber(numberString: self.contactNumberLabel.text!)
         }
         
-        func email(){
-            sendMailTo(mailString: self.emailLabel.text!)
-        }
-        
-        
+//        func email(){
+//            sendMailTo(mailString: self.emailLabel.text!)
+//        }
+    
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             self.navigationItem.title = "Sales Report Detail"

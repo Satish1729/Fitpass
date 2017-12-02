@@ -261,15 +261,20 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                         progress3 = tempDict.object(forKey: "Expired") as! UInt8
                         self.expiredProgress.value = CGFloat(progress3)
                         let str = responseDict!.object(forKey: "due_payment_count") as! UInt8;
-                        self.upcomingdueLabel.text = "  Upcoming dues this month \(str)"
+                        let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15.0)]
+                        let valueString = NSMutableAttributedString(string: "\(str)", attributes: myAttribute )
+                        let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0)]
+                        let myString = NSMutableAttributedString(string: "    Upcoming dues this month ", attributes: myAttribute1 )
+                        myString.append(valueString)
+                        self.upcomingdueLabel.attributedText = myString
                     }else{
-                        self.totalLeadsLabel.text = "No Members data available"
+                        self.membersHeaderLabel.text = "No Members data available"
                         self.isHideMemberCircles(isAvail: true)
                     }
                 }
             }
             else{
-                self.totalLeadsLabel.text = "No Members data available"
+                self.membersHeaderLabel.text = "No Members data available"
                 self.isHideMemberCircles(isAvail: true)
             }
         }
