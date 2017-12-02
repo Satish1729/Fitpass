@@ -192,6 +192,9 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 if (responseDic != nil) {
                     print(responseDic!)
                     if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        if(self.filteredArray.count>0){
+                            self.filteredArray.removeAllObjects()
+                        }
                         self.filteredArray.addObjects(from:  Workouts().updateWorkouts(responseDict : responseDic!) as [AnyObject])
                         self.workoutTableView.reloadData()
                     }else{

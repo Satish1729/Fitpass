@@ -139,6 +139,9 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
                 if (responseDic != nil) {
                     print(responseDic!)
                     if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        if(self.filtered.count>0){
+                            self.filtered.removeAllObjects()
+                        }
                         self.filtered.addObjects(from:  Payments().updatePayments(responseDict : responseDic!) as [AnyObject])
                         self.paymentsTableView.reloadData()
                     }else{

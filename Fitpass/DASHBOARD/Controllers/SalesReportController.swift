@@ -112,6 +112,9 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
+                    if(self.filteredArray.count>0){
+                        self.filteredArray.removeAllObjects()
+                    }
                     self.filteredArray.addObjects(from:  SalesReport().updateSalesReport(responseDict : responseDic!) as [AnyObject])
                     self.salesReportTableView.reloadData()
                 }

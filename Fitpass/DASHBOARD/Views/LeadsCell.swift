@@ -44,11 +44,11 @@ class LeadsCell: UITableViewCell {
 //            self.statusImageView.clipsToBounds = true
             switch leadNature {
             case "Warm":
-                self.natureColorLabel.backgroundColor = UIColor.yellow //UIColor(red: 105/255, green: 194/255, blue: 255/255, alpha: 1.0)
+                self.natureColorLabel.backgroundColor = UIColor(red: 253/255, green: 198/255, blue: 67/255, alpha: 1.0)
             case "Hot":
-                self.natureColorLabel.backgroundColor = UIColor.red
+                self.natureColorLabel.backgroundColor = UIColor(red: 253/255, green: 67/255, blue: 67/255, alpha: 1.0)
             case "Cold":
-                self.natureColorLabel.backgroundColor = UIColor(red: 105/255, green: 194/255, blue: 255/255, alpha: 1.0)
+                self.natureColorLabel.backgroundColor = UIColor(red: 67/255, green: 129/255, blue: 253/255, alpha: 1.0)
             default:
                 self.natureColorLabel.backgroundColor = UIColor.white
             }

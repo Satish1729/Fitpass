@@ -83,6 +83,10 @@
 		75D46CCB1F287416007ACF8F /* PartnerRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D46CCA1F287416007ACF8F /* PartnerRequestViewController.swift */; };
 		75FEABD51F221DCD00D9D125 /* Subscriptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75FEABD41F221DCD00D9D125 /* Subscriptions.swift */; };
 		A2B0AF4F212948B04704C9DA /* Pods_Fitpass.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33B62BA1DE0B08AEB2FE8165 /* Pods_Fitpass.framework */; };
+		AF702C771FD2EA8A001456E4 /* HalfModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF702C721FD2EA87001456E4 /* HalfModalPresentationController.swift */; };
+		AF702C781FD2EA8A001456E4 /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF702C741FD2EA88001456E4 /* HalfModalInteractiveTransition.swift */; };
+		AF702C791FD2EA8A001456E4 /* HalfModalTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF702C751FD2EA88001456E4 /* HalfModalTransitionAnimator.swift */; };
+		AF702C7A1FD2EA8A001456E4 /* HalfModalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF702C761FD2EA88001456E4 /* HalfModalTransitioningDelegate.swift */; };
 		EF82F1C31FCD054B008BBE08 /* SalesReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1C21FCD054B008BBE08 /* SalesReportCell.swift */; };
 		EF82F1C51FCD0579008BBE08 /* SalesReportDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1C41FCD0579008BBE08 /* SalesReportDetailCell.swift */; };
 		EF82F1C71FCD05D3008BBE08 /* SalesReportController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1C61FCD05D3008BBE08 /* SalesReportController.swift */; };
@@ -194,6 +198,10 @@
 		75C70AD21F275CAD00496AC2 /* StaffUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StaffUpdateViewController.swift; path = DASHBOARD/Controllers/StaffUpdateViewController.swift; sourceTree = "<group>"; };
 		75D46CCA1F287416007ACF8F /* PartnerRequestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PartnerRequestViewController.swift; path = DASHBOARD/Controllers/PartnerRequestViewController.swift; sourceTree = "<group>"; };
 		75FEABD41F221DCD00D9D125 /* Subscriptions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Subscriptions.swift; path = DASHBOARD/Models/Subscriptions.swift; sourceTree = "<group>"; };
+		AF702C721FD2EA87001456E4 /* HalfModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalPresentationController.swift; sourceTree = "<group>"; };
+		AF702C741FD2EA88001456E4 /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
+		AF702C751FD2EA88001456E4 /* HalfModalTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalTransitionAnimator.swift; sourceTree = "<group>"; };
+		AF702C761FD2EA88001456E4 /* HalfModalTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalTransitioningDelegate.swift; sourceTree = "<group>"; };
 		EF82F1C21FCD054B008BBE08 /* SalesReportCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportCell.swift; path = DASHBOARD/Views/SalesReportCell.swift; sourceTree = "<group>"; };
 		EF82F1C41FCD0579008BBE08 /* SalesReportDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportDetailCell.swift; path = DASHBOARD/Views/SalesReportDetailCell.swift; sourceTree = "<group>"; };
 		EF82F1C61FCD05D3008BBE08 /* SalesReportController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportController.swift; path = DASHBOARD/Controllers/SalesReportController.swift; sourceTree = "<group>"; };
@@ -407,6 +415,8 @@
 				3B58C0581EB0A309006086E5 /* Utility.swift */,
 				3B58C05A1EB0A330006086E5 /* ConnectionChecker.swift */,
 				3B58C05C1EB0A35D006086E5 /* Enums.swift */,
+				AF702C711FD2EA87001456E4 /* Presentation */,
+				AF702C731FD2EA88001456E4 /* Transitioning */,
 				3BCDA07A1EBF378900E04767 /* DesignableUITextField.swift */,
 			);
 			name = COMMON;
@@ -418,6 +428,24 @@
 				33B62BA1DE0B08AEB2FE8165 /* Pods_Fitpass.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AF702C711FD2EA87001456E4 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				AF702C721FD2EA87001456E4 /* HalfModalPresentationController.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		AF702C731FD2EA88001456E4 /* Transitioning */ = {
+			isa = PBXGroup;
+			children = (
+				AF702C741FD2EA88001456E4 /* HalfModalInteractiveTransition.swift */,
+				AF702C751FD2EA88001456E4 /* HalfModalTransitionAnimator.swift */,
+				AF702C761FD2EA88001456E4 /* HalfModalTransitioningDelegate.swift */,
+			);
+			path = Transitioning;
 			sourceTree = "<group>";
 		};
 		EF54CBABB454E1E75878336A /* Pods */ = {
@@ -608,6 +636,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Fitpass/Pods-Fitpass-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/DLRadioButton/DLRadioButton.framework",
 				"${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/MBCircularProgressBar/MBCircularProgressBar.framework",
@@ -619,6 +648,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DLRadioButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DropDown.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBCircularProgressBar.framework",
@@ -658,7 +688,9 @@
 				3B680F341EC6ED4500549969 /* WorkoutScheduleController.swift in Sources */,
 				3B680F241EC6EA7300549969 /* MembersController.swift in Sources */,
 				3BC9592E1EDC57D000A94CCE /* StaffCell.swift in Sources */,
+				AF702C781FD2EA8A001456E4 /* HalfModalInteractiveTransition.swift in Sources */,
 				3B4DAF2F1F04A47100BDB69B /* AssetsCell.swift in Sources */,
+				AF702C791FD2EA8A001456E4 /* HalfModalTransitionAnimator.swift in Sources */,
 				3BC959381EDC8FEB00A94CCE /* Members.swift in Sources */,
 				753DB40B1F175EB600A6C1A1 /* ReservedWorkoutDetailCell.swift in Sources */,
 				3B2160011EDD4C25004A55F4 /* StaffDetailController.swift in Sources */,
@@ -707,9 +739,11 @@
 				EF82F1CB1FCD061B008BBE08 /* SalesReportFilterController.swift in Sources */,
 				3B4DAF351F04B1A700BDB69B /* AssetsFilterController.swift in Sources */,
 				3B58C04A1EB0870E006086E5 /* BaseViewController.swift in Sources */,
+				AF702C771FD2EA8A001456E4 /* HalfModalPresentationController.swift in Sources */,
 				3B169DFA1F1A1EFD0024B3F0 /* BarChartFormatter.swift in Sources */,
 				3B0464FD1ED852EB00A33F41 /* Leads.swift in Sources */,
 				3B680F2A1EC6EC4500549969 /* StaffsController.swift in Sources */,
+				AF702C7A1FD2EA8A001456E4 /* HalfModalTransitioningDelegate.swift in Sources */,
 				3BC9593A1EDC91EE00A94CCE /* MemberDetailController.swift in Sources */,
 				753DB4051F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift in Sources */,
 				3B58C05F1EB0B86D006086E5 /* UIRoundProgressView.swift in Sources */,

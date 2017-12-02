@@ -18,6 +18,7 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
         @IBOutlet weak var nameLabel: UILabel!
         @IBOutlet weak var callButton: UIButton!
         @IBOutlet weak var contactNumberLabel: UILabel!
+        @IBOutlet weak var borderview: UIView!
             
         var smsString : String = ""
         
@@ -50,7 +51,14 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.red
             self.navigationItem.rightBarButtonItem = item2
             
-            
+            self.borderview.layer.borderWidth = 1.0
+            self.borderview.layer.borderColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1.0).cgColor
+            self.borderview.layer.shadowOffset = CGSize(width: 0, height: 1)
+            self.borderview.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+            self.borderview.layer.shadowOpacity = 1.0
+            self.borderview.layer.shadowRadius = 0.0
+            self.borderview.layer.masksToBounds = false
+            self.borderview.layer.cornerRadius = 1.0
         }
         
         func showSendSMSView(){
@@ -112,6 +120,7 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
         }
         
         func numberOfSections(in tableView: UITableView) -> Int {
+            self.salesReportDetailTableView.separatorStyle = UITableViewCellSeparatorStyle.none
             return 1
         }
         
@@ -179,12 +188,13 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
             if(indexPath.row%2 == 0){
                 cell.contentView.backgroundColor = UIColor.white
             }else {
-                cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+                cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.05)
             }
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
             cell.selectionStyle = UITableViewCellSelectionStyle.none
+            
             
             return cell
         }

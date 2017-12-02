@@ -118,7 +118,9 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
                     if (responseDic != nil) {
                         print(responseDic!)
                         if(responseDic!.object(forKey:"code") as! NSNumber == 200){
-                            self.filteredArray.removeAllObjects()
+                            if(self.filteredArray.count>0){
+                                self.filteredArray.removeAllObjects()
+                            }
                             self.filteredArray.addObjects(from:  ReservedWorkouts().updateReservedWorkouts(responseDict : responseDic!) as [AnyObject])
                             self.reservedWorkoutsTableView.reloadData()
                         }else{

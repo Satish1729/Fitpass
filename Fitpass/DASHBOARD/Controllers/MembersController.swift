@@ -40,7 +40,7 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         self.navigationItem.rightBarButtonItem = item1
         
-            self.getMembers()
+        self.getMembers()
         }
         
         override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +114,9 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
+                        if(self.filteredArray.count>0){
+                            self.filteredArray.removeAllObjects()
+                        }
                         self.filteredArray.addObjects(from:  Members().updateMembers(responseDict : responseDic!) as [AnyObject])
                         self.membersTableView.reloadData()
                     }

@@ -915,7 +915,7 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
 		} else {
 			cell.optionLabel.text = dataSource[index]
 		}
-		
+		cell.optionLabel.textAlignment = NSTextAlignment.center
 		customCellConfiguration?(index, dataSource[index], cell)
 	}
 

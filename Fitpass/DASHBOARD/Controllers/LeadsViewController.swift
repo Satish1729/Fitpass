@@ -15,7 +15,8 @@ protocol leadDelegate {
 
 class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, leadDelegate {
 
-    
+    var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
+
     var statusString: String?
     var endDate: String?
     var startDate: String?
@@ -54,7 +55,13 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "lead_filter") {
+            
+            self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
+            segue.destination.modalPresentationStyle = .custom
+            segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
+
             let filterVC : LeadsFilterViewController = segue.destination as! LeadsFilterViewController
+            
             filterVC.delegate = self
         }
         else if(segue.identifier == "lead_detail") {
@@ -118,6 +125,9 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
+                    if(self.filtered.count>0){
+                        self.filtered.removeAllObjects()
+                    }
                     self.filtered.addObjects(from:  Leads().updateLeads(responseDict : responseDic!) as [AnyObject])
                     self.leadsTableView.reloadData()
                 }
