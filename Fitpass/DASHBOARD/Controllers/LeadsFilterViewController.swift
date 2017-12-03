@@ -13,6 +13,7 @@ import DLRadioButton
 class LeadsFilterViewController: BaseViewController, UITextFieldDelegate, HalfModalPresentable {
 
     var delegate : leadDelegate?
+    var filterDataDict : NSDictionary?
     
     @IBOutlet weak var startDateTxtField: UITextField!
     @IBOutlet weak var endDateTxtField: UITextField!
@@ -23,6 +24,7 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate, HalfMo
     
     @IBOutlet weak var coldButton: DLRadioButton!
     
+    @IBOutlet weak var openButton: DLRadioButton!
     
     @IBAction func cancelButtonClicked(_ sender: Any) {
         if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
@@ -59,7 +61,16 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate, HalfMo
 //        self.dismissViewController()
         dismiss(animated: true, completion: nil)
 
-        let tempDict : NSDictionary = ["startdate" : startDateTxtField.text!, "enddate" : endDateTxtField.text!, "status" :"Hot"]
+        var strStatus = ""
+        if let statusStr = self.hotButton.selected()?.titleLabel?.text{
+            strStatus = statusStr
+        }
+        var strNature = ""
+        if let natureStr = self.openButton.selected()?.titleLabel?.text{
+            strNature = natureStr
+        }
+        let tempDict : NSDictionary = ["startdate" : startDateTxtField.text!, "enddate" : endDateTxtField.text!, "status" : strStatus, "nature" : strNature]
+        
         delegate?.getDictionary(searchDict: tempDict)
 //        let tempDict : NSDictionary = ["startdate" : startDateTxtField.text!, "enddate" : endDateTxtField.text!, "status" : statusButton.titleLabel?.text! ?? "Hot"]
 //        delegate?.getDictionary(searchDict: tempDict)
@@ -108,7 +119,12 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate, HalfMo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationItem.title = "Lead Filter"
-        
+        if(self.filterDataDict != nil){
+            self.startDateTxtField.text = self.filterDataDict?.object(forKey: "startdate") as? String
+            self.endDateTxtField.text = (self.filterDataDict?.object(forKey: "enddate") as? String)
+            
+            
+        }
         
     }
 

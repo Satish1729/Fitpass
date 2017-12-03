@@ -20,7 +20,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
     var statusString: String?
     var endDate: String?
     var startDate: String?
-    
+    var filterDict : NSDictionary?
 
     @IBOutlet weak var leadsSearchBar: UISearchBar!
     @IBOutlet weak var leadsTableView: UITableView!
@@ -63,6 +63,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
             let filterVC : LeadsFilterViewController = segue.destination as! LeadsFilterViewController
             
             filterVC.delegate = self
+            filterVC.filterDataDict = self.filterDict
         }
         else if(segue.identifier == "lead_detail") {
             let leadDetailVC : LeadDetailController = segue.destination as! LeadDetailController
@@ -319,6 +320,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
     }
 
     func getDictionary(searchDict: NSDictionary) {
+        self.filterDict = searchDict
         self.statusString = searchDict.object(forKey: "status") as? String
         self.startDate = searchDict.object(forKey: "startdate") as? String
         self.endDate = searchDict.object(forKey: "enddate") as? String

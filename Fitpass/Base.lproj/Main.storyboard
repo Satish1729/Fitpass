@@ -1614,6 +1614,7 @@
                         <outlet property="coldButton" destination="Usy-kP-eTi" id="A7x-7U-BGJ"/>
                         <outlet property="endDateTxtField" destination="hzG-Yu-sCO" id="mLI-rW-dMR"/>
                         <outlet property="hotButton" destination="hp3-hi-4Lx" id="6X1-F7-2QG"/>
+                        <outlet property="openButton" destination="ScH-BL-jRp" id="LGn-ls-WbE"/>
                         <outlet property="startDateTxtField" destination="Z71-fM-7ev" id="eGG-JA-Zi1"/>
                         <outlet property="warmButton" destination="0JS-Jc-OIB" id="OuM-hv-tyL"/>
                     </connections>
