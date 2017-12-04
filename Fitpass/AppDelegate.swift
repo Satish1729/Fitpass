@@ -32,6 +32,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.checkSingleSignIn()
         
         IQKeyboardManager.sharedManager().enable = true
+        
+        UIApplication.shared.statusBarStyle = .lightContent
+
         return true
     }
     

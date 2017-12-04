@@ -12,11 +12,24 @@ import SideMenuController
 class BaseViewController: UIViewController, SideMenuControllerDelegate {
 
     @IBOutlet weak var sideMenuBarButton: UIBarButtonItem!
+    
+    @IBOutlet weak var borderView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //self.navigationController?.navigationBar.barTintColor = UIColor.white
         sideMenuController?.delegate = self
+        
+        self.borderView?.layer.borderWidth = 1.0
+        self.borderView?.layer.borderColor = UIColor(red: 222/255, green: 222/255, blue: 222/255, alpha: 1.0).cgColor
+        self.borderView?.layer.shadowOffset = CGSize(width: 0, height: 1)
+        self.borderView?.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        self.borderView?.layer.shadowOpacity = 1.0
+        self.borderView?.layer.shadowRadius = 0.0
+        self.borderView?.layer.masksToBounds = false
+        self.borderView?.layer.cornerRadius = 1.0
+
     }
     var randomColor: UIColor {
         let colors = [UIColor(hue:0.65, saturation:0.33, brightness:0.82, alpha:1.00),
