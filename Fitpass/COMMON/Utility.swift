@@ -238,6 +238,9 @@ class Utility: NSObject {
     }
     
     func getFilterDateFromString(dateStr : String) -> String {
+        if(dateStr == ""){
+            return ""
+        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MMM-yyyy"
         let date = dateFormatter.date(from: dateStr)

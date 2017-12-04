@@ -13,7 +13,7 @@ import DLRadioButton
 class LeadsFilterViewController: BaseViewController, UITextFieldDelegate, HalfModalPresentable {
 
     var delegate : leadDelegate?
-    var filterDataDict : NSDictionary?
+    var filterDataDict : NSMutableDictionary?
     
     @IBOutlet weak var startDateTxtField: UITextField!
     @IBOutlet weak var endDateTxtField: UITextField!
@@ -26,6 +26,10 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate, HalfMo
     
     @IBOutlet weak var openButton: DLRadioButton!
     
+    @IBOutlet weak var deadButton: DLRadioButton!
+    
+    @IBOutlet weak var memberButton: DLRadioButton!
+    
     @IBAction func cancelButtonClicked(_ sender: Any) {
         if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
             delegate.interactiveDismiss = false
@@ -34,26 +38,28 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate, HalfMo
     }
     
     @IBAction func resetButtonClicked(_ sender: Any) {
-        
+        self.clearFilterValues()
     }
     
     @IBAction func searchButtonClicked(_ sender: Any) {
 
-        if startDateTxtField.text == "" {
-            AlertView.showCustomAlertWithMessage(message: "Select start date" , yPos: 20, duration: NSInteger(2.0))
-            return
-            
-        }else if(endDateTxtField.text == "") {
-            AlertView.showCustomAlertWithMessage(message: "Select end date", yPos: 20, duration: NSInteger(2.0))
-            return
-            
-        }
+//        if startDateTxtField.text == "" {
+//            AlertView.showCustomAlertWithMessage(message: "Select start date" , yPos: 20, duration: NSInteger(2.0))
+//            return
+//
+//        }else if(endDateTxtField.text == "") {
+//            AlertView.showCustomAlertWithMessage(message: "Select end date", yPos: 20, duration: NSInteger(2.0))
+//            return
+//
+//        }
         
-        else if((Utility().getTimeFromString(dateStr: startDateTxtField.text! as NSString)) > (Utility().getTimeFromString(dateStr: endDateTxtField.text! as NSString))){
-            AlertView.showCustomAlertWithMessage(message: "End date has to be after start date", yPos: 20, duration: NSInteger(2.0))
-            return
-            
-        }else if !isInternetAvailable() {
+//        else
+//        if((Utility().getTimeFromString(dateStr: startDateTxtField.text! as NSString)) > (Utility().getTimeFromString(dateStr: endDateTxtField.text! as NSString))){
+//            AlertView.showCustomAlertWithMessage(message: "End date has to be after start date", yPos: 20, duration: NSInteger(2.0))
+//            return
+//
+//        }else
+        if !isInternetAvailable() {
             AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
             return
         }
@@ -69,7 +75,7 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate, HalfMo
         if let natureStr = self.openButton.selected()?.titleLabel?.text{
             strNature = natureStr
         }
-        let tempDict : NSDictionary = ["startdate" : startDateTxtField.text!, "enddate" : endDateTxtField.text!, "status" : strStatus, "nature" : strNature]
+        let tempDict : NSMutableDictionary = ["startdate" : startDateTxtField.text!, "enddate" : endDateTxtField.text!, "status" : strStatus, "nature" : strNature]
         
         delegate?.getDictionary(searchDict: tempDict)
 //        let tempDict : NSDictionary = ["startdate" : startDateTxtField.text!, "enddate" : endDateTxtField.text!, "status" : statusButton.titleLabel?.text! ?? "Hot"]
@@ -112,7 +118,15 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate, HalfMo
     }
     
     func clearFilterValues () {
-        self.dismissViewController()
+//        self.dismissViewController()
+        self.startDateTxtField.text = ""
+        self.endDateTxtField.text = ""
+        self.hotButton.isSelected = false
+        self.openButton.isSelected = false
+        self.filterDataDict?.removeAllObjects()
+        self.filterDataDict = nil
+        dismiss(animated: true, completion: nil)
+
         delegate?.clearFilter()
     }
     
@@ -122,10 +136,31 @@ class LeadsFilterViewController: BaseViewController, UITextFieldDelegate, HalfMo
         if(self.filterDataDict != nil){
             self.startDateTxtField.text = self.filterDataDict?.object(forKey: "startdate") as? String
             self.endDateTxtField.text = (self.filterDataDict?.object(forKey: "enddate") as? String)
-            
-            
+            if let statusStr:String = (self.filterDataDict?.object(forKey: "status") as? String){
+                switch (statusStr){
+                case "Hot" :             self.hotButton.isSelected = true
+                break;
+                case "Cold" :            self.coldButton.isSelected = true
+                break;
+                case "Warm" :            self.warmButton.isSelected = true
+                break;
+                default:
+                    break;
+                }
+            }
+            if let natureStr:String = (self.filterDataDict?.object(forKey: "nature") as? String){
+                switch (natureStr){
+                case "Open" :             self.openButton.isSelected = true
+                    break;
+                case "Dead" :            self.deadButton.isSelected = true
+                    break;
+                case "Member" :            self.memberButton.isSelected = true
+                    break;
+                default:
+                    break;
+                }
+            }
         }
-        
     }
 
     func dismissViewController() {

@@ -1587,14 +1587,6 @@
                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqP-y9-PAp" customClass="DLRadioButton">
-                                <rect key="frame" x="252" y="254" width="105" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Member">
-                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IdV-Dy-K3h">
                                 <rect key="frame" x="0.0" y="297" width="375" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1607,13 +1599,23 @@
                                     <action selector="searchButtonClicked:" destination="QHl-xh-CWN" eventType="touchUpInside" id="Ghu-Sy-veW"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqP-y9-PAp" customClass="DLRadioButton">
+                                <rect key="frame" x="253" y="254" width="105" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="Member">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
                         <outlet property="coldButton" destination="Usy-kP-eTi" id="A7x-7U-BGJ"/>
+                        <outlet property="deadButton" destination="Ntv-Dv-C7A" id="9Ud-Yh-zuO"/>
                         <outlet property="endDateTxtField" destination="hzG-Yu-sCO" id="mLI-rW-dMR"/>
                         <outlet property="hotButton" destination="hp3-hi-4Lx" id="6X1-F7-2QG"/>
+                        <outlet property="memberButton" destination="wqP-y9-PAp" id="13Y-bg-LYQ"/>
                         <outlet property="openButton" destination="ScH-BL-jRp" id="LGn-ls-WbE"/>
                         <outlet property="startDateTxtField" destination="Z71-fM-7ev" id="eGG-JA-Zi1"/>
                         <outlet property="warmButton" destination="0JS-Jc-OIB" id="OuM-hv-tyL"/>

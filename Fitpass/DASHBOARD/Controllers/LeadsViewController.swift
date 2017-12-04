@@ -9,18 +9,20 @@
 import UIKit
 
 protocol leadDelegate {
-    func getDictionary (searchDict: NSDictionary)
+    func getDictionary (searchDict: NSMutableDictionary)
     func clearFilter ()
 }
 
 class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, leadDelegate {
+    
 
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
 
     var statusString: String?
+    var natureString: String?
     var endDate: String?
     var startDate: String?
-    var filterDict : NSDictionary?
+    var filterDict : NSMutableDictionary?
 
     @IBOutlet weak var leadsSearchBar: UISearchBar!
     @IBOutlet weak var leadsTableView: UITableView!
@@ -152,7 +154,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let parameters : [String : Any] = ["lead_nature" : self.statusString! , "date_range_to" : Utility().getFilterDateFromString(dateStr: self.endDate!), "date_range_from" : Utility().getFilterDateFromString(dateStr: self.startDate!)]
+        let parameters : [String : Any] = ["lead_nature" : self.natureString! , "date_range_to" : Utility().getFilterDateFromString(dateStr: self.endDate!), "date_range_from" : Utility().getFilterDateFromString(dateStr: self.startDate!), "status":self.statusString!]
         
         let urlString  = self.createURLFromParameters(parameters: parameters)
         let str : String = ServerConstants.URL_GET_ALL_LEADS+urlString.absoluteString
@@ -319,11 +321,33 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
         self.leadsTableView.reloadData()
     }
 
-    func getDictionary(searchDict: NSDictionary) {
+    func getDictionary(searchDict: NSMutableDictionary) {
         self.filterDict = searchDict
-        self.statusString = searchDict.object(forKey: "status") as? String
-        self.startDate = searchDict.object(forKey: "startdate") as? String
-        self.endDate = searchDict.object(forKey: "enddate") as? String
+        
+        if let statusStr = searchDict.object(forKey: "status") as? String{
+            self.statusString = statusStr
+        }else{
+            self.statusString = ""
+        }
+        
+        if let start = searchDict.object(forKey: "startdate") as? String{
+            self.startDate = start
+        }else{
+            self.startDate = ""
+        }
+        
+        if let end = searchDict.object(forKey: "enddate") as? String{
+            self.endDate = end
+        }else{
+            self.endDate = ""
+        }
+
+        if let natureStr = searchDict.object(forKey: "nature") as? String{
+            self.natureString = natureStr
+        }else{
+            self.natureString = ""
+        }
+
         searchActive = true
         self.getSearchFilterLeads()
     }
