@@ -30,7 +30,7 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
         override func viewDidLoad() {
             super.viewDidLoad()
             
-            self.nameLabel.text = memberObj?.name
+            self.nameLabel.text = memberObj?.name?.uppercased()
             self.contactNumberLabel.text=memberObj?.contact_number?.stringValue
             self.emailLabel.text=memberObj?.email
             self.addressLabel.text=memberObj?.address

@@ -21,11 +21,11 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var mailButton: UIButton!
-
+    
     var smsString : String = ""
     var keyArray : NSArray = ["contact_number", "gender", "email", "lead_source", "address", "remarks", "next_follow_up", "lead_nature", "last_comment", "dob", "created_at", "updated_at"]
 
-    var keyLabelNameArray : NSArray = ["Date of Birth", "Lead Source", "Lead Nature", "Next Followup", "Last Comment", "Created On", "Last Updated On", "Remarks"]
+    var keyLabelNameArray : NSArray = ["Date of Birth", "Lead Source", "Lead Nature", "Next Followup", "Created On", "Last Updated On", "Status",  "Last Comment", "Remarks"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +59,7 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         let item2 = UIBarButtonItem(customView: filterBtn)
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.red
         self.navigationItem.rightBarButtonItem = item2
-
-        
+                
     }
     
     func showSendSMSView(){
@@ -130,6 +129,10 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.row == 7  || indexPath.row == 8 {
+            return 70
+        }
         return 44
     }
     
@@ -157,8 +160,11 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         
         let cell : LeadDetailCell = tableView.dequeueReusableCell(withIdentifier: "LeadDetailCell") as! LeadDetailCell
         
+        cell.valueLabel.numberOfLines = 5
+        
         cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
         var strValue : String? = ""
+        
         switch indexPath.row {
         case 0:
             strValue = leadObj?.dob
@@ -175,21 +181,25 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
                 strValue = Utility().getDateStringSimple(dateStr: strValue!)
             }
         case 4:
-            strValue = leadObj?.last_comment
-        case 5:
             strValue = leadObj?.created_at
             if(strValue != nil){
                 strValue = Utility().getDateString(dateStr: strValue!)
             }
 
-        case 6:
+        case 5:
             strValue = leadObj?.updated_at
             if(strValue != nil){
                 strValue = Utility().getDateString(dateStr: strValue!)
             }
-
+        case 6:
+            strValue = leadObj?.status
+            
         case 7:
+            strValue = leadObj?.last_comment
+
+        case 8:
             strValue = leadObj?.remarks
+            
         default:
             strValue = ""
         }
