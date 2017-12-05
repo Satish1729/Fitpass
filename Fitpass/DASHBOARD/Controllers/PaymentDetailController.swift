@@ -121,7 +121,7 @@ class PaymentDetailController: BaseViewController, UITableViewDelegate, UITableV
         if(indexPath.row%2 == 0){
             cell.contentView.backgroundColor = UIColor.white
         }else {
-            cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+            cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.05)
         }
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
