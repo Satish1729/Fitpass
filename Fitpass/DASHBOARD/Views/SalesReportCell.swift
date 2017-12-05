@@ -54,13 +54,13 @@ class SalesReportCell: UITableViewCell {
         
         if let isActive = salesReportBean.status{ //memberBean.is_active{
             if(isActive == "Paid"){
-                self.statusView.backgroundColor = UIColor.green
+                self.statusView.backgroundColor = UIColor(red: 172/255, green: 240/255, blue: 55/255, alpha: 1.0)
             }else{
-                self.statusView.backgroundColor = UIColor.red
+                self.statusView.backgroundColor = UIColor(red: 253/255, green: 67/255, blue: 67/255, alpha: 1.0)
             }
             self.isActiveLabel.text = isActive
         }
-        
+
         if let dueDate = salesReportBean.due_date {
             let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
             let valueString = NSMutableAttributedString(string: Utility().getDateStringSimple(dateStr: dueDate), attributes: myAttribute )

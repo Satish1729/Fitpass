@@ -36,14 +36,14 @@ class AssetsCell: UITableViewCell {
         if let status = assetBean.asset_status {
             self.statusLabel.text = status
             if(status == "In-Use"){
-                self.statusColorView.backgroundColor = UIColor.yellow
+                self.statusColorView.backgroundColor = UIColor(red: 253/255, green: 198/255, blue: 67/255, alpha: 1.0)
             }else if(status == "Available"){
-                self.statusColorView.backgroundColor = UIColor.green
+                self.statusColorView.backgroundColor = UIColor(red: 172/255, green: 240/255, blue: 55/255, alpha: 1.0)
             }else{
-                self.statusColorView.backgroundColor = UIColor.red
+                self.statusColorView.backgroundColor = UIColor(red: 253/255, green: 67/255, blue: 67/255, alpha: 1.0)
             }
         }
-        
+
         if let vendorName = assetBean.vendor_name {
             self.vendorNameLabel.text = vendorName
         }

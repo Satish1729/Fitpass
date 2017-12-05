@@ -123,6 +123,7 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
         }
         
         func numberOfSections(in tableView: UITableView) -> Int {
+            self.memberDetailTableView.separatorStyle = UITableViewCellSeparatorStyle.none
             return 1
         }
         
@@ -200,13 +201,13 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
             if(indexPath.row%2 == 0){
                 cell.contentView.backgroundColor = UIColor.white
             }else {
-                cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+                cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.05)
             }
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
             cell.selectionStyle = UITableViewCellSelectionStyle.none
-
+            
             return cell
         }
         

@@ -60,14 +60,13 @@ class PaymentsCell: UITableViewCell {
         if let paymentstatus = paymentBean.payment_status {
             self.paymentStatusLabel.text = paymentstatus
             if(paymentstatus == "Transferred"){
-                self.paymentStatusColrView.backgroundColor = UIColor.green
+                self.paymentStatusColrView.backgroundColor = UIColor(red: 172/255, green: 240/255, blue: 55/255, alpha: 1.0)
             }
             else{
-                self.paymentStatusColrView.backgroundColor = UIColor.red
+                self.paymentStatusColrView.backgroundColor = UIColor(red: 253/255, green: 67/255, blue: 67/255, alpha: 1.0)
             }
         }
     }
-    
     
     override func awakeFromNib() {
         super.awakeFromNib()

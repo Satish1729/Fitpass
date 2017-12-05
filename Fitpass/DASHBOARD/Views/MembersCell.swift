@@ -37,13 +37,17 @@ class MembersCell: UITableViewCell {
         }
         
         if let isActive = memberBean.status{ //memberBean.is_active{
-            if(isActive == "Active"){
-                self.isActiveLabel.text = "Active"
-                self.statusView.backgroundColor = UIColor.green
-            }else{
-                self.isActiveLabel.text = "Inactive"
-                self.statusView.backgroundColor = UIColor.red
+                self.isActiveLabel.text = isActive
+        
+            switch isActive {
+            case "Active":
+                self.statusView.backgroundColor = UIColor(red: 172/255, green: 240/255, blue: 55/255, alpha: 1.0)
+            case "Inactive":
+                self.statusView.backgroundColor = UIColor(red: 253/255, green: 67/255, blue: 67/255, alpha: 1.0)
+            default:
+                self.statusView.backgroundColor = UIColor.white
             }
+
         }
         
         if let email = memberBean.email {
@@ -65,7 +69,7 @@ class MembersCell: UITableViewCell {
         }
         
         if let timeFrom = memberBean.preferred_time_slot_from {
-            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
             let valueString = NSMutableAttributedString(string: timeFrom+" to "+memberBean.preferred_time_slot_to!, attributes: myAttribute )
             let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
             let myString = NSMutableAttributedString(string: "Time slot - ", attributes: myAttribute1 )

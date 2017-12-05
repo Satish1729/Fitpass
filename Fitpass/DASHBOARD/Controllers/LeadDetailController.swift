@@ -38,8 +38,8 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
         self.mailButton.addTarget(self, action: #selector(email), for: UIControlEvents.touchUpInside)
         
+                    self.profileImageView.image = UIImage(named: "man")
 //        if(leadObj?.gender == "Male"){
-//            self.profileImageView.image = UIImage(named: "man")
 //        }else{
 //            self.profileImageView.image = UIImage(named: "woman")
 //        }
@@ -121,6 +121,7 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
+        self.leadDetailTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         return 1
     }
     
@@ -131,7 +132,7 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath.row == 7  || indexPath.row == 8 {
-            return 70
+            return 80
         }
         return 44
     }
@@ -211,7 +212,7 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         if(indexPath.row%2 == 0){
             cell.contentView.backgroundColor = UIColor.white
         }else {
-            cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.1)
+            cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.05)
         }
         cell.preservesSuperviewLayoutMargins = false
         cell.separatorInset = UIEdgeInsets.zero
