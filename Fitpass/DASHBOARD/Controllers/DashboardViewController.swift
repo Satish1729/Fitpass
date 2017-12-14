@@ -54,19 +54,23 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
         self.getMembersCount()
     }
 
-    func setChart(dataPoints: [Int], values: [Double], labelname:String) {
+    func setChart(dataPoints: [String], values: [Double], labelname:String) {
         var dataEntries: [BarChartDataEntry] = []
         
-        for i in 0..<months.count {
+        for i in 0..<dataPoints.count {
             let dataEntry = BarChartDataEntry(x: Double(i), y:values[i], data: months as AnyObject )
             dataEntries.append(dataEntry)
         }
-        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values:months)
-        barChartView.xAxis.granularity = 1
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values:dataPoints)
+        barChartView.xAxis.granularity = 0
+        barChartView.xAxis.labelPosition = .bottom
         let chartDataSet = BarChartDataSet(values: dataEntries, label: labelname)
         
         let chartData = BarChartData()
         chartData.addDataSet(chartDataSet)
+        barChartView.rightAxis.enabled = false
+        barChartView.leftAxis.enabled = false
+        barChartView.drawGridBackgroundEnabled = false
         barChartView.data = chartData
         barChartView.data?.setDrawValues(false)
         barChartView.backgroundColor = UIColor.white
@@ -114,34 +118,63 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                         let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
                         let dataArray : NSArray = tempDict.object(forKey: "data") as! NSArray
                         
-                        let xTotalArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-                        let xValuesArray = NSMutableArray()
-                        let yValuesArray = NSMutableArray()
+//                        let xTotalArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                        var xValuesArray = Array<Any>()
+                        var yValuesArray = Array<Any>()
                         for valueDict in dataArray{
-                            xValuesArray.add((valueDict as! NSDictionary)[ "x"]!)
-                            yValuesArray.add((valueDict as! NSDictionary)[ "y"]!)
+                            let x : Int = (valueDict as! NSDictionary)["x"]! as! Int
+                            let y : Int = (valueDict as! NSDictionary)["y"]! as! Int
+                            xValuesArray.add(String(x))
+                            yValuesArray.add(y)
                         }
+                        var names: [String] = ["Apple", "Microsoft", "Sony", "Lenovo", "Asus"]
                         
-                        for i in 0..<xTotalArray.count{
-                            if(xValuesArray.contains(i)){
-                                
-                            }
-                            else{
-                                xValuesArray.insert(0, at: i)
-                                yValuesArray.insert(Double(0), at: i)
-                            }
+                        var reversedNames = [String]()
+                        
+                        for arrayIndex in (names.count - 1).stride(through: 0, by: -1) {
+                            reversedNames.append(names[arrayIndex])
                         }
+                        Using this code shouldn't give you any errors or warnings about the use deprecated of C-style for-loops or the use of --.
+                        
+                        Swift 3:
+                        
+                        var names: [String] = ["Apple", "Microsoft", "Sony", "Lenovo", "Asus"]
+                        
+                        var reversedNames = [String]()
+                        
+                        for arrayIndex in stride(from: names.count - 1, through: 0, by: -1) {
+                            reversedNames.append(names[arrayIndex])
+                        }
+                        Alternatively, you could loop through normally and subtract each time:
+                        
+                        var names: [String] = ["Apple", "Microsoft", "Sony", "Lenovo", "Asus"]
+                        
+                        var reversedNames = [String]()
+                        
+                        for arrayIndex in 0..<names.count {
+                            reversedNames.append(names[(names.count - 1) - arrayIndex])
+                        }
+
+                        xValuesArray = xValuesArray.rever reversed() as! Array
+                        yValuesArray = yValuesArray.reversed() as! Array
+//                        for i in 0..<xTotalArray.count{
+//                            if(xValuesArray.contains(i)){
+//
+//                            }
+//                            else{
+//                                xValuesArray.insert(0, at: i)
+//                                yValuesArray.insert(Double(0), at: i)
+//                            }
+//                        }
                         
                         let tempName = tempDict.object(forKey: "displayName") as! String
                         self.salesHeaderLabel.text = "SALES"
                         self.barChartView.isHidden = false
-                        self.setChart(dataPoints: xValuesArray as! [Int], values: yValuesArray as! [Double], labelname: tempName)
+                        self.setChart(dataPoints: xValuesArray as! [String], values: yValuesArray as! [Double], labelname: tempName)
                     }else{
                         self.barChartView.isHidden = true
                         self.salesHeaderLabel.text = "No Sales data available"
-
                     }
-                    
                 }
             }
             else{

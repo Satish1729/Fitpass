@@ -40,6 +40,24 @@ class ServerConstants: NSObject {
     static let URL_GAUGE_DATA = BASE_URL+"gauge_data"
     static let URL_MEMBERS_DATA = BASE_URL+"gauge_data/members"
     static let URL_GET_SALESREPORT = BASE_URL+"members/payments"
+    static let URL_URC = BASE_URL+" workouts/verifyusers"
+    static let URL_ASSETS_DOWNLOAD = BASE_URL+"assets/sendReport"
+    static let URL_STAFF_DOWNLOAD = BASE_URL+"staff/sendReport"
+    static let URL_LEADS_DOWNLOAD = BASE_URL+"leads/sendReport"
+
+//    @GET("assets/sendReport")
+//    Call<PojoAssets> downloadAssetsExcel(@Header("x-auth-token") String token,@Query("search_by") String search_by,@Query("search_text") String search_text,@Query("purchase_date_from") String purchase_date_from,@Query("purchase_date_to") String purchase_date_to);
+//    @GET("members/sendReport")
+//    Call<PojoMember> downloadMemberFilterExcel(@Header("x-auth-token") String token,@Query("subscription_plan") int subscription_plan);
+//    @GET("members/sendReport")
+//    Call<PojoMember> downloadMemberExcel(@Header("x-auth-token") String token,@Query("search_by") String search_by,@Query("search_text") String search_text);
+//    @GET("staff/sendReport")
+//    Call<PojoStaff> downloadStaffExcel(@Header("x-auth-token") String token,@Query("search_by") String search_by,@Query("search_text") String search_text);
+//    @GET("leads/sendReport")
+//    Call<PojoLead> downloadLeadExcel(@Header("x-auth-token") String token,@Query("search_by") String search_by,@Query("search_text") String search_text
+//    );
+//    @GET("leads/sendReport")
+//    Call<PojoLead> getLeadFilterLeads(@Header("x-auth-token") String token, @Query("date_range_from") String date_range_from,@Query("date_range_to") String date_range_to,@Query("lead_nature") String status);
     
     // CLIENT APIs
     static let URL_GET_ALL_PAYMENTS = BASE_URL_CLIENT+"salesreport"

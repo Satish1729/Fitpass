@@ -29,10 +29,10 @@ class BarChartFormatter: NSObject, IAxisValueFormatter {
     }
     var labels: [String] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 //
-//    public func stringForValue(value: Double, axis: AxisBase?) -> String {
-//        
-//        return months[Int(value)]
-//    }
+    public func stringForValue(value: Double, axis: AxisBase?) -> String {
+        
+        return months[Int(value)]
+    }
 
 //    func stringForValue(_ value: Int, axis: AxisBase?) -> String {
 //        return labels[value]

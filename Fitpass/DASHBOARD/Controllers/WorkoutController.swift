@@ -64,7 +64,8 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         }else{
             workoutSearchBar.isHidden = false
             workoutTableView.isHidden = false
-            partnerForm.view.isHidden = true
+            partnerForm.view.isHidden = true    
+
             
             let addBtn = UIButton(type: .custom)
             addBtn.setImage(UIImage(named: "add"), for: .normal)
