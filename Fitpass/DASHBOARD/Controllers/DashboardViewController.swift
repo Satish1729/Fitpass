@@ -62,8 +62,10 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
             dataEntries.append(dataEntry)
         }
         barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values:dataPoints)
-        barChartView.xAxis.granularity = 0
+        barChartView.xAxis.granularity = 0.5
+        barChartView.xAxis.drawGridLinesEnabled = false
         barChartView.xAxis.labelPosition = .bottom
+        barChartView.leftAxis.spaceBottom = 0.0
         let chartDataSet = BarChartDataSet(values: dataEntries, label: labelname)
         
         let chartData = BarChartData()
@@ -119,44 +121,22 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                         let dataArray : NSArray = tempDict.object(forKey: "data") as! NSArray
                         
 //                        let xTotalArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-                        var xValuesArray = Array<Any>()
-                        var yValuesArray = Array<Any>()
+                        var xValuesArray = NSMutableArray()
+                        var yValuesArray = NSMutableArray()
                         for valueDict in dataArray{
                             let x : Int = (valueDict as! NSDictionary)["x"]! as! Int
                             let y : Int = (valueDict as! NSDictionary)["y"]! as! Int
                             xValuesArray.add(String(x))
                             yValuesArray.add(y)
                         }
-                        var names: [String] = ["Apple", "Microsoft", "Sony", "Lenovo", "Asus"]
-                        
                         var reversedNames = [String]()
                         
-                        for arrayIndex in (names.count - 1).stride(through: 0, by: -1) {
-                            reversedNames.append(names[arrayIndex])
-                        }
-                        Using this code shouldn't give you any errors or warnings about the use deprecated of C-style for-loops or the use of --.
-                        
-                        Swift 3:
-                        
-                        var names: [String] = ["Apple", "Microsoft", "Sony", "Lenovo", "Asus"]
-                        
-                        var reversedNames = [String]()
-                        
-                        for arrayIndex in stride(from: names.count - 1, through: 0, by: -1) {
-                            reversedNames.append(names[arrayIndex])
-                        }
-                        Alternatively, you could loop through normally and subtract each time:
-                        
-                        var names: [String] = ["Apple", "Microsoft", "Sony", "Lenovo", "Asus"]
-                        
-                        var reversedNames = [String]()
-                        
-                        for arrayIndex in 0..<names.count {
-                            reversedNames.append(names[(names.count - 1) - arrayIndex])
+                        for arrayIndex in stride(from: xValuesArray.count - 1, through: 0, by: -1) {
+                            reversedNames.append(xValuesArray[arrayIndex] as! String)
                         }
 
-                        xValuesArray = xValuesArray.rever reversed() as! Array
-                        yValuesArray = yValuesArray.reversed() as! Array
+                        xValuesArray = NSMutableArray(array: reversedNames) //xValuesArray.reversed() as! NSMutableArray
+                        yValuesArray = NSMutableArray(array: yValuesArray.reversed())
 //                        for i in 0..<xTotalArray.count{
 //                            if(xValuesArray.contains(i)){
 //
