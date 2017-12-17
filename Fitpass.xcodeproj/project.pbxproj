@@ -93,6 +93,7 @@
 		EF82F1C91FCD05F9008BBE08 /* SalesReportDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1C81FCD05F9008BBE08 /* SalesReportDetailController.swift */; };
 		EF82F1CB1FCD061B008BBE08 /* SalesReportFilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1CA1FCD061B008BBE08 /* SalesReportFilterController.swift */; };
 		EF82F1CD1FCD0C93008BBE08 /* SalesReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1CC1FCD0C93008BBE08 /* SalesReport.swift */; };
+		EFFE546C1FE62C1500225320 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFE546B1FE62C1500225320 /* ForgotPasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -208,6 +209,7 @@
 		EF82F1C81FCD05F9008BBE08 /* SalesReportDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportDetailController.swift; path = DASHBOARD/Controllers/SalesReportDetailController.swift; sourceTree = "<group>"; };
 		EF82F1CA1FCD061B008BBE08 /* SalesReportFilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportFilterController.swift; path = DASHBOARD/Controllers/SalesReportFilterController.swift; sourceTree = "<group>"; };
 		EF82F1CC1FCD0C93008BBE08 /* SalesReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReport.swift; path = DASHBOARD/Models/SalesReport.swift; sourceTree = "<group>"; };
+		EFFE546B1FE62C1500225320 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForgotPasswordViewController.swift; path = USER/ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				3B58C0431EB084CE006086E5 /* LoginViewController.swift */,
+				EFFE546B1FE62C1500225320 /* ForgotPasswordViewController.swift */,
 				3B58C0681EB0C1FD006086E5 /* UserBean.swift */,
 			);
 			name = USER;
@@ -691,6 +694,7 @@
 				AF702C781FD2EA8A001456E4 /* HalfModalInteractiveTransition.swift in Sources */,
 				3B4DAF2F1F04A47100BDB69B /* AssetsCell.swift in Sources */,
 				AF702C791FD2EA8A001456E4 /* HalfModalTransitionAnimator.swift in Sources */,
+				EFFE546C1FE62C1500225320 /* ForgotPasswordViewController.swift in Sources */,
 				3BC959381EDC8FEB00A94CCE /* Members.swift in Sources */,
 				753DB40B1F175EB600A6C1A1 /* ReservedWorkoutDetailCell.swift in Sources */,
 				3B2160011EDD4C25004A55F4 /* StaffDetailController.swift in Sources */,

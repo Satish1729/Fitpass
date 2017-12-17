@@ -352,7 +352,35 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
         self.getSearchFilterLeads()
     }
 
-    
+    func downloadLeads() {
+        
+        if (appDelegate.userBean == nil) {
+            return
+        }
+        if !isInternetAvailable() {
+            AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+            return;
+        }
+        
+        ProgressHUD.showProgress(targetView: self.view)
+        
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_LEADS_DOWNLOAD , userInfo: nil, type: "GET") { (data, response, error) in
+            
+            ProgressHUD.hideProgress()
+            
+            if error == nil {
+                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+                let responseDic:NSDictionary? = jsonObject as? NSDictionary
+                if (responseDic != nil) {
+                    print(responseDic!)
+                }
+            }
+            else{
+                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
+                print("Download Leads failed : \(String(describing: error?.localizedDescription))")
+            }
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

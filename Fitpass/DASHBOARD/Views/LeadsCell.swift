@@ -70,11 +70,11 @@ class LeadsCell: UITableViewCell {
         }
 
         if let email = leadBean.email {
-            self.emailLabel.text = email
+            self.mailButton.setTitle(email, for: UIControlState.normal)
         }
 
         if let contactNumber = leadBean.contact_number {
-            self.contactNumberLabel.text = contactNumber.stringValue
+            self.callButton.setTitle(contactNumber.stringValue, for: UIControlState.normal)
         }
 
         if let createdAt = leadBean.created_at {
@@ -92,12 +92,13 @@ class LeadsCell: UITableViewCell {
             }
                 //            let valueString = NSMutableAttributedString(string: nextFollowUp, attributes: myAttribute )
             let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
-            let myString = NSMutableAttributedString(string: "Next Follow Up - ", attributes: myAttribute1 )
+            let myString = NSMutableAttributedString(string: "Next Follow Up ", attributes: myAttribute1 )
             myString.append(valueString)
             self.nextFollowUpLabel.attributedText = myString
             
 
         }
+        
         self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
         self.mailButton.addTarget(self, action: #selector(email), for: UIControlEvents.touchUpInside)
 

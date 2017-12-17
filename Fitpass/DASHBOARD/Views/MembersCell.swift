@@ -51,13 +51,13 @@ class MembersCell: UITableViewCell {
         }
         
         if let email = memberBean.email {
-            self.emailLabel.text = email
+            self.mailButton.setTitle(email, for: UIControlState.normal)
         }
         
         if let contactNumber = memberBean.contact_number {
-            self.contactNumberLabel.text = contactNumber.stringValue
+            self.callButton.setTitle(contactNumber.stringValue, for: UIControlState.normal)
         }
-        
+
         if let createdAt = memberBean.created_at {
             self.createdAtLabel.text = Utility().getDateString(dateStr: createdAt)
             let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]

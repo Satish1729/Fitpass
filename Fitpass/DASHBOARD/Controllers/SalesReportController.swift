@@ -9,13 +9,16 @@
 import UIKit
 
 protocol salesReportDelegate {
-    func getFilterDictionary (searchDict: NSDictionary)
+    func getFilterDictionary (searchDict: NSMutableDictionary)
     func clearFilter ()
 }
 
 class SalesReportController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, salesReportDelegate {
     var subscriptionPlan: String?
-    
+    var statusString: String?
+    var paidDate: String?
+    var filterDict: NSMutableDictionary?
+    var halfModalTransitioningDelegate : HalfModalTransitioningDelegate?
     @IBOutlet weak var salesReportSearchBar: UISearchBar!
     @IBOutlet weak var salesReportTableView: UITableView!
     
@@ -47,9 +50,16 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if(segue.identifier == "sales_report_filter") {
+        if(segue.identifier == "salesreport_filter") {
+            
+            self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
+            segue.destination.modalPresentationStyle = .custom
+            segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
+            
             let filterVC : SalesReportFilterController = segue.destination as! SalesReportFilterController
             filterVC.delegate = self
+            filterVC.filterDataDict = self.filterDict
+
         }
         else if(segue.identifier == "sales_report_detail") {
             let salesDetailVC : SalesReportDetailController = segue.destination as! SalesReportDetailController
@@ -137,8 +147,8 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         ProgressHUD.showProgress(targetView: self.view)
-        
-        let parameters : [String : Any] = ["subscription_plan" : self.subscriptionPlan!]
+        let parameters : [String : Any] = ["paid_date" : Utility().getFilterDateFromString(dateStr: self.paidDate!), "status":self.statusString!]
+
         let urlString  = self.createURLFromParameters(parameters: parameters)
         let str : String = ServerConstants.URL_GET_SALESREPORT+urlString.absoluteString
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in
@@ -300,13 +310,22 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
         self.salesReportTableView.reloadData()
     }
     
-    func getFilterDictionary(searchDict: NSDictionary) {
-        let tempVar = searchDict.object(forKey: "plan") as? NSNumber
-        self.subscriptionPlan = tempVar?.stringValue
+    func getFilterDictionary(searchDict: NSMutableDictionary) {
+        self.filterDict = searchDict
+        if let statusStr = searchDict.object(forKey: "status") as? String{
+            self.statusString = statusStr
+        }else{
+            self.statusString = ""
+        }
+        if let paiddate = searchDict.object(forKey: "paid_date") as? String{
+            self.paidDate = paiddate
+        }else{
+            self.paidDate = ""
+        }
         searchActive = true
         self.getSearchFiltersalesReport()
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -266,7 +266,7 @@ class Utility: NSObject {
         if(date == nil){
             return "NA"
         }
-        dateFormatter.dateFormat = "dd-MMM-yyyy"
+        dateFormatter.dateFormat = "dd MMM yyyy"
         let newDate = dateFormatter.string(from: date! as Date)
         return newDate
     }

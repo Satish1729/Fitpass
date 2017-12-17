@@ -37,8 +37,9 @@ class SalesReportCell: UITableViewCell {
         }
         
         if let contactNumber = salesReportBean.contact_number {
-            self.contactNumberLabel.text = contactNumber.stringValue
+            self.callButton.setTitle(contactNumber.stringValue, for: UIControlState.normal)
         }
+
         if let name = salesReportBean.member_name {
             self.nameLabel.text = name
         }

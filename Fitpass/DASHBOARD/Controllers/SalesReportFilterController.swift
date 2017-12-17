@@ -8,126 +8,115 @@
 
 import UIKit
 import DropDown
+import DLRadioButton
 
-class SalesReportFilterController: BaseViewController {
-    var delegate : salesReportDelegate?
-    var selectedPlanIndex:Int = 0
-    var subscriptionsArray : NSMutableArray = NSMutableArray()
+class SalesReportFilterController: BaseViewController, UITextFieldDelegate, HalfModalPresentable {
+        
+        var delegate : salesReportDelegate?
+        var filterDataDict : NSMutableDictionary?
+        
+        @IBOutlet weak var paymentMonthTxtField: UITextField!
     
-    @IBOutlet weak var subscriptionPlanButton: UIButton!
+        @IBOutlet weak var paidButton: DLRadioButton!
+        
+        @IBOutlet weak var dueButton: DLRadioButton!
     
-    @IBAction func searchButtonClicked(_ sender: Any) {
-        self.dismissViewController()
-        if(self.subscriptionsArray.count > 0){
-            let selectedSubscription:  Subscriptions = self.subscriptionsArray.object(at: selectedPlanIndex) as! Subscriptions
-            let tempDict : NSDictionary = ["plan" : selectedSubscription.id!]
+        @IBAction func cancelButtonClicked(_ sender: Any) {
+            if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
+                delegate.interactiveDismiss = false
+            }
+            dismiss(animated: true, completion: nil)
+        }
+        
+        @IBAction func resetButtonClicked(_ sender: Any) {
+            self.clearFilterValues()
+        }
+        
+        @IBAction func searchButtonClicked(_ sender: Any) {
+            
+            if !isInternetAvailable() {
+                AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+                return
+            }
+            
+            //        self.dismissViewController()
+            dismiss(animated: true, completion: nil)
+            
+            var strStatus = ""
+            if let statusStr = self.paidButton.selected()?.titleLabel?.text{
+                strStatus = statusStr
+            }
+            let tempDict : NSMutableDictionary = ["paid_date" : paymentMonthTxtField.text!, "status" : strStatus]
+            
             delegate?.getFilterDictionary(searchDict: tempDict)
         }
-    }
-    
-    let dropDown = DropDown()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
-        //            self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
         
-        let backBtn = UIButton(type: .custom)
-        backBtn.setImage(UIImage(named: "img_back"), for: .normal)
-        backBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
-        backBtn.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
-        let item1 = UIBarButtonItem(customView: backBtn)
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-        self.navigationItem.leftBarButtonItem = item1
+        let dropDown = DropDown()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(clearFilterValues))
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        
-        getSubscriptionPlans()
-    }
-    
-    func changeStatus() {
-        self.dropDown.show()
-    }
-    
-    func getSubscriptionPlans() {
-        
-        if (appDelegate.userBean == nil) {
-            return
-        }
-        if !isInternetAvailable() {
-            AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
-            return;
+        override func viewDidLoad() {
+            super.viewDidLoad()
         }
         
-        ProgressHUD.showProgress(targetView: self.view)
+        func clearFilterValues () {
+            //        self.dismissViewController()
+            self.paymentMonthTxtField.text = ""
+            self.paidButton.isSelected = false
+            self.dueButton.isSelected = false
+            self.filterDataDict?.removeAllObjects()
+            self.filterDataDict = nil
+            dismiss(animated: true, completion: nil)
+            
+            delegate?.clearFilter()
+        }
         
-        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_GET_SUBSCRIPTION_PLANS_LIST , userInfo: nil, type: "GET") { (data, response, error) in
-            
-            ProgressHUD.hideProgress()
-            
-            if error == nil {
-                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-                let responseDic:NSDictionary? = jsonObject as? NSDictionary
-                if (responseDic != nil) {
-                    print(responseDic!)
-                    self.subscriptionsArray.addObjects(from:  Subscriptions().updateSubscriptions(responseDict : responseDic!) as [AnyObject])
-                    
-                    
-                    let tempArr = NSMutableArray()
-                    
-                    if(self.subscriptionsArray.count > 0) {
-                        for subscriptionObj in (self.subscriptionsArray as? [Subscriptions])!{
-                            tempArr.add(subscriptionObj.plan_name!)
-                        }
-                        
-                        self.dropDown.anchorView = self.subscriptionPlanButton
-                        self.dropDown.bottomOffset = CGPoint(x: 0, y: self.subscriptionPlanButton.frame.size.height)
-                        self.dropDown.width = self.subscriptionPlanButton.frame.size.width
-                        self.dropDown.dataSource = tempArr as! [String]//["Pearl Hart", "Gold Plan", "Silver Plan"]
-                        self.dropDown.direction = .any
-                        self.subscriptionPlanButton.setTitle(tempArr.object(at: 0) as? String, for: UIControlState.normal)
-                        
-                        self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-                            self.subscriptionPlanButton.setTitle(item, for: UIControlState.normal)
-                            self.selectedPlanIndex = index
-                        }
-                        
-                        self.subscriptionPlanButton.addTarget(self, action: #selector(self.changeStatus), for: .touchUpInside)
-                    }else{
-                        self.subscriptionPlanButton.setTitle("No Subscription Plans", for: UIControlState.normal)
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            if(self.filterDataDict != nil){
+                self.paymentMonthTxtField.text = self.filterDataDict?.object(forKey: "paid_date") as? String
+                if let statusStr:String = (self.filterDataDict?.object(forKey: "status") as? String){
+                    switch (statusStr){
+                    case "Paid" :             self.paidButton.isSelected = true
+                    break;
+                    case "Due" :            self.dueButton.isSelected = true
+                    break;
+                    default:
+                        break;
                     }
                 }
             }
-            else{
-                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                print("Get Leads failed : \(String(describing: error?.localizedDescription))")
+        }
+        
+        func dismissViewController() {
+            _ = self.navigationController?.popViewController(animated: true)
+        }
+        
+        
+        
+        public func textFieldDidBeginEditing(_ textField: UITextField) {
+            
+            if textField == paymentMonthTxtField {
+                let datePicker = UIDatePicker()
+                textField.inputView = datePicker
+                datePicker.datePickerMode = .date
+                datePicker.maximumDate = Date()
+                datePicker.addTarget(self, action: #selector(datePickerStartDateChanged(sender:)), for: .valueChanged)
             }
         }
-    }
-    
-    
-    
-    func clearFilterValues () {
-        self.dismissViewController()
-        delegate?.clearFilter()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.navigationItem.title = "Sales Report Filter"
-    }
-    
-    func dismissViewController() {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
         
-    }
-    
+        func datePickerStartDateChanged(sender: UIDatePicker) {
+            let formatter = DateFormatter()
+            //        formatter.dateStyle = .medium
+            formatter.dateFormat = "yyyy-MM"//"dd-MMM-yyyy"
+            self.paymentMonthTxtField.text = formatter.string(from: sender.date)
+        }
+        
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            
+        }
+        
+        override func didReceiveMemoryWarning() {
+            super.didReceiveMemoryWarning()
+            
+        }
+        
 }
-
-

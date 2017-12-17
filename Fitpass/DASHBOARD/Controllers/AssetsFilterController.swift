@@ -9,79 +9,68 @@
 import UIKit
 import DropDown
 
-class AssetsFilterController: BaseViewController, UITextFieldDelegate {
+class AssetsFilterController: BaseViewController, UITextFieldDelegate, HalfModalPresentable {
         
         var delegate : assetDelegate?
         
         @IBOutlet weak var purchasedOnTxtField: UITextField!
         @IBOutlet weak var expiryDateTxtField: UITextField!
     
+        var filterDataDict : NSMutableDictionary?
+    
+        @IBAction func cancelButtonClicked(_ sender: Any) {
+            if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
+                delegate.interactiveDismiss = false
+            }
+            dismiss(animated: true, completion: nil)
+        }
+        
+        @IBAction func resetButtonClicked(_ sender: Any) {
+            self.clearFilterValues()
+        }
+        
         @IBAction func searchButtonClicked(_ sender: Any) {
             
-            if purchasedOnTxtField.text == "" {
-                AlertView.showCustomAlertWithMessage(message: "Select purchased date" , yPos: 20, duration: NSInteger(2.0))
-                return
-            }else if(expiryDateTxtField.text == "") {
-                AlertView.showCustomAlertWithMessage(message: "Select expiry date", yPos: 20, duration: NSInteger(2.0))
-                return
-            }else if((Utility().getTimeFromString(dateStr: purchasedOnTxtField.text! as NSString)) > (Utility().getTimeFromString(dateStr: expiryDateTxtField.text! as NSString))){
-                AlertView.showCustomAlertWithMessage(message: "Expiry date has to be after purchased date", yPos: 20, duration: NSInteger(2.0))
-                return
-            }else if !isInternetAvailable() {
+            if !isInternetAvailable() {
                 AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
                 return
             }
-
-            self.dismissViewController()
             
-            let tempDict : NSDictionary = ["purchase_date_from" : purchasedOnTxtField.text!, "purchase_date_to" : expiryDateTxtField.text!]
+            dismiss(animated: true, completion: nil)
+            let tempDict : NSMutableDictionary = ["purchase_date_from" : purchasedOnTxtField.text!, "purchase_date_to" : expiryDateTxtField.text!]
+            
             delegate?.getDictionary(searchDict: tempDict)
         }
-        
-        let dropDown = DropDown()
-        
+    
         override func viewDidLoad() {
             super.viewDidLoad()
-            let backBtn = UIButton(type: .custom)
-            backBtn.setImage(UIImage(named: "img_back"), for: .normal)
-            backBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
-            backBtn.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
-            let item1 = UIBarButtonItem(customView: backBtn)
-            self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
-            self.navigationItem.leftBarButtonItem = item1
-            
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(clearFilterValues))
-            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-            
-            
-//            dropDown.anchorView = self.statusButton
-//            dropDown.dataSource = ["HOT", "DEAD", "COLD"]
-//            dropDown.direction = .any
-//            dropDown.width = 280
-//            dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-//                self.statusButton.setTitle(item, for: UIControlState.normal)
-//            }
-            
-//            self.statusButton.addTarget(self, action: #selector(changeStatus), for: .touchUpInside)
         }
         
-        func changeStatus() {
-            self.dropDown.show()
-        }
-        
+    
         func clearFilterValues () {
-            self.dismissViewController()
+            //        self.dismissViewController()
+            self.purchasedOnTxtField.text = ""
+            self.expiryDateTxtField.text = ""
+            self.filterDataDict?.removeAllObjects()
+            self.filterDataDict = nil
+            dismiss(animated: true, completion: nil)
+            
             delegate?.clearFilter()
         }
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
-            self.navigationItem.title = "Asset Filter"
+            self.navigationItem.title = "Lead Filter"
+            if(self.filterDataDict != nil){
+                self.purchasedOnTxtField.text = self.filterDataDict?.object(forKey: "purchase_date_from") as? String
+                self.expiryDateTxtField.text = self.filterDataDict?.object(forKey: "purchase_date_to") as? String;
+            }
         }
         
         func dismissViewController() {
             _ = self.navigationController?.popViewController(animated: true)
         }
+        
         
         
         public func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -91,26 +80,28 @@ class AssetsFilterController: BaseViewController, UITextFieldDelegate {
                 textField.inputView = datePicker
                 datePicker.datePickerMode = .date
                 datePicker.maximumDate = Date()
-                datePicker.addTarget(self, action: #selector(datePickerPurchasedOnDateChanged(sender:)), for: .valueChanged)
+                datePicker.addTarget(self, action: #selector(datePickerStartDateChanged(sender:)), for: .valueChanged)
             }
             else if textField == expiryDateTxtField {
                 let datePicker = UIDatePicker()
                 datePicker.datePickerMode = .date
                 textField.inputView = datePicker
                 datePicker.maximumDate = Date()
-                datePicker.addTarget(self, action: #selector(datePickerExpiryDateChanged(sender:)), for: .valueChanged)
+                datePicker.addTarget(self, action: #selector(datePickerEndDateChanged(sender:)), for: .valueChanged)
             }
         }
         
-        func datePickerPurchasedOnDateChanged(sender: UIDatePicker) {
+        func datePickerStartDateChanged(sender: UIDatePicker) {
             let formatter = DateFormatter()
-            formatter.dateStyle = .medium
+            //        formatter.dateStyle = .medium
+            formatter.dateFormat = "dd-MMM-yyyy"
             self.purchasedOnTxtField.text = formatter.string(from: sender.date)
         }
         
-        func datePickerExpiryDateChanged(sender: UIDatePicker) {
+        func datePickerEndDateChanged(sender: UIDatePicker) {
             let formatter = DateFormatter()
-            formatter.dateStyle = .medium
+            //        formatter.dateStyle = .medium
+            formatter.dateFormat = "dd-MMM-yyyy"
             self.expiryDateTxtField.text = formatter.string(from: sender.date)
         }
         
@@ -124,3 +115,5 @@ class AssetsFilterController: BaseViewController, UITextFieldDelegate {
         }
         
 }
+
+

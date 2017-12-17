@@ -14,15 +14,28 @@ class MembersFilterController: BaseViewController {
         var delegate : memberDelegate?
     var selectedPlanIndex:Int = 0
     var subscriptionsArray : NSMutableArray = NSMutableArray()
+    var filterDataDict : NSMutableDictionary?
 
-        @IBOutlet weak var subscriptionPlanButton: UIButton!
+    @IBAction func cancelButtonClicked(_ sender: Any) {
+        if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
+            delegate.interactiveDismiss = false
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func resetButtonClicked(_ sender: Any) {
+        self.clearFilterValues()
+    }
+    
+    @IBOutlet weak var subscriptionPlanButton: UIButton!
         
         @IBAction func searchButtonClicked(_ sender: Any) {
             self.dismissViewController()
             if(self.subscriptionsArray.count > 0){
                 let selectedSubscription:  Subscriptions = self.subscriptionsArray.object(at: selectedPlanIndex) as! Subscriptions
-                let tempDict : NSDictionary = ["plan" : selectedSubscription.id!]
+                let tempDict : NSMutableDictionary = ["plan" : selectedSubscription.id!]
                 delegate?.getFilterDictionary(searchDict: tempDict)
+                dismiss(animated: true, completion: nil)
             }
         }
         
@@ -110,7 +123,10 @@ class MembersFilterController: BaseViewController {
 
     
         func clearFilterValues () {
-            self.dismissViewController()
+            self.subscriptionPlanButton.setTitle("", for: .normal)
+            self.filterDataDict?.removeAllObjects()
+            self.filterDataDict = nil
+            dismiss(animated: true, completion: nil)
             delegate?.clearFilter()
         }
         

@@ -38,13 +38,13 @@ class StaffCell: UITableViewCell {
         }
         
         if let email = staffBean.email {
-            self.emailLabel.text = email
+            self.mailButton.setTitle(email, for: UIControlState.normal)
         }
 
         if let contactNumber = staffBean.contact_number {
-            self.contactNumberLabel.text = contactNumber.stringValue
+            self.callButton.setTitle(contactNumber.stringValue, for: UIControlState.normal)
         }
-        
+
         if let createdAt = staffBean.created_at {
             self.createdAtLabel.text = Utility().getDateString(dateStr: createdAt)
         }
@@ -57,7 +57,7 @@ class StaffCell: UITableViewCell {
             let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
             let valueString = NSMutableAttributedString(string: Utility().getDateStringSimple(dateStr: joiningDate), attributes: myAttribute )
             let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
-            let myString = NSMutableAttributedString(string: "Joining Date - ", attributes: myAttribute1 )
+            let myString = NSMutableAttributedString(string: "Joining Date ", attributes: myAttribute1 )
             myString.append(valueString)
             self.joiningDateLabel.attributedText = myString
             

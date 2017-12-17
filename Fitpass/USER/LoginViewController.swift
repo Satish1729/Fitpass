@@ -123,39 +123,9 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     @IBAction func forgotPasswordBtnAction(_ sender: Any) {
         
         self.hideTextFields()
-        
-        showAlertWithTextFieldAndTitle(title: StringFiles().FORGOTPASSWORDTITLE, message: StringFiles().FORGOTPASSWORDMESSAGE, forTarget: self, buttonOK: StringFiles().SEND, buttonCancel: StringFiles().CANCEL, isEmail:true, textPlaceholder: StringFiles().EMAIL_ID, alertOK: { (emailId:String) in
-            print("email id : \(emailId)")
-            
-            if !isInternetAvailable() {
-                AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
-                return;
-            }
-            
-            ProgressHUD.showProgress(targetView: self.view)
-            
-            let parameters : Dictionary? = ["email" : emailId]
-            print("forgot password : \(ServerConstants.URL_FORGOT_PASSWORD)")
-            
-            NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_FORGOT_PASSWORD, userInfo: parameters as NSDictionary?, type: "POST", completion: { (data, response, error) in
-                
-                ProgressHUD.hideProgress()
-                
-                if error == nil {
-                    let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-                    let responseDict:NSDictionary? = jsonObject as? NSDictionary
-                    print(responseDict!)
-                    AlertView.showCustomAlertWithMessage(message: responseDict!.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
-                }
-                else{
-                    let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-                    let responseDict:NSDictionary? = jsonObject as? NSDictionary
-                    print(responseDict!)
-                    AlertView.showCustomAlertWithMessage(message: StringFiles().FORGOTPASSWORDFAILMESSAGE, yPos: 20, duration: NSInteger(2.0))
-                }
-            })
-        }) { Void in}
-        
+        self.performSegue(withIdentifier: "forgotpassword", sender: self)
+//        let forgotPwdVC : ForgotPasswordViewController = self.storyboard?.instantiateViewController(withIdentifier: "forgotpasswordID") as! ForgotPasswordViewController
+//        self.present(forgotPwdVC, animated: true, completion: nil)
     }
     
     

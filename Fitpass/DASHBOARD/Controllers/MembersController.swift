@@ -9,7 +9,7 @@
 import UIKit
 
 protocol memberDelegate {
-    func getFilterDictionary (searchDict: NSDictionary)
+    func getFilterDictionary (searchDict: NSMutableDictionary)
     func clearFilter ()
 }
 
@@ -17,7 +17,7 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         
         var subscriptionPlan: String?
-        
+    var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
         @IBOutlet weak var membersSearchBar: UISearchBar!
         @IBOutlet weak var membersTableView: UITableView!
         
@@ -26,7 +26,8 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
         var filteredArray: NSMutableArray = NSMutableArray()
         var searchString : String? = ""
         var selectedMemberObj : Members?
-        
+    var filterDict : NSMutableDictionary?
+
         
        override func viewDidLoad() {
             super.viewDidLoad()
@@ -50,8 +51,15 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
         
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if(segue.identifier == "member_filter") {
+                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
+                segue.destination.modalPresentationStyle = .custom
+                segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
+                
                 let filterVC : MembersFilterController = segue.destination as! MembersFilterController
+                
                 filterVC.delegate = self
+                filterVC.filterDataDict = self.filterDict
+                
             }
             else if(segue.identifier == "member_detail") {
                 let memberDetailVC : MemberDetailController = segue.destination as! MemberDetailController
@@ -302,13 +310,44 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
             self.membersTableView.reloadData()
         }
         
-        func getFilterDictionary(searchDict: NSDictionary) {
+        func getFilterDictionary(searchDict: NSMutableDictionary) {
+            self.filterDict = searchDict
             let tempVar = searchDict.object(forKey: "plan") as? NSNumber
             self.subscriptionPlan = tempVar?.stringValue
             searchActive = true
             self.getSearchFilterMembers()
         }
     
+    
+    func downloadMembers() {
+        
+        if (appDelegate.userBean == nil) {
+            return
+        }
+        if !isInternetAvailable() {
+            AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+            return;
+        }
+        
+        ProgressHUD.showProgress(targetView: self.view)
+        
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_MEMBERS_DOWNLOAD , userInfo: nil, type: "GET") { (data, response, error) in
+            
+            ProgressHUD.hideProgress()
+            
+            if error == nil {
+                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+                let responseDic:NSDictionary? = jsonObject as? NSDictionary
+                if (responseDic != nil) {
+                    print(responseDic!)
+                }
+            }
+            else{
+                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
+                print("Download Members failed : \(String(describing: error?.localizedDescription))")
+            }
+        }
+    }
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.

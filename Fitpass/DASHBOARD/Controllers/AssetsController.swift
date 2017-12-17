@@ -9,7 +9,7 @@
 import UIKit
 
 protocol assetDelegate {
-    func getDictionary (searchDict: NSDictionary)
+    func getDictionary (searchDict: NSMutableDictionary)
     func clearFilter ()
 }
 
@@ -17,7 +17,6 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
         
         var purchaseDateFrom: String?
         var purchaseDateTo: String?
-        
         
         @IBOutlet weak var assetsSearchBar: UISearchBar!
         @IBOutlet weak var assetsTableView: UITableView!
@@ -310,14 +309,42 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
             self.assetsTableView.reloadData()
         }
         
-        func getDictionary(searchDict: NSDictionary) {
+        func getDictionary(searchDict: NSMutableDictionary) {
             self.purchaseDateFrom = searchDict.object(forKey: "purchase_date_from") as? String
             self.purchaseDateTo = searchDict.object(forKey: "purchase_date_to") as? String
             searchActive = true
             self.getSearchFilterAssets()
         }
         
+    func downloadAssets() {
         
+        if (appDelegate.userBean == nil) {
+            return
+        }
+        if !isInternetAvailable() {
+            AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+            return;
+        }
+        
+        ProgressHUD.showProgress(targetView: self.view)
+        
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_ASSETS_DOWNLOAD , userInfo: nil, type: "GET") { (data, response, error) in
+            
+            ProgressHUD.hideProgress()
+            
+            if error == nil {
+                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+                let responseDic:NSDictionary? = jsonObject as? NSDictionary
+                if (responseDic != nil) {
+                    print(responseDic!)
+                }
+            }
+            else{
+                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
+                print("Download Assets failed : \(String(describing: error?.localizedDescription))")
+            }
+        }
+    }
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.
