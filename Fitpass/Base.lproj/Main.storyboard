@@ -2471,7 +2471,7 @@
                         <outlet property="paymentsSearchBar" destination="jDj-PJ-XYS" id="UGM-Z3-uHh"/>
                         <outlet property="paymentsTableView" destination="fVn-IB-Tj0" id="D0b-mz-8l0"/>
                         <segue destination="F8U-qM-yZm" kind="show" identifier="payment_detail" id="2Lr-Fr-bzR"/>
-                        <segue destination="KQ5-Mo-QUK" kind="show" identifier="payment_filter" id="6T2-l4-F5G"/>
+                        <segue destination="KQ5-Mo-QUK" kind="presentation" identifier="payment_filter" id="6T2-l4-F5G"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UWF-7M-fQd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2616,20 +2616,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter By Bank UTR Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFx-to-tzX">
-                                <rect key="frame" x="41" y="120" width="294" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="z6Q-w0-utn"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Filter By Bank UTR Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFx-to-tzX">
+                                <rect key="frame" x="16" y="46" width="294" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <color key="textColor" white="0.0" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter bank utr number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kET-n2-PlN">
-                                <rect key="frame" x="41" y="164" width="294" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="pxW-SY-RRh"/>
-                                </constraints>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter bank utr number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kET-n2-PlN">
+                                <rect key="frame" x="16" y="77" width="343" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -2637,21 +2633,17 @@
                                     <outlet property="delegate" destination="KQ5-Mo-QUK" id="UAO-PG-lht"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter By Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oln-Q6-5ej">
-                                <rect key="frame" x="41" y="229" width="294" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="eaS-Ie-3MP"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Filter By Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oln-Q6-5ej">
+                                <rect key="frame" x="16" y="130" width="294" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <color key="textColor" white="0.0" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Payment Date" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="8tF-Wy-9eT">
-                                <rect key="frame" x="41" y="269" width="129.5" height="30"/>
-                                <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Xj7-lg-Fyc"/>
-                                </constraints>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="DD/MM/YYYY" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="8tF-Wy-9eT">
+                                <rect key="frame" x="16" y="195" width="159" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -2659,9 +2651,61 @@
                                     <outlet property="delegate" destination="KQ5-Mo-QUK" id="c2l-XG-fRB"/>
                                 </connections>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Payment Month" textAlignment="center" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="zVl-HP-L3S">
-                                <rect key="frame" x="205" y="269" width="129.5" height="30"/>
-                                <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Id1-wC-HR5">
+                                <rect key="frame" x="0.0" y="253" width="375" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.94901960780000005" green="0.28627450980000002" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <state key="normal" title="APPLY">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="searchButtonClicked:" destination="KQ5-Mo-QUK" eventType="touchUpInside" id="Uhf-h4-o46"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoX-cl-aR7">
+                                <rect key="frame" x="16" y="8" width="82" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.94901960780000005" green="0.28627450980000002" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonClicked:" destination="KQ5-Mo-QUK" eventType="touchUpInside" id="MUk-b5-hjl"/>
+                                    <action selector="cancelButtonClicked:" destination="Hsg-nL-CZZ" eventType="touchUpInside" id="iBb-As-agt"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94X-9N-a6G">
+                                <rect key="frame" x="312" y="8" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <state key="normal" title="Reset">
+                                    <color key="titleColor" red="0.94901960780000005" green="0.28627450980000002" blue="0.30588235289999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetButtonClicked:" destination="KQ5-Mo-QUK" eventType="touchUpInside" id="YcB-oW-MQH"/>
+                                    <action selector="resetButtonClicked:" destination="Hsg-nL-CZZ" eventType="touchUpInside" id="isu-09-xRS"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Payment Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iU4-5F-qSd">
+                                <rect key="frame" x="16" y="166" width="159" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Payment Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foR-W6-8A1">
+                                <rect key="frame" x="209" y="166" width="150" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="YYYY/MM" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="zVl-HP-L3S">
+                                <rect key="frame" x="209" y="195" width="150" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -2669,41 +2713,8 @@
                                     <outlet property="delegate" destination="KQ5-Mo-QUK" id="fW9-mh-kbD"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Id1-wC-HR5">
-                                <rect key="frame" x="41" y="339" width="294" height="38"/>
-                                <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="Xad-jl-LZI"/>
-                                </constraints>
-                                <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                <state key="normal" title="APPLY"/>
-                                <connections>
-                                    <action selector="searchButtonClicked:" destination="KQ5-Mo-QUK" eventType="touchUpInside" id="Uhf-h4-o46"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="jFx-to-tzX" firstAttribute="leading" secondItem="ydC-p1-Scw" secondAttribute="leadingMargin" constant="25" id="2tM-kC-t2H"/>
-                            <constraint firstItem="Id1-wC-HR5" firstAttribute="trailing" secondItem="zVl-HP-L3S" secondAttribute="trailing" id="4u2-q4-1SA"/>
-                            <constraint firstItem="oln-Q6-5ej" firstAttribute="trailing" secondItem="kET-n2-PlN" secondAttribute="trailing" id="6wc-qQ-zJq"/>
-                            <constraint firstItem="kET-n2-PlN" firstAttribute="top" secondItem="jFx-to-tzX" secondAttribute="bottom" constant="23" id="7yH-nC-tks"/>
-                            <constraint firstItem="kET-n2-PlN" firstAttribute="trailing" secondItem="jFx-to-tzX" secondAttribute="trailing" id="C9u-gF-dc0"/>
-                            <constraint firstItem="oln-Q6-5ej" firstAttribute="leading" secondItem="kET-n2-PlN" secondAttribute="leading" id="HYN-Z3-eEN"/>
-                            <constraint firstItem="8tF-Wy-9eT" firstAttribute="leading" secondItem="oln-Q6-5ej" secondAttribute="leading" id="JKZ-x2-rrB"/>
-                            <constraint firstItem="Id1-wC-HR5" firstAttribute="top" secondItem="8tF-Wy-9eT" secondAttribute="bottom" constant="40" id="SNj-o3-Cgs"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="jFx-to-tzX" secondAttribute="trailing" constant="24" id="SZF-nL-5Fg"/>
-                            <constraint firstItem="jFx-to-tzX" firstAttribute="top" secondItem="lhx-76-Xth" secondAttribute="bottom" constant="56" id="XxQ-ak-uUP"/>
-                            <constraint firstItem="zVl-HP-L3S" firstAttribute="leading" secondItem="8tF-Wy-9eT" secondAttribute="trailing" constant="34.5" id="dcS-Jc-nUI"/>
-                            <constraint firstItem="zVl-HP-L3S" firstAttribute="top" secondItem="oln-Q6-5ej" secondAttribute="bottom" constant="19" id="f8u-Q5-rOM"/>
-                            <constraint firstItem="zVl-HP-L3S" firstAttribute="width" secondItem="8tF-Wy-9eT" secondAttribute="width" id="foD-6O-YZB"/>
-                            <constraint firstItem="Id1-wC-HR5" firstAttribute="leading" secondItem="8tF-Wy-9eT" secondAttribute="leading" id="gCS-dI-Ill"/>
-                            <constraint firstItem="zVl-HP-L3S" firstAttribute="trailing" secondItem="oln-Q6-5ej" secondAttribute="trailing" id="kCj-by-OsE"/>
-                            <constraint firstItem="8tF-Wy-9eT" firstAttribute="top" secondItem="oln-Q6-5ej" secondAttribute="bottom" constant="19" id="lMo-Ld-5xT"/>
-                            <constraint firstItem="oln-Q6-5ej" firstAttribute="top" secondItem="kET-n2-PlN" secondAttribute="bottom" constant="35" id="raq-fk-0Xx"/>
-                            <constraint firstItem="kET-n2-PlN" firstAttribute="leading" secondItem="jFx-to-tzX" secondAttribute="leading" id="rzK-jC-gn0"/>
-                            <constraint firstItem="zVl-HP-L3S" firstAttribute="height" secondItem="8tF-Wy-9eT" secondAttribute="height" id="scT-Xu-i2W"/>
-                        </constraints>
                     </view>
                     <connections>
                         <outlet property="bankUtrNumberTextField" destination="kET-n2-PlN" id="idn-vg-1Ei"/>
@@ -2713,7 +2724,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RV8-36-vGH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3745" y="-186"/>
+            <point key="canvasLocation" x="3744.8000000000002" y="-186.65667166416793"/>
         </scene>
         <!--Assets-->
         <scene sceneID="IAS-7z-XwP">

@@ -26,8 +26,9 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
         var filtered: NSMutableArray = NSMutableArray()
         var searchString : String? = ""
         var selectedAssetObj : Assets?
-        
-        
+        var filterDict : NSMutableDictionary?
+        var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
+    
         override func viewDidLoad() {
             super.viewDidLoad()
 //            assetsSearchBar.showsCancelButton = true
@@ -49,8 +50,13 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
         
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if(segue.identifier == "asset_filter") {
+                self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
+                segue.destination.modalPresentationStyle = .custom
+                segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
+                
                 let filterVC : AssetsFilterController = segue.destination as! AssetsFilterController
                 filterVC.delegate = self
+                filterVC.filterDataDict = self.filterDict
             }
             else if(segue.identifier == "asset_detail") {
                 let assetDetailVC : AssetDetailController = segue.destination as! AssetDetailController
@@ -310,8 +316,18 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
         }
         
         func getDictionary(searchDict: NSMutableDictionary) {
-            self.purchaseDateFrom = searchDict.object(forKey: "purchase_date_from") as? String
-            self.purchaseDateTo = searchDict.object(forKey: "purchase_date_to") as? String
+            
+            self.filterDict = searchDict
+            if let fromdate = searchDict.object(forKey: "purchase_date_from") as? String{
+                self.purchaseDateFrom = fromdate
+            }else{
+                self.purchaseDateFrom = ""
+            }
+            if let todate = searchDict.object(forKey: "purchase_date_to") as? String{
+                self.purchaseDateTo = todate
+            }else{
+                self.purchaseDateTo = ""
+            }
             searchActive = true
             self.getSearchFilterAssets()
         }

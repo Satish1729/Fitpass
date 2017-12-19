@@ -10,7 +10,7 @@
 import UIKit
 
 protocol paymentDelegate {
-    func getDictionary (searchDict: NSDictionary)
+    func getFilterDictionary (searchDict: NSMutableDictionary)
     func clearFilter ()
 }
 
@@ -28,7 +28,8 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
     var filtered: NSMutableArray = NSMutableArray()
     var searchString : String? = ""
     var selectedPaymentObj : Payments?
-    
+    var filterDict: NSMutableDictionary?
+    var halfModalTransitioningDelegate : HalfModalTransitioningDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,8 +70,14 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(segue.identifier == "payment_filter") {
+            self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
+            segue.destination.modalPresentationStyle = .custom
+            segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
+            
             let paymentVC : PaymentsFilterController = segue.destination as! PaymentsFilterController
             paymentVC.delegate = self
+            paymentVC.filterDataDict = self.filterDict
+
         }
         else if(segue.identifier == "payment_detail") {
             let paymentDetailVC : PaymentDetailController = segue.destination as! PaymentDetailController
@@ -343,10 +350,23 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
         self.paymentsTableView.reloadData()
     }
     
-    func getDictionary(searchDict: NSDictionary) {
-        self.bankUtrNumber = searchDict.object(forKey: "bankUtrNumber") as? String
-        self.paymentDate = searchDict.object(forKey: "paymentDate") as? String
-        self.paymentMonth = searchDict.object(forKey: "paymentMonth") as? String
+    func getFilterDictionary(searchDict: NSMutableDictionary) {
+        self.filterDict = searchDict
+        if let bankutr = searchDict.object(forKey: "bankUtrNumber") as? String{
+            self.bankUtrNumber = bankutr
+        }else{
+            self.bankUtrNumber = ""
+        }
+        if let paymentdate = searchDict.object(forKey: "paymentDate") as? String{
+            self.paymentDate = paymentdate
+        }else{
+            self.paymentDate = ""
+        }
+        if let paymentmonth = searchDict.object(forKey: "paymentMonth") as? String{
+            self.paymentMonth = paymentmonth
+        }else{
+            self.paymentMonth = ""
+        }
         searchActive = true
         self.getSearchFilterPayments()
     }

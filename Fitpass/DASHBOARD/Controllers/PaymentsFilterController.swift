@@ -9,38 +9,37 @@
 import UIKit
 import DropDown
 
-class PaymentsFilterController: BaseViewController, UITextFieldDelegate {
+class PaymentsFilterController: BaseViewController, UITextFieldDelegate, HalfModalPresentable {
     
     var delegate : paymentDelegate?
-    
+    var filterDataDict : NSMutableDictionary?
+
     @IBOutlet weak var paymentDateTxtField: UITextField!
     @IBOutlet weak var paymentMonthTxtField: UITextField!
     @IBOutlet weak var bankUtrNumberTextField: UITextField!
     
+    @IBAction func cancelButtonClicked(_ sender: Any) {
+        if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
+            delegate.interactiveDismiss = false
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func resetButtonClicked(_ sender: Any) {
+        self.clearFilterValues()
+    }
+
     @IBAction func searchButtonClicked(_ sender: Any) {
         
-        if bankUtrNumberTextField.text == "" {
-            AlertView.showCustomAlertWithMessage(message: "Please enter bank UTR number" , yPos: 20, duration: NSInteger(2.0))
-            return
-        }
-        else if paymentDateTxtField.text == "" {
-            AlertView.showCustomAlertWithMessage(message: "Select payment date" , yPos: 20, duration: NSInteger(2.0))
-            return
-            
-        }else if(paymentMonthTxtField.text == "") {
-            AlertView.showCustomAlertWithMessage(message: "Select payment month", yPos: 20, duration: NSInteger(2.0))
-            return
-            
-        }else if !isInternetAvailable() {
+        if !isInternetAvailable() {
             AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
             return
         }
-        self.dismissViewController()
-        let tempDict : NSDictionary = ["paymentDate" : paymentDateTxtField.text!, "paymentMonth" : paymentMonthTxtField.text!, "bankUtrNumber" : bankUtrNumberTextField.text!]
-        delegate?.getDictionary(searchDict: tempDict)
+        dismiss(animated: true, completion: nil)
+        
+        let tempDict : NSMutableDictionary = ["paymentDate" : paymentDateTxtField.text!, "paymentMonth" : paymentMonthTxtField.text!, "bankUtrNumber" : bankUtrNumberTextField.text!]
+        delegate?.getFilterDictionary(searchDict: tempDict)
     }
-    
-    let dropDown = DropDown()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,32 +53,25 @@ class PaymentsFilterController: BaseViewController, UITextFieldDelegate {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(clearFilterValues))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        
-        
-//        dropDown.anchorView = self.statusButton
-//        dropDown.bottomOffset = CGPoint(x: 0, y: self.statusButton.frame.size.height)
-//        dropDown.width = self.statusButton.frame.size.width
-//        dropDown.dataSource = ["HOT", "DEAD", "COLD"]
-//        dropDown.direction = .any
-//        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-//            self.statusButton.setTitle(item, for: UIControlState.normal)
-//        }
-//        
-//        self.statusButton.addTarget(self, action: #selector(changeStatus), for: .touchUpInside)
-    }
-    
-    func changeStatus() {
-        self.dropDown.show()
     }
     
     func clearFilterValues () {
-        self.dismissViewController()
+        self.bankUtrNumberTextField.text = ""
+        self.paymentDateTxtField.text = ""
+        self.paymentMonthTxtField.text = ""
+        self.filterDataDict?.removeAllObjects()
+        self.filterDataDict = nil
+        dismiss(animated: true, completion: nil)
         delegate?.clearFilter()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = "Payments Filter"
+        if(self.filterDataDict != nil){
+            self.bankUtrNumberTextField.text = self.filterDataDict?.object(forKey: "bankUtrNumber") as? String
+            self.paymentDateTxtField.text = self.filterDataDict?.object(forKey: "paymentDate") as? String
+            self.paymentMonthTxtField.text = self.filterDataDict?.object(forKey: "paymentMonth") as? String
+        }
     }
     
     func dismissViewController() {
