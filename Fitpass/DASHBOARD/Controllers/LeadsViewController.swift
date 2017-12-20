@@ -44,8 +44,14 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
         filterBtn.addTarget(self, action: #selector(navigateToLeadsFilter), for: .touchUpInside)
         let item1 = UIBarButtonItem(customView: filterBtn)
 
+        let downloadBtn = UIButton(type: .custom)
+        downloadBtn.setImage(UIImage(named: "download"), for: .normal)
+        downloadBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+        downloadBtn.addTarget(self, action: #selector(downloadLeads), for: .touchUpInside)
+        let item2 = UIBarButtonItem(customView: downloadBtn)
+
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = item1
+        self.navigationItem.rightBarButtonItems = [item1, item2]
         self.leadsTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         self.getLeads()
     }
@@ -154,7 +160,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let parameters : [String : Any] = ["lead_nature" : self.natureString! , "date_range_to" : Utility().getFilterDateFromString(dateStr: self.endDate!), "date_range_from" : Utility().getFilterDateFromString(dateStr: self.startDate!), "status":self.statusString!]
+        let parameters : [String : Any] = ["lead_nature" : self.statusString! , "date_range_to" : Utility().getFilterDateFromString(dateStr: self.endDate!), "date_range_from" : Utility().getFilterDateFromString(dateStr: self.startDate!), "lead_status":self.natureString!]
         
         let urlString  = self.createURLFromParameters(parameters: parameters)
         let str : String = ServerConstants.URL_GET_ALL_LEADS+urlString.absoluteString
@@ -363,7 +369,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
         }
         
         ProgressHUD.showProgress(targetView: self.view)
-        
+
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_LEADS_DOWNLOAD , userInfo: nil, type: "GET") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -373,6 +379,7 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
+                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
                 }
             }
             else{

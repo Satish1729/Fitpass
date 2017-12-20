@@ -36,8 +36,15 @@
     addBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
     addBtn.addTarget(self, action: #selector(navigateToAddController), for: .touchUpInside)
     let item1 = UIBarButtonItem(customView: addBtn)
+
+    let downloadBtn = UIButton(type: .custom)
+    downloadBtn.setImage(UIImage(named: "download"), for: .normal)
+    downloadBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+    downloadBtn.addTarget(self, action: #selector(downloadStaffs), for: .touchUpInside)
+    let item2 = UIBarButtonItem(customView: downloadBtn)
+    
     self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-    self.navigationItem.rightBarButtonItem = item1
+    self.navigationItem.rightBarButtonItems = [item1, item2]
 
     self.getStaffList()
     }
@@ -454,6 +461,7 @@
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
                     }
                 }
                 else{

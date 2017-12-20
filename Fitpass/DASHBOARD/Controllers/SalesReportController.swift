@@ -38,9 +38,16 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
         filterBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
         filterBtn.addTarget(self, action: #selector(navigateTosalesReportFilter), for: .touchUpInside)
         let item1 = UIBarButtonItem(customView: filterBtn)
-        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-        self.navigationItem.rightBarButtonItem = item1
         
+        let downloadBtn = UIButton(type: .custom)
+        downloadBtn.setImage(UIImage(named: "download"), for: .normal)
+        downloadBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+        downloadBtn.addTarget(self, action: #selector(downloadSaleseport), for: .touchUpInside)
+        let item2 = UIBarButtonItem(customView: downloadBtn)
+        
+        self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+        self.navigationItem.rightBarButtonItems = [item1, item2]
+
         self.getsalesReport()
     }
     
@@ -326,6 +333,9 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
         self.getSearchFiltersalesReport()
     }
 
+    func downloadSaleseport(){
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

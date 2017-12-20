@@ -40,7 +40,7 @@ class ServerConstants: NSObject {
     static let URL_GAUGE_DATA = BASE_URL+"gauge_data"
     static let URL_MEMBERS_DATA = BASE_URL+"gauge_data/members"
     static let URL_GET_SALESREPORT = BASE_URL+"members/payments"
-    static let URL_URC = BASE_URL+" workouts/verifyusers"
+    static let URL_URC = BASE_URL+"workouts/verifyusers"
     static let URL_ASSETS_DOWNLOAD = BASE_URL+"assets/sendReport"
     static let URL_STAFFS_DOWNLOAD = BASE_URL+"staff/sendReport"
     static let URL_LEADS_DOWNLOAD = BASE_URL+"leads/sendReport"

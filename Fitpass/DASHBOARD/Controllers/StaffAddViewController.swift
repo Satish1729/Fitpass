@@ -8,7 +8,7 @@
 
 import UIKit
 import DropDown
-
+//https://medium.com/theappspace/alamofire-4-multipart-file-upload-with-swift-3-174df1ef84c1
 class StaffAddViewController: BaseViewController {
 
     @IBOutlet weak var addScrollView: UIScrollView!

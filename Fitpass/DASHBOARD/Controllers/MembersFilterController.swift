@@ -56,7 +56,7 @@ class MembersFilterController: BaseViewController {
 
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(clearFilterValues))
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-            
+        
             getSubscriptionPlans()
         }
         
@@ -100,7 +100,13 @@ class MembersFilterController: BaseViewController {
                         self.dropDown.width = self.subscriptionPlanButton.frame.size.width
                         self.dropDown.dataSource = tempArr as! [String]//["Pearl Hart", "Gold Plan", "Silver Plan"]
                         self.dropDown.direction = .any
-                        self.subscriptionPlanButton.setTitle(tempArr.object(at: 0) as? String, for: UIControlState.normal)
+                        if let plantitle = self.filterDataDict?.object(forKey: "plan") as? NSNumber {
+                            let subscriptTitle = self.subscriptionsArray.object(at: (Int(plantitle)-1)) as! Subscriptions
+                            self.subscriptionPlanButton.setTitle(subscriptTitle.plan_name, for:UIControlState.normal)
+                        }else{
+                            self.subscriptionPlanButton.setTitle(tempArr.object(at:0) as? String, for: UIControlState.normal)
+                        }
+
 
                         self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
                             self.subscriptionPlanButton.setTitle(item, for: UIControlState.normal)
@@ -123,7 +129,7 @@ class MembersFilterController: BaseViewController {
 
     
         func clearFilterValues () {
-            self.subscriptionPlanButton.setTitle("", for: .normal)
+            self.subscriptionPlanButton.setTitle("Basic Plan", for: .normal)
             self.filterDataDict?.removeAllObjects()
             self.filterDataDict = nil
             dismiss(animated: true, completion: nil)
@@ -133,6 +139,13 @@ class MembersFilterController: BaseViewController {
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             self.navigationItem.title = "Member Filter"
+            
+//            if let plantitle = self.filterDataDict?.object(forKey: "plan") as? String {
+//                self.subscriptionPlanButton.setTitle(plantitle , for: UIControlState.normal)
+//            }else{
+//                self.subscriptionPlanButton.setTitle("Basic Plan", for: UIControlState.normal)
+//            }
+
         }
         
         func dismissViewController() {

@@ -18,10 +18,19 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
         var filteredArray: NSMutableArray = NSMutableArray()
         var searchString : String? = ""
         var selectedReservedWorkoutObj : ReservedWorkouts?
-        
+    var URCString : String? = ""
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            let downloadBtn = UIButton(type: .custom)
+            downloadBtn.setImage(UIImage(named: "reservedworkouts"), for: .normal)
+            downloadBtn.frame = CGRect(x: 0, y: 0, width: 15, height: 15)
+            downloadBtn.addTarget(self, action: #selector(verifyURC), for: .touchUpInside)
+            let item1 = UIBarButtonItem(customView: downloadBtn)
+            
+            self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+            self.navigationItem.rightBarButtonItems = [item1]
+
             
             let partnerForm = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier:"PartnerRequestViewController") as! PartnerRequestViewController
             partnerForm.view.frame = CGRect(x:0, y:0, width:self.view.bounds.width, height:self.view.bounds.height)
@@ -242,7 +251,48 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
             
         }
         
+    func verifyURC(){
+        
+        showAlertWithTextFieldAndTitle(title: "VALIDATE URC NUMBER", message: "Enter URC number *", forTarget: self, buttonOK: "Validate", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Please enter URC number", alertOK: { (msgString) in
+            self.URCString = msgString
+            self.sendURC()
+        }) { (Void) in
+            
+        }
+    }
     
+    func sendURC(){
+        if (appDelegate.userBean == nil) {
+            return
+        }
+        if !isInternetAvailable() {
+            AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+            return;
+        }
+        
+        ProgressHUD.showProgress(targetView: self.view)
+        
+        let paramDict : [String : Any] = ["bank_utr_number" : self.URCString!]
+        
+        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_URC , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
+            
+            ProgressHUD.hideProgress()
+            
+            if error == nil {
+                let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+                let responseDic:NSDictionary? = jsonObject as? NSDictionary
+                if (responseDic != nil) {
+                    print(responseDic!)
+                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+                }
+            }
+            else{
+                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
+                print("sending message to lead failed : \(String(describing: error?.localizedDescription))")
+            }
+        }
+    }
+
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.

@@ -49,6 +49,7 @@ func showAlertWithTextFieldAndTitle(title:String, message: String, forTarget: An
             alertCancel()
             alertController.dismiss(animated: true, completion: nil)
         })
+        cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
         
         alertController.addAction(cancelAction)
     }
@@ -58,6 +59,7 @@ func showAlertWithTextFieldAndTitle(title:String, message: String, forTarget: An
         let textField = alertController.textFields![0] as UITextField
         alertOK(textField.text!)
     })
+    OKButtonAction.setValue(UIColor.red, forKey: "titleTextColor")
     OKButtonAction.isEnabled = false
     alertController .addAction(OKButtonAction)
     //    }
