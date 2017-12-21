@@ -49,9 +49,9 @@ class AssetsCell: UITableViewCell {
         }
         
         if let purchasedOn = assetBean.purchased_on {
-            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.black]
             let valueString = NSMutableAttributedString(string: Utility().getDateStringSimple(dateStr: purchasedOn), attributes: myAttribute )
-            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.lightGray]
             let myString = NSMutableAttributedString(string: "Purchase Date ", attributes: myAttribute1 )
             myString.append(valueString)
             self.purchasedOnLabel.attributedText = myString

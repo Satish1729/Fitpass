@@ -82,16 +82,16 @@ class LeadsCell: UITableViewCell {
         }
         
         if let nextFollowUp = leadBean.next_follow_up {
-            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
-            
+            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.black]
+
             var valueString:NSMutableAttributedString
             if(leadBean.next_follow_up == "0000-00-00"){
                 valueString = NSMutableAttributedString.init(string: "NA")
             }else{
                 valueString = NSMutableAttributedString(string: Utility().getDateStringSimple(dateStr: nextFollowUp), attributes: myAttribute )
             }
-                //            let valueString = NSMutableAttributedString(string: nextFollowUp, attributes: myAttribute )
-            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.lightGray]
+            
             let myString = NSMutableAttributedString(string: "Next Follow Up ", attributes: myAttribute1 )
             myString.append(valueString)
             self.nextFollowUpLabel.attributedText = myString

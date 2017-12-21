@@ -31,11 +31,11 @@ class WorkoutCell: UITableViewCell {
         self.borderView.layer.masksToBounds = false
         self.borderView.layer.cornerRadius = 1.0
 
-        if let name = workoutBean.workout_name {
+        if let name = workoutBean.workout_category_name {
             self.workoutNameLabel.text = name
         }
         
-        if let categoryname = workoutBean.workout_category_name{
+        if let categoryname = workoutBean.workout_name{
             self.categoryName.text = categoryname
         }
         
@@ -44,9 +44,9 @@ class WorkoutCell: UITableViewCell {
         }
         
         if let createdBy = workoutBean.created_by {
-            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15.0)]
+            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.black]
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.lightGray]
             let valueString = NSMutableAttributedString(string: createdBy, attributes: myAttribute )
-            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0)]
             let myString = NSMutableAttributedString(string: "Created By ", attributes: myAttribute1 )
             myString.append(valueString)
             self.createdByLabel.attributedText = myString

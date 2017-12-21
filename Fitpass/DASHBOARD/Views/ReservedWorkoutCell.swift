@@ -61,9 +61,10 @@ class ReservedWorkoutCell: UITableViewCell {
         }
         
         if let membershipId = reservedBean.start_time {
-            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.black]
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.lightGray]
+
             let valueString = NSMutableAttributedString(string: membershipId, attributes: myAttribute )
-            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
             let myString = NSMutableAttributedString(string: "Starting at : ", attributes: myAttribute1 )
             myString.append(valueString)
             self.membershipIdLabel.attributedText = myString

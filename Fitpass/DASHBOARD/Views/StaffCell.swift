@@ -54,9 +54,10 @@ class StaffCell: UITableViewCell {
         }
         
         if let joiningDate = staffBean.joining_date {
-            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.black]
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.lightGray]
+
             let valueString = NSMutableAttributedString(string: Utility().getDateStringSimple(dateStr: joiningDate), attributes: myAttribute )
-            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
             let myString = NSMutableAttributedString(string: "Joining Date ", attributes: myAttribute1 )
             myString.append(valueString)
             self.joiningDateLabel.attributedText = myString

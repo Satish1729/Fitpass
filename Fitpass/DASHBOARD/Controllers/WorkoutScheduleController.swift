@@ -20,6 +20,17 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var workoutDaysButton: UIButton!
     @IBOutlet weak var workoutScheduleStatusButton: UIButton!
     
+    @IBOutlet weak var workoutLabel: UILabel!
+    @IBOutlet weak var seatsLabel: UILabel!
+    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak var endTimeLabel: UILabel!
+    @IBOutlet weak var workoutdaysLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    
+    @IBOutlet weak var addWorkButton: UIButton!
+    
+    
+    
     var workoutNamesArray : NSMutableArray = NSMutableArray()
     var workoutIdsDict : NSMutableDictionary = NSMutableDictionary()
     var selectedDay :String = ""
@@ -120,15 +131,29 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
             
             numberofSeatsTxtField.keyboardType = .numberPad
             
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addNewWorkoutSchedule))
+//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addNewWorkoutSchedule))
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
-            
+            self.addWorkButton.addTarget(self, action: #selector(addNewWorkoutSchedule), for: .touchUpInside)
             self.startTimeTxtField.delegate = self
             self.endTimeTxtField.delegate = self
         }
-        
+        self.workoutLabel.attributedText = self.setRedColorForStar(str: "Select Workout")
+        self.seatsLabel.attributedText = self.setRedColorForStar(str: "Number of Seats")
+        self.startTimeLabel.attributedText = self.setRedColorForStar(str: "Start Time")
+        self.endTimeLabel.attributedText = self.setRedColorForStar(str: "End Time")
+        self.workoutdaysLabel.attributedText = self.setRedColorForStar(str: "Workout Days")
+        self.statusLabel.attributedText = self.setRedColorForStar(str: "Workout Schedule Status")
     }
     
+    func setRedColorForStar(str:String) -> NSMutableAttributedString{
+        let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.red]
+        let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.black]
+        let valueString = NSMutableAttributedString(string:" *", attributes: myAttribute )
+        let myString = NSMutableAttributedString(string: str, attributes: myAttribute1 )
+        myString.append(valueString)
+        
+        return myString
+    }
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         
         if textField == startTimeTxtField {

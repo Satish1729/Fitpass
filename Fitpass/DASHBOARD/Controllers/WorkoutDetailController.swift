@@ -14,11 +14,9 @@ protocol workoutScheduleDelegate {
 
 
 class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableViewDataSource, workoutScheduleDelegate {
-    
-
         
         var workoutObj : Workouts?
-        var schedulesArray : NSMutableArray = NSMutableArray()
+    var schedulesArray : Array<WorkoutSchedulesObject> = []
         
         @IBOutlet weak var workoutDetailTableView: UITableView!
         @IBOutlet weak var nameLabel: UILabel!
@@ -42,7 +40,7 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
             self.profileImageView.image = UIImage(named: "workout_detail")
             
             if let tempArray = workoutObj?.workout_schedules{
-                self.schedulesArray = tempArray as! NSMutableArray
+                self.schedulesArray = tempArray
             }
             
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
@@ -130,8 +128,9 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
             
             let cell : WorkoutDetailCell = tableView.dequeueReusableCell(withIdentifier: "WorkoutDetailCell") as! WorkoutDetailCell
             
-            let schedulebean = schedulesArray.object(at:indexPath.row) as? WorkoutSchedulesObject
-            cell.updateWorkoutDetails(scheduleBean: schedulebean!)
+            
+            let schedulebean = schedulesArray[indexPath.row]
+            cell.updateWorkoutDetails(scheduleBean: schedulebean )
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero
@@ -141,7 +140,7 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
         }
     
     func addNewScheduleToList(scheduleBean: WorkoutSchedulesObject) {
-        self.schedulesArray = NSMutableArray.init(array: [scheduleBean])
+        self.schedulesArray = NSMutableArray.init(array: [scheduleBean]) as! Array<WorkoutSchedulesObject>
         workoutDetailTableView.reloadData()
         self.delegate?.updateSchdeulesArray(scheduleObj: scheduleBean)
     }

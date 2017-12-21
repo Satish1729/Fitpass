@@ -45,9 +45,9 @@ class PaymentsCell: UITableViewCell {
         }
         
         if let paymentmonth = paymentBean.payment_of_month {
-            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.black]
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.lightGray]
             let valueString = NSMutableAttributedString(string: Utility().getMonthString(dateStr: paymentmonth), attributes: myAttribute )
-            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
             let myString = NSMutableAttributedString(string: "Payment Month ", attributes: myAttribute1 )
             myString.append(valueString)
             self.paymentMonthLabel.attributedText = myString
@@ -58,6 +58,7 @@ class PaymentsCell: UITableViewCell {
         }
         
         if let paymentstatus = paymentBean.payment_status {
+            self.paymentStatusLabel.textColor = UIColor.black
             self.paymentStatusLabel.text = paymentstatus
             if(paymentstatus == "Transferred"){
                 self.paymentStatusColrView.backgroundColor = UIColor(red: 172/255, green: 240/255, blue: 55/255, alpha: 1.0)

@@ -60,9 +60,9 @@ class MembersCell: UITableViewCell {
 
         if let createdAt = memberBean.created_at {
             self.createdAtLabel.text = Utility().getDateString(dateStr: createdAt)
-            let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 12.0)]
+            let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.black]
             let valueString = NSMutableAttributedString(string: self.createdAtLabel.text!, attributes: myAttribute )
-            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0)]
+            let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 12.0), NSForegroundColorAttributeName: UIColor.lightGray]
             let myString = NSMutableAttributedString(string: "Expiry Date ", attributes: myAttribute1 )
             myString.append(valueString)
             self.preferredTimeSlotLabel.attributedText = myString
