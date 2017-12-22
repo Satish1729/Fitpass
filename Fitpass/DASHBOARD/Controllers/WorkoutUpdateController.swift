@@ -17,6 +17,13 @@ class WorkoutUpdateController: BaseViewController{
     @IBOutlet weak var workoutStatusButton: UIButton!
     @IBOutlet weak var workoutDescriptionButton: UITextField!
 
+    @IBOutlet weak var updateWorkoutButton: UIButton!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    
     let dropDown = DropDown()
     
     var workoutCategoriesArray : NSMutableArray = NSMutableArray()
@@ -67,7 +74,7 @@ class WorkoutUpdateController: BaseViewController{
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
             self.navigationItem.leftBarButtonItem = item1
             
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(updateWorkout))
+//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Update", style: .plain, target: self, action: #selector(updateWorkout))
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
             
             self.workoutCategoryButton.layer.borderColor = UIColor.lightGray.cgColor
@@ -80,6 +87,11 @@ class WorkoutUpdateController: BaseViewController{
             
             dropDown.direction = .any
 
+            self.nameLabel.attributedText = self.setRedColorForStar(str: "Workout Name")
+            self.categoryLabel.attributedText = self.setRedColorForStar(str: "Workout Category")
+            self.statusLabel.attributedText = self.setRedColorForStar(str: "Workout Status")
+            self.descriptionLabel.attributedText = self.setRedColorForStar(str: "Workout Description")
+            self.updateWorkoutButton.addTarget(self, action: #selector(updateWorkout), for: .touchUpInside)
         }
         
         override func viewWillAppear(_ animated: Bool) {

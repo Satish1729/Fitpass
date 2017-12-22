@@ -31,6 +31,16 @@ class BaseViewController: UIViewController, SideMenuControllerDelegate {
         self.borderView?.layer.cornerRadius = 1.0
 
     }
+    func setRedColorForStar(str:String) -> NSMutableAttributedString{
+        let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.red]
+        let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.black]
+        let valueString = NSMutableAttributedString(string:" *", attributes: myAttribute )
+        let myString = NSMutableAttributedString(string: str, attributes: myAttribute1 )
+        myString.append(valueString)
+        
+        return myString
+    }
+
     var randomColor: UIColor {
         let colors = [UIColor(hue:0.65, saturation:0.33, brightness:0.82, alpha:1.00),
                       UIColor(hue:0.57, saturation:0.04, brightness:0.89, alpha:1.00),

@@ -104,10 +104,10 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
         self.view.addSubview(partnerForm.view)
         
         if((appDelegate.userBean?.auth_key == "" || appDelegate.userBean?.auth_key == nil) || (appDelegate.userBean?.partner_id == "" || appDelegate.userBean?.partner_id == nil)){
-            scheduleScrollView.isHidden = true
+//            scheduleScrollView.isHidden = true
             partnerForm.view.isHidden = false
         }else{
-            scheduleScrollView.isHidden = false
+//            scheduleScrollView.isHidden = false
             partnerForm.view.isHidden = true
             
             if(isFromWorkoutDetail)
@@ -145,15 +145,15 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
         self.statusLabel.attributedText = self.setRedColorForStar(str: "Workout Schedule Status")
     }
     
-    func setRedColorForStar(str:String) -> NSMutableAttributedString{
-        let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.red]
-        let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.black]
-        let valueString = NSMutableAttributedString(string:" *", attributes: myAttribute )
-        let myString = NSMutableAttributedString(string: str, attributes: myAttribute1 )
-        myString.append(valueString)
-        
-        return myString
-    }
+//    func setRedColorForStar(str:String) -> NSMutableAttributedString{
+//        let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.red]
+//        let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.black]
+//        let valueString = NSMutableAttributedString(string:" *", attributes: myAttribute )
+//        let myString = NSMutableAttributedString(string: str, attributes: myAttribute1 )
+//        myString.append(valueString)
+//
+//        return myString
+//    }
     public func textFieldDidBeginEditing(_ textField: UITextField) {
         
         if textField == startTimeTxtField {

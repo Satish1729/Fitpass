@@ -15,6 +15,14 @@ class WorkoutAddController: BaseViewController {
     @IBOutlet weak var workoutCategoryButton: UIButton!
     @IBOutlet weak var workoutStatusButton: UIButton!
     @IBOutlet weak var workoutDescriptionButton: UITextField!
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    
+    @IBOutlet weak var addWorkoutButton: UIButton!
+    
     let dropDown = DropDown()
     var workoutCategoriesArray : NSMutableArray = NSMutableArray()
     var workoutIdsDict : NSMutableDictionary = NSMutableDictionary()
@@ -61,7 +69,7 @@ class WorkoutAddController: BaseViewController {
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
             self.navigationItem.leftBarButtonItem = item1
             
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addNewWorkout))
+//            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addNewWorkout))
             self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
             
             self.workoutCategoryButton.layer.borderColor = UIColor.lightGray.cgColor
@@ -73,7 +81,12 @@ class WorkoutAddController: BaseViewController {
             self.workoutStatusButton.layer.cornerRadius = 5
 
             dropDown.direction = .any
-
+            
+            self.nameLabel.attributedText = self.setRedColorForStar(str: "Workout Name")
+            self.categoryLabel.attributedText = self.setRedColorForStar(str: "Workout Category")
+            self.statusLabel.attributedText = self.setRedColorForStar(str: "Workout Status")
+            self.descriptionLabel.attributedText = self.setRedColorForStar(str: "Workout Description")
+            self.addWorkoutButton.addTarget(self, action: #selector(addNewWorkout), for: .touchUpInside)
         }
     
         override func viewWillAppear(_ animated: Bool) {
