@@ -11,13 +11,15 @@ import UIKit
 
 class ServerConstants: NSObject {
     
-    static let BASE_URL_CLIENT = "http://devapi.fitpass.co.in/studio/"
+    static let BASE_URL_CLIENT = "http://dev.fitpass.co.in/studio/" //"http://devapi.fitpass.co.in/studio/"
     
     static let BASE_URL_LOGIN = "http://fitpasscrm.com/api/" //"http://35.154.22.28/fitpassAdminDev/public/api/"
     
 //    static let BASE_URL_LOGIN_ADMIN = "http://35.154.22.28/fitpassAdminDev/public/api/"
     
-    static let BASE_URL = "http://partner_studio.fitpasscrm.com/api/" //"http://35.154.22.28/fitpassStudioDev/public/api/"
+    static let BASE_URL = "http://partner_studio.fitpasscrm.com/api/"
+    
+    //"http://35.154.22.28/fitpassStudioDev/public/api/"
     
     static let URL_LOGIN = BASE_URL_LOGIN+"studios/login"
 

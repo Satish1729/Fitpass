@@ -11,4 +11,5 @@ pod 'DropDown'
 pod 'Charts', '3.0.3'
 pod 'MBCircularProgressBar'
 pod 'DLRadioButton', '~> 1.4'
+pod 'AssetsPickerViewController', :git => 'https://github.com/DragonCherry/AssetsPickerViewController', :branch => 'swift3'
 end

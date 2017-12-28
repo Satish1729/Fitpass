@@ -84,11 +84,11 @@ class MembersCell: UITableViewCell {
     
     
     func call(){
-        callTheNumber(numberString: self.contactNumberLabel.text!)
+        callTheNumber(numberString: (self.callButton.titleLabel?.text)!)
     }
 
     func email(){
-        sendMailTo(mailString: self.emailLabel.text!)
+        sendMailTo(mailString: (self.mailButton.titleLabel?.text)!)
     }
 
     func callTheNumber(numberString : String){

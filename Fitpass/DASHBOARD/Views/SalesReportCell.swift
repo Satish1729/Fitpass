@@ -76,9 +76,9 @@ class SalesReportCell: UITableViewCell {
     
     
     func call(){
-        callTheNumber(numberString: self.contactNumberLabel.text!)
+        callTheNumber(numberString: (self.callButton.titleLabel?.text)!)
     }
-    
+
     
     func callTheNumber(numberString : String){
         if let url = URL(string: "tel://\(numberString)"), UIApplication.shared.canOpenURL(url) {
