@@ -39,8 +39,9 @@ class NetworkManager: NSObject {
             urlRequest.addValue((appDelegate.userBean?.authHeader)!, forHTTPHeaderField: "x-auth-token")
         }
         if appDelegate.userBean?.auth_key != nil {
-            urlRequest.addValue("hgdsdjfvsdjfvsdfvhjsdfjsavdfusdfuysfx", forHTTPHeaderField: "X-APPKEY")
-//            urlRequest.addValue((appDelegate.userBean?.auth_key)!, forHTTPHeaderField: "X-APPKEY")
+//            urlRequest.addValue("hgdsdjfvsdjfvsdfvhjsdfjsavdfusdfuysfx", forHTTPHeaderField: "X-APPKEY")
+//            urlRequest.addValue("6FB83776300B89723261B6B6C4A72590", forHTTPHeaderField: "X-APPKEY")
+            urlRequest.addValue((appDelegate.userBean?.auth_key)!, forHTTPHeaderField: "X-APPKEY")
         }
         if appDelegate.userBean?.partner_id != nil {
             urlRequest.addValue((appDelegate.userBean?.partner_id)!, forHTTPHeaderField: "X-partner-id") //(appDelegate.userBean?.partner_id)!

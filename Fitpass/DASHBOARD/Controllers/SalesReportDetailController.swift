@@ -29,7 +29,8 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
             super.viewDidLoad()
             
             self.nameLabel.text = salesReportObj?.member_name
-            self.contactNumberLabel.text=salesReportObj?.contact_number?.stringValue
+            self.callButton.setTitle(salesReportObj?.contact_number?.stringValue, for: UIControlState.normal)
+//            self.contactNumberLabel.text=salesReportObj?.contact_number?.stringValue
             
             self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
             
@@ -81,7 +82,7 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
             
             ProgressHUD.showProgress(targetView: self.view)
             
-            let paramDict : [String : Any] = ["mobile" : contactNumberLabel.text!, "text" : self.smsString]
+            let paramDict : [String : Any] = ["mobile" : self.callButton.titleLabel?.text ?? "", "text" : self.smsString]
             
             NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_SEND_SMS , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
                 
@@ -103,7 +104,7 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
         }
         
         func call(){
-            callTheNumber(numberString: self.contactNumberLabel.text!)
+            callTheNumber(numberString: (self.callButton.titleLabel?.text)!)
         }
         
 //        func email(){

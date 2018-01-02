@@ -120,37 +120,42 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                         let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
                         let dataArray : NSArray = tempDict.object(forKey: "data") as! NSArray
                         
-//                        let xTotalArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-                        var xValuesArray = NSMutableArray()
-                        var yValuesArray = NSMutableArray()
-                        for valueDict in dataArray{
-                            let x : Int = (valueDict as! NSDictionary)["x"]! as! Int
-                            let y : Int = (valueDict as! NSDictionary)["y"]! as! Int
-                            xValuesArray.add(String(x))
-                            yValuesArray.add(y)
+                        if(dataArray.count > 0) {
+                            //                        let xTotalArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+                            var xValuesArray = NSMutableArray()
+                            var yValuesArray = NSMutableArray()
+                            for valueDict in dataArray{
+                                let x : Int = (valueDict as! NSDictionary)["x"]! as! Int
+                                let y : Int = (valueDict as! NSDictionary)["y"]! as! Int
+                                xValuesArray.add(String(x))
+                                yValuesArray.add(y)
+                            }
+                            var reversedNames = [String]()
+                            
+                            for arrayIndex in stride(from: xValuesArray.count - 1, through: 0, by: -1) {
+                                reversedNames.append(xValuesArray[arrayIndex] as! String)
+                            }
+                            
+                            xValuesArray = NSMutableArray(array: reversedNames) //xValuesArray.reversed() as! NSMutableArray
+                            yValuesArray = NSMutableArray(array: yValuesArray.reversed())
+                            //                        for i in 0..<xTotalArray.count{
+                            //                            if(xValuesArray.contains(i)){
+                            //
+                            //                            }
+                            //                            else{
+                            //                                xValuesArray.insert(0, at: i)
+                            //                                yValuesArray.insert(Double(0), at: i)
+                            //                            }
+                            //                        }
+                            
+                            let tempName = tempDict.object(forKey: "displayName") as! String
+                            self.salesHeaderLabel.text = "SALES"
+                            self.barChartView.isHidden = false
+                            self.setChart(dataPoints: xValuesArray as! [String], values: yValuesArray as! [Double], labelname: tempName)
+                        }else{
+                            self.barChartView.isHidden = true
+                            self.salesHeaderLabel.text = "No Sales data available"
                         }
-                        var reversedNames = [String]()
-                        
-                        for arrayIndex in stride(from: xValuesArray.count - 1, through: 0, by: -1) {
-                            reversedNames.append(xValuesArray[arrayIndex] as! String)
-                        }
-
-                        xValuesArray = NSMutableArray(array: reversedNames) //xValuesArray.reversed() as! NSMutableArray
-                        yValuesArray = NSMutableArray(array: yValuesArray.reversed())
-//                        for i in 0..<xTotalArray.count{
-//                            if(xValuesArray.contains(i)){
-//
-//                            }
-//                            else{
-//                                xValuesArray.insert(0, at: i)
-//                                yValuesArray.insert(Double(0), at: i)
-//                            }
-//                        }
-                        
-                        let tempName = tempDict.object(forKey: "displayName") as! String
-                        self.salesHeaderLabel.text = "SALES"
-                        self.barChartView.isHidden = false
-                        self.setChart(dataPoints: xValuesArray as! [String], values: yValuesArray as! [Double], labelname: tempName)
                     }else{
                         self.barChartView.isHidden = true
                         self.salesHeaderLabel.text = "No Sales data available"
@@ -158,7 +163,6 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                 }
             }
             else{
-//                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
                 self.barChartView.isHidden = true
                 self.salesHeaderLabel.text = "No Sales data available"
                 

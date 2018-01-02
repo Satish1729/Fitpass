@@ -30,8 +30,10 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
             super.viewDidLoad()
             
             self.nameLabel.text = staffObj?.name
-            self.contactNumberLabel.text=staffObj?.contact_number?.stringValue
-            self.emailLabel.text=staffObj?.email
+            self.callButton.setTitle(staffObj?.contact_number?.stringValue, for: UIControlState.normal)
+//            self.contactNumberLabel.text=staffObj?.contact_number?.stringValue
+            self.mailButton.setTitle(staffObj?.email, for: UIControlState.normal)
+//            self.emailLabel.text=staffObj?.email
             self.addressLabel.text=staffObj?.address
             
             self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
@@ -75,7 +77,7 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let paramDict : [String : Any] = ["mobile" : contactNumberLabel.text!, "text" : self.smsString]
+        let paramDict : [String : Any] = ["mobile" : self.callButton.titleLabel?.text ?? "", "text" : self.smsString]
         
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_SEND_SMS , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
@@ -97,11 +99,11 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func call(){
-        callTheNumber(numberString: self.contactNumberLabel.text!)
+        callTheNumber(numberString: (self.callButton.titleLabel?.text)!)
     }
     
     func email(){
-        sendMailTo(mailString: self.emailLabel.text!)
+        sendMailTo(mailString: (self.mailButton.titleLabel?.text)!)
     }
     
 

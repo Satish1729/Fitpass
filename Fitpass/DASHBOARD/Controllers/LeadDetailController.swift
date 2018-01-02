@@ -31,8 +31,10 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         
         self.nameLabel.text = leadObj?.name
-        self.contactNumberLabel.text=leadObj?.contact_number?.stringValue
-        self.emailLabel.text=leadObj?.email
+        self.callButton.setTitle(leadObj?.contact_number?.stringValue, for: UIControlState.normal)
+//        self.contactNumberLabel.text=leadObj?.contact_number?.stringValue
+        self.mailButton.setTitle(leadObj?.email, for: UIControlState.normal)
+//        self.emailLabel.text=leadObj?.email
         self.addressLabel.text=leadObj?.address
         
         self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
@@ -82,8 +84,10 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let paramDict : [String : Any] = ["mobile" : contactNumberLabel.text!, "text" : self.smsString]
-        
+//        let paramDict : [String : Any] = ["mobile" : contactNumberLabel.text!, "text" : self.smsString]
+        let paramDict : [String : Any] = ["mobile" : self.callButton.titleLabel?.text! ?? ""
+            , "text" : self.smsString]
+
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_SEND_SMS , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -104,11 +108,11 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
     }
     
     func call(){
-        callTheNumber(numberString: self.contactNumberLabel.text!)
+        callTheNumber(numberString: (self.callButton.titleLabel?.text)!)//self.contactNumberLabel.text!)
     }
 
     func email(){
-        sendMailTo(mailString: self.emailLabel.text!)
+        sendMailTo(mailString: (self.mailButton.titleLabel?.text)!)
     }
 
     override func viewWillAppear(_ animated: Bool) {

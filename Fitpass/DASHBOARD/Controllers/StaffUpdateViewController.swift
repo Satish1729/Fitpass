@@ -28,6 +28,18 @@ class StaffUpdateViewController: BaseViewController {
     @IBOutlet weak var salaryTxtField: UITextField!
     @IBOutlet weak var salaryDateButton: UIButton!
     
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var roleLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var contactNumberLabel: UILabel!
+    @IBOutlet weak var dobLabel: UILabel!
+    @IBOutlet weak var genderLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var joiningDateLabel: UILabel!
+    @IBOutlet weak var salaryLabel: UILabel!
+    @IBOutlet weak var salaryDateLabel: UILabel!
+    
+    
     var rolesArray : NSMutableArray = NSMutableArray()
     var roleIdsDict : NSMutableDictionary = NSMutableDictionary()
     
@@ -86,6 +98,19 @@ class StaffUpdateViewController: BaseViewController {
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
         
         setButtonsCornerRadius()
+        
+        self.nameLabel.attributedText = self.setRedColorForStar(str: "Name")
+        self.roleLabel.attributedText = self.setRedColorForStar(str: "Role")
+        self.emailLabel.attributedText = self.setRedColorForStar(str: "Email")
+        self.contactNumberLabel.attributedText = self.setRedColorForStar(str: "Contact No.")
+        self.dobLabel.attributedText = self.setRedColorForStar(str: "Date of birth")
+        self.genderLabel.attributedText = self.setRedColorForStar(str: "Gender")
+        self.addressLabel.attributedText = self.setRedColorForStar(str: "Address")
+        self.joiningDateLabel.attributedText = self.setRedColorForStar(str: "Joining Date")
+        self.salaryLabel.attributedText = self.setRedColorForStar(str: "Salary")
+        self.salaryDateLabel.attributedText = self.setRedColorForStar(str: "Salary Date")
+        //        self.nameLabel.attributedText = self.setRedColorForStar(str: "Upload Documents")
+
         
         self.nameTxtField.keyboardType = .namePhonePad
         self.emailTxtField.keyboardType = .emailAddress

@@ -529,7 +529,6 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
             "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
         ]
         
-        
         Alamofire.request(urlString!, method: .post, parameters: paramDict, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
             print(response.result)
             let responseDic =  response.result.value as! NSDictionary

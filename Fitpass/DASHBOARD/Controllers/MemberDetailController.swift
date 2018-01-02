@@ -31,8 +31,10 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
             super.viewDidLoad()
             
             self.nameLabel.text = memberObj?.name?.uppercased()
-            self.contactNumberLabel.text=memberObj?.contact_number?.stringValue
-            self.emailLabel.text=memberObj?.email
+            self.callButton.setTitle(memberObj?.contact_number?.stringValue, for: UIControlState.normal)
+//            self.contactNumberLabel.text=memberObj?.contact_number?.stringValue
+            self.mailButton.setTitle(memberObj?.email, for: UIControlState.normal)
+//            self.emailLabel.text=memberObj?.email
             self.addressLabel.text=memberObj?.address
             
             self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
@@ -83,8 +85,9 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let paramDict : [String : Any] = ["mobile" : contactNumberLabel.text!, "text" : self.smsString]
-        
+//        let paramDict : [String : Any] = ["mobile" : contactNumberLabel.text!, "text" : self.smsString]
+        let paramDict : [String : Any] = ["mobile" : self.callButton.titleLabel?.text ?? "", "text" : self.smsString]
+
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_SEND_SMS , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
             ProgressHUD.hideProgress()
@@ -105,11 +108,11 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func call(){
-        callTheNumber(numberString: self.contactNumberLabel.text!)
+        callTheNumber(numberString: (self.callButton.titleLabel?.text)!)
     }
     
     func email(){
-        sendMailTo(mailString: self.emailLabel.text!)
+        sendMailTo(mailString: (self.mailButton.titleLabel?.text)!)
     }
     
 
