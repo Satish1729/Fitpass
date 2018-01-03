@@ -6,6 +6,9 @@ PODS:
     - PureLayout
     - SwiftARGB (< 2.0)
     - TinyLog (~> 1.0)
+  - AWSCore (2.6.6)
+  - AWSS3 (2.6.6):
+    - AWSCore (= 2.6.6)
   - Charts (3.0.3):
     - Charts/Core (= 3.0.3)
   - Charts/Core (3.0.3)
@@ -32,6 +35,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 4.0)
   - AssetsPickerViewController (from `https://github.com/DragonCherry/AssetsPickerViewController`, branch `swift3`)
+  - AWSS3
   - Charts (= 3.0.3)
   - DLRadioButton (~> 1.4)
   - DropDown
@@ -54,6 +58,8 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
   AssetsPickerViewController: ba566156e4056dd333bd6c34371235743ccc0eaf
+  AWSCore: 64619e45b47678afab53ca0f9b4fa380ebee6f0b
+  AWSS3: 44c99957a049703e06b474f4b1898da215f2d922
   Charts: bcde37724c161958c1438dd4883971fcb2d50c06
   Dimmer: d69bad35b7e4545c3d36b64737b2623b59fac55c
   DLRadioButton: 0d04b8259e7bfd886571a1e9173c73fee7118f50
@@ -70,6 +76,6 @@ SPEC CHECKSUMS:
   TinyLog: 6c3ecbc348d10dc242ebb506f684fc9ae6aff533
   UIViewKVO: 091f9e020d69e73c4bf5e5ef61cde7bff1c24bbf
 
-PODFILE CHECKSUM: df0444c752716b5d890503ec558d3283aafaa711
+PODFILE CHECKSUM: e82f43483642b23b2f871463f0087d3d35243576
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.2.1

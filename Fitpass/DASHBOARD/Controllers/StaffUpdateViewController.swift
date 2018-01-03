@@ -8,10 +8,15 @@
 
 import UIKit
 import DropDown
+import AssetsPickerViewController
+import Photos
 
 class StaffUpdateViewController: BaseViewController {
     
-    
+    lazy var imageManager = {
+        return PHCachingImageManager()
+    }()
+
     var delegate : staffDelegate?
     var staffObj : Staffs?
     
@@ -27,7 +32,8 @@ class StaffUpdateViewController: BaseViewController {
     @IBOutlet weak var joiningDateTxtField: UITextField!
     @IBOutlet weak var salaryTxtField: UITextField!
     @IBOutlet weak var salaryDateButton: UIButton!
-    
+    @IBOutlet weak var uploadDocumentButton: UIButton!
+
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var roleLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -38,7 +44,7 @@ class StaffUpdateViewController: BaseViewController {
     @IBOutlet weak var joiningDateLabel: UILabel!
     @IBOutlet weak var salaryLabel: UILabel!
     @IBOutlet weak var salaryDateLabel: UILabel!
-    
+    @IBOutlet weak var uploadDocumentLabel: UILabel!
     
     var rolesArray : NSMutableArray = NSMutableArray()
     var roleIdsDict : NSMutableDictionary = NSMutableDictionary()
@@ -81,6 +87,11 @@ class StaffUpdateViewController: BaseViewController {
         dropDown.show()
     }
 
+    @IBAction func uploadDoc(_ sender: Any) {
+        let picker = AssetsPickerViewController()
+        picker.pickerDelegate = self
+        present(picker, animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,8 +120,7 @@ class StaffUpdateViewController: BaseViewController {
         self.joiningDateLabel.attributedText = self.setRedColorForStar(str: "Joining Date")
         self.salaryLabel.attributedText = self.setRedColorForStar(str: "Salary")
         self.salaryDateLabel.attributedText = self.setRedColorForStar(str: "Salary Date")
-        //        self.nameLabel.attributedText = self.setRedColorForStar(str: "Upload Documents")
-
+        self.uploadDocumentLabel.attributedText = self.setRedColorForStar(str: "Upload Documents")
         
         self.nameTxtField.keyboardType = .namePhonePad
         self.emailTxtField.keyboardType = .emailAddress
@@ -161,6 +171,10 @@ class StaffUpdateViewController: BaseViewController {
         self.salaryDateButton.layer.borderColor = UIColor.lightGray.cgColor
         self.salaryDateButton.layer.borderWidth = 1
         self.salaryDateButton.layer.cornerRadius = 5
+        
+        self.uploadDocumentButton.layer.borderColor = UIColor.lightGray.cgColor
+        self.uploadDocumentButton.layer.borderWidth = 1
+        self.uploadDocumentButton.layer.cornerRadius = 5
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -174,7 +188,7 @@ class StaffUpdateViewController: BaseViewController {
     
     override func viewDidLayoutSubviews()
     {
-        self.addScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 1000)
+        self.addScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 1240)
     }
     
 
@@ -347,4 +361,31 @@ class StaffUpdateViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+}
+
+extension StaffUpdateViewController: AssetsPickerViewControllerDelegate {
+    
+    func assetsPickerCannotAccessPhotoLibrary(controller: AssetsPickerViewController) {}
+    func assetsPickerDidCancel(controller: AssetsPickerViewController) {}
+    func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
+        imageManager.requestImage(for: assets.first!, targetSize: CGSize(width: self.uploadDocumentButton.frame.size.width, height: self.uploadDocumentButton.frame.size.height), contentMode: .aspectFit, options: nil) { (image, info) in
+            self.uploadDocumentButton.contentMode = .scaleAspectFit
+            self.uploadDocumentButton.setImage(nil, for: .normal)
+            self.uploadDocumentButton.setBackgroundImage(image, for: UIControlState.normal)
+        }
+    }
+    func assetsPicker(controller: AssetsPickerViewController, didSelect asset: PHAsset, at indexPath: IndexPath) {
+    }
+    func assetsPicker(controller: AssetsPickerViewController, shouldDeselect asset: PHAsset, at indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func assetsPicker(controller: AssetsPickerViewController, didDeselect asset: PHAsset, at indexPath: IndexPath) {}
+    
+    func assetsPicker(controller: AssetsPickerViewController, shouldSelect asset: PHAsset, at indexPath: IndexPath) -> Bool {
+        if controller.selectedAssets.count > 0 {
+            // do your job here
+            return false
+        }
+        return true
+    }
 }

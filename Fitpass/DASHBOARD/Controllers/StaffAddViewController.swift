@@ -8,8 +8,19 @@
 
 import UIKit
 import DropDown
+import AssetsPickerViewController
+import Photos
+import AWSS3
+import AWSCore
+
 //https://medium.com/theappspace/alamofire-4-multipart-file-upload-with-swift-3-174df1ef84c1
 class StaffAddViewController: BaseViewController {
+
+    lazy var imageManager = {
+        return PHCachingImageManager()
+    }()
+
+    var selectedImageUrl: NSURL!
 
     @IBOutlet weak var addScrollView: UIScrollView!
 
@@ -23,6 +34,7 @@ class StaffAddViewController: BaseViewController {
     @IBOutlet weak var joiningDateTxtField: UITextField!
     @IBOutlet weak var salaryTxtField: UITextField!
     @IBOutlet weak var salaryDateButton: UIButton!
+    @IBOutlet weak var uploadDocumentButton: UIButton!
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var roleLabel: UILabel!
@@ -34,7 +46,7 @@ class StaffAddViewController: BaseViewController {
     @IBOutlet weak var joiningDateLabel: UILabel!
     @IBOutlet weak var salaryLabel: UILabel!
     @IBOutlet weak var salaryDateLabel: UILabel!
-    
+    @IBOutlet weak var uploadDocument: UILabel!
     
     var delegate : staffDelegate?
     
@@ -78,7 +90,107 @@ class StaffAddViewController: BaseViewController {
         dropDown.dataSource = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25", "26","27","28"]
         dropDown.show()
     }
-
+    @IBAction func uploadDoc(_ sender: Any) {
+        let picker = AssetsPickerViewController()
+        picker.pickerDelegate = self
+        present(picker, animated: true, completion: nil)
+    }
+    
+    func startUploadingImage()
+    {
+//        var localFileName:String?
+//        if let imageToUploadUrl = selectedImageUrl
+//        {
+////            let phResult = PHAsset.fetchAssets(withALAssetURLs: [imageToUploadUrl as URL], options: nil)
+////            localFileName = phResult.firstObject?.originalFileName
+//        }
+//
+//        if localFileName == nil
+//        {
+//            return
+//        }
+        
+//        myActivityIndicator.startAnimating()
+        
+//        https://github.com/maximbilan/Swift-Amazon-S3-Uploading-Tutorial
+        
+        // Configure AWS Cognito Credentials
+        let myIdentityPoolId = "ap-southeast-2:5ff31443-8546-40b0-8a9f-cc9b3118be0c"
+        
+        let credentialsProvider:AWSCognitoCredentialsProvider = AWSCognitoCredentialsProvider(regionType:AWSRegionType.--ap-south-1, identityPoolId: myIdentityPoolId)
+        
+        let configuration = AWSServiceConfiguration(region:AWSRegionType.--ap-south-1, credentialsProvider:credentialsProvider)
+        
+        AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
+        
+        // Set up AWS Transfer Manager Request
+        let S3BucketName = "fitpass-studio"
+        
+//        let remoteName = localFileName!
+        
+        let uploadRequest = AWSS3TransferManagerUploadRequest()
+        uploadRequest.body = self.selectedImageUrl// generateImageUrl(remoteName)
+        uploadRequest.key = remoteName
+        uploadRequest.bucket = S3BucketName
+        uploadRequest.contentType = "image/jpeg"
+        
+        
+        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
+        
+        // Perform file upload
+        transferManager.upload(uploadRequest).continueWithBlock { (task) -> AnyObject! in
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                self.myActivityIndicator.stopAnimating()
+            }
+            
+            if let error = task.error {
+                print("Upload failed with error: (\(error.localizedDescription))")
+            }
+            
+            if let exception = task.exception {
+                print("Upload failed with exception (\(exception))")
+            }
+            
+            if task.result != nil {
+                
+                let s3URL = NSURL(string: "https://s3.amazonaws.com/\(S3BucketName)/\(uploadRequest.key!)")!
+                print("Uploaded to:\n\(s3URL)")
+                // Remove locally stored file
+                self.remoteImageWithUrl(uploadRequest.key!)
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.displayAlertMessage()
+                }
+                
+                
+            }
+            else {
+                print("Unexpected empty result.")
+            }
+            return nil
+        }
+    }
+    
+    func generateImageUrl(fileName: String) -> NSURL
+    {
+        let fileURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingString(fileName))
+        let data = UIImageJPEGRepresentation(myImageView.image!, 0.6)
+        data!.writeToURL(fileURL, atomically: true)
+        
+        return fileURL
+    }
+    
+    func remoteImageWithUrl(fileName: String)
+    {
+        let fileURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingString(fileName))
+        do {
+            try NSFileManager.defaultManager().removeItemAtURL(fileURL)
+        } catch
+        {
+            print(error)
+        }
+    }
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -97,7 +209,7 @@ class StaffAddViewController: BaseViewController {
         self.joiningDateLabel.attributedText = self.setRedColorForStar(str: "Joining Date")
         self.salaryLabel.attributedText = self.setRedColorForStar(str: "Salary")
         self.salaryDateLabel.attributedText = self.setRedColorForStar(str: "Salary Date")
-//        self.nameLabel.attributedText = self.setRedColorForStar(str: "Upload Documents")
+        self.uploadDocument.attributedText = self.setRedColorForStar(str: "Upload Documents")
 
         self.nameTxtField.keyboardType = .namePhonePad
         self.emailTxtField.keyboardType = .emailAddress
@@ -132,7 +244,26 @@ class StaffAddViewController: BaseViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(addNewStaff))
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
     }
+    
+    static func timestampedFilePath() -> URL {
         
+        let currentDateTime = Date()
+        
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "ddMMyyyy-HHmmss"
+        
+        let filename = formatter.string(from: currentDateTime)+".jpeg"
+        
+        let pathToWrite: String = NSTemporaryDirectory() + (filename)
+        
+        let localpath = NSURL.fileURL(withPath: pathToWrite)
+        
+        print("image File Path : - \(localpath)")
+        
+        return localpath
+    }
+
     func setButtonsCornerRadius(){
         self.roleButton.layer.borderColor = UIColor.lightGray.cgColor
         self.roleButton.layer.borderWidth = 1
@@ -145,6 +276,10 @@ class StaffAddViewController: BaseViewController {
         self.salaryDateButton.layer.borderColor = UIColor.lightGray.cgColor
         self.salaryDateButton.layer.borderWidth = 1
         self.salaryDateButton.layer.cornerRadius = 5
+        
+        self.uploadDocumentButton.layer.borderColor = UIColor.lightGray.cgColor
+        self.uploadDocumentButton.layer.borderWidth = 1
+        self.uploadDocumentButton.layer.cornerRadius = 5
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -154,7 +289,7 @@ class StaffAddViewController: BaseViewController {
 
     override func viewDidLayoutSubviews()
     {
-        self.addScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 920)
+        self.addScrollView.contentSize = CGSize(width: self.view.frame.size.width, height: 1120)
     }
 
     func dismissViewController() {
@@ -321,5 +456,61 @@ class StaffAddViewController: BaseViewController {
         }
     }
 
+    func writeResource(toTmp resource: PHAssetResource, pathCallback: @escaping (_ localUrl: URL) -> Void) {
+        // Get Asset Resource. Take first resource object. since it's only the one image.
+        let filename: String = resource.originalFilename
+        let pathToWrite: String = NSTemporaryDirectory() + (filename)
+        let localpath = NSURL.fileURL(withPath: pathToWrite)
+        let options = PHAssetResourceRequestOptions()
+        options.isNetworkAccessAllowed = true
+        PHAssetResourceManager.default().writeData(for: resource, toFile: localpath, options: options, completionHandler: {(_ error: Error?) -> Void in
+            if error != nil {
+                print("Failed to write a resource: \(String(describing: error?.localizedDescription))")
+            }
+            pathCallback(localpath)
+        })
+    }
 
+}
+
+
+
+// to handle
+extension StaffAddViewController: AssetsPickerViewControllerDelegate {
+    
+    func assetsPickerCannotAccessPhotoLibrary(controller: AssetsPickerViewController) {}
+    func assetsPickerDidCancel(controller: AssetsPickerViewController) {}
+    func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
+        imageManager.requestImage(for: assets.first!, targetSize: CGSize(width: self.uploadDocumentButton.frame.size.width, height: self.uploadDocumentButton.frame.size.height), contentMode: .aspectFit, options: nil) { (image, info) in
+//            if let pathData = info {
+//                if let imagePath = pathData["PHImageFileURLKey"] {
+//                    self.selectedImageUrl = imagePath as? NSURL
+//                }
+//            }
+            let resource = PHAssetResource.assetResources(for: assets.first!).first
+            
+            self.writeResource(toTmp: resource!, pathCallback: { (outputURL) in
+                self.selectedImageUrl = outputURL as NSURL
+                }
+            )
+
+            self.uploadDocumentButton.contentMode = .scaleAspectFit
+            self.uploadDocumentButton.setImage(nil, for: .normal)
+            self.uploadDocumentButton.setBackgroundImage(image, for: UIControlState.normal)
+        }
+    }
+    func assetsPicker(controller: AssetsPickerViewController, didSelect asset: PHAsset, at indexPath: IndexPath) {
+    }
+    func assetsPicker(controller: AssetsPickerViewController, shouldDeselect asset: PHAsset, at indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func assetsPicker(controller: AssetsPickerViewController, didDeselect asset: PHAsset, at indexPath: IndexPath) {}
+    
+    func assetsPicker(controller: AssetsPickerViewController, shouldSelect asset: PHAsset, at indexPath: IndexPath) -> Bool {
+        if controller.selectedAssets.count > 0 {
+            // do your job here
+            return false
+        }
+        return true
+    }
 }
