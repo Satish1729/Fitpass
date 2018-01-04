@@ -27,6 +27,9 @@ PODS:
   - PKHUD (4.2.3)
   - PureLayout (3.0.2)
   - ReachabilitySwift (3)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
   - SideMenuController (0.2.4)
   - SwiftARGB (0.9.3)
   - TinyLog (1.0.1)
@@ -43,6 +46,7 @@ DEPENDENCIES:
   - MBCircularProgressBar
   - PKHUD (~> 4.0)
   - ReachabilitySwift (~> 3)
+  - SDWebImage (~> 3.7)
   - SideMenuController
 
 EXTERNAL SOURCES:
@@ -71,11 +75,12 @@ SPEC CHECKSUMS:
   PKHUD: c7692163a09875cbf15827dc581df3c5cf7f1015
   PureLayout: 4d550abe49a94f24c2808b9b95db9131685fe4cd
   ReachabilitySwift: f5b9bb30a0777fac8f09ce8b067e32faeb29bb64
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   SideMenuController: b463d2b3aa58e2afe57f57a07938fa9a647894ca
   SwiftARGB: 37a0aeaed8e99ed691e7e574af1ae3f85c731286
   TinyLog: 6c3ecbc348d10dc242ebb506f684fc9ae6aff533
   UIViewKVO: 091f9e020d69e73c4bf5e5ef61cde7bff1c24bbf
 
-PODFILE CHECKSUM: e82f43483642b23b2f871463f0087d3d35243576
+PODFILE CHECKSUM: f3f63e67687d398e327d9980fa4601e91bfaea47
 
 COCOAPODS: 1.2.1

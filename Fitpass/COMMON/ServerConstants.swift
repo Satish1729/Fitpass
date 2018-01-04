@@ -47,7 +47,7 @@ class ServerConstants: NSObject {
     static let URL_STAFFS_DOWNLOAD = BASE_URL+"staff/sendReport"
     static let URL_LEADS_DOWNLOAD = BASE_URL+"leads/sendReport"
     static let URL_MEMBERS_DOWNLOAD = BASE_URL+"members/sendReport"
-    
+    static let URL_SALESREPORT_DOWNLOAD = BASE_URL+"members/payments/sendReport"
 //    @GET("assets/sendReport")
 //    Call<PojoAssets> downloadAssetsExcel(@Header("x-auth-token") String token,@Query("search_by") String search_by,@Query("search_text") String search_text,@Query("purchase_date_from") String purchase_date_from,@Query("purchase_date_to") String purchase_date_to);
     

@@ -95,13 +95,16 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.salesReportArray.addObjects(from:  SalesReport().updateSalesReport(responseDict : responseDic!) as [AnyObject])
-                    self.salesReportTableView.reloadData()
+                    if(responseDic?.object(forKey: "status") as! String  == "200"){
+                        self.salesReportArray.addObjects(from:  SalesReport().updateSalesReport(responseDict : responseDic!) as [AnyObject])
+                        self.salesReportTableView.reloadData()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
                 }
             }
             else{
                 AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
-                print("Get salesReport failed : \(String(describing: error?.localizedDescription))")
             }
         }
     }
@@ -118,7 +121,8 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let parameters : [String : Any] = ["search_text" : self.salesReportSearchBar.text!, "search_by" : "member_name"]
+//        let parameters : [String : Any] = ["search_text" : self.salesReportSearchBar.text!, "search_by" : "search_member"]
+        let parameters : [String : Any] = ["search_member" : self.salesReportSearchBar.text!]
         let urlString  = self.createURLFromParameters(parameters: parameters)
         let str : String = ServerConstants.URL_GET_SALESREPORT+urlString.absoluteString
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: str , userInfo: nil, type: "GET") { (data, response, error) in
@@ -132,8 +136,13 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
                     if(self.filteredArray.count>0){
                         self.filteredArray.removeAllObjects()
                     }
-                    self.filteredArray.addObjects(from:  SalesReport().updateSalesReport(responseDict : responseDic!) as [AnyObject])
-                    self.salesReportTableView.reloadData()
+                    if(responseDic?.object(forKey: "status") as! String  == "200"){
+                        self.filteredArray.addObjects(from:  SalesReport().updateSalesReport(responseDict : responseDic!) as [AnyObject])
+                        self.salesReportTableView.reloadData()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
+
                 }
             }
             else{
@@ -154,7 +163,7 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         ProgressHUD.showProgress(targetView: self.view)
-        let parameters : [String : Any] = ["paid_date" : Utility().getFilterDateFromString(dateStr: self.paidDate!), "status":self.statusString!]
+        let parameters : [String : Any] = ["due_date_month" : Utility().getMonthString(dateStr: self.paidDate!) , "paid_status":self.statusString!]
 
         let urlString  = self.createURLFromParameters(parameters: parameters)
         let str : String = ServerConstants.URL_GET_SALESREPORT+urlString.absoluteString
@@ -168,8 +177,12 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.filteredArray.addObjects(from:  SalesReport().updateSalesReport(responseDict : responseDic!) as [AnyObject])
-                    self.salesReportTableView.reloadData()
+                    if(responseDic?.object(forKey: "status") as! String  == "200"){
+                        self.filteredArray.addObjects(from:  SalesReport().updateSalesReport(responseDict : responseDic!) as [AnyObject])
+                        self.salesReportTableView.reloadData()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
                 }
             }
             else{
@@ -335,7 +348,35 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
 
     func downloadSaleseport(){
         
-    }
+            if (appDelegate.userBean == nil) {
+                return
+            }
+            if !isInternetAvailable() {
+                AlertView.showCustomAlertWithMessage(message: StringFiles().CONNECTIONFAILUREALERT, yPos: 20, duration: NSInteger(2.0))
+                return;
+            }
+            
+            ProgressHUD.showProgress(targetView: self.view)
+            
+            NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_SALESREPORT_DOWNLOAD , userInfo: nil, type: "GET") { (data, response, error) in
+                
+                ProgressHUD.hideProgress()
+                
+                if error == nil {
+                    let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
+                    let responseDic:NSDictionary? = jsonObject as? NSDictionary
+                    if (responseDic != nil) {
+                        print(responseDic!)
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }
+                }
+                else{
+                    AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
+                    print("Download Members failed : \(String(describing: error?.localizedDescription))")
+                }
+            }
+        }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

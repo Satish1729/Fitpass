@@ -13,10 +13,7 @@
     func updateStaffToList (staffBean : Staffs)
     }
 
-
     class StaffsController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, staffDelegate {
-
-
     @IBOutlet weak var staffSearchBar: UISearchBar!
     @IBOutlet weak var staffTableView: UITableView!
 
@@ -370,8 +367,7 @@
     //        ["Name", "Role", "Email", "Contact No.", "Date of Birth", "Gender", "Address", "Joining Date", "Salary", "Salary Date
 
     //         address  contact_number   created_at   dob   email  gender   id   is_active  is_deleted joining_date :   joining_documents  name   remarks    role   salary   salary_date   updated_at :
-
-    let paramDict : [String : Any] = ["staff_name" : staffBean.name!, "role" : staffBean.role!, "email_address": staffBean.email!, "contact_number": staffBean.contact_number?.stringValue ?? "", "date_of_birth" : staffBean.dob!, "gender" : staffBean.gender!, "address" : staffBean.address!, "joining_date": staffBean.joining_date!, "salary": staffBean.salary!, "salary_date": staffBean.salary_date?.stringValue ?? ""]
+        let paramDict : [String : Any] = ["staff_name" : staffBean.name!, "role" : staffBean.role!, "email_address": staffBean.email!, "contact_number": staffBean.contact_number?.stringValue ?? "", "date_of_birth" : staffBean.dob!, "gender" : staffBean.gender!, "address" : staffBean.address!, "joining_date": staffBean.joining_date!, "salary": staffBean.salary!, "salary_date": staffBean.salary_date?.stringValue ?? "", "joining_documents": staffBean.joining_documents ?? ""]
 
     NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_STAFF , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
         
@@ -386,9 +382,10 @@
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 let newDate = dateFormatter.string(from: Date())
-                
-                    staffBean.created_at = newDate
-                self.staffsArray.add(staffBean)
+//                https://fitpass-studio.s3.ap-south-1.amazonaws.com/
+                staffBean.created_at = newDate
+                self.staffsArray.insert(staffBean, at: 0)
+//                self.staffsArray.add(staffBean)
                 self.staffTableView.reloadData()
             }
         }
@@ -396,7 +393,7 @@
             AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
             print("Get STAFFS failed : \(String(describing: error?.localizedDescription))")
         }
-    }
+     }
     }
 
     func updateStaffToList (staffBean: Staffs) {
@@ -415,7 +412,7 @@
         
         //         address  contact_number   created_at   dob   email  gender   id   is_active  is_deleted joining_date :   joining_documents  name   remarks    role   salary   salary_date   updated_at :
         
-        let paramDict : [String : Any] = ["staff_name" : staffBean.name!, "role" : staffBean.role!, "email_address": staffBean.email!, "contact_number": staffBean.contact_number?.stringValue ?? "", "date_of_birth" : staffBean.dob!, "gender" : staffBean.gender!, "address" : staffBean.address!, "joining_date": staffBean.joining_date!, "salary": staffBean.salary!, "salary_date": staffBean.salary_date?.stringValue ?? "", "remarks" : staffBean.remarks ?? ""]
+        let paramDict : [String : Any] = ["staff_name" : staffBean.name!, "role" : staffBean.role!, "email_address": staffBean.email!, "contact_number": staffBean.contact_number?.stringValue ?? "", "date_of_birth" : staffBean.dob!, "gender" : staffBean.gender!, "address" : staffBean.address!, "joining_date": staffBean.joining_date!, "salary": staffBean.salary!, "salary_date": staffBean.salary_date?.stringValue ?? "", "remarks" : staffBean.remarks ?? "", "joining_documents": staffBean.joining_documents ?? ""]
         
         let urlString : String = ServerConstants.URL_STAFF + "/" + (staffBean.id?.stringValue)!
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "PUT") { (data, response, error) in

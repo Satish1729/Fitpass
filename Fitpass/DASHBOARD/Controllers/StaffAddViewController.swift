@@ -20,8 +20,8 @@ class StaffAddViewController: BaseViewController {
         return PHCachingImageManager()
     }()
 
-    var selectedImageUrl: NSURL!
-
+    var selectedImageUrl: URL!
+    var documentUrl : String?
     @IBOutlet weak var addScrollView: UIScrollView!
 
     @IBOutlet weak var nameTxtField: UITextField!
@@ -98,101 +98,64 @@ class StaffAddViewController: BaseViewController {
     
     func startUploadingImage()
     {
-//        var localFileName:String?
-//        if let imageToUploadUrl = selectedImageUrl
-//        {
-////            let phResult = PHAsset.fetchAssets(withALAssetURLs: [imageToUploadUrl as URL], options: nil)
-////            localFileName = phResult.firstObject?.originalFileName
-//        }
-//
-//        if localFileName == nil
-//        {
-//            return
-//        }
+        let accessKey = "AKIAJFOQTSGVOWTYTHTQ"
+        let secretKey = "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"
+        let credentialsProvider = AWSStaticCredentialsProvider(accessKey: accessKey, secretKey: secretKey)
+        let configuration = AWSServiceConfiguration(region: AWSRegionType.APSouth1, credentialsProvider: credentialsProvider)
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
+
         
-//        myActivityIndicator.startAnimating()
-        
-//        https://github.com/maximbilan/Swift-Amazon-S3-Uploading-Tutorial
-        
-        // Configure AWS Cognito Credentials
-        let myIdentityPoolId = "ap-southeast-2:5ff31443-8546-40b0-8a9f-cc9b3118be0c"
-        
-        let credentialsProvider:AWSCognitoCredentialsProvider = AWSCognitoCredentialsProvider(regionType:AWSRegionType.--ap-south-1, identityPoolId: myIdentityPoolId)
-        
-        let configuration = AWSServiceConfiguration(region:AWSRegionType.--ap-south-1, credentialsProvider:credentialsProvider)
-        
-        AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
-        
-        // Set up AWS Transfer Manager Request
+//        let url = self.selectedImageUrl
+        let currentDateTime = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "ddMMyyyy-HHmmss"
+        let remoteName = formatter.string(from: currentDateTime)+".jpeg"
         let S3BucketName = "fitpass-studio"
-        
-//        let remoteName = localFileName!
-        
-        let uploadRequest = AWSS3TransferManagerUploadRequest()
-        uploadRequest.body = self.selectedImageUrl// generateImageUrl(remoteName)
+        let uploadRequest = AWSS3TransferManagerUploadRequest()!
+        uploadRequest.body = self.selectedImageUrl
         uploadRequest.key = remoteName
         uploadRequest.bucket = S3BucketName
         uploadRequest.contentType = "image/jpeg"
-        
-        
-        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
-        
-        // Perform file upload
-        transferManager.upload(uploadRequest).continueWithBlock { (task) -> AnyObject! in
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                self.myActivityIndicator.stopAnimating()
-            }
-            
+        uploadRequest.acl = .publicRead
+
+        let transferManager = AWSS3TransferManager.default()
+        transferManager.upload(uploadRequest).continueWith { (task: AWSTask) -> Any? in
             if let error = task.error {
                 print("Upload failed with error: (\(error.localizedDescription))")
             }
-            
-            if let exception = task.exception {
-                print("Upload failed with exception (\(exception))")
-            }
-            
             if task.result != nil {
-                
-                let s3URL = NSURL(string: "https://s3.amazonaws.com/\(S3BucketName)/\(uploadRequest.key!)")!
-                print("Uploaded to:\n\(s3URL)")
-                // Remove locally stored file
-                self.remoteImageWithUrl(uploadRequest.key!)
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.displayAlertMessage()
-                }
-                
-                
-            }
-            else {
-                print("Unexpected empty result.")
+                let url = AWSS3.default().configuration.endpoint.url
+                let publicURL = url//.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!)
+                self.documentUrl = ""
+                self.documentUrl = remoteName//publicURL?.absoluteString
+                self.performSelector(onMainThread:  #selector(self.addNewStaffDetails), with: nil, waitUntilDone: true)
+//                print("Uploaded to:\(String(describing: publicURL))")
             }
             return nil
         }
     }
     
-    func generateImageUrl(fileName: String) -> NSURL
-    {
-        let fileURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingString(fileName))
-        let data = UIImageJPEGRepresentation(myImageView.image!, 0.6)
-        data!.writeToURL(fileURL, atomically: true)
-        
-        return fileURL
-    }
-    
-    func remoteImageWithUrl(fileName: String)
-    {
-        let fileURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingString(fileName))
-        do {
-            try NSFileManager.defaultManager().removeItemAtURL(fileURL)
-        } catch
-        {
-            print(error)
-        }
-    }
+//    func generateImageUrl(fileName: String) -> NSURL
+//    {
+//        let fileURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingString(fileName))
+//        let data = UIImageJPEGRepresentation(myImageView.image!, 0.6)
+//        data!.writeToURL(fileURL, atomically: true)
+//
+//        return fileURL
+//    }
+//
+//    func remoteImageWithUrl(fileName: String)
+//    {
+//        let fileURL = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingString(fileName))
+//        do {
+//            try NSFileManager.defaultManager().removeItemAtURL(fileURL)
+//        } catch
+//        {
+//            print(error)
+//        }
+//    }
     override func viewDidLoad() {
-        
+
         super.viewDidLoad()
 
         setNavigationUI()
@@ -214,24 +177,24 @@ class StaffAddViewController: BaseViewController {
         self.nameTxtField.keyboardType = .namePhonePad
         self.emailTxtField.keyboardType = .emailAddress
         self.contactNumberTxtField.keyboardType = .numberPad
-        
+
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.maximumDate = Date()
         self.dobTxtField.inputView = datePicker
         datePicker.addTarget(self, action: #selector(datePickerDOBChanged(sender:)), for: .valueChanged)
-        
+
         self.addressTxtField.keyboardType = .namePhonePad
-        
+
         let datePicker1 = UIDatePicker()
         datePicker1.datePickerMode = .date
         datePicker1.maximumDate = Date()
         self.joiningDateTxtField.inputView = datePicker1
         datePicker1.addTarget(self, action: #selector(datePickerJoiningDateChanged(sender:)), for: .valueChanged)
-        
+
         salaryTxtField.keyboardType = .numberPad
     }
-        
+    
     func setNavigationUI(){
         let backBtn = UIButton(type: .custom)
         backBtn.setImage(UIImage(named: "img_back"), for: .normal)
@@ -391,13 +354,18 @@ class StaffAddViewController: BaseViewController {
         return isValidUser
     }
     
-    
-    func addNewStaff() {
-        
+    func addNewStaff(){
         if !isValidStaff() {
             return
         }
-        self.dismissViewController()
+        ProgressHUD.showProgress(targetView: self.view)
+        if(selectedImageUrl != nil){
+            startUploadingImage()
+        }else{
+            addNewStaffDetails()
+        }
+    }
+    func addNewStaffDetails() {
         let staffBean : Staffs = Staffs()
         
         staffBean.name = nameTxtField.text!
@@ -411,6 +379,11 @@ class StaffAddViewController: BaseViewController {
         staffBean.joining_date = joiningDateTxtField.text!
         staffBean.salary = salaryTxtField.text!
         staffBean.salary_date = NSNumber(value: Int((salaryDateButton.titleLabel?.text)!)!)
+        if let joiningDoc = self.documentUrl{
+            staffBean.joining_documents = joiningDoc
+        }
+        ProgressHUD.hideProgress()
+        self.dismissViewController()
         self.delegate?.addNewStaffToList(staffBean: staffBean)
     }
     
@@ -490,7 +463,7 @@ extension StaffAddViewController: AssetsPickerViewControllerDelegate {
             let resource = PHAssetResource.assetResources(for: assets.first!).first
             
             self.writeResource(toTmp: resource!, pathCallback: { (outputURL) in
-                self.selectedImageUrl = outputURL as NSURL
+                self.selectedImageUrl = outputURL
                 }
             )
 

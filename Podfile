@@ -13,4 +13,6 @@ pod 'MBCircularProgressBar'
 pod 'DLRadioButton', '~> 1.4'
 pod 'AssetsPickerViewController', :git => 'https://github.com/DragonCherry/AssetsPickerViewController', :branch => 'swift3'
 pod 'AWSS3'
+pod 'SDWebImage', '~>3.7'
+
 end

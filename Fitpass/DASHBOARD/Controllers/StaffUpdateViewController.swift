@@ -10,12 +10,17 @@ import UIKit
 import DropDown
 import AssetsPickerViewController
 import Photos
+import AWSS3
+import AWSCore
 
 class StaffUpdateViewController: BaseViewController {
     
     lazy var imageManager = {
         return PHCachingImageManager()
     }()
+    
+    var selectedImageUrl: URL!
+    var documentUrl : String?
 
     var delegate : staffDelegate?
     var staffObj : Staffs?
@@ -156,6 +161,14 @@ class StaffUpdateViewController: BaseViewController {
         joiningDateTxtField.text = staffObj?.joining_date
         salaryTxtField.text = staffObj?.salary
         salaryDateButton.setTitle(staffObj?.salary_date?.stringValue, for: UIControlState.normal)
+        if let joiningdoc = staffObj?.joining_documents{
+            if let url = URL(string:joiningdoc){
+                if let data1 = try? Data(contentsOf: url){
+                    let docImage = UIImage(data: data1)
+                    self.uploadDocumentButton.setImage(docImage, for: .normal)
+                }
+            }
+        }
     }
     
     
@@ -203,14 +216,56 @@ class StaffUpdateViewController: BaseViewController {
         formatter.dateFormat = "yyyy-MM-dd"
         self.joiningDateTxtField.text = formatter.string(from: sender.date)
     }
-    
-    func updateStaff() {
+    func startUploadingImage()
+    {
+        let accessKey = "AKIAJFOQTSGVOWTYTHTQ"
+        let secretKey = "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"
+        let credentialsProvider = AWSStaticCredentialsProvider(accessKey: accessKey, secretKey: secretKey)
+        let configuration = AWSServiceConfiguration(region: AWSRegionType.APSouth1, credentialsProvider: credentialsProvider)
+        AWSServiceManager.default().defaultServiceConfiguration = configuration
         
+        
+        //        let url = self.selectedImageUrl
+        let currentDateTime = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "ddMMyyyy-HHmmss"
+        let remoteName = formatter.string(from: currentDateTime)+".jpeg"
+        let S3BucketName = "fitpass-studio"
+        let uploadRequest = AWSS3TransferManagerUploadRequest()!
+        uploadRequest.body = self.selectedImageUrl
+        uploadRequest.key = remoteName
+        uploadRequest.bucket = S3BucketName
+        uploadRequest.contentType = "image/jpeg"
+        uploadRequest.acl = .publicRead
+        
+        let transferManager = AWSS3TransferManager.default()
+        transferManager.upload(uploadRequest).continueWith { (task: AWSTask) -> Any? in
+            if let error = task.error {
+                print("Upload failed with error: (\(error.localizedDescription))")
+            }
+            if task.result != nil {
+//                let url = AWSS3.default().configuration.endpoint.url
+//                let publicURL = url//appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!)
+                self.documentUrl = remoteName
+//                self.documentUrl = publicURL?.absoluteString
+                self.performSelector(onMainThread:  #selector(self.updateStaffDetails), with: nil, waitUntilDone: true)
+//                print("Uploaded to:\(String(describing: publicURL))")
+            }
+            return nil
+        }
+    }
+    func updateStaff(){
         if !isValidStaff() {
             return
         }
-        self.dismissViewController()
-
+        ProgressHUD.showProgress(targetView: self.view)
+        if(selectedImageUrl != nil){
+            startUploadingImage()
+        }else{
+            updateStaffDetails()
+        }
+    }
+    func updateStaffDetails() {
         let staffBean : Staffs = Staffs()
         
         staffBean.name = nameTxtField.text!
@@ -224,7 +279,9 @@ class StaffUpdateViewController: BaseViewController {
         staffBean.joining_date = joiningDateTxtField.text!
         staffBean.salary = salaryTxtField.text!
         staffBean.salary_date = NSNumber(value: Int((salaryDateButton.titleLabel?.text)!)!)
-        
+        if let joiningDoc = self.documentUrl{
+            staffBean.joining_documents = joiningDoc
+        }
         staffBean.id = staffObj?.id
         staffBean.is_active = staffObj?.is_active
         staffBean.is_deleted = staffObj?.is_deleted
@@ -233,7 +290,10 @@ class StaffUpdateViewController: BaseViewController {
         staffBean.joining_documents = staffObj?.joining_documents
         staffBean.remarks = staffObj?.remarks
         
+        ProgressHUD.hideProgress()
+        self.dismissViewController()
         self.delegate?.updateStaffToList(staffBean: staffBean)
+        
     }
     
     //MARK: Validations
@@ -360,7 +420,21 @@ class StaffUpdateViewController: BaseViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    func writeResource(toTmp resource: PHAssetResource, pathCallback: @escaping (_ localUrl: URL) -> Void) {
+        // Get Asset Resource. Take first resource object. since it's only the one image.
+        let filename: String = resource.originalFilename
+        let pathToWrite: String = NSTemporaryDirectory() + (filename)
+        let localpath = NSURL.fileURL(withPath: pathToWrite)
+        let options = PHAssetResourceRequestOptions()
+        options.isNetworkAccessAllowed = true
+        PHAssetResourceManager.default().writeData(for: resource, toFile: localpath, options: options, completionHandler: {(_ error: Error?) -> Void in
+            if error != nil {
+                print("Failed to write a resource: \(String(describing: error?.localizedDescription))")
+            }
+            pathCallback(localpath)
+        })
+    }
+
 }
 
 extension StaffUpdateViewController: AssetsPickerViewControllerDelegate {
@@ -368,11 +442,23 @@ extension StaffUpdateViewController: AssetsPickerViewControllerDelegate {
     func assetsPickerCannotAccessPhotoLibrary(controller: AssetsPickerViewController) {}
     func assetsPickerDidCancel(controller: AssetsPickerViewController) {}
     func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
+//        imageManager.requestImage(for: assets.first!, targetSize: CGSize(width: self.uploadDocumentButton.frame.size.width, height: self.uploadDocumentButton.frame.size.height), contentMode: .aspectFit, options: nil) { (image, info) in
+//            self.uploadDocumentButton.contentMode = .scaleAspectFit
+//            self.uploadDocumentButton.setImage(nil, for: .normal)
+//            self.uploadDocumentButton.setBackgroundImage(image, for: UIControlState.normal)
+//        }
+        
         imageManager.requestImage(for: assets.first!, targetSize: CGSize(width: self.uploadDocumentButton.frame.size.width, height: self.uploadDocumentButton.frame.size.height), contentMode: .aspectFit, options: nil) { (image, info) in
+            let resource = PHAssetResource.assetResources(for: assets.first!).first
+            
+            self.writeResource(toTmp: resource!, pathCallback: { (outputURL) in
+                self.selectedImageUrl = outputURL
+            })
             self.uploadDocumentButton.contentMode = .scaleAspectFit
             self.uploadDocumentButton.setImage(nil, for: .normal)
             self.uploadDocumentButton.setBackgroundImage(image, for: UIControlState.normal)
         }
+
     }
     func assetsPicker(controller: AssetsPickerViewController, didSelect asset: PHAsset, at indexPath: IndexPath) {
     }
