@@ -65,7 +65,7 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
         
         barChartView.xAxis.granularity = 0.5
         barChartView.xAxis.drawGridLinesEnabled = false
-        barChartView.xAxis.drawLabelsEnabled = true
+//        barChartView.xAxis.drawLabelsEnabled = true
         barChartView.xAxis.labelPosition = .bottom
         barChartView.leftAxis.spaceBottom = 0.0
         let chartDataSet = BarChartDataSet(values: dataEntries, label: labelname)

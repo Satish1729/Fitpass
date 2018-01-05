@@ -328,7 +328,7 @@
         ProgressHUD.showProgress(targetView: self.view)
         
         let staffBean = selectedStaffObj
-        let paramDict : [String : Any] = ["staff_name" : staffBean.name, "role" : staffBean.role, "email_address": staffBean.email, "contact_number": staffBean.contact_number?.stringValue ?? "", "date_of_birth" : staffBean.dob, "gender" : staffBean.gender, "address" : staffBean.address, "joining_date": staffBean.joining_date, "salary": staffBean.salary, "salary_date": staffBean.salary_date?.stringValue ?? "1" , "remarks" : staffBean.remarks ?? ""]
+        let paramDict : [String : Any] = ["staff_name" : staffBean.name!, "role" : staffBean.role!, "email_address": staffBean.email!, "contact_number": staffBean.contact_number?.stringValue ?? "", "date_of_birth" : staffBean.dob!, "gender" : staffBean.gender!, "address" : staffBean.address!, "joining_date": staffBean.joining_date!, "salary": staffBean.salary!, "salary_date": staffBean.salary_date?.stringValue ?? "1" , "remarks" : staffBean.remarks ?? "", "joining_documents": staffBean.joining_documents ?? ""]
         
         let urlString : String = ServerConstants.URL_STAFF + "/" + (staffBean.id?.stringValue)!
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "DELETE") { (data, response, error) in
@@ -382,7 +382,10 @@
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 let newDate = dateFormatter.string(from: Date())
-//                https://fitpass-studio.s3.ap-south-1.amazonaws.com/
+                if let joining = staffBean.joining_documents{
+                    let joingDoc: String = "https://fitpass-studio.s3.ap-south-1.amazonaws.com/"+joining
+                    staffBean.joining_documents = joingDoc
+                }
                 staffBean.created_at = newDate
                 self.staffsArray.insert(staffBean, at: 0)
 //                self.staffsArray.add(staffBean)
@@ -424,7 +427,11 @@
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    
+                    if let joining = staffBean.joining_documents{
+                        let joingDoc: String = "https://fitpass-studio.s3.ap-south-1.amazonaws.com/"+joining
+                        staffBean.joining_documents = joingDoc
+                    }
+
                     self.staffsArray.removeObject(at: self.editedStaffCellNumber)
                     self.staffsArray.insert(staffBean, at: self.editedStaffCellNumber)
                     self.staffTableView.reloadData()

@@ -124,8 +124,8 @@ class StaffAddViewController: BaseViewController {
                 print("Upload failed with error: (\(error.localizedDescription))")
             }
             if task.result != nil {
-                let url = AWSS3.default().configuration.endpoint.url
-                let publicURL = url//.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!)
+//                let url = AWSS3.default().configuration.endpoint.url
+//                let publicURL = url//.appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!)
                 self.documentUrl = ""
                 self.documentUrl = remoteName//publicURL?.absoluteString
                 self.performSelector(onMainThread:  #selector(self.addNewStaffDetails), with: nil, waitUntilDone: true)

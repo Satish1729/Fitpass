@@ -13,7 +13,7 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
         
         var staffObj : Staffs?
         var staffDetailArray : NSMutableArray = NSMutableArray()
-    
+    var imageFull : UIImage?
     @IBOutlet weak var staffDetailTableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var contactNumberLabel: UILabel!
@@ -127,7 +127,11 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
             if (indexPath.row == 8){
-                return 170
+                if ((staffObj?.joining_documents) != nil){
+                    return 170
+                }else{
+                    return 44
+                }
             }
             return 44
         }
@@ -199,23 +203,30 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
                 docLabel.textColor = UIColor.lightGray
                 docLabel.font = UIFont.systemFont(ofSize: 12.0)
                 let docImageView = UIImageView.init(frame: CGRect(x: 5, y: 30, width: 350, height: 130))
+                
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+                docImageView.isUserInteractionEnabled = true
+                docImageView.addGestureRecognizer(tapGestureRecognizer)
+            
                 if let joiningDoc = staffObj?.joining_documents{
 //                    let strDoc = joiningDoc.replacingOccurrences(of: "", with: "")
                     if let url = URL(string:joiningDoc){
                         if let data1 = try? Data(contentsOf: url){
                             docImageView.image = UIImage(data: data1)
+                            cell.contentView.addSubview(docImageView)
+                        }else{
+                            cell.valueLabel.text = "NA"
                         }
+                    }else{
+                        cell.valueLabel.text = "NA"
                     }
-//                    docImageView.sd_setImage(with: url, placeholderImage: nil, completed: { (image, error, cachetype, imageurl) in
-//                        docImageView.image = image
-//                    })
                 }
-//                else{
-//                    docImageView.image = UIImage(named:"uploaddoc")
-//                }
+                else{
+                    cell.valueLabel.text = "NA"
+                }
                 cell.contentView.addSubview(docLabel)
-                cell.contentView.addSubview(docImageView)
                 cell.keyLabel.text = ""
+                
             }else{
                 cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
                 cell.valueLabel.text = strValue
@@ -235,7 +246,18 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
 
             return cell
         }
-        
+func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+{
+    let tappedImage = tapGestureRecognizer.view as! UIImageView
+    imageFull = tappedImage.image
+    self.performSegue(withIdentifier: "staffFullSegue", sender: self)
+}
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "staffFullSegue") {
+            let staffFull : FullImageViewController = segue.destination as! FullImageViewController
+            staffFull.image = imageFull
+        }
+    }
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.

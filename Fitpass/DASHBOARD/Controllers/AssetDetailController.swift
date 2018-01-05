@@ -12,7 +12,8 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
         
         var assetObj : Assets?
         var assetDetailArray : NSMutableArray = NSMutableArray()
-        
+    var imageFull : UIImage?
+
         @IBOutlet weak var assetDetailTableView: UITableView!
         @IBOutlet weak var assetNameLabel: UILabel!
         @IBOutlet weak var statusLabel: UILabel!
@@ -20,7 +21,7 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
         @IBOutlet weak var statusImageView: UIImageView!
     
 
-        var keyLabelNameArray : NSArray = ["Vendor Name", "Purchased On", "Asset Status", "Created By", "Created Date", "Bill", "Remarks"]
+        var keyLabelNameArray : NSArray = ["Vendor Name", "Purchased On", "Asset Status", "Created By", "Created Date", "Remarks" ,"Bill"]
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -68,6 +69,14 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            if (indexPath.row == 6){
+                if (assetObj?.bill) != nil{
+                    
+                    return 170
+                }else{
+                    return 44
+                }
+            }
             return 44
         }
         
@@ -80,7 +89,7 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
             
             let cell : AssetDetailCell = tableView.dequeueReusableCell(withIdentifier: "AssetDetailCell") as! AssetDetailCell
             
-            cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
+//            cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
             var strValue : String? = ""
             switch indexPath.row {
             case 0:
@@ -102,9 +111,9 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
                 }
 
             case 5:
-                strValue = assetObj?.bill
-            case 6:
                 strValue = assetObj?.remarks
+            case 6:
+                strValue = assetObj?.bill
             default:
                 strValue = ""
             }
@@ -112,7 +121,45 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
                 strValue = "NA"
             }
 
-            cell.valueLabel.text = strValue
+            if(indexPath.row == 6){
+                let docLabel : UILabel = UILabel.init(frame: CGRect(x:5, y:2, width:350, height:21))
+                docLabel.text = "Bill"
+                docLabel.textColor = UIColor.lightGray
+                docLabel.font = UIFont.systemFont(ofSize: 12.0)
+                let docImageView = UIImageView.init(frame: CGRect(x: 5, y: 30, width: 350, height: 130))
+                
+                let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+                docImageView.isUserInteractionEnabled = true
+                docImageView.addGestureRecognizer(tapGestureRecognizer)
+                
+                if let joiningDoc = assetObj?.bill{
+                    //                    let strDoc = joiningDoc.replacingOccurrences(of: "", with: "")
+                    if let url = URL(string:joiningDoc){
+                        if let data1 = try? Data(contentsOf: url){
+                            docImageView.image = UIImage(data: data1)
+                            cell.contentView.addSubview(docImageView)
+                        }else{
+                            cell.valueLabel.text = "NA"
+
+                        }
+                    }else{
+                        cell.valueLabel.text = "NA"
+
+                    }
+                }
+                else{
+                    cell.valueLabel.text = "NA"
+                }
+                cell.contentView.addSubview(docLabel)
+                cell.keyLabel.text = ""
+                
+            }else{
+                cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
+                cell.valueLabel.text = strValue
+            }
+
+            
+            
             if(indexPath.row%2 == 0){
                 cell.contentView.backgroundColor = UIColor.white
             }else {
@@ -125,7 +172,19 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
             
             return cell
         }
-        
+    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        imageFull = tappedImage.image
+        self.performSegue(withIdentifier: "assetFullSegue", sender: self)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "assetFullSegue") {
+            let staffFull : FullImageViewController = segue.destination as! FullImageViewController
+            staffFull.image = imageFull
+        }
+    }
+
         override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
             // Dispose of any resources that can be recreated.
