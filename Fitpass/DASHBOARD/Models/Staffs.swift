@@ -52,6 +52,13 @@ class Staffs: NSObject {
             staffBean.is_deleted = staffObj[ "is_deleted"] as? String
             staffBean.joining_date = staffObj[ "joining_date"] as? String
             staffBean.joining_documents = staffObj[ "joining_documents"] as? String
+            if let jdocs = staffBean.joining_documents{
+                if(jdocs == "<null>"){
+                    staffBean.joining_documents = ""
+                }
+            }else{
+                staffBean.joining_documents = ""
+            }
             staffBean.name = staffObj[ "staff_name"] as? String
             staffBean.remarks = staffObj[ "remarks"] as? String
             staffBean.role = staffObj[ "role"] as? String

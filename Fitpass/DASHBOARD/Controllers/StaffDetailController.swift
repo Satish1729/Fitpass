@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class StaffDetailController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
         
@@ -24,7 +25,7 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
 
     var smsString : String = ""
 
-        var keyLabelNameArray : NSArray = ["Gender", "Date of Birth", "Role",  "Salary", "Salary Date", "Joining Date", "Created Date", "Joining Documents", "Remarks"]
+        var keyLabelNameArray : NSArray = ["Gender", "Date of Birth", "Role",  "Salary", "Salary Date", "Joining Date", "Created Date", "Remarks", "Joining Documents"]
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -125,6 +126,9 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            if (indexPath.row == 8){
+                return 170
+            }
             return 44
         }
         
@@ -151,8 +155,6 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
             let cell : StaffDetailCell = tableView.dequeueReusableCell(withIdentifier: "StaffDetailCell") as! StaffDetailCell
-            
-            cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
             var strValue : String? = ""
             switch indexPath.row {
             case 0:
@@ -182,22 +184,50 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
                 }
 
             case 7:
-                strValue = staffObj?.joining_documents
-            case 8:
                 strValue = staffObj?.remarks
+            case 8:
+                strValue = staffObj?.joining_documents
             default:
                 strValue = ""
             }
             if(strValue == "" || strValue == nil){
                 strValue = "NA"
             }
-
-            cell.valueLabel.text = strValue
+            if(indexPath.row == 8){
+                let docLabel : UILabel = UILabel.init(frame: CGRect(x:5, y:2, width:350, height:21))
+                docLabel.text = "Joining Documents"
+                docLabel.textColor = UIColor.lightGray
+                docLabel.font = UIFont.systemFont(ofSize: 12.0)
+                let docImageView = UIImageView.init(frame: CGRect(x: 5, y: 30, width: 350, height: 130))
+                if let joiningDoc = staffObj?.joining_documents{
+//                    let strDoc = joiningDoc.replacingOccurrences(of: "", with: "")
+                    if let url = URL(string:joiningDoc){
+                        if let data1 = try? Data(contentsOf: url){
+                            docImageView.image = UIImage(data: data1)
+                        }
+                    }
+//                    docImageView.sd_setImage(with: url, placeholderImage: nil, completed: { (image, error, cachetype, imageurl) in
+//                        docImageView.image = image
+//                    })
+                }
+//                else{
+//                    docImageView.image = UIImage(named:"uploaddoc")
+//                }
+                cell.contentView.addSubview(docLabel)
+                cell.contentView.addSubview(docImageView)
+                cell.keyLabel.text = ""
+            }else{
+                cell.keyLabel.text = keyLabelNameArray.object(at: indexPath.row) as? String
+                cell.valueLabel.text = strValue
+            }
+            
             if(indexPath.row%2 == 0){
                 cell.contentView.backgroundColor = UIColor.white
             }else {
                 cell.contentView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.05)
             }
+            
+            
             cell.preservesSuperviewLayoutMargins = false
             cell.separatorInset = UIEdgeInsets.zero
             cell.layoutMargins = UIEdgeInsets.zero

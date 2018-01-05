@@ -20,13 +20,13 @@ class BarChartFormatter: NSObject, IAxisValueFormatter {
     /// - parameter axis:            the axis that the value belongs to
     ///
     
-    var months: [String]! = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+//    var months: [String]! = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
 //    var months: [String]! = ["JAN","MAR", "MAY","JUL", "SEP", "NOV"]
 
-    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        
-        return months[Int(value)]
-    }
+//    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+//
+//        return months[Int(value)]
+//    }
     var labels: [String] = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 //
 //    public func stringForValue(value: Double, axis: AxisBase?) -> String {
@@ -34,10 +34,10 @@ class BarChartFormatter: NSObject, IAxisValueFormatter {
 //        return months[Int(value)]
 //    }
 
-//    func stringForValue(_ value: Int, axis: AxisBase?) -> String {
-//        return labels[value]
-//    }
-//    
+    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return labels[Int(value)]
+    }
+    
 //    init(labels: [String]) {
 //        super.init()
 //        self.labels = labels

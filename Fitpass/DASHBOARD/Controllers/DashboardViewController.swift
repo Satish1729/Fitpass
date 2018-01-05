@@ -61,9 +61,11 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
             let dataEntry = BarChartDataEntry(x: Double(i), y:values[i], data: months as AnyObject )
             dataEntries.append(dataEntry)
         }
-        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values:dataPoints)
+        barChartView.xAxis.valueFormatter = BarChartFormatter() //IndexAxisValueFormatter(values:dataPoints)
+        
         barChartView.xAxis.granularity = 0.5
         barChartView.xAxis.drawGridLinesEnabled = false
+        barChartView.xAxis.drawLabelsEnabled = true
         barChartView.xAxis.labelPosition = .bottom
         barChartView.leftAxis.spaceBottom = 0.0
         let chartDataSet = BarChartDataSet(values: dataEntries, label: labelname)
