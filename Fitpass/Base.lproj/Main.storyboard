@@ -3087,6 +3087,7 @@
                         <outlet property="borderView" destination="unb-NR-YvJ" id="4XH-op-AXn"/>
                         <outlet property="statusImageView" destination="vLO-Tu-KfE" id="6ZL-Ma-AcL"/>
                         <outlet property="statusLabel" destination="kWQ-SO-02d" id="vp7-vP-kLX"/>
+                        <segue destination="GXz-Lu-5jB" kind="show" identifier="assetFullSegue" id="YhH-M4-VlG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xib-zT-pWU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3549,11 +3550,44 @@
                         <outlet property="nameLabel" destination="qpS-hD-dBp" id="Fv1-CK-DXV"/>
                         <outlet property="profileImageView" destination="4d1-6o-Xy8" id="v7M-ek-spY"/>
                         <outlet property="staffDetailTableView" destination="3eR-m9-1q8" id="v9r-Tm-zLA"/>
+                        <segue destination="GXz-Lu-5jB" kind="show" identifier="staffFullSegue" id="4Hk-j1-9ZF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f5A-Nm-rE3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2272.8000000000002" y="1360.569715142429"/>
+        </scene>
+        <!--Full Image View Controller-->
+        <scene sceneID="uUK-OM-lkk">
+            <objects>
+                <viewController id="GXz-Lu-5jB" customClass="FullImageViewController" customModule="Fitpass" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bFf-RU-MXG"/>
+                        <viewControllerLayoutGuide type="bottom" id="KDH-ao-Mnw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="H3Z-mf-uRy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6LW-vM-AmP">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6LW-vM-AmP" firstAttribute="centerY" secondItem="H3Z-mf-uRy" secondAttribute="centerY" constant="32" id="1ni-io-WrU"/>
+                            <constraint firstItem="6LW-vM-AmP" firstAttribute="leading" secondItem="H3Z-mf-uRy" secondAttribute="leading" id="86y-0G-wVi"/>
+                            <constraint firstItem="6LW-vM-AmP" firstAttribute="centerX" secondItem="H3Z-mf-uRy" secondAttribute="centerX" id="gSA-Qc-K8p"/>
+                            <constraint firstItem="6LW-vM-AmP" firstAttribute="top" secondItem="bFf-RU-MXG" secondAttribute="bottom" id="oNg-hs-U7W"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="fullImageView" destination="6LW-vM-AmP" id="ckF-pW-env"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jLW-M3-5RI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3493.5999999999999" y="1367.7661169415294"/>
         </scene>
         <!--Staff Add View Controller-->
         <scene sceneID="XNf-XY-Ouq">
@@ -5931,6 +5965,7 @@
         <image name="workout_detail" width="100" height="150"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="YhH-M4-VlG"/>
         <segue reference="b7Y-4S-hmn"/>
         <segue reference="9k5-rp-7Lh"/>
         <segue reference="kew-Q3-kIM"/>

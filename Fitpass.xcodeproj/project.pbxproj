@@ -93,6 +93,7 @@
 		EF82F1C91FCD05F9008BBE08 /* SalesReportDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1C81FCD05F9008BBE08 /* SalesReportDetailController.swift */; };
 		EF82F1CB1FCD061B008BBE08 /* SalesReportFilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1CA1FCD061B008BBE08 /* SalesReportFilterController.swift */; };
 		EF82F1CD1FCD0C93008BBE08 /* SalesReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF82F1CC1FCD0C93008BBE08 /* SalesReport.swift */; };
+		EFA1A6481FFF191D006E7153 /* FullImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA1A6471FFF191D006E7153 /* FullImageViewController.swift */; };
 		EFFE546C1FE62C1500225320 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFFE546B1FE62C1500225320 /* ForgotPasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -209,6 +210,7 @@
 		EF82F1C81FCD05F9008BBE08 /* SalesReportDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportDetailController.swift; path = DASHBOARD/Controllers/SalesReportDetailController.swift; sourceTree = "<group>"; };
 		EF82F1CA1FCD061B008BBE08 /* SalesReportFilterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReportFilterController.swift; path = DASHBOARD/Controllers/SalesReportFilterController.swift; sourceTree = "<group>"; };
 		EF82F1CC1FCD0C93008BBE08 /* SalesReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SalesReport.swift; path = DASHBOARD/Models/SalesReport.swift; sourceTree = "<group>"; };
+		EFA1A6471FFF191D006E7153 /* FullImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FullImageViewController.swift; path = DASHBOARD/Controllers/FullImageViewController.swift; sourceTree = "<group>"; };
 		EFFE546B1FE62C1500225320 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ForgotPasswordViewController.swift; path = USER/ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -362,6 +364,7 @@
 				753DB4041F174E8600A6C1A1 /* ReservedWorkoutDetailController.swift */,
 				3B680F331EC6ED4500549969 /* WorkoutScheduleController.swift */,
 				75D46CCA1F287416007ACF8F /* PartnerRequestViewController.swift */,
+				EFA1A6471FFF191D006E7153 /* FullImageViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -718,6 +721,7 @@
 				3BEAAFB61EDAB9080083AA51 /* LeadsFilterViewController.swift in Sources */,
 				7553819C1F14E73C008F6794 /* WorkoutDetailController.swift in Sources */,
 				3BC9593C1EDC920E00A94CCE /* MembersFilterController.swift in Sources */,
+				EFA1A6481FFF191D006E7153 /* FullImageViewController.swift in Sources */,
 				3B4DAF331F04AA1C00BDB69B /* AssetDetailController.swift in Sources */,
 				3B58C0571EB0A2AE006086E5 /* ServerConstants.swift in Sources */,
 				3B0C8B731F10EFE1001DB937 /* Payments.swift in Sources */,
