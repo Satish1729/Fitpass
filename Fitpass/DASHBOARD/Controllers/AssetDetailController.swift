@@ -135,13 +135,17 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
                 if let joiningDoc = assetObj?.bill{
                     //                    let strDoc = joiningDoc.replacingOccurrences(of: "", with: "")
                     if let url = URL(string:joiningDoc){
-                        if let data1 = try? Data(contentsOf: url){
-                            docImageView.image = UIImage(data: data1)
+                        docImageView.sd_setImage(with: url, completed: { (image, error, cacheType, imageurl) in
+                            docImageView.image = image
                             cell.contentView.addSubview(docImageView)
-                        }else{
-                            cell.valueLabel.text = "NA"
+                        })
 
-                        }
+//                        if let data1 = try? Data(contentsOf: url){
+//                            docImageView.image = UIImage(data: data1)
+//                            cell.contentView.addSubview(docImageView)
+//                        }else{
+//                            cell.valueLabel.text = "NA"
+//                        }
                     }else{
                         cell.valueLabel.text = "NA"
 

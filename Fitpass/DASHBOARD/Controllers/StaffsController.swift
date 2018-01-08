@@ -88,8 +88,11 @@
         let responseDic:NSDictionary? = jsonObject as? NSDictionary
         if (responseDic != nil) {
             print(responseDic!)
-                self.staffsArray.addObjects(from:  Staffs().updateStaffs(responseDict : responseDic!) as [AnyObject])
-                self.staffTableView.reloadData()
+            if(self.staffsArray.count>0){
+                self.staffsArray.removeAllObjects()
+            }
+            self.staffsArray.addObjects(from:  Staffs().updateStaffs(responseDict : responseDic!) as [AnyObject])
+            self.staffTableView.reloadData()
         }
     }
     else{
@@ -378,18 +381,18 @@
             let responseDic:NSDictionary? = jsonObject as? NSDictionary
             if (responseDic != nil) {
                 print(responseDic!)
-                
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                let newDate = dateFormatter.string(from: Date())
-                if let joining = staffBean.joining_documents{
-                    let joingDoc: String = "https://fitpass-studio.s3.ap-south-1.amazonaws.com/"+joining
-                    staffBean.joining_documents = joingDoc
-                }
-                staffBean.created_at = newDate
-                self.staffsArray.insert(staffBean, at: 0)
-//                self.staffsArray.add(staffBean)
-                self.staffTableView.reloadData()
+                self.getStaffList()
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//                let newDate = dateFormatter.string(from: Date())
+//                if let joining = staffBean.joining_documents{
+//                    let joingDoc: String = "https://fitpass-studio.s3.ap-south-1.amazonaws.com/"+joining
+//                    staffBean.joining_documents = joingDoc
+//                }
+//                staffBean.created_at = newDate
+//                self.staffsArray.insert(staffBean, at: 0)
+////                self.staffsArray.add(staffBean)
+//                self.staffTableView.reloadData()
             }
         }
         else{
@@ -414,7 +417,7 @@
         //        ["Name", "Role", "Email", "Contact No.", "Date of Birth", "Gender", "Address", "Joining Date", "Salary", "Salary Date
         
         //         address  contact_number   created_at   dob   email  gender   id   is_active  is_deleted joining_date :   joining_documents  name   remarks    role   salary   salary_date   updated_at :
-        
+
         let paramDict : [String : Any] = ["staff_name" : staffBean.name!, "role" : staffBean.role!, "email_address": staffBean.email!, "contact_number": staffBean.contact_number?.stringValue ?? "", "date_of_birth" : staffBean.dob!, "gender" : staffBean.gender!, "address" : staffBean.address!, "joining_date": staffBean.joining_date!, "salary": staffBean.salary!, "salary_date": staffBean.salary_date?.stringValue ?? "", "remarks" : staffBean.remarks ?? "", "joining_documents": staffBean.joining_documents ?? ""]
         
         let urlString : String = ServerConstants.URL_STAFF + "/" + (staffBean.id?.stringValue)!
@@ -427,14 +430,20 @@
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    if let joining = staffBean.joining_documents{
-                        let joingDoc: String = "https://fitpass-studio.s3.ap-south-1.amazonaws.com/"+joining
-                        staffBean.joining_documents = joingDoc
-                    }
-
-                    self.staffsArray.removeObject(at: self.editedStaffCellNumber)
-                    self.staffsArray.insert(staffBean, at: self.editedStaffCellNumber)
-                    self.staffTableView.reloadData()
+                    self.getStaffList()
+//                    if let joining = staffBean.joining_documents{
+//                        if(joining.contains("https://fitpass-studio.s3.ap-south-1.amazonaws.com/")){
+//
+//                        }else{
+//                            let joingDoc: String = "https://fitpass-studio.s3.ap-south-1.amazonaws.com/"+joining
+//                            staffBean.joining_documents = joingDoc
+//                        }
+//                    }else{
+//                        staffBean.joining_documents = ""
+//                    }
+//                    self.staffsArray.removeObject(at: self.editedStaffCellNumber)
+//                    self.staffsArray.insert(staffBean, at: self.editedStaffCellNumber)
+//                    self.staffTableView.reloadData()
                 }
             }
             else{

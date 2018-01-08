@@ -14,6 +14,7 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
         var staffObj : Staffs?
         var staffDetailArray : NSMutableArray = NSMutableArray()
     var imageFull : UIImage?
+    var docImageView : UIImageView!
     @IBOutlet weak var staffDetailTableView: UITableView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var contactNumberLabel: UILabel!
@@ -40,11 +41,11 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
             self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
             self.mailButton.addTarget(self, action: #selector(email), for: UIControlEvents.touchUpInside)
 
-            if(staffObj?.gender == "Male"){
-                self.profileImageView.image = UIImage(named: "man")
-            }else{
-                self.profileImageView.image = UIImage(named: "woman")
-            }
+//            if(staffObj?.gender == "Male"){
+//                self.profileImageView.image = UIImage(named: "man")
+//            }else{
+//                self.profileImageView.image = UIImage(named: "woman")
+//            }
 
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named : "img_back"), style: .plain, target: self, action: #selector(dismissViewController))
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
@@ -202,21 +203,25 @@ class StaffDetailController: BaseViewController, UITableViewDelegate, UITableVie
                 docLabel.text = "Joining Documents"
                 docLabel.textColor = UIColor.lightGray
                 docLabel.font = UIFont.systemFont(ofSize: 12.0)
-                let docImageView = UIImageView.init(frame: CGRect(x: 5, y: 30, width: 350, height: 130))
+                docImageView = UIImageView.init(frame: CGRect(x: 5, y: 30, width: 350, height: 130))
                 
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
                 docImageView.isUserInteractionEnabled = true
                 docImageView.addGestureRecognizer(tapGestureRecognizer)
             
                 if let joiningDoc = staffObj?.joining_documents{
-//                    let strDoc = joiningDoc.replacingOccurrences(of: "", with: "")
                     if let url = URL(string:joiningDoc){
-                        if let data1 = try? Data(contentsOf: url){
-                            docImageView.image = UIImage(data: data1)
-                            cell.contentView.addSubview(docImageView)
-                        }else{
-                            cell.valueLabel.text = "NA"
-                        }
+                        docImageView.sd_setImage(with: url, completed: { (image, error, cacheType, imageurl) in
+                            self.docImageView.image = image
+                            cell.contentView.addSubview(self.docImageView)
+                        })
+                        
+//                        docImageView.sd_setImage(with: url)
+//                        if let data1 = try? Data(contentsOf: url){
+//                            docImageView.image = UIImage(data: data1)
+//                        }else{
+//                            cell.valueLabel.text = "NA"
+//                        }
                     }else{
                         cell.valueLabel.text = "NA"
                     }

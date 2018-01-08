@@ -12,6 +12,7 @@ import AssetsPickerViewController
 import Photos
 import AWSS3
 import AWSCore
+import SDWebImage
 
 class StaffUpdateViewController: BaseViewController {
     
@@ -163,10 +164,12 @@ class StaffUpdateViewController: BaseViewController {
         salaryDateButton.setTitle(staffObj?.salary_date?.stringValue, for: UIControlState.normal)
         if let joiningdoc = staffObj?.joining_documents{
             if let url = URL(string:joiningdoc){
-                if let data1 = try? Data(contentsOf: url){
-                    let docImage = UIImage(data: data1)
-                    self.uploadDocumentButton.setImage(docImage, for: .normal)
-                }
+                self.uploadDocumentButton.sd_setImage(with: url, for: .normal)
+
+//                if let data1 = try? Data(contentsOf: url){
+//                    let docImage = UIImage(data: data1)
+//                    self.uploadDocumentButton.setImage(docImage, for: .normal)
+//                }
             }
         }
     }
@@ -246,6 +249,7 @@ class StaffUpdateViewController: BaseViewController {
             if task.result != nil {
 //                let url = AWSS3.default().configuration.endpoint.url
 //                let publicURL = url//appendingPathComponent(uploadRequest.bucket!).appendingPathComponent(uploadRequest.key!)
+                
                 self.documentUrl = remoteName
 //                self.documentUrl = publicURL?.absoluteString
                 self.performSelector(onMainThread:  #selector(self.updateStaffDetails), with: nil, waitUntilDone: true)
@@ -287,7 +291,7 @@ class StaffUpdateViewController: BaseViewController {
         staffBean.is_deleted = staffObj?.is_deleted
         staffBean.created_at = staffObj?.created_at
         staffBean.updated_at = staffObj?.updated_at
-        staffBean.joining_documents = staffObj?.joining_documents
+//        staffBean.joining_documents = staffObj?.joining_documents
         staffBean.remarks = staffObj?.remarks
         
         ProgressHUD.hideProgress()
@@ -442,12 +446,6 @@ extension StaffUpdateViewController: AssetsPickerViewControllerDelegate {
     func assetsPickerCannotAccessPhotoLibrary(controller: AssetsPickerViewController) {}
     func assetsPickerDidCancel(controller: AssetsPickerViewController) {}
     func assetsPicker(controller: AssetsPickerViewController, selected assets: [PHAsset]) {
-//        imageManager.requestImage(for: assets.first!, targetSize: CGSize(width: self.uploadDocumentButton.frame.size.width, height: self.uploadDocumentButton.frame.size.height), contentMode: .aspectFit, options: nil) { (image, info) in
-//            self.uploadDocumentButton.contentMode = .scaleAspectFit
-//            self.uploadDocumentButton.setImage(nil, for: .normal)
-//            self.uploadDocumentButton.setBackgroundImage(image, for: UIControlState.normal)
-//        }
-        
         imageManager.requestImage(for: assets.first!, targetSize: CGSize(width: self.uploadDocumentButton.frame.size.width, height: self.uploadDocumentButton.frame.size.height), contentMode: .aspectFit, options: nil) { (image, info) in
             let resource = PHAssetResource.assetResources(for: assets.first!).first
             

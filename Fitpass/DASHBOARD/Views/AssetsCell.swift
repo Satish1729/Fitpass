@@ -32,7 +32,10 @@ class AssetsCell: UITableViewCell {
         if let assetName = assetBean.asset_name {
             self.assetNameLabel.text = assetName
         }
-        
+        if let createdAt = assetBean.created_at{
+            self.createdAtLabel.text = Utility().getDateString(dateStr: createdAt)
+        }
+
         if let status = assetBean.asset_status {
             self.statusLabel.text = status
             if(status == "In-Use"){
