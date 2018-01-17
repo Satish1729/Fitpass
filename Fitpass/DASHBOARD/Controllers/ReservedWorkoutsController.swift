@@ -159,7 +159,7 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
             
             var numOfSections: Int = 0
             if (arrayCount > 0){
-                tableView.separatorStyle = .singleLine
+                tableView.separatorStyle = .none
                 numOfSections            = 1
                 tableView.backgroundView = nil
             }
@@ -182,7 +182,7 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
         }
         
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-            return 120
+            return 150
         }
         
         func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

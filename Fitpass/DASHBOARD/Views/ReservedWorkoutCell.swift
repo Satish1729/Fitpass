@@ -16,6 +16,7 @@ class ReservedWorkoutCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var membershipIdLabel: UILabel!
     @IBOutlet weak var borderView: UIView!
+    @IBOutlet weak var callButton: UIButton!
     @IBOutlet weak var categoryName: UILabel!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var statusColorView: UIView!
@@ -43,11 +44,12 @@ class ReservedWorkoutCell: UITableViewCell {
             self.categoryName.text = username
         }
         
-        if let startTime = reservedBean.start_time {
-            self.membershipIdLabel.text = startTime
-        }
+//        if let startTime = reservedBean.start_time {
+//            self.membershipIdLabel.text = startTime
+//        }
         if let mobile = reservedBean.user_mobile {
-            self.userNameLabel.text = mobile
+//            self.userNameLabel.text = mobile
+            self.callButton.setTitle(mobile, for: UIControlState.normal)
         }
         
         if let isActive = reservedBean.status{
@@ -69,8 +71,27 @@ class ReservedWorkoutCell: UITableViewCell {
             myString.append(valueString)
             self.membershipIdLabel.attributedText = myString
         }
+        
+        self.callButton.addTarget(self, action: #selector(call), for: UIControlEvents.touchUpInside)
+        
     }
     
+    func call(){
+        if let number = self.callButton.titleLabel?.text{
+            
+            callTheNumber(numberString: number)
+        }
+    }
+    
+    func callTheNumber(numberString : String){
+        if let url = URL(string: "tel://\(numberString)"), UIApplication.shared.canOpenURL(url) {
+            if #available(iOS 10, *) {
+                UIApplication.shared.open(url)
+            } else {
+                UIApplication.shared.openURL(url)
+            }
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -98,8 +98,18 @@ class StaffAddViewController: BaseViewController {
     
     func startUploadingImage()
     {
-        let accessKey = "AKIAJFOQTSGVOWTYTHTQ"
-        let secretKey = "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"
+        
+//        AWS_KEY=AKIAINK4WHZLQOYURRPA
+//        AWS_SECRET=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
+//        AWS_REGION=ap-south-1
+//        AWS_BUCKET=fitpass-crm
+
+//        let accessKey = "AKIAJFOQTSGVOWTYTHTQ"
+//        let secretKey = "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"
+        
+        let accessKey = "AKIAINK4WHZLQOYURRPA"
+        let secretKey = "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"
+
         let credentialsProvider = AWSStaticCredentialsProvider(accessKey: accessKey, secretKey: secretKey)
         let configuration = AWSServiceConfiguration(region: AWSRegionType.APSouth1, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
@@ -110,7 +120,7 @@ class StaffAddViewController: BaseViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "ddMMyyyy-HHmmss"
         let remoteName = formatter.string(from: currentDateTime)+".jpeg"
-        let S3BucketName = "fitpass-studio"
+        let S3BucketName = "fitpass-crm" //"fitpass-studio"
         let uploadRequest = AWSS3TransferManagerUploadRequest()!
         uploadRequest.body = self.selectedImageUrl
         uploadRequest.key = remoteName
@@ -122,6 +132,7 @@ class StaffAddViewController: BaseViewController {
         transferManager.upload(uploadRequest).continueWith { (task: AWSTask) -> Any? in
             if let error = task.error {
                 print("Upload failed with error: (\(error.localizedDescription))")
+                self.performSelector(onMainThread:  #selector(self.addNewStaffDetails), with: nil, waitUntilDone: true)
             }
             if task.result != nil {
 //                let url = AWSS3.default().configuration.endpoint.url
@@ -378,6 +389,7 @@ class StaffAddViewController: BaseViewController {
         staffBean.address = addressTxtField.text!
         staffBean.joining_date = joiningDateTxtField.text!
         staffBean.salary = salaryTxtField.text!
+        //NSNumber(value: Int((salaryTxtField.text!))!)
         staffBean.salary_date = NSNumber(value: Int((salaryDateButton.titleLabel?.text)!)!)
         if let joiningDoc = self.documentUrl{
             staffBean.joining_documents = joiningDoc
@@ -432,7 +444,9 @@ class StaffAddViewController: BaseViewController {
     func writeResource(toTmp resource: PHAssetResource, pathCallback: @escaping (_ localUrl: URL) -> Void) {
         // Get Asset Resource. Take first resource object. since it's only the one image.
         let filename: String = resource.originalFilename
-        let pathToWrite: String = NSTemporaryDirectory() + (filename)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "ddMMyyyyHHmmss"
+        let pathToWrite: String = NSTemporaryDirectory() + formatter.string(from: Date())+(filename)
         let localpath = NSURL.fileURL(withPath: pathToWrite)
         let options = PHAssetResourceRequestOptions()
         options.isNetworkAccessAllowed = true

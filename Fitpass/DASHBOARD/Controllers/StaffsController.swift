@@ -418,7 +418,7 @@
         
         //         address  contact_number   created_at   dob   email  gender   id   is_active  is_deleted joining_date :   joining_documents  name   remarks    role   salary   salary_date   updated_at :
 
-        let paramDict : [String : Any] = ["staff_name" : staffBean.name!, "role" : staffBean.role!, "email_address": staffBean.email!, "contact_number": staffBean.contact_number?.stringValue ?? "", "date_of_birth" : staffBean.dob!, "gender" : staffBean.gender!, "address" : staffBean.address!, "joining_date": staffBean.joining_date!, "salary": staffBean.salary!, "salary_date": staffBean.salary_date?.stringValue ?? "", "remarks" : staffBean.remarks ?? "", "joining_documents": staffBean.joining_documents ?? ""]
+        let paramDict : [String : Any] = ["staff_name" : staffBean.name!, "role" : staffBean.role!, "email_address": staffBean.email!, "contact_number": staffBean.contact_number?.stringValue ?? "", "date_of_birth" : staffBean.dob!, "gender" : staffBean.gender!, "address" : staffBean.address!, "joining_date": staffBean.joining_date!, "salary": staffBean.salary, "salary_date": staffBean.salary_date?.stringValue ?? "", "remarks" : staffBean.remarks ?? "", "joining_documents": staffBean.joining_documents ?? ""]
         
         let urlString : String = ServerConstants.URL_STAFF + "/" + (staffBean.id?.stringValue)!
         NetworkManager.sharedInstance.getResponseForURLWithParameters(url: urlString , userInfo: paramDict as NSDictionary, type: "PUT") { (data, response, error) in

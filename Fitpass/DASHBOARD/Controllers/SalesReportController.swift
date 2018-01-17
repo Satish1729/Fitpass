@@ -163,7 +163,8 @@ class SalesReportController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         ProgressHUD.showProgress(targetView: self.view)
-        let parameters : [String : Any] = ["due_date_month" : Utility().getMonthString(dateStr: self.paidDate!) , "paid_status":self.statusString!]
+        
+         let parameters = ["due_date_month" : Utility().getMonthString(dateStr: self.paidDate!) , "paid_status":self.statusString!]
 
         let urlString  = self.createURLFromParameters(parameters: parameters)
         let str : String = ServerConstants.URL_GET_SALESREPORT+urlString.absoluteString

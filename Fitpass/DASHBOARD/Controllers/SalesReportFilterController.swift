@@ -77,7 +77,7 @@ class SalesReportFilterController: BaseViewController, UITextFieldDelegate, Half
                     switch (statusStr){
                     case "Paid" :             self.paidButton.isSelected = true
                     break;
-                    case "Due" :            self.dueButton.isSelected = true
+                    case "Partially Paid" :            self.dueButton.isSelected = true
                     break;
                     default:
                         break;

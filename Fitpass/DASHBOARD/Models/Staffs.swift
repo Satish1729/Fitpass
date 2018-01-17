@@ -59,11 +59,11 @@ class Staffs: NSObject {
             }else{
                 staffBean.joining_documents = ""
             }
-            staffBean.name = staffObj[ "staff_name"] as? String
-            staffBean.remarks = staffObj[ "remarks"] as? String
-            staffBean.role = staffObj[ "role"] as? String
-            staffBean.salary = staffObj[ "salary"] as? String
-            staffBean.salary_date = staffObj[ "salary_date"] as? NSNumber
+            staffBean.name = staffObj["staff_name"] as? String
+            staffBean.remarks = staffObj["remarks"] as? String
+            staffBean.role = staffObj["role"] as? String
+            staffBean.salary = staffObj["salary"] as? String
+            staffBean.salary_date = staffObj["salary_date"] as? NSNumber
             staffBean.updated_at = staffObj["updated_at"] as? String
             
             tempArray.add(staffBean)

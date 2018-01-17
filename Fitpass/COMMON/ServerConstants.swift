@@ -11,7 +11,7 @@ import UIKit
 
 class ServerConstants: NSObject {
     
-    static let BASE_URL_CLIENT = "http://dev.fitpass.co.in/studio/" //"http://devapi.fitpass.co.in/studio/"
+    static let BASE_URL_CLIENT = "http://dev.fitpass.co.in/partner/" //"http://devapi.fitpass.co.in/studio/"
     
     static let BASE_URL_LOGIN = "http://fitpasscrm.com/api/" //"http://35.154.22.28/fitpassAdminDev/public/api/"
     
@@ -42,7 +42,7 @@ class ServerConstants: NSObject {
     static let URL_GAUGE_DATA = BASE_URL+"gauge_data"
     static let URL_MEMBERS_DATA = BASE_URL+"gauge_data/members"
     static let URL_GET_SALESREPORT = BASE_URL+"members/payments"
-    static let URL_URC = BASE_URL+"workouts/verifyusers"
+    static let URL_URC = BASE_URL+"urcverification/confirmworkouts"
     static let URL_ASSETS_DOWNLOAD = BASE_URL+"assets/sendReport"
     static let URL_STAFFS_DOWNLOAD = BASE_URL+"staff/sendReport"
     static let URL_LEADS_DOWNLOAD = BASE_URL+"leads/sendReport"
@@ -66,16 +66,30 @@ class ServerConstants: NSObject {
 //    Call<PojoLead> getLeadFilterLeads(@Header("x-auth-token") String token, @Query("date_range_from") String date_range_from,@Query("date_range_to") String date_range_to,@Query("lead_nature") String status);
     
     // CLIENT APIs
-    static let URL_GET_ALL_PAYMENTS = BASE_URL_CLIENT+"salesreport"
-    static let URL_GET_WORKOUTS = BASE_URL_CLIENT+"workoutlist"
-    static let URL_GET_RESERVED_WORKOUTS = BASE_URL_CLIENT+"workouts/reservedworkouts"
-    static let URL_ADD_WORKOUT = BASE_URL_CLIENT+"workouts/add"
-    static let URL_DELETE_WORKOUT = BASE_URL_CLIENT+"workouts/delete"
-    static let URL_UPDATE_WORKOUT = BASE_URL_CLIENT+"workouts/update"
-    static let URL_WORKOUTS_CATEGORY = BASE_URL_CLIENT+"workouts/category"
-    static let URL_ADD_SCHEDULE = BASE_URL_CLIENT+"workouts/addschedule"
+//    static let URL_GET_ALL_PAYMENTS = BASE_URL_CLIENT+"salesreport"
+//    static let URL_GET_WORKOUTS = BASE_URL_CLIENT+"workoutlist"
+//    static let URL_GET_RESERVED_WORKOUTS = BASE_URL_CLIENT+"workouts/reservedworkouts"
+//    static let URL_ADD_WORKOUT = BASE_URL_CLIENT+"workouts/add"
+//    static let URL_DELETE_WORKOUT = BASE_URL_CLIENT+"workouts/delete"
+//    static let URL_UPDATE_WORKOUT = BASE_URL_CLIENT+"workouts/update"
+//    static let URL_WORKOUTS_CATEGORY = BASE_URL_CLIENT+"workouts/category"
+//    static let URL_ADD_SCHEDULE = BASE_URL_CLIENT+"workouts/addschedule"
+//    static let URL_GET_STAFF_ROLES = BASE_URL+"studioStaffRoles"
+//    static let URL_LEAD_DATA = "http://devapi.fitpass.co.in/lead-data"
+
+
+
+    static let URL_GET_ALL_PAYMENTS = BASE_URL_CLIENT+"sales/report"
+    static let URL_GET_WORKOUTS = BASE_URL_CLIENT+"workouts/workoutslist"
+    static let URL_GET_RESERVED_WORKOUTS = BASE_URL_CLIENT+"workout-schedules/userreservedschedules"
+    static let URL_ADD_WORKOUT = BASE_URL_CLIENT+"workouts/addworkouts"
+    static let URL_DELETE_WORKOUT = BASE_URL_CLIENT+"workouts/deleteworkouts"
+    static let URL_UPDATE_WORKOUT = BASE_URL_CLIENT+"workouts/updateworkouts"
+    static let URL_WORKOUTS_CATEGORY = BASE_URL_CLIENT+"workout-activities/activities"
+    static let URL_ADD_SCHEDULE = BASE_URL_CLIENT+"workout-schedules/addschedule"
     static let URL_GET_STAFF_ROLES = BASE_URL+"studioStaffRoles"
-    static let URL_LEAD_DATA = "http://devapi.fitpass.co.in/lead-data"
+    static let URL_LEAD_DATA = BASE_URL_CLIENT+"lead-data"//"http://devapi.fitpass.co.in/lead-data"
+//    static let workout-schedules/updateschedule
 }
 /*
  @GET("users")

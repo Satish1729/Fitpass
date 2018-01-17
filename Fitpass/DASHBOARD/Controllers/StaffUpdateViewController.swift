@@ -221,8 +221,16 @@ class StaffUpdateViewController: BaseViewController {
     }
     func startUploadingImage()
     {
-        let accessKey = "AKIAJFOQTSGVOWTYTHTQ"
-        let secretKey = "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"
+//        AWS_KEY=AKIAINK4WHZLQOYURRPA
+//        AWS_SECRET=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
+//        AWS_REGION=ap-south-1
+//        AWS_BUCKET=fitpass-crm
+        
+//        let accessKey = "AKIAJFOQTSGVOWTYTHTQ"
+//        let secretKey = "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"
+        
+        let accessKey = "AKIAINK4WHZLQOYURRPA"
+        let secretKey = "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"
         let credentialsProvider = AWSStaticCredentialsProvider(accessKey: accessKey, secretKey: secretKey)
         let configuration = AWSServiceConfiguration(region: AWSRegionType.APSouth1, credentialsProvider: credentialsProvider)
         AWSServiceManager.default().defaultServiceConfiguration = configuration
@@ -233,7 +241,7 @@ class StaffUpdateViewController: BaseViewController {
         let formatter = DateFormatter()
         formatter.dateFormat = "ddMMyyyy-HHmmss"
         let remoteName = formatter.string(from: currentDateTime)+".jpeg"
-        let S3BucketName = "fitpass-studio"
+        let S3BucketName = "fitpass-crm" //"fitpass-studio"
         let uploadRequest = AWSS3TransferManagerUploadRequest()!
         uploadRequest.body = self.selectedImageUrl
         uploadRequest.key = remoteName
@@ -282,6 +290,7 @@ class StaffUpdateViewController: BaseViewController {
         staffBean.address = addressTxtField.text!
         staffBean.joining_date = joiningDateTxtField.text!
         staffBean.salary = salaryTxtField.text!
+        //NSNumber(value: Int((salaryTxtField.text)!)!)
         staffBean.salary_date = NSNumber(value: Int((salaryDateButton.titleLabel?.text)!)!)
         if let joiningDoc = self.documentUrl{
             staffBean.joining_documents = joiningDoc

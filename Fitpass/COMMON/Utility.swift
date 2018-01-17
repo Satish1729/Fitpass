@@ -291,6 +291,9 @@ class Utility: NSObject {
         return newDate
     }
     func getMonthString(dateStr : String) -> String {
+        if(dateStr == ""){
+            return ""
+        }
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM"
         let date = dateFormatter.date(from: dateStr)
