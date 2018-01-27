@@ -33,22 +33,24 @@ class ReservedWorkoutDetailController: BaseViewController, UITableViewDelegate, 
             self.navigationItem.leftBarButtonItem?.tintColor = UIColor.white
             self.navigationItem.leftBarButtonItem = item1
             
+            reservedWorkoutDetailTableView.tableFooterView = UIView(frame: .zero)
         }
-        
+    
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             self.navigationItem.title = "Workout Detail"
         }
-        
+    
         func dismissViewController() {
             _ = self.navigationController?.popViewController(animated: true)
         }
-        
+    
         func numberOfSections(in tableView: UITableView) -> Int {
             return 1
         }
-        
+    
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
             return self.keyLabelNameArray.count
         }
         

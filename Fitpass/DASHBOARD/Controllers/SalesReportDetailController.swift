@@ -63,7 +63,7 @@ class SalesReportDetailController: BaseViewController, UITableViewDelegate, UITa
         }
         
         func showSendSMSView(){
-            showAlertWithTextFieldAndTitle(title: "Send sms to "+(salesReportObj?.member_name)!, message: "", forTarget: self, buttonOK: "Send SMS", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Message", alertOK: { (msgString) in
+            showAlertTextViewAndTitle(title: "Send sms to "+(salesReportObj?.member_name)!, message: "", forTarget: self, buttonOK: "Send SMS", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Message", alertOK: { (msgString) in
                 self.smsString = msgString
                 self.sendSMS()
             }) { (Void) in

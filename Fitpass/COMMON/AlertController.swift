@@ -40,11 +40,21 @@ func showAlertWithTitle(title:String,message:String,forTarget:AnyObject,buttonOK
     
 }
 
-func showAlertWithTextFieldAndTitle(title:String, message: String, forTarget: AnyObject, buttonOK:String, buttonCancel:String, isEmail:Bool, textPlaceholder:String, alertOK: @escaping (String)->(), alertCancel: @escaping (Void)->()) {
+func showAlertWithTextFieldAndTitle(title:String, message: String, forTarget: AnyObject, buttonOK:String, buttonCancel:String, isEmail:Bool, textPlaceholder:String, alertOK: @escaping (String)->(), alertCancel: @escaping ()->()) {
     
     let alertController:UIAlertController = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
     
-    if buttonCancel.characters.count > 0 {
+    if(message == "Enter URC number"){
+        let myAttribute = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.red]
+        let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0), NSForegroundColorAttributeName: UIColor.black]
+        let valueString = NSMutableAttributedString(string:" *", attributes: myAttribute )
+        let myString = NSMutableAttributedString(string: "Enter URC number", attributes: myAttribute1 )
+        myString.append(valueString)
+
+        alertController.setValue(myString, forKey: "attributedMessage")
+    }
+    
+    if buttonCancel.count > 0 {
         let cancelAction:UIAlertAction = UIAlertAction.init(title: buttonCancel, style: .default, handler: { UIAlertAction in
             alertCancel()
             alertController.dismiss(animated: true, completion: nil)
@@ -80,5 +90,4 @@ func showAlertWithTextFieldAndTitle(title:String, message: String, forTarget: An
     
     forTarget.present(alertController, animated: true, completion: nil)
 }
-
 

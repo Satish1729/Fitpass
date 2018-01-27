@@ -130,6 +130,7 @@ class AssetDetailController: BaseViewController, UITableViewDelegate, UITableVie
                 
                 let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
                 docImageView.isUserInteractionEnabled = true
+                docImageView.sizeThatFits(CGSize(width:330, height:120))
                 docImageView.addGestureRecognizer(tapGestureRecognizer)
                 
                 if let joiningDoc = assetObj?.bill{

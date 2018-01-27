@@ -49,7 +49,7 @@ class SalesReport: NSObject {
             salesReportBean.status = salesReportObj["status"] as? String
             salesReportBean.subscription_plan = salesReportObj[ "subscription_plan"] as? String
             
-            salesReportBean.total_order_amount = salesReportObj["total_order_amount"] as? NSNumber
+            salesReportBean.total_order_amount = salesReportObj["agreed_amount"] as? NSNumber
             salesReportBean.total_paid_amount = salesReportObj[ "total_paid_amount"] as? NSNumber
             salesReportBean.transaction_id = salesReportObj["transaction_id"] as? NSNumber
             

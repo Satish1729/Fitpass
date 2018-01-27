@@ -95,6 +95,45 @@ class BaseViewController: UIViewController, SideMenuControllerDelegate {
         sideMenuController?.performSegue(withIdentifier: "showDashBoardVC", sender: self)
     }
 
+    func showAlertTextViewAndTitle(title:String, message: String, forTarget: AnyObject, buttonOK:String, buttonCancel:String, isEmail:Bool, textPlaceholder:String, alertOK: @escaping (String)->(), alertCancel: @escaping ()->()){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let textView = UITextView()
+        textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        let controller = UIViewController()
+        
+        textView.frame = controller.view.frame
+        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.toolbarPlaceholder = "Message"
+        controller.view.addSubview(textView)
+        
+        alertController.setValue(controller, forKey: "contentViewController")
+        
+        let height: NSLayoutConstraint = NSLayoutConstraint(item: alertController.view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: self.view.frame.height * 0.4)
+        alertController.view.addConstraint(height)
+        
+        if buttonCancel.count > 0 {
+            let cancelAction:UIAlertAction = UIAlertAction.init(title: buttonCancel, style: .default, handler: { UIAlertAction in
+                alertCancel()
+                alertController.dismiss(animated: true, completion: nil)
+            })
+            cancelAction.setValue(UIColor.red, forKey: "titleTextColor")
+            
+            alertController.addAction(cancelAction)
+        }
+        
+    if buttonOK.count > 0 {
+        let OKButtonAction:UIAlertAction  = UIAlertAction.init(title: buttonOK, style: .default, handler: { UIAlertAction in
+            alertOK(textView.text)
+        })
+        OKButtonAction.setValue(UIColor.red, forKey: "titleTextColor")
+        OKButtonAction.isEnabled = true
+        alertController .addAction(OKButtonAction)
+    }
+        present(alertController, animated: true, completion: nil)
+    }
+    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

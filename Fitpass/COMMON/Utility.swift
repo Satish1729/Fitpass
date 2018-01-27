@@ -330,7 +330,7 @@ class Utility: NSObject {
     
     func getstartendTime(dateStr : NSString) -> NSInteger {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "H:M"
+        dateFormatter.dateFormat = "HH:mm"
         let s = dateFormatter.date(from: dateStr as String)! as NSDate
         return Utility().getIntervalTimeFromDate(date: s)
         

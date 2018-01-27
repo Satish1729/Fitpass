@@ -46,11 +46,17 @@ class SalesReportCell: UITableViewCell {
         if let plan = salesReportBean.subscription_plan{
             self.planLabel.text = plan
         }
+        
         if let paidAmount = salesReportBean.total_paid_amount{
             self.totalPaidLabel.text = formatCurrency(value: paidAmount)+"(Paid Amount)"
+        }else{
+            self.totalPaidLabel.text = " ₹0(Paid Amount)"
         }
+        
         if let orderAmount = salesReportBean.total_order_amount{
-            self.totalOrderLabel.text = formatCurrency(value: orderAmount)+"(Total Order Amount)"
+            self.totalOrderLabel.text = formatCurrency(value: orderAmount)+"(Order Amount)"
+        }else{
+            self.totalOrderLabel.text = "₹0(Order Amount)"
         }
         
         if let isActive = salesReportBean.status{ //memberBean.is_active{

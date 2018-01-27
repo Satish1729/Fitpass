@@ -30,7 +30,7 @@ class HalfModalTransitioningDelegate: NSObject, UIViewControllerTransitioningDel
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return HalfModalPresentationController(presentedViewController: presented, presenting: presenting)
     }
-    
+
     func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if interactiveDismiss {
             return self.interactionController
@@ -40,5 +40,4 @@ class HalfModalTransitioningDelegate: NSObject, UIViewControllerTransitioningDel
     }
     
 }
-
 extension UIViewController { }

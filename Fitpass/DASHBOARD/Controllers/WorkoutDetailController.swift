@@ -74,6 +74,8 @@ class WorkoutDetailController: BaseViewController, UITableViewDelegate, UITableV
         }
         
         func numberOfSections(in tableView: UITableView) -> Int {
+            tableView.tableFooterView = UIView(frame: .zero)
+
             if(self.schedulesArray.count > 0){
                 addWorkoutScheduleButton.isHidden = true
                 return 1

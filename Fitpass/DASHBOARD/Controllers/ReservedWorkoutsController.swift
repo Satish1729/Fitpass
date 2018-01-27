@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
         
@@ -252,8 +253,7 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
         }
         
     func verifyURC(){
-        
-        showAlertWithTextFieldAndTitle(title: "VALIDATE URC NUMBER", message: "Enter URC number *", forTarget: self, buttonOK: "Validate", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Please enter URC number", alertOK: { (msgString) in
+        showAlertWithTextFieldAndTitle(title: "VALIDATE URC NUMBER", message: "Enter URC number", forTarget: self, buttonOK: "Validate", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Please enter URC number", alertOK: { (msgString) in
             self.URCString = msgString
             self.sendURC()
         }) { (Void) in
@@ -272,9 +272,37 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
         
         ProgressHUD.showProgress(targetView: self.view)
         
-        let paramDict : [String : Any] = ["bank_utr_number" : self.URCString!]
+//        let paramDict : [String : Any] = ["bank_utr_number" : self.URCString!]//security_code
+        let paramDict : [String : Any] = ["security_code" : self.URCString!, "status":1]
+
+        let urlRequest = URLRequest(url: URL(string: ServerConstants.URL_URC)!)
+        let urlString = urlRequest.url?.absoluteString
+
+        let headersDict: HTTPHeaders = [
+            "X-APPKEY":(appDelegate.userBean?.auth_key)!,
+            "X-partner-id":(appDelegate.userBean?.partner_id)!,
+            "Content-Type":"application/x-www-form-urlencoded; charset=utf-8"
+        ]
         
-        NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_URC , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
+        Alamofire.request(urlString!, method: .post, parameters: paramDict, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
+            ProgressHUD.hideProgress()
+
+            print(response.result)
+            
+            let responseDic =  response.result.value as! NSDictionary
+//            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+//            }
+//            else{
+//                AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
+//            }
+        }
+
+        
+        
+        
+        
+ /*       NetworkManager.sharedInstance.getResponseForURLWithParameters(url: ServerConstants.URL_URC , userInfo: paramDict as NSDictionary, type: "POST") { (data, response, error) in
             
             ProgressHUD.hideProgress()
             
@@ -290,7 +318,7 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
                 AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))
                 print("sending message to lead failed : \(String(describing: error?.localizedDescription))")
             }
-        }
+        }*/
     }
 
         override func didReceiveMemoryWarning() {

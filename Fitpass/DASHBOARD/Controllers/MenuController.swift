@@ -165,7 +165,10 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func showStudioList(sender: Any) {
-        dropDown.show()
+        let selectedStudioObjArray = appDelegate.userBean!.studioArray as NSArray
+        if(selectedStudioObjArray.count > 1){
+            dropDown.show()
+        }
     }
     
 

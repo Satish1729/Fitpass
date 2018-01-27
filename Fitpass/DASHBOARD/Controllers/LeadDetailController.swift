@@ -64,13 +64,24 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
                 
     }
     
+    
     func showSendSMSView(){
-        showAlertWithTextFieldAndTitle(title: "Send sms to "+(leadObj?.name)!, message: "", forTarget: self, buttonOK: "Send SMS", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Message", alertOK: { (msgString) in
+        
+        showAlertTextViewAndTitle(title: "Send sms to "+(leadObj?.name)!, message: "", forTarget: self, buttonOK: "Send SMS", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Message", alertOK: { (msgString) in
             self.smsString = msgString
             self.sendSMS()
         }) { (Void) in
-            
+
         }
+
+        
+        
+//        showAlertWithTextFieldAndTitle(title: "Send sms to "+(leadObj?.name)!, message: "", forTarget: self, buttonOK: "Send SMS", buttonCancel: "Cancel", isEmail: false, textPlaceholder: "Message", alertOK: { (msgString) in
+//            self.smsString = msgString
+//            self.sendSMS()
+//        }) { (Void) in
+//
+//        }
     }
     
     func sendSMS(){

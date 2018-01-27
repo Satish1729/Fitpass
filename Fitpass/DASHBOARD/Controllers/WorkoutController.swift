@@ -213,6 +213,7 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
+
         var arrayCount = 0
         if(searchActive) {
             arrayCount = filteredArray.count

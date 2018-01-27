@@ -65,18 +65,26 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
         
         barChartView.xAxis.granularity = 0.5
         barChartView.xAxis.drawGridLinesEnabled = false
-//        barChartView.xAxis.drawLabelsEnabled = true
+//        barChartView.xAxis.centerAxisLabelsEnabled = true
+        barChartView.xAxis.drawLabelsEnabled = true
         barChartView.xAxis.labelPosition = .bottom
         barChartView.leftAxis.spaceBottom = 0.0
+        barChartView.xAxis.axisMaximum = 11//Double(dataPoints.count-1)
+        barChartView.xAxis.axisMinimum = 0
+        barChartView.legend.enabled = true
+        
         let chartDataSet = BarChartDataSet(values: dataEntries, label: labelname)
         
         let chartData = BarChartData()
         chartData.addDataSet(chartDataSet)
+        chartData.barWidth = 2.0
+        
         barChartView.rightAxis.enabled = false
         barChartView.leftAxis.enabled = false
         barChartView.drawGridBackgroundEnabled = false
+        barChartView.drawValueAboveBarEnabled = true
         barChartView.data = chartData
-        barChartView.data?.setDrawValues(false)
+        barChartView.data?.setDrawValues(true)
         barChartView.backgroundColor = UIColor.white
 
     }
@@ -283,9 +291,9 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                         let myAttribute = [ NSFontAttributeName: UIFont.boldSystemFont(ofSize: 15.0)]
                         let valueString = NSMutableAttributedString(string: "\(str)", attributes: myAttribute )
                         let myAttribute1 = [ NSFontAttributeName: UIFont.systemFont(ofSize: 15.0)]
-                        let myString = NSMutableAttributedString(string: "    Upcoming dues this month ", attributes: myAttribute1 )
+                        let myString = NSMutableAttributedString(string: "  Upcoming dues this month ", attributes: myAttribute1 )
                         myString.append(valueString)
-                        self.upcomingdueLabel.attributedText = myString
+                        self.upcomingdueLabel.attributedText = valueString
                     }else{
                         self.membersHeaderLabel.text = "No Members data available"
                         self.isHideMemberCircles(isAvail: true)

@@ -173,14 +173,15 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
     func datePickerStartDateChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        formatter.dateFormat = "H:M"
+        formatter.dateFormat = "HH:mm"
+        
         self.startTimeTxtField.text = formatter.string(from: sender.date)
     }
     
     func datePickerEndDateChanged(sender: UIDatePicker) {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        formatter.dateFormat = "H:M"
+        formatter.dateFormat = "HH:mm"
         self.endTimeTxtField.text = formatter.string(from: sender.date)
     }
 
@@ -365,7 +366,7 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
 
                         self.delegate?.addNewScheduleToList(scheduleBean: workoutScheduleObj)
                     }else{
-                        self.moveToDashBoard()
+                        self.dismissViewController()
                     }
 //                })
             }
