@@ -15,6 +15,10 @@ class BaseViewController: UIViewController, SideMenuControllerDelegate {
     
     @IBOutlet weak var borderView: UIView!
     
+    let segues = ["showDashBoardVC", "showLeadsVC" , "showMembersVC", "showSalesReportVC", "showAssetsVC", "showStaffsVC","showPaymentsVC", "showWorkoutVC", "showReservedWorkoutsVC", "showWorkoutScheduleVC",  "showLogoutVC"]
+    
+    let menuArray :Array =  ["Dashboard", "Leads", "Members", "Sales Report", "Assets", "Staffs", "Payments", "Workout", "Reserved Workouts", "Workout Schedule", "Logout"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -94,7 +98,22 @@ class BaseViewController: UIViewController, SideMenuControllerDelegate {
     func moveToDashBoard(){
         sideMenuController?.performSegue(withIdentifier: "showDashBoardVC", sender: self)
     }
+    
+    func moveToPrevious(){
+        
+        let previousSelectedSection = UserDefaults.standard.value(forKey: "previousindexsection") as! Int
+        let previousSelectedRow = UserDefaults.standard.value(forKey: "previousindexrow") as! Int
 
+        if(previousSelectedSection == 1){
+            sideMenuController?.performSegue(withIdentifier: segues[previousSelectedRow + menuArray.count - 5], sender: nil)
+        }
+        else {
+            if(previousSelectedRow != 7){
+                sideMenuController?.performSegue(withIdentifier: segues[previousSelectedRow], sender: nil)
+            }
+        }
+    }
+    
     func showAlertTextViewAndTitle(title:String, message: String, forTarget: AnyObject, buttonOK:String, buttonCancel:String, isEmail:Bool, textPlaceholder:String, alertOK: @escaping (String)->(), alertCancel: @escaping ()->()){
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let textView = UITextView()

@@ -55,71 +55,6 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.profileImageView.layer.borderColor = UIColor.black.cgColor
         self.profileImageView.layer.borderWidth = 1
         
-//        let logoURL = URL(string: (appDelegate.userBean?.logourl)!)
-        
-        // Creating a session object with the default configuration.
-        // You can read more about it here https://developer.apple.com/reference/foundation/urlsessionconfiguration
-//        let session = URLSession(configuration: .default)
-//        
-//        // Define a download task. The download task will download the contents of the URL as a Data object and then you can do what you wish with that data.
-//        let downloadPicTask = session.dataTask(with: logoURL!) { (data, response, error) in
-//            // The download has finished.
-//            if let e = error {
-//                print("Error downloading logo picture: \(e)")
-//            } else {
-//                // No errors found.
-//                // It would be weird if we didn't have a response, so check for that too.
-//                if let res = response as? HTTPURLResponse {
-//                    print("Downloaded logo picture with response code \(res.statusCode)")
-//                    if let imageData = data {
-//                         // Finally convert that Data into an image and do what you wish with it.
-//                        let image = UIImage(data:imageData)
-//                        // Do something with your image.
-//                      //  self.profileImageView.image = image //UIImage(named : "profileEmpty")
-//                        
-//                    } else {
-//                        print("Couldn't get image: Image is nil")
-//                    }
-//                } else {
-//                    print("Couldn't get response code for some reason")
-//                }
-//            }
-//        }
-//        
-//        downloadPicTask.resume()
-        
-        /*let bannerURL = URL(string: (appDelegate.userBean?.bannerurl)!)
-        
-        let session1 = URLSession(configuration: .default)
-        
-        let downloadPicTask1 = session1.dataTask(with: bannerURL!) { (data, response, error) in
-            if let e = error {
-                print("Error downloading banner picture: \(e)")
-            } else {
-                if let res = response as? HTTPURLResponse {
-                    print("Downloaded banner picture with response code \(res.statusCode)")
-                    if let imageData1 = data {
-                        let image1 = UIImage(data: imageData1)
-                       // self.profileView.image = image1
-                        
-                    } else {
-                        print("Couldn't get banner image: Image is nil")
-                    }
-                } else {
-                    print("Couldn't get banner response code for some reason")
-                }
-            }
-        }
-        
-        downloadPicTask1.resume()*/
-        
-//        self.profileView.image = UIImage(named: "banner_new")
-//        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
-//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
-//        blurEffectView.frame = view.bounds
-//        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-////        self.profileView.addSubview(blurEffectView)
-//        self.profileView.alpha = 0.6
         self.profileImageView.image = UIImage(named: "profile_empty")
         
         self.userName.text = (appDelegate.userBean?.first_name)! + " " + (appDelegate.userBean?.last_name)!
@@ -237,7 +172,16 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         if let index = previousIndex {
             tableView.deselectRow(at: index as IndexPath, animated: true)
+            UserDefaults.standard.removeObject(forKey: "previousindexsection")
+            UserDefaults.standard.removeObject(forKey: "previousindexrow")
+            
+            UserDefaults.standard.set(previousIndex?.section, forKey: "previousindexsection")
+            UserDefaults.standard.set(previousIndex?.row, forKey: "previousindexrow")
+        }else{
+            UserDefaults.standard.set(0, forKey: "previousindexsection")
+            UserDefaults.standard.set(0, forKey: "previousindexrow")
         }
+        
         if(indexPath.section == 1){
             sideMenuController?.performSegue(withIdentifier: segues[indexPath.row + menuArray.count - 5], sender: nil)
         }
@@ -248,4 +192,16 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         previousIndex = indexPath as NSIndexPath?
     }
+    
+    func moveToPreviousScreen(){
+        if(self.previousIndex?.section == 1){
+            sideMenuController?.performSegue(withIdentifier: segues[(self.previousIndex?.row)! + menuArray.count - 5], sender: nil)
+        }
+        else {
+            if(self.previousIndex?.row != 7){
+                sideMenuController?.performSegue(withIdentifier: segues[(self.previousIndex?.row)!], sender: nil)
+            }
+        }
+    }
+
 }

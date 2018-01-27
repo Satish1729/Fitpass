@@ -187,6 +187,8 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
 
     func dismissViewController() {
         _ = self.navigationController?.popViewController(animated: true)
+//        _ = self.navigationController?.popToRootViewController(animated: true)
+
     }
 
     func getWorkoutNamesList() {
@@ -366,7 +368,7 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
 
                         self.delegate?.addNewScheduleToList(scheduleBean: workoutScheduleObj)
                     }else{
-                        self.dismissViewController()
+                        self.moveToPrevious()
                     }
 //                })
             }
