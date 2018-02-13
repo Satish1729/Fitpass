@@ -124,7 +124,12 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
     Alamofire.request(urlString!, method: .get, parameters: nil, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
         print(response.result)
         let responseDic =  response.result.value as! NSDictionary
-        if(responseDic.object(forKey:"code") as! NSNumber == 200){
+        if(responseDic.object(forKey: "code") as! NSNumber  == 401){
+            AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: 5)
+            self.moveToLoginScreen()
+        }
+        else if(responseDic.object(forKey: "code") as! NSNumber  == 200){
+//        if(responseDic.object(forKey:"code") as! NSNumber == 200){
             self.workoutsArray.removeAllObjects()
             self.workoutsArray.addObjects(from:  Workouts().updateWorkouts(responseDict : responseDic) as [AnyObject])
             self.workoutTableView.reloadData()
@@ -192,7 +197,13 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                    if(responseDic?.object(forKey: "code") as! NSNumber  == 401){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDic?.object(forKey: "code") as! NSNumber  == 200){
+
+//                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
                         if(self.filteredArray.count>0){
                             self.filteredArray.removeAllObjects()
                         }
@@ -417,7 +428,12 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         Alamofire.request(urlString!, method: .delete, parameters: paramDict, encoding: URLEncoding.default, headers: headersDict).responseJSON { (response) in
             print(response.result.value ?? "Nojsondata")
             let responseDic =  response.result.value as! NSDictionary
-            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+            if(responseDic.object(forKey: "code") as! NSNumber  == 401){
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                self.moveToLoginScreen()
+            }
+            else if(responseDic.object(forKey: "code") as! NSNumber  == 200){
+//            if(responseDic.object(forKey:"code") as! NSNumber == 200){
                 self.workoutsArray.removeObject(at: self.editedWorkoutCellNumber)
                 self.workoutTableView.reloadData()
             }
@@ -479,7 +495,13 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         Alamofire.request(urlString!, method: .post, parameters: paramDict, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
             print(response.result)
             let responseDic =  response.result.value as! NSDictionary
-            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+            if(responseDic.object(forKey: "code") as! NSNumber  == 401){
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                self.moveToLoginScreen()
+            }
+            else if(responseDic.object(forKey: "code") as! NSNumber  == 200){
+
+//            if(responseDic.object(forKey:"code") as! NSNumber == 200){
                 let workoutBeanObj : Workouts = Workouts()
                 let tempDict = responseDic.object(forKey: "data") as! NSDictionary
 
@@ -533,7 +555,13 @@ class WorkoutController: BaseViewController, UITableViewDelegate, UITableViewDat
         Alamofire.request(urlString!, method: .post, parameters: paramDict, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
             print(response.result)
             let responseDic =  response.result.value as! NSDictionary
-            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+            if(responseDic.object(forKey: "code") as! NSNumber  == 401){
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                self.moveToLoginScreen()
+            }
+            else if(responseDic.object(forKey: "code") as! NSNumber  == 200){
+
+//            if(responseDic.object(forKey:"code") as! NSNumber == 200){
                 self.workoutsArray.removeObject(at: self.editedWorkoutCellNumber)
                 self.workoutsArray.insert(workoutBean, at: self.editedWorkoutCellNumber)
                 self.workoutTableView.reloadData()

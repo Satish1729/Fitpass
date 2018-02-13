@@ -105,10 +105,19 @@ class LeadDetailController: BaseViewController, UITableViewDelegate, UITableView
             
             if error == nil {
                 let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-                let responseDic:NSDictionary? = jsonObject as? NSDictionary
-                if (responseDic != nil) {
-                    print(responseDic!)
-                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+                let responseDict:NSDictionary? = jsonObject as? NSDictionary
+                if (responseDict != nil) {
+                    print(responseDict!)
+                    
+                    if(responseDict?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDict?.object(forKey: "status") as! String  == "200"){
+                        AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }
                 }
             }
             else{

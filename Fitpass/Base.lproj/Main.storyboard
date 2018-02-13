@@ -6072,7 +6072,7 @@
         <image name="grey_home" width="15" height="15"/>
         <image name="grey_rupee" width="15" height="15"/>
         <image name="gym" width="16" height="16"/>
-        <image name="login_background" width="400" height="240"/>
+        <image name="login_background" width="562" height="1000"/>
         <image name="login_bg_img" width="250" height="250"/>
         <image name="man" width="100" height="150"/>
         <image name="password" width="16" height="16"/>

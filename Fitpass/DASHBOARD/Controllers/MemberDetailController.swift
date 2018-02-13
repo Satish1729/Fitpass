@@ -97,7 +97,13 @@ class MemberDetailController: BaseViewController, UITableViewDelegate, UITableVi
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
+                    if(responseDic?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else{
                     AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: NSInteger(2.0))
+                    }
                 }
             }
             else{

@@ -85,37 +85,47 @@ class MembersFilterController: BaseViewController {
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.subscriptionsArray.addObjects(from:  Subscriptions().updateSubscriptions(responseDict : responseDic!) as [AnyObject])
-                   
-                    
-                    let tempArr = NSMutableArray()
-                    
-                    if(self.subscriptionsArray.count > 0) {
-                        for subscriptionObj in (self.subscriptionsArray as? [Subscriptions])!{
-                            tempArr.add(subscriptionObj.plan_name!)
-                        }
+                    if(responseDic?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDic?.object(forKey: "status") as! String  == "200"){
                         
-                        self.dropDown.anchorView = self.subscriptionPlanButton
-                        self.dropDown.bottomOffset = CGPoint(x: 0, y: self.subscriptionPlanButton.frame.size.height)
-                        self.dropDown.width = self.subscriptionPlanButton.frame.size.width
-                        self.dropDown.dataSource = tempArr as! [String]//["Pearl Hart", "Gold Plan", "Silver Plan"]
-                        self.dropDown.direction = .any
-                        if let plantitle = self.filterDataDict?.object(forKey: "plan") as? NSNumber {
-                            let subscriptTitle = self.subscriptionsArray.object(at: (Int(plantitle)-1)) as! Subscriptions
-                            self.subscriptionPlanButton.setTitle(subscriptTitle.plan_name, for:UIControlState.normal)
+                        self.subscriptionsArray.addObjects(from:  Subscriptions().updateSubscriptions(responseDict : responseDic!) as [AnyObject])
+                        
+                        
+                        let tempArr = NSMutableArray()
+                        
+                        if(self.subscriptionsArray.count > 0) {
+                            for subscriptionObj in (self.subscriptionsArray as? [Subscriptions])!{
+                                tempArr.add(subscriptionObj.plan_name!)
+                            }
+                            
+                            self.dropDown.anchorView = self.subscriptionPlanButton
+                            self.dropDown.bottomOffset = CGPoint(x: 0, y: self.subscriptionPlanButton.frame.size.height)
+                            self.dropDown.width = self.subscriptionPlanButton.frame.size.width
+                            self.dropDown.dataSource = tempArr as! [String]//["Pearl Hart", "Gold Plan", "Silver Plan"]
+                            self.dropDown.direction = .any
+                            if let plantitle = self.filterDataDict?.object(forKey: "plan") as? NSNumber {
+                                let subscriptTitle = self.subscriptionsArray.object(at: (Int(plantitle)-1)) as! Subscriptions
+                                self.subscriptionPlanButton.setTitle(subscriptTitle.plan_name, for:UIControlState.normal)
+                            }else{
+                                self.subscriptionPlanButton.setTitle(tempArr.object(at:0) as? String, for: UIControlState.normal)
+                            }
+                            
+                            
+                            self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+                                self.subscriptionPlanButton.setTitle(item, for: UIControlState.normal)
+                                self.selectedPlanIndex = index
+                            }
+                            
+                            self.subscriptionPlanButton.addTarget(self, action: #selector(self.changeStatus), for: .touchUpInside)
                         }else{
-                            self.subscriptionPlanButton.setTitle(tempArr.object(at:0) as? String, for: UIControlState.normal)
+                            self.subscriptionPlanButton.setTitle("No Subscription Plans", for: UIControlState.normal)
                         }
-
-
-                        self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-                            self.subscriptionPlanButton.setTitle(item, for: UIControlState.normal)
-                            self.selectedPlanIndex = index
-                        }
-                        
-                        self.subscriptionPlanButton.addTarget(self, action: #selector(self.changeStatus), for: .touchUpInside)
-                    }else{
-                        self.subscriptionPlanButton.setTitle("No Subscription Plans", for: UIControlState.normal)
+                    }
+                    else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
                     }
                 }
             }

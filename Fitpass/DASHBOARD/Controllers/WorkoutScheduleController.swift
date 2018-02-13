@@ -210,7 +210,13 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
-                        if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        if(responseDic?.object(forKey: "code") as! NSNumber  == 401){
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                            self.moveToLoginScreen()
+                        }
+                        else if(responseDic?.object(forKey: "code") as! NSNumber  == 200){
+
+//                        if(responseDic!.object(forKey:"code") as! NSNumber == 200){
 
                             let dataArray : NSArray = responseDic!.object(forKey: "data") as! NSArray
                             for workoutObj in (dataArray as? [[String:Any]])! {
@@ -348,8 +354,14 @@ class WorkoutScheduleController: BaseViewController, UITextFieldDelegate {
         Alamofire.request(urlString!, method: .post, parameters: paramDict, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
             print(response.result)
             let responseDic =  response.result.value as! NSDictionary
-            self.scheduleDict = responseDic 
-            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+            self.scheduleDict = responseDic
+            if(responseDic.object(forKey: "code") as! NSNumber  == 401){
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                self.moveToLoginScreen()
+            }
+            else if(responseDic.object(forKey: "code") as! NSNumber  == 200){
+
+//            if(responseDic.object(forKey:"code") as! NSNumber == 200){
 //                showAlertWithTitle(title: "", message: responseDic.object(forKey: "message") as! String, forTarget: self, buttonOK: "", buttonCancel:"OK", alertOK: { (String) in
 //                }, alertCancel: { (Void) in
 //                    //self.performSegue(withIdentifier: "scheduletodashboard", sender: self)

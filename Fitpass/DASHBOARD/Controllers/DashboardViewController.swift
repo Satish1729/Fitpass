@@ -124,8 +124,12 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                 let responseDict:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDict != nil) {
                     print(responseDict!)
-                    if(responseDict?.object(forKey: "status") as! String  == "200"){
-                     
+                    if(responseDict?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDict?.object(forKey: "status") as! String  == "200"){
+
                         let resultArray: NSArray = responseDict!.object(forKey: "result") as! NSArray
                         let tempDict : NSDictionary = resultArray.object(at: 0) as! NSDictionary
                         let dataArray : NSArray = tempDict.object(forKey: "data") as! NSArray
@@ -208,7 +212,11 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                 let responseDict:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDict != nil) {
                     print(responseDict!)
-                    if(responseDict?.object(forKey: "status") as! String  == "200"){
+                    if(responseDict?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDict?.object(forKey: "status") as! String  == "200"){
                         
                         let leadsCount = responseDict?.object(forKey: "message") as! NSNumber
                         self.isHideLeadsCircles(isAvail: false)
@@ -270,7 +278,11 @@ class DashboardViewController: BaseViewController, ChartViewDelegate {
                 let responseDict:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDict != nil) {
                     print(responseDict!)
-                    if(responseDict?.object(forKey: "status") as! String  == "200"){
+                    if(responseDict?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDict?.object(forKey: "status") as! String  == "200"){
 
                         let leadsCount = responseDict?.object(forKey: "message") as! NSNumber
                         self.isHideLeadsCircles(isAvail: false)

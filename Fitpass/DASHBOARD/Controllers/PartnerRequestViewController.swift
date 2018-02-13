@@ -139,7 +139,13 @@ class PartnerRequestViewController: BaseViewController {
         Alamofire.request(urlString!, method: .post, parameters: paramDict, encoding: URLEncoding.httpBody, headers: headersDict).responseJSON { (response) in
             print(response.result)
             let responseDic =  response.result.value as! NSDictionary
-            if(responseDic.object(forKey:"code") as! NSNumber == 200){
+            if(responseDic.object(forKey: "code") as! NSNumber  == 401){
+                AlertView.showCustomAlertWithMessage(message: responseDic.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                self.moveToLoginScreen()
+            }
+            else if(responseDic.object(forKey: "code") as! NSNumber  == 200){
+
+//            if(responseDic.object(forKey:"code") as! NSNumber == 200){
                 showAlertWithTitle(title: "", message: responseDic.object(forKey: "message") as! String, forTarget: self, buttonOK: "", buttonCancel:"OK", alertOK: { (String) in
                 }, alertCancel: { (Void) in
                     self.performSegue(withIdentifier: "showHomePage", sender: nil)

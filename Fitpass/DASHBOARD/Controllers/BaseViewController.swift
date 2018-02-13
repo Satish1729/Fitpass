@@ -114,6 +114,8 @@ class BaseViewController: UIViewController, SideMenuControllerDelegate {
         }
     }
     
+    
+    
     func showAlertTextViewAndTitle(title:String, message: String, forTarget: AnyObject, buttonOK:String, buttonCancel:String, isEmail:Bool, textPlaceholder:String, alertOK: @escaping (String)->(), alertCancel: @escaping ()->()){
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let textView = UITextView()
@@ -152,7 +154,12 @@ class BaseViewController: UIViewController, SideMenuControllerDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
-
+    func moveToLoginScreen(){
+        let loginViewController : LoginViewController = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+//        appDelegate.window?.rootViewController = loginViewController
+        present(loginViewController, animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

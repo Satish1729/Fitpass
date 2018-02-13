@@ -29,6 +29,8 @@ class UserBean: NSObject, NSCoding {
     var auth_key : String? = ""
     var partner_id : String? = ""
     var studioArray = [StudioBean]()
+    var studio_id : String? = ""
+    var authToken : String? = ""
     
     override init() {
         
@@ -52,7 +54,7 @@ class UserBean: NSObject, NSCoding {
         self.logourl = decoder.decodeObject(forKey: "logo_url") as? String ?? ""
         self.auth_key = decoder.decodeObject(forKey: "auth_key") as? String ?? ""
         self.partner_id = decoder.decodeObject(forKey: "partner_id") as? String ?? ""
-        // self.studioArray = (decoder.decodeObject(forKey: "studio_details") as! NSMutableArray).mutableCopy() as! NSMutableArray
+        self.authToken = decoder.decodeObject(forKey: "authToken") as? String ?? ""
     }
     
     func encode(with coder: NSCoder) {
@@ -69,11 +71,11 @@ class UserBean: NSObject, NSCoding {
         coder.encode(remarks, forKey : "remarks")
         coder.encode(authHeader, forKey : "studio_token")
         coder.encode(studioName, forKey : "studio_name")
-        // coder.encode(studioArray, forKey : "studio_details")
         coder.encode(bannerurl, forKey : "banner_url")
         coder.encode(logourl, forKey : "logo_url")
         coder.encode(auth_key, forKey : "auth_key")
         coder.encode(partner_id, forKey : "partner_id")
+        coder.encode(authToken, forKey : "authToken")
     }
     
     // update user bean
@@ -140,6 +142,13 @@ class UserBean: NSObject, NSCoding {
             self.remarks = ""
         }
         
+        if let authtoken =  userDet["authToken"], !(authtoken is NSNull){
+            self.authToken = authtoken as? String
+        }else{
+            self.authToken = ""
+        }
+
+        
         let studioDetailsArray: NSMutableArray = (responseDict!.object(forKey: "studio_details") as! NSArray).mutableCopy() as! NSMutableArray
         
         
@@ -157,7 +166,7 @@ class UserBean: NSObject, NSCoding {
             }else{
                 studioBean.partner_id = ""
             }
-            studioBean.studio_id = studioObj["studio_id"] as? String
+            studioBean.studio_id = "\(studioObj["studio_id"] ?? "")"
             studioBean.studio_name = studioObj["studio_name"] as? String
             studioBean.studio_token = studioObj["studio_token"] as? String
             self.studioArray.append(studioBean)
@@ -172,6 +181,7 @@ class UserBean: NSObject, NSCoding {
             self.logourl = studioBeanObj.logo_url
             self.auth_key = studioBeanObj.auth_key
             self.partner_id = studioBeanObj.partner_id
+            self.studio_id = studioBeanObj.studio_id
         }
         appDelegate.userBean = self
     }

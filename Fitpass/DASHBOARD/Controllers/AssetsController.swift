@@ -93,8 +93,16 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
-                        self.assetsArray.addObjects(from:  Assets().updateAssets(responseDict : responseDic!) as [AnyObject])
-                        self.assetsTableView.reloadData()
+                        if(responseDic?.object(forKey: "status") as! String  == "401"){
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                            self.moveToLoginScreen()
+                        }
+                        else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                            self.assetsArray.addObjects(from:  Assets().updateAssets(responseDict : responseDic!) as [AnyObject])
+                            self.assetsTableView.reloadData()
+                        }else{
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        }
                     }
                 }
                 else{
@@ -129,8 +137,16 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
                         if(self.filtered.count>0){
                             self.filtered.removeAllObjects()
                         }
-                        self.filtered.addObjects(from:  Assets().updateAssets(responseDict : responseDic!) as [AnyObject])
-                        self.assetsTableView.reloadData()
+                        if(responseDic?.object(forKey: "status") as! String  == "401"){
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                            self.moveToLoginScreen()
+                        }
+                        else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                            self.filtered.addObjects(from:  Assets().updateAssets(responseDict : responseDic!) as [AnyObject])
+                            self.assetsTableView.reloadData()
+                        }else{
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        }
                     }
                 }
                 else{
@@ -170,8 +186,17 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
                         if(self.filtered.count>0){
                             self.filtered.removeAllObjects()
                         }
-                        self.filtered.addObjects(from:  Assets().updateAssets(responseDict : responseDic!) as [AnyObject])
-                        self.assetsTableView.reloadData()
+                        if(responseDic?.object(forKey: "status") as! String  == "401"){
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                            self.moveToLoginScreen()
+                        }
+                        else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                            
+                            self.filtered.addObjects(from:  Assets().updateAssets(responseDict : responseDic!) as [AnyObject])
+                            self.assetsTableView.reloadData()
+                        }else{
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        }
                     }
                 }
                 else{
@@ -361,7 +386,13 @@ class AssetsController:  BaseViewController, UITableViewDelegate, UITableViewDat
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
+                    if(responseDic?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else{
                     AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }
                 }
             }
             else{

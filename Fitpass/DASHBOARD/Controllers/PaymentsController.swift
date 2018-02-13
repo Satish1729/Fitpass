@@ -106,7 +106,13 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                    if(responseDic?.object(forKey: "code") as! NSNumber  == 401){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDic?.object(forKey: "code") as! NSNumber  == 200){
+
+//                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
                         self.paymentsArray.addObjects(from:  Payments().updatePayments(responseDict : responseDic!) as [AnyObject])
                         self.paymentsTableView.reloadData()
                     }else{
@@ -145,7 +151,12 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                    if(responseDic?.object(forKey: "code") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDic?.object(forKey: "code") as! String  == "200"){
+//                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
                         if(self.filtered.count>0){
                             self.filtered.removeAllObjects()
                         }
@@ -191,7 +202,13 @@ class PaymentsController: BaseViewController, UITableViewDelegate, UITableViewDa
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                    if(responseDic?.object(forKey: "code") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDic?.object(forKey: "code") as! String  == "200"){
+
+//                    if(responseDic!.object(forKey:"code") as! NSNumber == 200){
                         self.filtered.addObjects(from:  Payments().updatePayments(responseDict : responseDic!) as [AnyObject])
                         self.paymentsTableView.reloadData()
                     }else{

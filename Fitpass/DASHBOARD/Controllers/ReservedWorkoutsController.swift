@@ -87,7 +87,13 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
-                        if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        if(responseDic?.object(forKey: "code") as! NSNumber  == 401){
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                            self.moveToLoginScreen()
+                        }
+                        else if(responseDic?.object(forKey: "code") as! NSNumber  == 200){
+
+//                        if(responseDic!.object(forKey:"code") as! NSNumber == 200){
                             self.reservedWorkoutsArray.addObjects(from:  ReservedWorkouts().updateReservedWorkouts(responseDict : responseDic!) as [AnyObject])
                             self.reservedWorkoutsTableView.reloadData()
                         }else{
@@ -127,7 +133,13 @@ class ReservedWorkoutsController: BaseViewController, UITableViewDelegate, UITab
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
-                        if(responseDic!.object(forKey:"code") as! NSNumber == 200){
+                        if(responseDic?.object(forKey: "code") as! NSNumber  == 401){
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                            self.moveToLoginScreen()
+                        }
+                        else if(responseDic?.object(forKey: "code") as! NSNumber  == 200){
+
+//                        if(responseDic!.object(forKey:"code") as! NSNumber == 200){
                             if(self.filteredArray.count>0){
                                 self.filteredArray.removeAllObjects()
                             }

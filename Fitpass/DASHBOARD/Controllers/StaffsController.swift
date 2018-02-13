@@ -88,11 +88,19 @@
         let responseDic:NSDictionary? = jsonObject as? NSDictionary
         if (responseDic != nil) {
             print(responseDic!)
-            if(self.staffsArray.count>0){
-                self.staffsArray.removeAllObjects()
+            if(responseDic?.object(forKey: "status") as! String  == "401"){
+                AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                self.moveToLoginScreen()
             }
-            self.staffsArray.addObjects(from:  Staffs().updateStaffs(responseDict : responseDic!) as [AnyObject])
-            self.staffTableView.reloadData()
+            else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                if(self.staffsArray.count>0){
+                    self.staffsArray.removeAllObjects()
+                }
+                self.staffsArray.addObjects(from:  Staffs().updateStaffs(responseDict : responseDic!) as [AnyObject])
+                self.staffTableView.reloadData()
+            }else{
+                AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+            }
         }
     }
     else{
@@ -125,11 +133,19 @@
             let responseDic:NSDictionary? = jsonObject as? NSDictionary
             if (responseDic != nil) {
                 print(responseDic!)
-                if(self.filteredArray.count>0){
-                    self.filteredArray.removeAllObjects()
+                if(responseDic?.object(forKey: "status") as! String  == "401"){
+                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    self.moveToLoginScreen()
                 }
-                self.filteredArray.addObjects(from:  Staffs().updateStaffs(responseDict : responseDic!) as [AnyObject])
-                self.staffTableView.reloadData()
+                else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                    if(self.filteredArray.count>0){
+                        self.filteredArray.removeAllObjects()
+                    }
+                    self.filteredArray.addObjects(from:  Staffs().updateStaffs(responseDict : responseDic!) as [AnyObject])
+                    self.staffTableView.reloadData()
+                }else{
+                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                }
             }
         }
         else{
@@ -343,9 +359,17 @@
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    
+                    if(responseDic?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDic?.object(forKey: "status") as! String  == "200"){
+
                     self.staffsArray.removeObject(at: self.editedStaffCellNumber)
                     self.staffTableView.reloadData()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }
                 }
             }
             else{
@@ -474,7 +498,13 @@
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
+                        if(responseDic?.object(forKey: "status") as! String  == "401"){
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                            self.moveToLoginScreen()
+                        }
+                        else{
                         AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        }
                     }
                 }
                 else{

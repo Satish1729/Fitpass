@@ -81,6 +81,7 @@ class MenuController: UIViewController, UITableViewDataSource, UITableViewDelega
             appDelegate.userBean?.authHeader = selectedStudio.studio_token
             appDelegate.userBean?.partner_id = selectedStudio.partner_id
             appDelegate.userBean?.auth_key = selectedStudio.auth_key
+            appDelegate.userBean?.studio_id = selectedStudio.studio_id
             self.refreshSelectedData()
         }
     }

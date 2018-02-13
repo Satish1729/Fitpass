@@ -418,20 +418,28 @@ class StaffAddViewController: BaseViewController {
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    let resultDict: NSDictionary = responseDic!.object(forKey: "result") as! NSDictionary
-                    let dataArray : NSArray = resultDict.object(forKey: "studioStaffRoles") as! NSArray
-                    for roleObj in (dataArray as? [[String:Any]])! {
-                        self.rolesArray.add(roleObj["name"] ?? "")
-                        self.roleIdsDict.setObject(roleObj["id"]!, forKey: roleObj["name"]! as! NSCopying)
+                    if(responseDic?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
                     }
-                    self.dropDown.anchorView = self.roleButton
-                    self.dropDown.bottomOffset = CGPoint(x:0, y:self.roleButton.frame.size.height)
-                    self.dropDown.width = self.roleButton.frame.size.width
-                    self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-                        self.roleButton.setTitle(item, for: UIControlState.normal)
+                    else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                        let resultDict: NSDictionary = responseDic!.object(forKey: "result") as! NSDictionary
+                        let dataArray : NSArray = resultDict.object(forKey: "studioStaffRoles") as! NSArray
+                        for roleObj in (dataArray as? [[String:Any]])! {
+                            self.rolesArray.add(roleObj["name"] ?? "")
+                            self.roleIdsDict.setObject(roleObj["id"]!, forKey: roleObj["name"]! as! NSCopying)
+                        }
+                        self.dropDown.anchorView = self.roleButton
+                        self.dropDown.bottomOffset = CGPoint(x:0, y:self.roleButton.frame.size.height)
+                        self.dropDown.width = self.roleButton.frame.size.width
+                        self.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+                            self.roleButton.setTitle(item, for: UIControlState.normal)
+                        }
+                        self.dropDown.dataSource = self.rolesArray as! [String]
+                        self.dropDown.show()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
                     }
-                    self.dropDown.dataSource = self.rolesArray as! [String]
-                    self.dropDown.show()
                 }
                 else{
                     AlertView.showCustomAlertWithMessage(message: StringFiles.ALERT_SOMETHING, yPos: 20, duration: NSInteger(2.0))

@@ -44,8 +44,19 @@ class NetworkManager: NSObject {
             urlRequest.addValue((appDelegate.userBean?.auth_key)!, forHTTPHeaderField: "X-APPKEY")
         }
         if appDelegate.userBean?.partner_id != nil {
-            urlRequest.addValue((appDelegate.userBean?.partner_id)!, forHTTPHeaderField: "X-partner-id") //(appDelegate.userBean?.partner_id)!
+            urlRequest.addValue((appDelegate.userBean?.partner_id)!, forHTTPHeaderField: "X-partner-id")
         }
+        if appDelegate.userBean?.user_id != nil {
+            urlRequest.addValue((appDelegate.userBean?.user_id?.stringValue)!, forHTTPHeaderField: "userId")
+        }
+        if appDelegate.userBean?.studio_id != nil {
+            urlRequest.addValue((appDelegate.userBean?.studio_id)!, forHTTPHeaderField: "studioId")
+        }
+        if appDelegate.userBean?.authToken != nil {
+            urlRequest.addValue((appDelegate.userBean?.authToken)!, forHTTPHeaderField: "authToken")
+        }
+
+        
         if userInfo != nil {
             let parametersData:Data = try! JSONSerialization.data(withJSONObject: userInfo!, options: .prettyPrinted)
             urlRequest.httpBody = parametersData as Data

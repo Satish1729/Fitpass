@@ -92,11 +92,20 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
                 
                 if error == nil {
                     let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-                    let responseDic:NSDictionary? = jsonObject as? NSDictionary
-                    if (responseDic != nil) {
-                        print(responseDic!)
-                        self.membersArray.addObjects(from:  Members().updateMembers(responseDict : responseDic!) as [AnyObject])
-                        self.membersTableView.reloadData()
+                    let responseDict:NSDictionary? = jsonObject as? NSDictionary
+                    if (responseDict != nil) {
+                        print(responseDict!)
+                        
+                        if(responseDict?.object(forKey: "status") as! String  == "401"){
+                            AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                            self.moveToLoginScreen()
+                        }
+                        else if(responseDict?.object(forKey: "status") as! String  == "200"){
+                            self.membersArray.addObjects(from:  Members().updateMembers(responseDict : responseDict!) as [AnyObject])
+                            self.membersTableView.reloadData()
+                        }else{
+                            AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        }
                     }
                 }
                 else{
@@ -129,11 +138,21 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
-                        if(self.filteredArray.count>0){
-                            self.filteredArray.removeAllObjects()
+                        
+                        if(responseDic?.object(forKey: "status") as! String  == "401"){
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                            self.moveToLoginScreen()
                         }
-                        self.filteredArray.addObjects(from:  Members().updateMembers(responseDict : responseDic!) as [AnyObject])
-                        self.membersTableView.reloadData()
+                        else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                            if(self.filteredArray.count>0){
+                                self.filteredArray.removeAllObjects()
+                            }
+                            self.filteredArray.addObjects(from:  Members().updateMembers(responseDict : responseDic!) as [AnyObject])
+                            self.membersTableView.reloadData()
+                        }
+                        else{
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        }
                     }
                 }
                 else{
@@ -168,8 +187,17 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
                     let responseDic:NSDictionary? = jsonObject as? NSDictionary
                     if (responseDic != nil) {
                         print(responseDic!)
-                        self.filteredArray.addObjects(from:  Members().updateMembers(responseDict : responseDic!) as [AnyObject])
-                        self.membersTableView.reloadData()
+                        if(responseDic?.object(forKey: "status") as! String  == "401"){
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                            self.moveToLoginScreen()
+                        }
+                        else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                            self.filteredArray.addObjects(from:  Members().updateMembers(responseDict : responseDic!) as [AnyObject])
+                            self.membersTableView.reloadData()
+                        }
+                        else{
+                            AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        }
                     }
                 }
                 else{
@@ -347,7 +375,14 @@ class MembersController: BaseViewController, UITableViewDelegate, UITableViewDat
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    
+                    if(responseDic?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else {
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }
                 }
             }
             else{

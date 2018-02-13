@@ -100,8 +100,15 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.leadsArray.addObjects(from:  Leads().updateLeads(responseDict : responseDic!) as [AnyObject])
-                    self.leadsTableView.reloadData()
+                    if(responseDic?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                        self.leadsArray.addObjects(from:  Leads().updateLeads(responseDict : responseDic!) as [AnyObject])
+                        self.leadsTableView.reloadData()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }
                 }
             }
             else{
@@ -134,11 +141,20 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    if(self.filtered.count>0){
-                        self.filtered.removeAllObjects()
+                    if(responseDic?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
                     }
-                    self.filtered.addObjects(from:  Leads().updateLeads(responseDict : responseDic!) as [AnyObject])
-                    self.leadsTableView.reloadData()
+                    else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                        
+                        if(self.filtered.count>0){
+                            self.filtered.removeAllObjects()
+                        }
+                        self.filtered.addObjects(from:  Leads().updateLeads(responseDict : responseDic!) as [AnyObject])
+                        self.leadsTableView.reloadData()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }
                 }
             }
             else{
@@ -174,8 +190,16 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
                 let responseDic:NSDictionary? = jsonObject as? NSDictionary
                 if (responseDic != nil) {
                     print(responseDic!)
-                    self.filtered.addObjects(from:  Leads().updateLeads(responseDict : responseDic!) as [AnyObject])
-                    self.leadsTableView.reloadData()
+                    if(responseDic?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDic?.object(forKey: "status") as! String  == "200"){
+                        self.filtered.addObjects(from:  Leads().updateLeads(responseDict : responseDic!) as [AnyObject])
+                        self.leadsTableView.reloadData()
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }
                 }
             }
             else{
@@ -376,10 +400,18 @@ class LeadsViewController: BaseViewController, UITableViewDelegate, UITableViewD
             
             if error == nil {
                 let jsonObject = try? JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments)
-                let responseDic:NSDictionary? = jsonObject as? NSDictionary
-                if (responseDic != nil) {
-                    print(responseDic!)
-                    AlertView.showCustomAlertWithMessage(message: responseDic?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                let responseDict:NSDictionary? = jsonObject as? NSDictionary
+                if (responseDict != nil) {
+                    print(responseDict!)
+                    if(responseDict?.object(forKey: "status") as! String  == "401"){
+                        AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                        self.moveToLoginScreen()
+                    }
+                    else if(responseDict?.object(forKey: "status") as! String  == "200"){
+                        AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }else{
+                        AlertView.showCustomAlertWithMessage(message: responseDict?.object(forKey: "message") as! String, yPos: 20, duration: 5)
+                    }
                 }
             }
             else{
